@@ -1,0 +1,29 @@
+<!-- <a routerLink="/">Back To Wiki List</a> <br> -->
+
+<br>
+<br>
+<br>
+<a routerLink="/addcar">เพิ่มข้อมูลรถ</a> <br>
+<table class='table'>
+  <thead>
+    <tr>
+      <td>ทะเบียนรถ</td>
+      <td>ประเภทรถ</td>
+      <td>รุ่น</td>
+      <td>วันที่บำรุงรักษาครั้งล่าสุด</td>
+      <td>วันที่ซื้อ</td>
+      <td>action</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let data of car">
+      <td>{{data.carId}}</td>
+      <td>{{data.carType}}</td>
+      <td>{{data.carModel}}</td>
+      <td>{{data.purchaseDate}}</td>
+      <td>{{data.lastMaintenance}}</td>
+    </tr>
+  </tbody>
+</table>
+

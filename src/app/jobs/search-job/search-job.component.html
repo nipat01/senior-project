@@ -1,0 +1,41 @@
+<br>
+<br>
+<br>
+<p>ค้นหา</p>
+<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+    <select>
+        <option value="">ลูกค้า</option>
+        <option value="">พนักงานขับรถ</option>
+        <option value="">ลำดับ</option>
+    </select>
+    <label>กรุณากรอกข้อมูล</label>
+    <input type="text" name="searchJob" ngModel />
+    
+    <p>วันที่</p>
+    <div class="form-group">
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                #d="ngbDatepicker">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+    </div>
+    <p>ถึง</p>
+    <div class="form-group">
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                #d="ngbDatepicker">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+
+<hr />
+<!-- <pre>Model: {{ model | json }}</pre> -->
+
+<label></label>

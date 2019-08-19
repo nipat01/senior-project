@@ -1,0 +1,16 @@
+<br>
+<br>
+<br>
+<p>bank works!</p>
+<p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
+<br />
+<p>กรุณากรอกรายละเอียดธนาคาร</p>
+<p>Ex:ธนาคารกสิกร สาขา ราชมงคลธัญบุรี เลขที่บัญชี 123-4-56789-0</p>
+<form (ngSubmit)="addBank(bankForm)" #bankForm="ngForm">
+  <label for="bank">รายละเอียดธนาคาร</label>
+  <input type="text" name="bank" ngModel />
+  <button type="submit">Submit</button>
+</form>
+<div *ngFor="let data of bank">
+  {{ data.value.bank }}
+</div>

@@ -1,0 +1,22 @@
+<br>
+<br>
+<br>
+<p>profile-user works!</p>
+
+<!-- <p>ชื่อ: </p> {{wikis.value.email}} -->
+<div *ngFor="let data of wikis">
+    <p>เมลล์</p> {{ data.value.email }}
+    <hr>
+    <p>ชื่อ</p>{{ data.value.firstname }}
+    <hr>
+    <p>นามสกุล</p>{{ data.value.lastname }}
+    <hr>
+    <p>ตำแหน่ง</p>{{ data.value.role }}
+    <hr>
+</div>
+<!-- <tr *ngFor="let data of wikis">
+    <td>{{ data.value.email }}</td>
+    <td>{{ data.value.first }}</td>
+    <td>{{ data.value.lastname }}</td>
+    <td>{{ data.value.role }}</td>
+</tr> -->

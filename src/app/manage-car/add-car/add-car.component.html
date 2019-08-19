@@ -1,0 +1,64 @@
+<br>
+<br>
+<br>
+<h1>เพิ่มข้อมูลรถ</h1>
+
+<!-- <form (ngSubmit)="addCar(carForm)" #carForm="ngForm">
+
+    <label for="carId">ทะเบียนรถ</label>
+    <input type="text" name="carId" ngModel>
+    <label for="carType">ประเภทรถ</label>
+    <input type="text" name="carType" ngModel>
+    <label for="carModel">รุ่นของรถ</label>
+    <input type="text" name="carModel" ngModel>
+
+    <label for="purchasdDate">วันที่ซื้อ</label>
+    <input type="text" name="purchaseDate" ngModel>
+    <label for="lastMaintenace">วันที่บำรุงรักษาล่าสุด</label>
+    <input type="text" name="lastMaintenance" ngModel>
+    <button type="submit">Submit</button>
+</form> -->
+
+<!-- <div class="card" style="width:25rem"> -->
+<!-- <div class="card-body"> -->
+<form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)" ngForm>
+    <div class="text-center">
+        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+    </div>
+    <div class="form-group">
+        <label>Select file to upload</label>
+        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+            (change)="showPreview($event)" />
+        <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required" ngModel>
+            This field is required.
+        </div>
+        <!-- </div> -->
+        <!-- <div class="form-row"> -->
+        <label>ทะเบียนรถ</label>
+        <input type="text" formControlName="carId" ngModel>
+        <label>ประเภทรถ</label>
+        <input type="text" formControlName="carType" ngModel>
+        <label>รุ่นของรถ</label>
+        <input type="text" formControlName="carModel" ngModel>
+
+        <label>วันที่ซื้อ</label>
+        <input type="text" formControlName="purchaseDate" ngModel>
+        <label>วันที่บำรุงรักษาล่าสุด</label>
+        <input type="text" formControlName="lastMaintenance" ngModel>
+        <!-- ใส่รูปรถยังไง -->
+        <!-- <button type="submit">Submit</button> -->
+        <div class="form-group col-md-6">
+            <button type="submit" class="btn btn-success btn-block float-right">
+                Submit
+            </button>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+<!-- </div> -->
+<!-- </div> -->

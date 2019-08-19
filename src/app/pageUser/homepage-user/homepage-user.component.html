@@ -1,0 +1,23 @@
+<br>
+<br>
+<br>
+<br>
+<p>homepage-user works!</p>
+
+
+
+
+<div *ngFor="let data of homepage">
+
+    {{data.value.firstname}}
+  </div>
+
+<div *ngFor="let data of video">
+    {{ data.value.video1}}
+    <br>
+
+    <iframe width="560" height="315" [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)" frameborder="0"
+      allowfullscreen></iframe>
+  </div>
+
+  <app-addjob></app-addjob>

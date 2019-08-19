@@ -1,0 +1,38 @@
+<app-job-driver></app-job-driver>
+<h3>มอบหมายงาน</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <td>source</td>
+      <td>destination</td>
+      <td>worktype</td>
+      <td>customerFirstname</td>
+      <td>workDate</td>
+      <td>workTime</td>
+      <td>customerPhone</td>
+      <td>customerLine</td>
+      <td>detail</td>
+      <td>status</td>
+      <td>action</td>
+      <td>driver</td>
+    </tr>
+  </thead>
+    <tbody>
+      <tr *ngFor="let data of job">
+        <td>{{ data.value.source }}</td>
+        <td>{{ data.value.destination }}</td>
+        <td>{{ data.value.worktype }}</td>
+        <td>{{ data.value.customerFirstname }}</td>
+        <td>{{ data.value.workDate }}</td>
+        <td>{{ data.value.workTime }}</td>
+        <td>{{ data.value.customerPhone }}</td>
+        <td>{{ data.value.customerLine }}</td>
+        <td>{{ data.value.detail }}</td>
+        <td>{{ data.value.status }}</td>
+        <td>
+          <button type="button" (click)="delJob(data)">Delete</button>
+          <button type="button" (click)="editJob(data)">Submit</button>
+        </td>
+      </tr>
+    </tbody>
+</table>

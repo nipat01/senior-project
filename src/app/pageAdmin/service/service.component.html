@@ -1,0 +1,69 @@
+<br>
+<br>
+<br>
+<p>บริการของเรา</p>
+
+<div class="card" style="width:25rem">
+  <div class="card-body">
+    <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
+      <div class="text-center">
+        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+      </div>
+      <div class="form-group">
+        <label>Select file to upload</label>
+        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+          (change)="showPreview($event)" />
+        <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
+          This field is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <input class="form-control" formControlName="caption" placeholder="Caption" />
+        <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required">
+          This field is required.
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <button type="submit" class="btn btn-success btn-block float-right">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p>แสดงผล</p>
+<br />
+<br />
+<br />
+<table *ngIf="imageList">
+  <tr *ngFor="let i of rowIndexArray">
+    <td>
+      <!-- <div class="imagebox" *ngIf="i === 0">
+          <a routerLink="/image/upload">
+            <img src="/assets/img/new_image.jpg" class="img-fluid" />
+            <span class="imagebox-desc">Insert New Image</span></a
+          >
+        </div> -->
+      <div class="imagebox" *ngIf="i !== 0">
+        <img [src]="imageList[3 * i - 1].imageUrl" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i - 1].caption }}</span>
+      </div>
+    </td>
+    <td *ngIf="imageList[3 * i]">
+      <div class="imagebox">
+        <img [src]="imageList[3 * i].imageUrl" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i].caption }}</span>
+      </div>
+    </td>
+    <td *ngIf="imageList[3 * i + 1]">
+      <div class="imagebox">
+        <img [src]="imageList[3 * i + 1].imageUrl" class="img-fluid" />
+        <span class="imagebox-desc">{{ imageList[3 * i + 1].caption }}</span>
+      </div>
+    </td>
+  </tr>
+</table>

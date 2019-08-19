@@ -1,0 +1,25 @@
+<!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
+<h1>เพิ่มข้อมูลการจ้าง</h1>
+
+
+<form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
+  <label for="source">ระบุต้นทาง</label>
+  <input type="text" name="source" ngModel />
+  <label for="destination">ระบุปลายทาง</label>
+  <input type="text" name="destination" ngModel />
+  <label for="worktype">รูปแบบงาน</label>
+  <input type="text" name="worktype" ngModel />
+  <label for="customerFirstname">ชื่อลูกค้า</label>
+  <input type="text" name="customerFirstname" ngModel />
+  <label for="workDate">วันที่</label>
+  <input type="text" name="workDate" ngModel />
+  <label for="workTime">เวลา</label>
+  <input type="text" name="workTime" ngModel />
+  <label for="customerPhone">เบอร์ติดต่อ</label>
+  <input type="text" name="customerPhone" ngModel />
+  <label for="customerLine">ไลน์ติดต่อ</label>
+  <input type="text" name="customerLine" ngModel />
+  <label for="detail">รายละเอียดการจ้าง</label>
+  <input type="text" name="detail" ngModel />
+  <button type="submit">Submit</button>
+</form>

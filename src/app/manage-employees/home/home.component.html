@@ -1,0 +1,47 @@
+<br />
+<br />
+<br />
+<br />
+<a routerLink="/addWiki">ไปยังการจัดการพนักงานขับรถ</a> <br />
+<table class="table">
+  <thead>
+    <tr>
+      <td>Email</td>
+      <td>Firstname</td>
+      <td>Lastname</td>
+      <td>Address</td>
+
+      <td>Role</td>
+      <td>Line</td>
+      <td>Citizen</td>
+      <td>Phone</td>
+      <td>HireDate</td>
+      <td>Status</td>
+      <td>Action</td>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of wikis">
+      <td>{{ data.value.email }}</td>
+
+      <td>{{ data.value.firstname }}</td>
+      <td>{{ data.value.lastname }}</td>
+      <td>{{ data.value.address }}</td>
+
+      <td>{{ data.value.role }}</td>
+      <td>{{ data.value.lineId }}</td>
+      <td>{{ data.value.citizenId }}</td>
+      <td>{{ data.value.phoneId }}</td>
+      <td>{{ data.value.hireDate }}</td>
+      <td>{{ data.value.status }}</td>
+
+      <td>
+        <button type="button" (click)="delWiki(data)">Delete</button>
+        <button type="button" (click)="editWiki(data)">Edit</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
