@@ -19,16 +19,132 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of job">
-      <td (click)="openData(con)">{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
-      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
+      <td (click)="openData(con)">
+        <ng-template #con let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="typeahead-basic">ต้นทาง</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="source"
+              ngModel
+              [(ngModel)]="data.value.source"
+            />
+            <label for="typeahead-basic">ปลายทาง</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="destination"
+              ngModel
+              [(ngModel)]="data.value.destination"
+            />
+            <label for="typeahead-basic">ประเภทงาน</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="worktype"
+              ngModel
+              [(ngModel)]="data.value.worktype"
+            />
+            <label for="typeahead-basic">ชื่อลูกค้า</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="customerFirstname"
+              ngModel
+              [(ngModel)]="data.value.customerFirstname"
+            />
+            <label for="typeahead-basic"> วันที่</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="workDate"
+              ngModel
+              [(ngModel)]="data.value.workDate.day"
+            />
+            <label for="typeahead-basic"> เวลา</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="workTime"
+              ngModel
+              [(ngModel)]="data.value.workTime.hour"
+            />
+            <label for="typeahead-basic"> เบอร์ติดต่อ</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="customerLine"
+              ngModel
+              [(ngModel)]="data.value.customerPhone"
+            />
+            <label for="typeahead-basic"> เบอร์ติดต่อ</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="customerLine"
+              ngModel
+              [(ngModel)]="data.value.customerPhone"
+            />
+            <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="detail"
+              ngModel
+              [(ngModel)]="data.value.detail"
+            />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary">
+              edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="c('Save click')"
+            >
+              Save
+            </button>
+          </div>
+        </ng-template>
+
+        {{ data.value.source }}
+      </td>
+      <td (click)="openData(con)">{{ data.value.destination }}</td>
+      <td (click)="openData(con)">{{ data.value.worktype }}</td>
+      <td (click)="openData(con)">{{ data.value.customerFirstname }}</td>
+      <td (click)="openData(con)">
+        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+        {{ data.value.workDate.year }}
+      </td>
+      <td (click)="openData(con)">
+        {{ data.value.workTime.hour }}:{{ data.value.workTime.minute }} น.
+      </td>
+      <td (click)="openData(con)">{{ data.value.customerPhone }}</td>
+      <td (click)="openData(con)">{{ data.value.customerLine }}</td>
+      <td (click)="openData(con)">{{ data.value.detail }}</td>
+      <td (click)="openData(con)">{{ data.value.status }}</td>
       <td>
         <button type="button" (click)="delJob(data)">Delete</button>
         <button type="button" (click)="editJob(data)">Submit</button>
@@ -37,21 +153,33 @@
         <ng-template #content let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">เงินมัดจำ</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <label for="typeahead-basic">กรุณากรอกค่ามัดจำ</label>
-            <input id="typeahead-basic" type="text" class="form-control">
+            <input id="typeahead-basic" type="text" class="form-control" />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+            <button
+              type="button"
+              class="btn btn-outline-dark"
+              (click)="c('Save click')"
+            >
+              Save
+            </button>
           </div>
         </ng-template>
 
-        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">มัดจำ</button>
-
+        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+          มัดจำ
+        </button>
       </td>
       <!-- <td>
         <select>
@@ -65,32 +193,27 @@
   </tbody>
 </table>
 
-
-<ng-template #con let-c="close" let-d="dismiss">
+<!-- <ng-template #con let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-
-
-
-  </div>
+  <div class="modal-body"></div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary">edit</button>
-    <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Save</button>
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="c('Save click')"
+    >
+      Save
+    </button>
   </div>
-
-  <td>
-
-  </td>
-</ng-template>
-
-
-
-
-
-
-
+</ng-template> -->

@@ -5,6 +5,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ProceedJobComponent implements OnInit {
   id;
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
-     private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private modalService: NgbModal) { }
 
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class ProceedJobComponent implements OnInit {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
       console.log(job)
-      this.job = job.filter( (data:any) => data.value.status === 'proceed');
+      this.job = job.filter((data: any) => data.value.status === 'proceed');
       // this.job = job
 
     });
@@ -51,12 +53,17 @@ export class ProceedJobComponent implements OnInit {
     console.log(data.value);
     const jobData = {
       ...data.value,
-      status : 'proceeded'
+      status: 'proceeded'
     }
     console.log(jobData);
-    this.firebaseService.editJob(data.key,jobData);
-    }
+    this.firebaseService.editJob(data.key, jobData);
+  }
+  openData(con, ) {
+    console.log('showdataDialog', con);
+    // console.log(dataOfDailog.key);
 
+    this.modalService.open(con);
+  }
 
 
 

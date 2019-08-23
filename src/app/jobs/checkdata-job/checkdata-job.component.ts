@@ -26,11 +26,11 @@ export class CheckdataJobComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    config: NgbModalConfig, private modalService: NgbModal
-    ) {
+    config: NgbModalConfig,
+    private modalService: NgbModal) {
     config.backdrop = 'static';
     config.keyboard = false;
-    }
+  }
 
 
   ngOnInit() {
@@ -42,14 +42,6 @@ export class CheckdataJobComponent implements OnInit {
       // this.job = job
 
     });
-
-    // this.db.list('').snapshotChanges().map(action => {
-    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe( => {
-    //   console.log()
-    //   this. = ;
-    // })
-
   }
 
 
@@ -72,7 +64,10 @@ export class CheckdataJobComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  openData(con) {
+  openData(con, ) {
+    console.log('showdataDialog', con);
+    // console.log(dataOfDailog.key);
+
     this.modalService.open(con);
   }
 }

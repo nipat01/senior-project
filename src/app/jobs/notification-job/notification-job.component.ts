@@ -5,6 +5,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-notification-job',
@@ -22,7 +23,8 @@ export class NotificationJobComponent implements OnInit {
   selectedDriver = [];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
@@ -54,6 +56,11 @@ export class NotificationJobComponent implements OnInit {
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
   }
+  openData(con, ) {
+    console.log('showdataDialog', con);
+    // console.log(dataOfDailog.key);
 
+    this.modalService.open(con);
+  }
 
 }

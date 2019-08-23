@@ -5,6 +5,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -20,12 +21,13 @@ export class CheckpaymentJobComponent implements OnInit {
   wikis: any[];
 
   car: any[];
-  
+
   selectedNameDriver = [];
   selectedEmailDriver = [];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
@@ -69,13 +71,20 @@ export class CheckpaymentJobComponent implements OnInit {
   selectValue(driver, index) {
     console.log('showValue', driver.target.value.split(","));
     const getDriver = driver.target.value.split(",");
-   const driverEmail = getDriver[0];
-   const driverFirstname = getDriver[1];
-    
-   this.selectedEmailDriver[index] = driverEmail;
-   this.selectedNameDriver[index] = driverFirstname;
+    const driverEmail = getDriver[0];
+    const driverFirstname = getDriver[1];
+
+    this.selectedEmailDriver[index] = driverEmail;
+    this.selectedNameDriver[index] = driverFirstname;
     console.log('index', index);
     // console.log('data', data);
 
+  }
+
+  openData(con, ) {
+    console.log('showdataDialog', con);
+    // console.log(dataOfDailog.key);
+
+    this.modalService.open(con);
   }
 }

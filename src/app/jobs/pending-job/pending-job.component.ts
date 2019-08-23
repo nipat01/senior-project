@@ -5,7 +5,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
-
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class PendingJobComponent implements OnInit {
   id;
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private modalService: NgbModal) { }
 
 
   ngOnInit() {
@@ -56,7 +57,12 @@ export class PendingJobComponent implements OnInit {
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
   }
+  openData(con, ) {
+    console.log('showdataDialog', con);
+    // console.log(dataOfDailog.key);
 
+    this.modalService.open(con);
+  }
 
 
 }
