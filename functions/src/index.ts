@@ -13,13 +13,14 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 // นำพารามิเตอร์ที่ส่งเขามาที่ HTTP endpoint ไป Insert เข้าไปใน 
 // Realtime Database ที่ path /messages/:pushId/original
-exports.addMessage = functions.https.onRequest((req, res) => {
+exports.addMessage = functions.https.onRequest((req:any, res:any) => {
     // รับค่า text พารามิเตอร์ที่ส่งเข้ามา
     const original = req.query.text;
+    console.log(req.query);
     // insert เข้าไปใน Realtime Database แล้วส่ง response
-    admin.database().ref('/messages').push({ original: original }).then(snapshot => {
-        // รีไดเรค (ด้วย code 303)ไปที่ url ของ Firebase console เพื่อดูข้อมูลที่เพิ่มเข้าไป
-        res.redirect(303, snapshot.ref);
-    });
+    // admin.database().ref('/messages').push({ original: original }).then((snapshot:any) => {
+    //     // รีไดเรค (ด้วย code 303)ไปที่ url ของ Firebase console เพื่อดูข้อมูลที่เพิ่มเข้าไป
+    //     res.redirect(303, snapshot.ref);
+    // });
 });
 
