@@ -5,6 +5,8 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
@@ -20,7 +22,14 @@ export class ProceededJobComponent implements OnInit {
   carList: AngularFireList<any>;
   car: any[];
   id;
-  constructor(private db: AngularFireDatabase, private firebaseService: FirebaseService, private route: ActivatedRoute) { }
+  constructor(private db: AngularFireDatabase,
+              private firebaseService: FirebaseService,
+              private route: ActivatedRoute,
+              config: NgbModalConfig, private modalService: NgbModal
+              ) {
+                config.backdrop = 'static';
+                config.keyboard = false;
+              }
 
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
@@ -52,6 +61,16 @@ export class ProceededJobComponent implements OnInit {
     this.firebaseService.editJob(data.key, jobData);
   }
 
+  open(content) {
+    this.modalService.open(content);
+  }
 
+  openData(con) {
+    this.modalService.open(con);
+  }
+
+  openReview(review) {
+    this.modalService.open(review);
+  }
 
 }

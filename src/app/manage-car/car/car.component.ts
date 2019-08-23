@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { MatDialog, MatDialogConfig } from "@angular/material";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AddCarComponent } from '../add-car/add-car.component';
 
 @Component({
   selector: 'app-car',
@@ -16,6 +18,7 @@ export class CarComponent implements OnInit {
   // wikiList: AngularFireList<any>;
   car: any[];
   constructor(private db: AngularFireDatabase,
+    private modalService: NgbModal
     ) {
     // this.wikiList = db.list('wikis');
 
@@ -28,7 +31,10 @@ export class CarComponent implements OnInit {
       console.log(error);
     });
   }
-
+  open() {
+    const modalRef = this.modalService.open(AddCarComponent);
+    modalRef.componentInstance.name = 'World';
+  }
 
 
 

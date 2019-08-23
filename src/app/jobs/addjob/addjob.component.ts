@@ -4,7 +4,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { LineNotifyService } from 'src/app/services/line-notify.service';
-
 import * as cors from 'cors';
 
 @Component({
@@ -16,17 +15,20 @@ import * as cors from 'cors';
 export class AddjobComponent implements OnInit {
 
   ngOnInit() { }
-  // constructor(private db: AngularFireDatabase ) { }
   constructor(private db: AngularFireDatabase,
-    private lineNotify: LineNotifyService,
-    ) { }
+    private lineNotify: LineNotifyService) { }
 
   addjob(data: NgForm) {
     console.log(data.value);
+    let time = new Date();
     const jobData = {
       ...data.value,
       status: 'checkdata',
       driver: '',
+      deposit: '',
+      totalPayment: '',
+      review: time.getTime(),
+
     }
     from(this.db.list("/job").push(jobData)).pipe(
       switchMap(() => {

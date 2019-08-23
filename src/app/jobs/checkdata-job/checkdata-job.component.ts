@@ -5,8 +5,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
-import { DialogModule } from 'primeng/dialog';
-
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -17,10 +16,9 @@ import { DialogModule } from 'primeng/dialog';
 export class CheckdataJobComponent implements OnInit {
   jobList: AngularFireList<any>
   job: any[];
-  job1: any[];
 
   List: AngularFireList<any>;
-  // : any[];
+
   id;
 
   // display: boolean = false;
@@ -28,7 +26,11 @@ export class CheckdataJobComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private dialog: DialogModule) { }
+    config: NgbModalConfig, private modalService: NgbModal
+    ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+    }
 
 
   ngOnInit() {
@@ -66,12 +68,11 @@ export class CheckdataJobComponent implements OnInit {
     this.firebaseService.editJob(data.key, jobData);
   }
 
+  open(content) {
+    this.modalService.open(content);
+  }
 
-
-
-
-  // showDialog() {
-  //   this.display = true;
-  // }
-
+  openData(con) {
+    this.modalService.open(con);
+  }
 }

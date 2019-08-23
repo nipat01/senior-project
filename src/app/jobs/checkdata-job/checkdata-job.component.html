@@ -14,17 +14,17 @@
       <td>detail</td>
       <td>status</td>
       <td>action</td>
-      <td>driver</td>
+      <td>action</td>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
+      <td (click)="openData(con)">{{ data.value.source }}</td>
       <td>{{ data.value.destination }}</td>
       <td>{{ data.value.worktype }}</td>
       <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate }}</td>
-      <td>{{ data.value.workTime }}</td>
+      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
+      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
       <td>{{ data.value.customerPhone }}</td>
       <td>{{ data.value.customerLine }}</td>
       <td>{{ data.value.detail }}</td>
@@ -32,6 +32,26 @@
       <td>
         <button type="button" (click)="delJob(data)">Delete</button>
         <button type="button" (click)="editJob(data)">Submit</button>
+      </td>
+      <td>
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">เงินมัดจำ</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="typeahead-basic">กรุณากรอกค่ามัดจำ</label>
+            <input id="typeahead-basic" type="text" class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+          </div>
+        </ng-template>
+
+        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">มัดจำ</button>
+
       </td>
       <!-- <td>
         <select>
@@ -46,23 +66,31 @@
 </table>
 
 
+<ng-template #con let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
 
 
 
-<p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true"
-  [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-  <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-    His beloved son Michael has just come home from the war, but does not intend to become part of his father's
-    business.
-    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the
-    head of the family,
-    kind and benevolent to those who give respect,
-    but given to ruthless violence whenever anything stands against the good of the family.</p>
-  <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-    <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No"
-      class="ui-button-secondary"></button>
-  </p-footer>
-</p-dialog>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary">edit</button>
+    <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Save</button>
+  </div>
 
-<button type="button" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
+  <td>
+
+  </td>
+</ng-template>
+
+
+
+
+
+
+

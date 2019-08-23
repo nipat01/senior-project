@@ -2,7 +2,7 @@
 <br />
 <br />
 <br />
-<a routerLink="/addWiki">ไปยังการจัดการพนักงานขับรถ</a> <br />
+<button class="btn btn-lg btn-outline-primary" (click)="open()">เพิ่มข้อมูลพนักงาน</button>
 <table class="table">
   <thead>
     <tr>
@@ -34,7 +34,7 @@
       <td>{{ data.value.lineId }}</td>
       <td>{{ data.value.citizenId }}</td>
       <td>{{ data.value.phoneId }}</td>
-      <td>{{ data.value.hireDate }}</td>
+      <td>{{ data.value.hireDate.day }} /{{ data.value.hireDate.month}} / {{data.value.hireDate.year }}</td>
       <td>{{ data.value.status }}</td>
 
       <td>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddWikiComponent } from '../add-wiki/add-wiki.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,15 +12,20 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   // wikiList: Observable<any>;
-  wikiList: AngularFireList<any>;
-  wikis: any[];
+  wiki: any = {};
+  title: string = "Add Wiki";
+  id;
+  wikis: { key: string; value: unknown; }[];
 
-  constructor(private db: AngularFireDatabase, private firebaseService: FirebaseService, private router: Router ) { }
+
+  constructor(
+    private db: AngularFireDatabase,
+    private firebaseService: FirebaseService,
+    private router: Router,
+    private modalService: NgbModal,
+            ) {}
   // constructor(private db: AngularFireDatabase, private router: Router) {}
   ngOnInit() {
-
-
-
 
     this.db.list('wikis').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
@@ -28,12 +34,13 @@ export class HomeComponent implements OnInit {
       this.wikis = wikis;
 
     });
+  }
 
-
-
-
-
-
+  buildForm() {
+    throw new Error("Method not implemented.");
+  }
+  getWikiByKey(id: any) {
+    throw new Error("Method not implemented.");
   }
 
   editWiki(data) {
@@ -42,6 +49,10 @@ export class HomeComponent implements OnInit {
 
   delWiki(data) {
     this.firebaseService.removeWiki(data.key);
+  }
+  open() {
+    const modalRef = this.modalService.open(AddWikiComponent);
+    modalRef.componentInstance.name = 'World';
   }
 
 }

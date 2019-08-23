@@ -1,0 +1,148 @@
+<br />
+<br />
+<br />
+<p>ผลประเมินความพึงพอใจ</p>
+<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+  <label>วันที่</label>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        (click)="d.toggle()"
+        placeholder="yyyy-mm-dd"
+        name="workDate"
+        ngModel
+        ngbDatepicker
+        #d="ngbDatepicker"
+      />
+    </div>
+  </div>
+  <p>ถึง</p>
+  <div class="form-group">
+    <div class="input-group">
+      <input
+        class="form-control"
+        (click)="d2.toggle()"
+        placeholder="yyyy-mm-dd"
+        name="endworkDate"
+        ngModel
+        ngbDatepicker
+        #d2="ngbDatepicker"
+      />
+    </div>
+  </div>
+  <button class="form-control" type="submit">Submit</button>
+</form>
+
+<hr />
+<h3>ผลลัพท์ค้นหา</h3>
+<hr />
+<label>ภาพรวมระบบ :</label>
+<table class="table">
+  <thead>
+    <tr>
+      <td>พนักงาน</td>
+      <td>คะแนนความพึงพอใจ</td>
+      <td>การจ้างงาน</td>
+      <td>วันที่เริ่มงาน</td>
+      <td>action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data1 of wikis">
+      <td>{{ data1.value.firstname }}</td>
+      <td>{{ data1.value.firstname }}</td>
+      <td>พนักงานประจำ</td>
+      <td>
+        {{ data1.value.hireDate.day }} /{{ data1.value.hireDate.month }} /{{
+          data1.value.hireDate.year
+        }}
+      </td>
+      <td>
+        <button
+          type="button"
+          (click)="showJobByDriver(data1)"
+          (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed"
+          aria-controls="collapForm"
+        >
+          แสดงรายการ
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="collapForm" [ngbCollapse]="!isCollapsed">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>source</td>
+        <td>destination</td>
+        <td>worktype</td>
+        <td>customerFirstname</td>
+        <td>workDate</td>
+        <td>workTime</td>
+        <td>customerPhone</td>
+        <td>customerLine</td>
+        <td>detail</td>
+        <td>status</td>
+        <td>driver</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of job">
+        <td>{{ data.value.source }}</td>
+        <td>{{ data.value.destination }}</td>
+        <td>{{ data.value.worktype }}</td>
+        <td>{{ data.value.customerFirstname }}</td>
+        <td>
+          {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+          {{ data.value.workDate.year }}
+        </td>
+        <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
+        <td>{{ data.value.customerPhone }}</td>
+        <td>{{ data.value.customerLine }}</td>
+        <td>{{ data.value.detail }}</td>
+        <td>{{ data.value.status }}</td>
+        <td>{{ data.value.driver }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <table class="table">
+  <thead>
+    <tr>
+      <td>source</td>
+      <td>destination</td>
+      <td>worktype</td>
+      <td>customerFirstname</td>
+      <td>workDate</td>
+      <td>workTime</td>
+      <td>customerPhone</td>
+      <td>customerLine</td>
+      <td>detail</td>
+      <td>status</td>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of job">
+      <td>{{ data.value.source }}</td>
+      <td>{{ data.value.destination }}</td>
+      <td>{{ data.value.worktype }}</td>
+      <td>{{ data.value.customerFirstname }}</td>
+      <td>
+        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+        {{ data.value.workDate.year }}
+      </td>
+      <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
+      <td>{{ data.value.customerPhone }}</td>
+      <td>{{ data.value.customerLine }}</td>
+      <td>{{ data.value.detail }}</td>
+      <td>{{ data.value.status }}</td>
+
+    </tr>
+  </tbody>
+</table> -->

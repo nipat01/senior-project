@@ -15,16 +15,18 @@
       <td>status</td>
       <td>driver</td>
       <td>action</td>
+      <td>action</td>
+      <td>action</td>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
+      <td (click)="openData(con)">{{ data.value.source }}</td>
       <td>{{ data.value.destination }}</td>
       <td>{{ data.value.worktype }}</td>
       <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate }}</td>
-      <td>{{ data.value.workTime }}</td>
+      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
+      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
       <td>{{ data.value.customerPhone }}</td>
       <td>{{ data.value.customerLine }}</td>
       <td>{{ data.value.detail }}</td>
@@ -33,6 +35,52 @@
       <td>
         <button type="button" (click)="delJob(data)">Delete</button>
         <button type="button" (click)="editJob(data)">Submit</button>
+      </td>
+      <td>
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">กรุณากรอกบิลใบเสร็จ</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
+            <input id="typeahead-basic" type="text" class="form-control">
+            <label for="typeahead-basic">ค่ามัดจำ</label>
+            <input id="typeahead-basic" type="text" class="form-control">
+            <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
+            <input id="typeahead-basic" type="text" class="form-control">
+            <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
+            <input id="typeahead-basic" type="text" class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary">edit</button>
+            <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Save</button>
+          </div>
+        </ng-template>
+        <button class="btn btn-lg btn-outline-secondary" (click)="open(content)">ใบเสร็จ
+        </button>
+      </td>
+
+
+      <td>
+      <ng-template #review let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">คะแนนการบริการ</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="typeahead-basic">คะแนนการให้บริการ</label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Submit</button>
+        </div>
+      </ng-template>
+      <button class="btn btn-lg btn-outline-secondary" (click)="openReview(review)">คะแนนการให้บริการ
+      </button>
       </td>
       <!-- <td>
                 <select>
@@ -45,3 +93,56 @@
     </tr>
   </tbody>
 </table>
+
+<ng-template #con let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>source</td>
+          <td>destination</td>
+          <!-- <td>worktype</td> -->
+          <!-- <td>customerFirstname</td> -->
+          <!-- <td>workDate</td> -->
+          <!-- <td>workTime</td> -->
+          <td>customerPhone</td>
+          <td>customerLine</td>
+          <!-- <td>detail</td> -->
+          <!-- <td>status</td> -->
+          <!-- <td>driver</td> -->
+          <!-- <td>action</td> -->
+          <!-- <td>action</td> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of job">
+          <td>{{ data.value.source }}</td>
+          <td>{{ data.value.destination }}</td>
+          <!-- <td>{{ data.value.worktype }}</td> -->
+          <!-- <td>{{ data.value.customerFirstname }}</td> -->
+          <!-- <td>{{ data.value.workDate }}</td> -->
+          <!-- <td>{{ data.value.workTime }}</td> -->
+          <td>{{ data.value.customerPhone }}</td>
+          <td>{{ data.value.customerLine }}</td>
+          <!-- <td>{{ data.value.detail }}</td> -->
+          <!-- <td>{{ data.value.status }}</td> -->
+          <!-- <td>{{ data.value.driver }}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary">edit</button>
+    <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Save</button>
+  </div>
+
+  <td>
+
+  </td>
+</ng-template>

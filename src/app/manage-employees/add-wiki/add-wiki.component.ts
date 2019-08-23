@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { AuthService } from '../../services/auth.service';
-import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-wiki',
@@ -22,6 +20,16 @@ export class AddWikiComponent implements OnInit {
   wikiForm: FormGroup;
   email: string;
   password: string;
+
+  constructor(
+    private firebaseService: FirebaseService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder,
+    private auth: AuthService) {
+    // auth.getCurrentLoggedIn();
+  }
+
   ngOnInit() {
 
     this.id = this.route.snapshot.paramMap.get("id");
@@ -35,17 +43,11 @@ export class AddWikiComponent implements OnInit {
     this.buildForm();
 
   }
-  constructor(private firebaseService: FirebaseService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private auth: AuthService) {
-    // auth.getCurrentLoggedIn();
-  }
+
 
   // addWiki(wikiForm) {
   onSubmit(wikiForm) {
-    
+
 
     console.log(wikiForm);
     if (this.id) {

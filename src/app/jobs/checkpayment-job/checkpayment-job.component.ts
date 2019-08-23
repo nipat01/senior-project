@@ -15,12 +15,12 @@ import { database } from 'firebase';
 export class CheckpaymentJobComponent implements OnInit {
   jobList: AngularFireList<any>
   job: any[];
-  job1: any[];
 
   carList: AngularFireList<any>;
   wikis: any[];
+
   car: any[];
-  id;
+  
   selectedNameDriver = [];
   selectedEmailDriver = [];
   constructor(private db: AngularFireDatabase,

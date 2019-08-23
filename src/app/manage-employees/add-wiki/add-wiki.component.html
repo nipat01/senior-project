@@ -1,49 +1,48 @@
-<br>
-<br>
-<br>
-<br>
-<br>
-<h1>{{title}}</h1>
+<br />
+<br />
+<br />
+<br />
+<br />
+<h1>{{ title }}</h1>
 <h1>การจัดการพนักงานขับรถ</h1>
 
 <!-- <form (ngSubmit)="addWiki(wikiForm)" #wikiForm="ngForm"> -->
-<form  [formGroup]="wikiForm"  >
+<form [formGroup]="wikiForm">
+  <label>Email address</label>
+  <input type="email" formControlName="email" />
 
-    <label>Email address</label>
-    <input type="email" formControlName="email">
+  <label for="pwd">Password</label>
+  <input type="password" formControlName="password" />
 
-    <label for="pwd">Password</label>
-    <input type="password" formControlName="password">
+  <label>FirstName</label>
+  <input type="text" formControlName="firstname" />
+  <label>Lastname</label>
+  <input type="text" formControlName="lastname" />
+  <label>Address</label>
+  <textarea formControlName="address"></textarea><br />
+  <label>Address Lat</label>
+  <textarea formControlName="addressLat"></textarea><br />
+  <label>Address Long</label>
+  <textarea formControlName="addressLong"></textarea><br />
 
+  <label>Current Lat</label>
+  <textarea formControlName="currentLat"></textarea><br />
+  <label>Current Long</label>
+  <textarea formControlName="currentLong"></textarea><br />
 
-    <label>FirstName</label>
-    <input type="text" formControlName="firstname">
-    <label>Lastname</label>
-    <input type="text" formControlName="lastname">
-    <label>Address</label>
-    <textarea formControlName="address"></textarea><br>
-    <label>Address Lat</label>
-    <textarea formControlName="addressLat"></textarea><br>
-    <label>Address Long</label>
-    <textarea formControlName="addressLong"></textarea><br>
+  <label>Role</label>
+  <input type="text" formControlName="role" />
+  <label>Line Id</label>
+  <input type="text" formControlName="lineId" />
+  <label>Citizen Id</label>
+  <input type="text" formControlName="citizenId" />
+  <label>Phone Id</label>
+  <input type="text" formControlName="phoneId" />
+  <label>Hire Date</label>
+  <input (click)="d.toggle()" placeholder="yyyy-mm-dd" formControlName="hireDate" ngbDatepicker #d="ngbDatepicker" />
+  <!-- <input type="text" formControlName="hireDate"> -->
+  <label>Status</label>
+  <input type="text" formControlName="status" />
 
-    <label>Current Lat</label>
-    <textarea formControlName="currentLat"></textarea><br>
-    <label>Current Long</label>
-    <textarea formControlName="currentLong"></textarea><br>
-
-    <label>Role</label>
-    <input type="text" formControlName="role">
-    <label>Line Id</label>
-    <input type="text" formControlName="lineId">
-    <label>Citizen Id</label>
-    <input type="text" formControlName="citizenId">
-    <label>Phone Id</label>
-    <input type="text" formControlName="phoneId">
-    <label>Hire Date</label>
-    <input type="text" formControlName="hireDate">
-    <label>Status</label>
-    <input type="text" formControlName="status">
-
-    <button type="submit"  (click)="onSubmit(wikiForm.value)">Submit</button>
+  <button type="submit" (click)="onSubmit(wikiForm.value)">Submit</button>
 </form>

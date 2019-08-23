@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 type Headers = { [header: string]: string | string[] };
 
@@ -15,15 +15,19 @@ export class LineNotifyService {
     // postMessage(token: string, message: string): Observable<any> {
     postMessage(getmessage: string): Observable<any> {
         const url = 'https://notify-api.line.me/api/notify';
-        const headers: Headers = {
+        const headers = new HttpHeaders({
             // 'url': 'https://notify-api.line.me/api/notify';
+            'Access-Control-Allow-Origin' : '*',
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'
-        };
-        const options = { headers };
-        const message =  getmessage ;
+            'Authorization': 'Bearer UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0',
+        });
+        const options = { headers: headers };
+        const message = getmessage;
+        console.log('url', url);
+        console.log('body', { message: message });
+        console.log('options', options);
 
-        return this.httpClient.post(url, {message}, options);
+        return this.httpClient.post(url, { message: message }, options)
     }
 }
 

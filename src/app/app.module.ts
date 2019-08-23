@@ -51,6 +51,7 @@ import { HomepageComponent } from './pageAdmin/homepage/homepage.component';
 import { PortfolioComponent } from './pageAdmin/portfolio/portfolio.component';
 import { ServiceComponent } from './pageAdmin/service/service.component';
 
+import { OverviewComponent } from './overview/overview.component';
 // Guard
 import { AuthGuard } from './guards/auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
@@ -77,8 +78,13 @@ import { ProceedJobDriverComponent } from './jobs/driver/proceed-job-driver/proc
 import { ProceededJobDriverComponent } from './jobs/driver/proceeded-job-driver/proceeded-job-driver.component';
 import { JobDriverComponent } from './jobs/driver/job-driver/job-driver.component';
 
+import { CheckStatusUserComponent } from './jobs/user/check-status-user/check-status-user.component';
+import { ReviceUserComponent } from './jobs/user/revice-user/revice-user.component';
+import { ShowStatusComponent } from './jobs/user/show-status/show-status.component';
+import { CheckLocitionComponent } from './jobs/user/check-locition/check-locition.component';
+
 const routes: Routes = [
-  { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard]},
+  { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
   // { path: '', component: HomeComponent },
   { path: 'editWiki/:id', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AdminAuthGuard] },
@@ -88,11 +94,13 @@ const routes: Routes = [
   // { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AdminAuthGuard] },
 
+  { path: 'overview', component: OverviewComponent, canActivate: [AdminAuthGuard] },
+
   { path: 'job', component: JobComponent, canActivate: [AdminAuthGuard] },
   { path: 'addjob', component: AddjobComponent },
 
   { path: 'checkdatajob', component: CheckdataJobComponent, canActivate: [AdminAuthGuard] },
-  { path: 'checkpaymentjob', component: CheckpaymentJobComponent, canActivate: [AdminAuthGuard]},
+  { path: 'checkpaymentjob', component: CheckpaymentJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'notificationjob', component: NotificationJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'pendingjob', component: PendingJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'proceedjob', component: ProceedJobComponent, canActivate: [AdminAuthGuard] },
@@ -104,19 +112,19 @@ const routes: Routes = [
   { path: 'notificationjobdriver', component: NotificationJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'pendingjobdriver', component: PendingJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'proceedjobdriver', component: ProceedJobDriverComponent, canActivate: [AuthGuard] },
-  { path: 'proceededjobdriver', component: ProceededJobDriverComponent , canActivate: [AuthGuard]},
-  
-  
+  { path: 'proceededjobdriver', component: ProceededJobDriverComponent, canActivate: [AuthGuard] },
+
+
   // { path: 'homepage', component: HomepageComponent },
   { path: 'edithomepage/:id', component: HomepageComponent },
-  
+
   { path: 'homepageadmin', component: HomepageComponent, canActivate: [AdminAuthGuard] },
   { path: 'serviceadmin', component: ServiceComponent, canActivate: [AdminAuthGuard] },
   { path: 'cartypeadmin', component: CartypeComponent, canActivate: [AdminAuthGuard] },
   { path: 'portfolioadmin', component: PortfolioComponent, canActivate: [AdminAuthGuard] },
   { path: 'bankadmin', component: BankComponent, canActivate: [AdminAuthGuard] },
   { path: 'aboutadmin', component: AboutComponent, canActivate: [AdminAuthGuard] },
-  
+
   { path: 'profileuser', component: ProfileUserComponent },
   { path: 'homepageuser', component: HomepageUserComponent },
   { path: 'serviceuser', component: ServiceUserComponent },
@@ -167,7 +175,7 @@ const routes: Routes = [
     PortfolioComponent,
     ServiceComponent,
     ServiceUserComponent,
-  
+
     SearchJobComponent,
     ProfileUserComponent,
     NotificationJobComponent,
@@ -175,7 +183,12 @@ const routes: Routes = [
     PendingJobDriverComponent,
     ProceedJobDriverComponent,
     ProceededJobDriverComponent,
-    JobDriverComponent
+    JobDriverComponent,
+    OverviewComponent,
+    CheckStatusUserComponent,
+    ReviceUserComponent,
+    ShowStatusComponent,
+    CheckLocitionComponent
 
 
 
@@ -195,7 +208,7 @@ const routes: Routes = [
     AngularFirestoreModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
- 
+
     NgbModule,
     AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     BrowserModule,
