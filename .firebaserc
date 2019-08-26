@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "jistigdatabase",
-    "send res line notify to line app": "jistigdatabase"
+    "send res line notify to line app": "jistigdatabase",
+    "trigger": "jistigdatabase"
   }
 }
