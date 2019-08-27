@@ -25,8 +25,12 @@ export class AddjobComponent implements OnInit {
       ...data.value,
       status: 'checkdata',
       driver: '',
-      deposit: '',
       totalPayment: '',
+      deposit: '',
+      bill: '',
+      billNo: '',
+      billImageUrl: '',
+      billNoImageUrl: '',
       review: time.getTime(),
 
     }

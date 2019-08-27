@@ -35,7 +35,8 @@ const functions = require('firebase-functions');
 const request = require('request-promise');
 
 const lineNotify = (lineMessage: any) => {
-    const notifyResponse =  request({
+
+    const options = {
         method: `POST`,
         uri: `https://notify-api.line.me/api/notify`,
         headers: {
@@ -45,12 +46,17 @@ const lineNotify = (lineMessage: any) => {
         form: {
             message: lineMessage,
         }
+    }
+
+    console.log({ options })
+
+    return request(options).then((notifyResponse: any) => {
+        console.log({notifyResponse})
+        return notifyResponse
+    }).catch((err: any) => {
+        console.log({ err })
     })
 
-    console.log(notifyResponse);
-
-    return notifyResponse;
-    
 };
 
 
@@ -58,10 +64,9 @@ exports.postNotifyToLine = functions.database.ref('/job')
     .onCreate( (snapshot: any, context: any) => {
         // .onCreate((snapshot, context) => {
         const original = snapshot.val();
-        return  lineNotify(original);
-        console.log(`Posted regressed issue successfully to Slack`);
-
-
+        console.log({ original });
+        return lineNotify(original);
+        // console.log(`Posted regressed issue successfully to Slack`);
     });
 
 

@@ -37,9 +37,8 @@ export class PortfolioComponent implements OnInit {
         console.log(this.imageList);
       }
     );
-
-
   }
+  
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

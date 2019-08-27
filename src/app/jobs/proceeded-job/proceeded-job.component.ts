@@ -3,11 +3,12 @@ import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { database } from 'firebase';
+
+import { finalize } from "rxjs/operators";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { ImageService } from '../../services/image/image.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-proceeded-job',
@@ -22,14 +23,31 @@ export class ProceededJobComponent implements OnInit {
   carList: AngularFireList<any>;
   car: any[];
   id;
+
+
+  imgSrc: string;
+  selectedImage: any = null;
+  isSubmitted: boolean;
+
+  formTemplate = new FormGroup({
+    totalPayment: new FormControl('', Validators.required),
+    deposit: new FormControl('', Validators.required),
+    bill: new FormControl('', Validators.required),
+    billNo: new FormControl('', Validators.required),
+    billImageUrl: new FormControl('', Validators.required),
+    billNoImageUrl: new FormControl('', Validators.required)
+  })
+
   constructor(private db: AngularFireDatabase,
-              private firebaseService: FirebaseService,
-              private route: ActivatedRoute,
-              config: NgbModalConfig, private modalService: NgbModal
-              ) {
-                config.backdrop = 'static';
-                config.keyboard = false;
-              }
+    private firebaseService: FirebaseService,
+    private route: ActivatedRoute,
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private service: ImageService,
+    private storage: AngularFireStorage) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
@@ -65,6 +83,18 @@ export class ProceededJobComponent implements OnInit {
     this.modalService.open(content);
   }
 
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+    }
+    else {
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+    }
+  }
   openData(con) {
     this.modalService.open(con);
   }
@@ -72,5 +102,48 @@ export class ProceededJobComponent implements OnInit {
   openReview(review) {
     this.modalService.open(review);
   }
+
+
+
+
+
+  onSubmit(formValue) {
+    this.isSubmitted = true;
+    if (this.formTemplate.valid) {
+      var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const billfileRef = this.storage.ref(billFilePath);
+      const billNofileRef = this.storage.ref(billFilePath);
+      this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          billfileRef.getDownloadURL().subscribe((url) => {
+            formValue['billImageUrl'] = url;
+            this.service.insertImagePortfolioDetails(formValue);
+          })
+        })
+      ).subscribe();
+      this.storage.upload(billNoFilePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          billNofileRef.getDownloadURL().subscribe((url) => {
+            formValue['billNoImageUrl'] = url;
+            this.service.insertImagePortfolioDetails(formValue);
+          })
+        })
+      ).subscribe();
+    }
+  }
+  get formControls() {
+    return this.formTemplate['controls'];
+  }
+
+  resetForm() {
+    this.formTemplate.reset();
+
+    this.imgSrc = '/assets/img/image_placeholder.jpg';
+    this.selectedImage = null;
+    this.isSubmitted = false;
+  }
+
+
 
 }
