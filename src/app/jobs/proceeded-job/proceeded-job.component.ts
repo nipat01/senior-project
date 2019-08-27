@@ -57,6 +57,9 @@ export class ProceededJobComponent implements OnInit {
       this.job = job.filter((data: any) => data.value.status === 'proceeded');
       // this.job = job
 
+
+
+      this.starForm();
     });
 
     // this.db.list('car').snapshotChanges().map(action => {
@@ -83,18 +86,7 @@ export class ProceededJobComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  showPreview(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.imgSrc = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.selectedImage = event.target.files[0];
-    }
-    else {
-      this.imgSrc = '/assets/img/image_placeholder.jpg';
-      this.selectedImage = null;
-    }
-  }
+ 
   openData(con) {
     this.modalService.open(con);
   }
@@ -136,14 +128,23 @@ export class ProceededJobComponent implements OnInit {
     return this.formTemplate['controls'];
   }
 
-  resetForm() {
-    this.formTemplate.reset();
-
+  starForm() {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     this.selectedImage = null;
     this.isSubmitted = false;
   }
 
-
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+    }
+    else {
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+    }
+  }
 
 }
