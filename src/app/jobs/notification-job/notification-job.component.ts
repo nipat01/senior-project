@@ -19,8 +19,11 @@ export class NotificationJobComponent implements OnInit {
 
   carList: AngularFireList<any>;
   car: any[];
-  id;
+  wikis: any[];
   selectedDriver = [];
+
+  selectedNameDriver = [];
+  selectedEmailDriver = [];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -41,6 +44,13 @@ export class NotificationJobComponent implements OnInit {
     }).subscribe(car => {
       console.log(car)
       this.car = car;
+    });
+
+    this.db.list('wikis').snapshotChanges().map(action => {
+      return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis;
     })
 
   }
@@ -56,7 +66,25 @@ export class NotificationJobComponent implements OnInit {
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
   }
-  openData(con, ) {
+  editJobDriver(dataDriver){
+const jobData = {
+  ...dataDriver.value,
+  driver: this.selectedNameDriver,
+  emailDriver: this.selectedEmailDriver,
+}
+ this.firebaseService.editJob(dataDriver.key, jobData);
+ 
+  }
+  selectValue(driver) {
+    console.log('showValue', driver.target.value.split(","));
+    const getDriver = driver.target.value.split(",");
+    const driverEmail = getDriver[0];
+    const driverFirstname = getDriver[1];
+
+    this.selectedEmailDriver = driverEmail;
+    this.selectedNameDriver = driverFirstname;
+  }
+  openDataDriver(con) {
     console.log('showdataDialog', con);
     // console.log(dataOfDailog.key);
 

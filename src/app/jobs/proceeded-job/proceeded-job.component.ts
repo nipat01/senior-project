@@ -27,6 +27,7 @@ export class ProceededJobComponent implements OnInit {
 
   imgSrc: string;
   selectedImage: any = null;
+  selectedImage2: any = null;
   isSubmitted: boolean;
 
   formTemplate = new FormGroup({
@@ -83,10 +84,12 @@ export class ProceededJobComponent implements OnInit {
   }
 
   open(content) {
+    console.log(111);
+
     this.modalService.open(content);
   }
 
- 
+
   openData(con) {
     this.modalService.open(con);
   }
@@ -99,18 +102,23 @@ export class ProceededJobComponent implements OnInit {
 
 
 
-  onSubmit(formValue) {
+  onSubmit(formValue, dataFormJob) {
+
+    this.firebaseService.editJob(dataFormJob.key, formValue.value);
+
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
       var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+
       const billfileRef = this.storage.ref(billFilePath);
       const billNofileRef = this.storage.ref(billFilePath);
+
       this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           billfileRef.getDownloadURL().subscribe((url) => {
-            formValue['billImageUrl'] = url;
-            this.service.insertImagePortfolioDetails(formValue);
+            formValue.value['billImageUrl'] = url;
+            this.firebaseService.editJob(dataFormJob.key, formValue.value['billImageUrl']);
           })
         })
       ).subscribe();
@@ -118,7 +126,8 @@ export class ProceededJobComponent implements OnInit {
         finalize(() => {
           billNofileRef.getDownloadURL().subscribe((url) => {
             formValue['billNoImageUrl'] = url;
-            this.service.insertImagePortfolioDetails(formValue);
+            // this.service.insertImagePortfolioDetails(formValue);
+            this.firebaseService.editJob(dataFormJob.key, formValue['billNoImageUrl']);
           })
         })
       ).subscribe();
@@ -131,6 +140,7 @@ export class ProceededJobComponent implements OnInit {
   starForm() {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     this.selectedImage = null;
+    this.selectedImage2 = null;
     this.isSubmitted = false;
   }
 
@@ -146,5 +156,17 @@ export class ProceededJobComponent implements OnInit {
       this.selectedImage = null;
     }
   }
+  // showPreview2(event2: any) {
+  //   if (event2.target.files && event2.target.files[0]) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e2: any) => this.imgSrc = e2.target.result;
+  //     reader.readAsDataURL(event2.target.files[0]);
+  //     this.selectedImage2 = event2.target.files[0];
+  //   }
+  //   else {
+  //     this.imgSrc = '/assets/img/image_placeholder.jpg';
+  //     this.selectedImage2 = null;
+  //   }
+  // }
 
 }

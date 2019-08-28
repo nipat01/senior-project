@@ -57,6 +57,18 @@
             <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
             <input id="typeahead-basic" type="text" class="form-control" name="detail" ngModel
               [(ngModel)]="data.value.detail" />
+            <label for="typeahead-basic"> บิลใบเสร็จเล่มที่</label>
+            <input id="typeahead-basic" type="text" class="form-control" name="bill" ngModel
+              [(ngModel)]="data.value.bill" />
+            <label for="typeahead-basic"> บิลใบเสร็จเลขที่</label>
+            <input id="typeahead-basic" type="text" class="form-control" name="billNo" ngModel
+              [(ngModel)]="data.value.billNo" />
+            <label for="typeahead-basic"> มัดจำ</label>
+            <input id="typeahead-basic" type="text" class="form-control" name="deposit" ngModel
+              [(ngModel)]="data.value.deposit" />
+            <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
+            <input id="typeahead-basic" type="text" class="form-control" name="totalPayment" ngModel
+              [(ngModel)]="data.value.totalPayment" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary">
@@ -82,7 +94,6 @@
       <td>{{ data.value.driver }}</td>
       <td>
         <button type="button" (click)="delJob(data)">Delete</button>
-        <button type="button" (click)="editJob(data)">Submit</button>
       </td>
       <td>
         <ng-template #content let-c="close" let-d="dismiss">
@@ -98,12 +109,12 @@
               <!-- <div class="card" style="width:25rem"> -->
               <div class="card-body">
                 <div class="text-center">
-                  <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+                  <img [src]="imgSrc" width="350px" height="250px" (click)="billfileUploader.click()" />
                 </div>
                 <div class="form-group">
                   <label>Select file to upload</label>
-                  <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-                    (change)="showPreview($event)" />
+                  <input type="file" accept="image/*" class="form-control" #billfileUploader
+                    formControlName="billImageUrl" (change)="showPreview($event)" />
                   <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
                     This field is required.
                   </div>
@@ -114,12 +125,12 @@
               <!-- <div class="card" style="width:25rem"> -->
               <div class="card-body">
                 <div class="text-center">
-                  <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+                  <img [src]="imgSrc" width="350px" height="250px" (click)="billNofileUploader.click()" />
                 </div>
                 <div class="form-group">
                   <label>Select file to upload</label>
-                  <input type="file" accept="image/*" class="form-control" #fileUploader
-                    (change)="showPreview($event)" />
+                  <input type="file" accept="image/*" class="form-control" #billNofileUploader
+                    formControlName="billNoImageUrl" (change)="showPreview($event)" />
                   <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
                     This field is required.
                   </div>
@@ -129,20 +140,23 @@
 
 
               <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
-              <input id="typeahead-basic" type="text" class="form-control" formControlName="totalPayment">
+              <input id="typeahead-basic" type="text" class="form-control" formControlName="totalPayment"
+                [(ngModel)]="data.value.totalPayment">
               <label for="typeahead-basic">ค่ามัดจำ</label>
-              <input id="typeahead-basic" type="text" class="form-control" formControlName="deposit">
+              <input id="typeahead-basic" type="text" class="form-control" formControlName="deposit"
+                [(ngModel)]="data.value.deposit">
               <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
-              <input id="typeahead-basic" type="text" class="form-control" formControlName="bill">
+              <input id="typeahead-basic" type="text" class="form-control" formControlName="bill"
+                [(ngModel)]="data.value.bill">
               <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
-              <input id="typeahead-basic" type="text" class="form-control" formControlName="billNo">
+              <input id="typeahead-basic" type="text" class="form-control" formControlName="billNo"
+                [(ngModel)]="data.value.billNo">
 
             </form>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" (submit)="onSubmit(formTemplate.value)"
-              (click)="c('Save click')">Save</button>
+            <button type="button" class="btn btn-outline-success" (click)="onSubmit(formTemplate,data)">Save</button>
           </div>
         </ng-template>
         <button class="btn btn-lg btn-outline-secondary" (click)="open(content)">ใบเสร็จ
@@ -168,19 +182,12 @@
         <button class="btn btn-lg btn-outline-secondary" (click)="openReview(review)">คะแนนการให้บริการ
         </button>
       </td>
-      <!-- <td>
-                <select>
-                    <option value="">------</option>
-                    <option [ngValue]="data2" *ngFor="let data2 of car">
-                        {{ data2.value.carId }}
-                    </option>
-                </select>
-            </td> -->
+ 
     </tr>
   </tbody>
 </table>
 
-<ng-template #con let-c="close" let-d="dismiss">
+<!-- <ng-template #con let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -193,32 +200,20 @@
         <tr>
           <td>source</td>
           <td>destination</td>
-          <!-- <td>worktype</td> -->
-          <!-- <td>customerFirstname</td> -->
-          <!-- <td>workDate</td> -->
-          <!-- <td>workTime</td> -->
+    
           <td>customerPhone</td>
           <td>customerLine</td>
-          <!-- <td>detail</td> -->
-          <!-- <td>status</td> -->
-          <!-- <td>driver</td> -->
-          <!-- <td>action</td> -->
-          <!-- <td>action</td> -->
+
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of job">
           <td>{{ data.value.source }}</td>
           <td>{{ data.value.destination }}</td>
-          <!-- <td>{{ data.value.worktype }}</td> -->
-          <!-- <td>{{ data.value.customerFirstname }}</td> -->
-          <!-- <td>{{ data.value.workDate }}</td> -->
-          <!-- <td>{{ data.value.workTime }}</td> -->
+        
           <td>{{ data.value.customerPhone }}</td>
           <td>{{ data.value.customerLine }}</td>
-          <!-- <td>{{ data.value.detail }}</td> -->
-          <!-- <td>{{ data.value.status }}</td> -->
-          <!-- <td>{{ data.value.driver }}</td> -->
+   
         </tr>
       </tbody>
     </table>
@@ -231,4 +226,4 @@
   <td>
 
   </td>
-</ng-template>
+</ng-template> -->
