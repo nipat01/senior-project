@@ -69,6 +69,13 @@
             <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
             <input id="typeahead-basic" type="text" class="form-control" name="totalPayment" ngModel
               [(ngModel)]="data.value.totalPayment" />
+            <label for="typeahead-basic"> มัดจำ</label>
+            <img [src]="data.value.billImageUrl" class="img-fluid" />
+            <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
+            <img [src]="data.value.billNoImageUrl" class="img-fluid" />
+
+
+          
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary">
@@ -115,9 +122,9 @@
                   <label>Select file to upload</label>
                   <input type="file" accept="image/*" class="form-control" #billfileUploader
                     formControlName="billImageUrl" (change)="showPreview($event)" />
-                  <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
+                  <!-- <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
                     This field is required.
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <!-- </div> -->
@@ -125,15 +132,15 @@
               <!-- <div class="card" style="width:25rem"> -->
               <div class="card-body">
                 <div class="text-center">
-                  <img [src]="imgSrc" width="350px" height="250px" (click)="billNofileUploader.click()" />
+                  <img [src]="imgSrc2" width="350px" height="250px" (click)="billNofileUploader.click()" />
                 </div>
                 <div class="form-group">
                   <label>Select file to upload</label>
                   <input type="file" accept="image/*" class="form-control" #billNofileUploader
-                    formControlName="billNoImageUrl" (change)="showPreview($event)" />
-                  <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
+                    formControlName="billNoImageUrl" (change)="showPreview2($event)" />
+                  <!-- <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
                     This field is required.
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <!-- </div> -->
@@ -182,7 +189,7 @@
         <button class="btn btn-lg btn-outline-secondary" (click)="openReview(review)">คะแนนการให้บริการ
         </button>
       </td>
- 
+
     </tr>
   </tbody>
 </table>

@@ -18,19 +18,22 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class ProceededJobComponent implements OnInit {
   jobList: AngularFireList<any>
   job: any[];
-  job1: any[];
 
   carList: AngularFireList<any>;
   car: any[];
-  id;
+
 
 
   imgSrc: string;
+  imgSrc2: string;
   selectedImage: any = null;
   selectedImage2: any = null;
   isSubmitted: boolean;
 
-  formTemplate = new FormGroup({
+  imageList: any[];//list
+  rowIndexArray: any[];//list
+
+  formTemplate: FormGroup = new FormGroup({
     totalPayment: new FormControl('', Validators.required),
     deposit: new FormControl('', Validators.required),
     bill: new FormControl('', Validators.required),
@@ -61,6 +64,17 @@ export class ProceededJobComponent implements OnInit {
 
 
       this.starForm();
+
+
+
+      this.service.getImageDetailServiceList();
+      this.service.imageDetailServiceList.snapshotChanges().subscribe(
+        list => {
+          this.imageList = list.map(item => { return item.payload.val(); });
+          this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
+          console.log(this.imageList);
+        }
+      );
     });
 
     // this.db.list('car').snapshotChanges().map(action => {
@@ -85,8 +99,8 @@ export class ProceededJobComponent implements OnInit {
 
   open(content) {
     console.log(111);
-
     this.modalService.open(content);
+
   }
 
 
@@ -118,7 +132,7 @@ export class ProceededJobComponent implements OnInit {
         finalize(() => {
           billfileRef.getDownloadURL().subscribe((url) => {
             formValue.value['billImageUrl'] = url;
-            this.firebaseService.editJob(dataFormJob.key, formValue.value['billImageUrl']);
+            this.firebaseService.editJob(dataFormJob.key, formValue.value);
           })
         })
       ).subscribe();
@@ -127,7 +141,7 @@ export class ProceededJobComponent implements OnInit {
           billNofileRef.getDownloadURL().subscribe((url) => {
             formValue['billNoImageUrl'] = url;
             // this.service.insertImagePortfolioDetails(formValue);
-            this.firebaseService.editJob(dataFormJob.key, formValue['billNoImageUrl']);
+            this.firebaseService.editJob(dataFormJob.key, formValue.value);
           })
         })
       ).subscribe();
@@ -139,12 +153,14 @@ export class ProceededJobComponent implements OnInit {
 
   starForm() {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
-    this.selectedImage = null;
-    this.selectedImage2 = null;
-    this.isSubmitted = false;
+    this.imgSrc2 = '/assets/img/image_placeholder.jpg';
+    // this.selectedImage = null;
+    // this.selectedImage2 = null;
+    // this.isSubmitted = false;
   }
 
   showPreview(event: any) {
+    console.log('showPreview', this.formTemplate.get('billImageUrl').value);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgSrc = e.target.result;
@@ -156,17 +172,18 @@ export class ProceededJobComponent implements OnInit {
       this.selectedImage = null;
     }
   }
-  // showPreview2(event2: any) {
-  //   if (event2.target.files && event2.target.files[0]) {
-  //     const reader = new FileReader();
-  //     reader.onload = (e2: any) => this.imgSrc = e2.target.result;
-  //     reader.readAsDataURL(event2.target.files[0]);
-  //     this.selectedImage2 = event2.target.files[0];
-  //   }
-  //   else {
-  //     this.imgSrc = '/assets/img/image_placeholder.jpg';
-  //     this.selectedImage2 = null;
-  //   }
-  // }
+  showPreview2(event2: any) {
+    console.log(this.formTemplate.get('billNoImageUrl').value);
+    if (event2.target.files && event2.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imgSrc2 = e.target.result;
+      reader.readAsDataURL(event2.target.files[0]);
+      this.selectedImage = event2.target.files[0];
+    }
+    else {
+      this.imgSrc2 = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
+    }
+  }
 
 }
