@@ -46,6 +46,7 @@ export class ImageService {
       this.firebase.list('imageDetails/imageDetailList/Bird').push(imageDetails);
     }
   }
+ 
   insertImagePortfolioDetails(imageDetails) {
     this.imageDetaiPortfoliolList.push(imageDetails);
   }

@@ -19,7 +19,6 @@ export class CheckdataJobComponent implements OnInit {
 
   List: AngularFireList<any>;
 
-  id;
 
   // display: boolean = false;
 

@@ -8,6 +8,7 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class FirebaseService {
   wikiList: AngularFireList<any>;
+  carList: AngularFireList<any>;
   jobList: AngularFireList<any>
   homepageList: AngularFireList<any>
   videoList: AngularFireList<any>
@@ -17,6 +18,7 @@ export class FirebaseService {
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, ) {
     this.wikiList = db.list('wikis');
+    this.carList = db.list('car');
     this.jobList = db.list('job');
     this.homepageList = db.list('homepage');
     this.videoList = db.list('video');
@@ -60,6 +62,9 @@ export class FirebaseService {
 
   editWiki(id, data) {
     return this.wikiList.update(id, data);
+  }
+  editCar(id, data) {
+    return this.carList.update(id, data);
   }
 
   editHomepage(id, data) {

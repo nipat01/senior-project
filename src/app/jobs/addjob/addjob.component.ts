@@ -25,16 +25,21 @@ export class AddjobComponent implements OnInit {
       ...data.value,
       status: 'checkdata',
       driver: '',
-      deposit: '',
       totalPayment: '',
+      deposit: '',
+      bill: '',
+      billNo: '',
+      billImageUrl: '',
+      billNoImageUrl: '',
       review: time.getTime(),
 
     }
-    from(this.db.list("/job").push(jobData)).pipe(
-      switchMap(() => {
-        return this.lineNotify.postMessage('test');
-      }),
-    ).subscribe(result => console.log(result));
+    // from(this.db.list("/job").push(jobData)).pipe(
+    //   switchMap(() => {
+    //     return this.lineNotify.postMessage('test');
+    //   }),
+    //   ).subscribe(result => console.log(result));
+    this.db.list("/job").push(jobData)
 
     //
     // this.db.list("/job").push(data.value).child('status').set("waiting");
