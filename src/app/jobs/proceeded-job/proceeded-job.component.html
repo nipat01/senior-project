@@ -70,12 +70,15 @@
             <input id="typeahead-basic" type="text" class="form-control" name="totalPayment" ngModel
               [(ngModel)]="data.value.totalPayment" />
             <label for="typeahead-basic"> มัดจำ</label>
-            <img [src]="data.value.billImageUrl" class="img-fluid" />
+            <div class="text-center"> <img [src]="data.value.billImageUrl" width="350px" height="250px"
+                class="img-fluid" /> </div>
             <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
-            <img [src]="data.value.billNoImageUrl" class="img-fluid" />
+            <div class="text-center"> <img [src]="data.value.billNoImageUrl" width="350px" height="250px"
+                class="img-fluid" /> </div>
 
 
-          
+
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary">
@@ -121,7 +124,7 @@
                 <div class="form-group">
                   <label>Select file to upload</label>
                   <input type="file" accept="image/*" class="form-control" #billfileUploader
-                    formControlName="billImageUrl" (change)="showPreview($event)" />
+                    formControlName="billImageUrl" (change)="showPreview($event)" (click)="uploadBill()" />
                   <!-- <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
                     This field is required.
                   </div> -->
@@ -166,7 +169,7 @@
             <button type="button" class="btn btn-outline-success" (click)="onSubmit(formTemplate,data)">Save</button>
           </div>
         </ng-template>
-        <button class="btn btn-lg btn-outline-secondary" (click)="open(content)">ใบเสร็จ
+        <button class="btn btn-lg btn-outline-secondary" (click)="openBill(content)">ใบเสร็จ
         </button>
       </td>
 

@@ -77,12 +77,7 @@ export class ProceededJobComponent implements OnInit {
       );
     });
 
-    // this.db.list('car').snapshotChanges().map(action => {
-    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe(car => {
-    //   console.log(car)
-    //   this.car = car;
-    // })
+
   }
   delJob(data) {
     this.firebaseService.removeJob(data.key);
@@ -97,7 +92,7 @@ export class ProceededJobComponent implements OnInit {
     this.firebaseService.editJob(data.key, jobData);
   }
 
-  open(content) {
+  openBill(content) {
     console.log(111);
     this.modalService.open(content);
 
@@ -113,9 +108,6 @@ export class ProceededJobComponent implements OnInit {
   }
 
 
-
-
-
   onSubmit(formValue, dataFormJob) {
 
     this.firebaseService.editJob(dataFormJob.key, formValue.value);
@@ -123,11 +115,12 @@ export class ProceededJobComponent implements OnInit {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
       var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-
       const billfileRef = this.storage.ref(billFilePath);
-      const billNofileRef = this.storage.ref(billFilePath);
+      var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const billNofileRef = this.storage.ref(billNoFilePath);
 
+      
+      
       this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           billfileRef.getDownloadURL().subscribe((url) => {
@@ -136,17 +129,18 @@ export class ProceededJobComponent implements OnInit {
           })
         })
       ).subscribe();
+
       this.storage.upload(billNoFilePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           billNofileRef.getDownloadURL().subscribe((url) => {
-            formValue['billNoImageUrl'] = url;
-            // this.service.insertImagePortfolioDetails(formValue);
+            formValue.value['billNoImageUrl'] = url;
             this.firebaseService.editJob(dataFormJob.key, formValue.value);
           })
         })
       ).subscribe();
     }
   }
+
   get formControls() {
     return this.formTemplate['controls'];
   }
