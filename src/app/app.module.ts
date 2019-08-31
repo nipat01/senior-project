@@ -107,6 +107,7 @@ const routes: Routes = [
   { path: 'proceededjob', component: ProceededJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'searchjob', component: SearchJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'editjob/:id', component: AddjobComponent, canActivate: [AdminAuthGuard] },
+  { path: 'checkstatus', component: CheckStatusUserComponent },
 
   { path: 'jobdriver', component: JobDriverComponent, canActivate: [AuthGuard] },
   { path: 'notificationjobdriver', component: NotificationJobDriverComponent, canActivate: [AuthGuard] },

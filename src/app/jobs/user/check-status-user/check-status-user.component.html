@@ -1,1 +1,107 @@
-<p>check-status-user works!</p>
+<br />
+<br />
+<br />
+<h1>เช็คสถานะ</h1>
+<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+  <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
+
+  <label>กรุณากรอกข้อมูล</label>
+  <input class="form-control" type="text" name="searchJob" ngModel /> <br />
+  <button class="form-control" type="submit">Submit</button>
+</form>
+
+<hr />
+
+<h3>ผลลัพท์ค้นหา</h3>
+
+<div *ngFor="let data of job; let i = index">
+  <hr />
+  วันที่: {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+  {{ data.value.workDate.year }} {{ data.value.workTime.hour }}:{{
+    data.value.workTime.minute
+  }}<br />
+  คุณ: {{ data.value.customerFirstname }} <br />
+  สถานะ: {{ data.value.status }}<br />
+  ต้นทาง: {{ data.value.source }} <br />
+  ต้นทาง: {{ data.value.destination }} <br />
+  ปลายทาง: {{ data.value.worktype }}<br />
+  พนักงานขับรถ: {{ data.value.driver }}<br />
+  รีวิว: {{ data.value.review }} <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการ</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="d('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formTemplate">
+        <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
+        <ngb-rating  formControlName="rateReview" [(rate)]="currentRate"></ngb-rating>
+        <hr />
+        <pre>Rate: <b>{{currentRate}}</b></pre>
+        <label>กรุณากรอกความคิดเห็น</label>
+        <input
+          class="form-control"
+          type="text"
+          name="review"
+          formControlName="review"
+        />
+        <br />
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-success"
+        (click)="editJob(formTemplate, data)"
+      >
+        Save
+      </button>
+    </div>
+  </ng-template>
+  <button
+    class="btn btn-lg btn-outline-secondary"
+    (click)="openBill(content, data, alert222)"
+  >
+    ให้คะแนนบริการ
+  </button>
+  <hr />
+  <br />
+</div>
+
+<!-- ส่วนที่แสดงเมื่อ สถานะไม่ตรง -->
+<ng-template #alert222 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="text-center">
+    <div class="modal-body">
+      <label>
+        เฉพาะงานที่ดำเนินการแล้วเท่านั้น
+      </label>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-success"
+        (click)="d('Cross click')"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>

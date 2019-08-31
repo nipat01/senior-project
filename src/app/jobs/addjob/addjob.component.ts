@@ -31,7 +31,7 @@ export class AddjobComponent implements OnInit {
       billNo: '',
       billImageUrl: '',
       billNoImageUrl: '',
-      review: time.getTime(),
+      // review: time.getTime(),
 
     }
     // from(this.db.list("/job").push(jobData)).pipe(

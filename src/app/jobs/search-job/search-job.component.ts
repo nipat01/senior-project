@@ -52,19 +52,12 @@ export class SearchJobComponent implements OnInit {
 
         const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
 
+        console.log('jobdata', jobDate);
 
         const searchCustomerFirstname = data.value.customerFirstname;
         const searchDriver = data.value.driver;
 
-        // if (endDate) {
-        //   if (searchJob && selectSearchJobByCustomerFirstname) {
-        //     return jobDate.getTime() <= endDate.getTime()
-        //       && searchCustomerFirstname === searchJob;
-        //   }
-        //   else {
-        //     jobDate.getTime() <= endDate.getTime()
-        //   }
-        // }
+
         if (selectSearchJobByCustomerFirstname && startDate && endDate) {
           return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime()
             && searchCustomerFirstname === searchJob;

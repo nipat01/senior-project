@@ -8,8 +8,8 @@ import { finalize } from "rxjs/operators";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ImageService } from '../../services/image/image.service';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireStorage } from '@angular/fire/storage';
-
 @Component({
   selector: 'app-proceeded-job',
   templateUrl: './proceeded-job.component.html',
@@ -45,12 +45,15 @@ export class ProceededJobComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    config: NgbModalConfig,
+    // config: NgbModalConfig,
+    config: NgbRatingConfig,
     private modalService: NgbModal,
     private service: ImageService,
     private storage: AngularFireStorage) {
-    config.backdrop = 'static';
-    config.keyboard = false;
+    // config.backdrop = 'static';
+    // config.keyboard = false;
+    config.max = 5;
+    config.readonly = true;
   }
 
   ngOnInit() {
@@ -119,8 +122,8 @@ export class ProceededJobComponent implements OnInit {
       var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const billNofileRef = this.storage.ref(billNoFilePath);
 
-      
-      
+
+
       this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           billfileRef.getDownloadURL().subscribe((url) => {
