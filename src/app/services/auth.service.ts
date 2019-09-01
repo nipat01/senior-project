@@ -131,6 +131,19 @@ export class AuthService {
       .then(() => console.log('email sent'))
       .catch((error) => console.log(error))
   }
+
+  updatePassword(password: string) {
+    var user = firebase.auth().currentUser;
+    user.updatePassword(password).then(function () {
+     console.log('update password succed');
+
+    }).catch(function (error) {
+      console.log('update password fail');
+
+    });
+  }
+
+
   getCurrentLoggedIn() {
     this.afAuth.authState.subscribe(auth => {
       if (auth) {
@@ -150,13 +163,25 @@ export class AuthService {
       email: this.authState.email,
       name: this.authState.displayName
     }
-
-
-
     userRef.update(data)
       .catch(error => console.log(error));
 
   }
+
+  deleteAccount(email: string) {
+    var user = firebase.auth().currentUser;
+
+    user.delete().then(function () {
+      // User deleted.
+      console.log('delete succeed');
+
+    }).catch(function (error) {
+      // An error happened.
+      console.log('cant delete');
+
+    });
+  }
+
 }
 
 

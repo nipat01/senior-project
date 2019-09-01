@@ -4,7 +4,158 @@
 <hr />
 
 <!-- <form (ngSubmit)="addWiki(wikiForm)" #wikiForm="ngForm"> -->
-<form [formGroup]="wikiForm">
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เงินมัดจำ</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="wikiForm">
+      <div class="modal-body">
+        <label>Email address</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="email"
+          formControlName="email"
+        />
+
+        <label for="pwd">Password</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="password"
+          formControlName="password"
+        />
+
+        <label>FirstName</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="firstname"
+        />
+        <label>Lastname</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="lastname"
+        />
+        <label>Address</label>
+        <textarea
+          id="typeahead-basic"
+          class="form-control"
+          formControlName="address"
+        ></textarea
+        ><br />
+        <label>Address Lat</label>
+        <textarea
+          id="typeahead-basic"
+          class="form-control"
+          formControlName="addressLat"
+        ></textarea
+        ><br />
+        <label>Address Long</label>
+        <textarea
+          id="typeahead-basic"
+          class="form-control"
+          formControlName="addressLong"
+        ></textarea
+        ><br />
+
+        <label>Current Lat</label>
+        <textarea
+          id="typeahead-basic"
+          class="form-control"
+          formControlName="currentLat"
+        ></textarea
+        ><br />
+        <label>Current Long</label>
+        <textarea
+          id="typeahead-basic"
+          class="form-control"
+          formControlName="currentLong"
+        ></textarea
+        ><br />
+
+        <label>Role</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="role"
+        />
+        <label>Line Id</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="lineId"
+        />
+        <label>Citizen Id</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="citizenId"
+        />
+        <label>Phone Id</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="phoneId"
+        />
+        <label>Hire Date</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          (click)="d.toggle()"
+          placeholder="yyyy-mm-dd"
+          formControlName="hireDate"
+          ngbDatepicker
+          #d="ngbDatepicker"
+        />
+
+        <label>Status</label>
+        <input
+          id="typeahead-basic"
+          class="form-control"
+          type="text"
+          formControlName="status"
+        />
+
+        <button
+          class="form-control"
+          type="submit"
+          (click)="onSubmit(wikiForm.value)"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="c('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<!-- <form [formGroup]="wikiForm">
   <div class="modal-body">
     <label>Email address</label>
     <input id="typeahead-basic" class="form-control" type="email" formControlName="email" />
@@ -39,10 +190,10 @@
     <label>Hire Date</label>
     <input id="typeahead-basic" class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd"
       formControlName="hireDate" ngbDatepicker #d="ngbDatepicker" />
-    <!-- <input type="text" formControlName="hireDate"> -->
+
     <label>Status</label>
     <input id="typeahead-basic" class="form-control" type="text" formControlName="status" />
 
     <button class="form-control" type="submit" (click)="onSubmit(wikiForm.value)">Submit</button>
   </div>
-</form>
+</form> -->

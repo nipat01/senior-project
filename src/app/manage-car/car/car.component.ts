@@ -38,6 +38,14 @@ export class CarComponent implements OnInit {
     lastMaintenance: new FormControl('', Validators.required),
 
   })
+  editFormTemplate = new FormGroup({
+    carId: new FormControl('', Validators.required),
+    carType: new FormControl('', Validators.required),
+    carModel: new FormControl('', Validators.required),
+    purchaseDate: new FormControl('', Validators.required),
+    lastMaintenance: new FormControl('', Validators.required),
+
+  })
 
   ngOnInit() {
     // this.db.list('car').valueChanges().subscribe(car => {
@@ -61,9 +69,9 @@ export class CarComponent implements OnInit {
     // show img
     this.starForm()
   }
-  editCar(formTemplate ,data) {
-    console.log('update:',data.key, formTemplate.value);
-    this.firebaseService.editCar(data.key, formTemplate.value);
+  editCar(editFormTemplate ,data) {
+    console.log('update:',data.key, editFormTemplate.value);
+    this.firebaseService.editCar(data.key, editFormTemplate.value);
 
   }
   // open() {

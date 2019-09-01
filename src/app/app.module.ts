@@ -82,6 +82,7 @@ import { CheckStatusUserComponent } from './jobs/user/check-status-user/check-st
 import { ReviceUserComponent } from './jobs/user/revice-user/revice-user.component';
 import { ShowStatusComponent } from './jobs/user/show-status/show-status.component';
 import { CheckLocitionComponent } from './jobs/user/check-locition/check-locition.component';
+import { SideNavComponent } from './forms/side-nav/side-nav.component';
 
 const routes: Routes = [
   { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
@@ -189,7 +190,8 @@ const routes: Routes = [
     CheckStatusUserComponent,
     ReviceUserComponent,
     ShowStatusComponent,
-    CheckLocitionComponent
+    CheckLocitionComponent,
+    SideNavComponent
 
 
 

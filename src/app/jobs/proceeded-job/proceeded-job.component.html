@@ -206,6 +206,7 @@
         <button type="button" (click)="delJob(data)">Delete</button>
       </td>
       <td>
+        <!-- diglog ใบเสร็จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ -->
         <ng-template #content let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">
@@ -241,16 +242,10 @@
                     #billfileUploader
                     formControlName="billImageUrl"
                     (change)="showPreview($event)"
-                    (click)="uploadBill()"
                   />
-                  <!-- <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
-                    This field is required.
-                  </div> -->
                 </div>
               </div>
-              <!-- </div> -->
 
-              <!-- <div class="card" style="width:25rem"> -->
               <div class="card-body">
                 <div class="text-center">
                   <img
@@ -270,12 +265,8 @@
                     formControlName="billNoImageUrl"
                     (change)="showPreview2($event)"
                   />
-                  <!-- <div class="text-danger" *ngIf="isSubmitted && formControls.errors?.required">
-                    This field is required.
-                  </div> -->
                 </div>
               </div>
-              <!-- </div> -->
 
               <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
               <input
@@ -323,10 +314,98 @@
         </ng-template>
         <button
           class="btn btn-lg btn-outline-secondary"
-          (click)="openBill(content)"
+          (click)="openBill(data, content, contentEdit)"
         >
           ใบเสร็จ
         </button>
+        <!-- edit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+        <ng-template #contentEdit let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+              กรุณากรอกบิลใบเสร็จ
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="formTemplateForEdit">
+              <!-- <div class="card" style="width:25rem"> -->
+              <div class="card-body">
+                <div class="text-center">
+                  <img
+                    [src]="data.value.billImageUrl"
+                    width="350px"
+                    height="250px"
+                    (click)="billfileUploader.click()"
+                  />
+                </div>
+              </div>
+              <!-- </div> -->
+
+              <!-- <div class="card" style="width:25rem"> -->
+              <div class="card-body">
+                <div class="text-center">
+                  <img
+                    [src]="data.value.billNoImageUrl"
+                    width="350px"
+                    height="250px"
+                    (click)="billNofileUploader.click()"
+                  />
+                </div>
+              </div>
+              <!-- </div> -->
+
+              <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="totalPayment"
+                [(ngModel)]="data.value.totalPayment"
+              />
+              <label for="typeahead-basic">ค่ามัดจำ</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="deposit"
+                [(ngModel)]="data.value.deposit"
+              />
+              <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="bill"
+                [(ngModel)]="data.value.bill"
+              />
+              <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="billNo"
+                [(ngModel)]="data.value.billNo"
+              />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="editformTemplateFor(formTemplateForEdit, data)"
+            >
+              Save
+            </button>
+          </div>
+        </ng-template>
+        <!-- /////////////////////////////////////////////////////////////////////////// -->
       </td>
 
       <td>
@@ -368,44 +447,3 @@
     </tr>
   </tbody>
 </table>
-
-<!-- <ng-template #con let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <td>source</td>
-          <td>destination</td>
-
-          <td>customerPhone</td>
-          <td>customerLine</td>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of job">
-          <td>{{ data.value.source }}</td>
-          <td>{{ data.value.destination }}</td>
-
-          <td>{{ data.value.customerPhone }}</td>
-          <td>{{ data.value.customerLine }}</td>
-
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary">edit</button>
-    <button type="button" class="btn btn-outline-success" (click)="c('Save click')">Save</button>
-  </div>
-
-  <td>
-
-  </td>
-</ng-template> -->

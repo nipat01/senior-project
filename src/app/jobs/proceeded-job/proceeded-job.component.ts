@@ -41,6 +41,13 @@ export class ProceededJobComponent implements OnInit {
     billImageUrl: new FormControl('', Validators.required),
     billNoImageUrl: new FormControl('', Validators.required)
   })
+  formTemplateForEdit: FormGroup = new FormGroup({
+    totalPayment: new FormControl('', Validators.required),
+    deposit: new FormControl('', Validators.required),
+    bill: new FormControl('', Validators.required),
+    billNo: new FormControl('', Validators.required),
+
+  })
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
@@ -95,9 +102,12 @@ export class ProceededJobComponent implements OnInit {
     this.firebaseService.editJob(data.key, jobData);
   }
 
-  openBill(content) {
-    console.log(111);
-    this.modalService.open(content);
+  openBill(data, content, contentEdit) {
+    if(data.value.billImageUrl==='' ){
+      console.log(111);
+      this.modalService.open(content);
+    }
+    else this.modalService.open(contentEdit)
 
   }
 
@@ -143,6 +153,11 @@ export class ProceededJobComponent implements OnInit {
       ).subscribe();
     }
   }
+  editformTemplateFor(formTemplateForEdit, data){
+    console.log('formTemplateForEdit',formTemplateForEdit);
+
+    this.firebaseService.editJob(data.key, formTemplateForEdit.value);
+  }
 
   get formControls() {
     return this.formTemplate['controls'];
@@ -157,6 +172,8 @@ export class ProceededJobComponent implements OnInit {
   }
 
   showPreview(event: any) {
+    console.log('even', event.target.files, event.target.files[0]);
+
     console.log('showPreview', this.formTemplate.get('billImageUrl').value);
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

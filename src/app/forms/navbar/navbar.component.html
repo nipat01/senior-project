@@ -1,7 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand text-white" [routerLink]="['/']"> J I S T I G </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -11,19 +18,19 @@
         <a class="nav-link" [routerLink]="['/']"> หน้าแรก</a>
       </li> -->
       <!-- user -->
-      <li *ngIf="auth.authenticated && !auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/jobdriver']">งาน </a>
       </li>
       <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/homepageuser']">JISTIC </a>
       </li>
-      <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin() ">
+      <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/serviceuser']">บริการ </a>
       </li>
       <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/cartypeuser']">ประเภทรถ </a>
       </li>
-      <li *ngIf="!auth.authenticated ||  !auth.authenticatedAdmin()">
+      <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/portfoliouser']">ผลงาน </a>
       </li>
       <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
@@ -37,34 +44,120 @@
       <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/profile']">Profile </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/homepageadmin']">JISTIC </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/serviceadmin']">บริการ </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/cartypeadmin']">ประเภทรถ </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/portfolioadmin']">ผลงาน </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/bankadmin']">ช่องทางชำระเงิน </a>
       </li>
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin() ">
+      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/aboutadmin']">เกี่ยวกับเรา </a>
       </li>
       <li *ngIf="!auth.authenticated">
         <a class="nav-link" [routerLink]="['/login']">เข้าสู่ระบบ </a>
       </li>
-      <li *ngIf="auth.authenticated">
+      <!-- <li *ngIf="auth.authenticated">
         <a class="nav-link" [routerLink]="['/']" (click)="this.auth.signOut()">ออกจากระบบ</a>
       </li>
       <li *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/profileuser']">ข้อมูลส่วนตัว </a>
+      </li> -->
+      <li
+        *ngIf="auth.authenticated"
+        class="nav-item"
+        ngbDropdown
+        display="dynamic"
+        placement="bottom-right"
+      >
+        <a
+          class="nav-link"
+          style="cursor: pointer"
+          ngbDropdownToggle
+          id="navbarDropdown3"
+          role="button"
+        >
+          {{ this.auth.username }}
+        </a>
+        <div
+          ngbDropdownMenu
+          aria-labelledby="navbarDropdown3"
+          class="dropdown-menu"
+        >
+          <a
+            *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+            [routerLink]="['/profileuser']"
+            class="dropdown-item"
+            (click)="$event.preventDefault()"
+            >ข้อมูลส่วนตัว</a
+          >
+          <a
+            *ngIf="auth.authenticated "
+            [routerLink]="['/profileuser']"
+            class="dropdown-item"
+            (click)="openEditData(contentEditData)"
+            (click)="$event.preventDefault()"
+            >เปลี่ยนรหัสผ่าน</a
+          >
+          <a
+            class="dropdown-item"
+            [routerLink]="['/']"
+            (click)="this.auth.signOut()"
+            (click)="$event.preventDefault()"
+            >ออกจากระบบ</a
+          >
+        </div>
       </li>
-
     </ul>
   </div>
 </nav>
+
+<!-- เปลี่ยนรหัสผ่าน----------------------------------------------------------------------- -->
+<!-- <ng-template #contentEditData let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เปลี่ยนรหัสผ่าน</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="editPasswordForm">
+
+        <div class="form-group">
+
+          <label>อีเมลล์</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+
+          />
+
+        </div>
+      </form>
+    </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="editPassword(editPasswordForm)"
+      (click)="c('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+ -->

@@ -1,43 +1,48 @@
-<br>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
+<br />
 <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
-
   <label for="firstname">FirstName</label>
-  <input type="text" name="firstname" ngModel>
-  <button type="submit">Submit</button>
+  <input class="form-control" type="text" name="firstname" ngModel />
+  <button class="form-control" type="submit">Submit</button>
 </form>
-<br>
-<br>
+<br />
+<br />
+<div class="text-center">
 
-<div *ngFor="let data of homepage">
-
-  {{data.value.firstname}}
+  <div *ngFor="let data of homepage">
+    {{ data.value.firstname }}
+  </div>
 </div>
 
-<br>
-<br>
-<br>
-<p>ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง <br>
-  Ex: https://www.youtube.com/watch?v=C64wuNOj-do <br>
-  นำ C64wuNOj-do ไปใส่</p>
+<br />
+<br />
+<br />
+<p>
+  ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง <br />
+  Ex: https://www.youtube.com/watch?v=C64wuNOj-do <br />
+  นำ C64wuNOj-do ไปใส่
+</p>
 <form (ngSubmit)="addVideo(videoForm)" #videoForm="ngForm">
-
   <label for="video">video</label>
-  <input type="text" name="video1" ngModel>
-  <button type="submit">Submit</button>
-
+  <input class="form-control" type="text" name="video1" ngModel />
+  <button class="form-control" type="submit" >Submit</button>
 </form>
-
+<div class="text-center">
 <div *ngFor="let data of video">
-  {{ data.value.video1}}
-  <br>
+  {{ data.value.video1 }}
+  <br />
 
-  <iframe width="560" height="315" [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)"
-    frameborder="0" allowfullscreen></iframe>
+  <iframe
+    width="560"
+    height="315"
+    [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
 </div>
-
+</div>
 
 <app-addjob></app-addjob>
 <app-check-status-user></app-check-status-user>

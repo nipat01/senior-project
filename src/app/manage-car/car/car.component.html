@@ -1,57 +1,97 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลรถ</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-
     <form [formGroup]="formTemplate">
       <div class="text-center">
-        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+        <img
+          [src]="imgSrc"
+          width="350px"
+          height="250px"
+          (click)="fileUploader.click()"
+        />
       </div>
       <div class="form-group">
         <label>Select file to upload</label>
-        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-          (change)="showPreview($event)" />
+        <input
+          type="file"
+          accept="image/*"
+          class="form-control"
+          #fileUploader
+          formControlName="imageUrl"
+          (change)="showPreview($event)"
+        />
 
         <!-- </div> -->
         <!-- <div class="form-row"> -->
         <label>ทะเบียนรถ</label>
-        <input type="text" class="form-control" formControlName="carId" ngModel>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="carId"
+          ngModel
+        />
         <label>ประเภทรถ</label>
-        <input type="text" class="form-control" formControlName="carType" ngModel>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="carType"
+          ngModel
+        />
         <label>รุ่นของรถ</label>
-        <input type="text" class="form-control" formControlName="carModel" ngModel>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="carModel"
+          ngModel
+        />
 
         <label>วันที่ซื้อ</label>
-        <input type="text" class="form-control" formControlName="purchaseDate" ngModel>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="purchaseDate"
+          ngModel
+        />
         <label>วันที่บำรุงรักษาล่าสุด</label>
-        <input type="text" class="form-control" formControlName="lastMaintenance" ngModel>
-
-
+        <input
+          type="text"
+          class="form-control"
+          formControlName="lastMaintenance"
+          ngModel
+        />
       </div>
-
     </form>
-
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="onSubmit(formTemplate)">Save</button>
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="onSubmit(formTemplate)"
+    >
+      Save
+    </button>
   </div>
 </ng-template>
-<button class="btn btn-lg btn-outline-secondary" (click)="openBill(content)">เพิ่มข้อมูลรถ
+<button class="btn btn-lg btn-outline-secondary" (click)="openBill(content)">
+  เพิ่มข้อมูลรถ
 </button>
-
-
-
 
 <!-- แสดงผล -->
 
-<table class='table'>
+<table class="table">
   <thead>
     <tr>
       <td>ทะเบียนรถ</td>
@@ -70,89 +110,175 @@
         <ng-template #con let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="text-center"> <img [src]="data.value.imageUrl" width="350px" height="250px" class="img-fluid" />
+            <div class="text-center">
+              <img
+                [src]="data.value.imageUrl"
+                width="350px"
+                height="250px"
+                class="img-fluid"
+              />
             </div>
 
             <label for="typeahead-basic">ทะเบียนรถ</label>
-            <input id="typeahead-basic" type="text" class="form-control" name="carId" ngModel
-              [(ngModel)]="data.value.carId" />
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="carId"
+              ngModel
+              [(ngModel)]="data.value.carId"
+            />
             <label for="typeahead-basic">ประเภทรถ</label>
-            <input id="typeahead-basic" type="text" class="form-control" name="destination" ngModel
-              [(ngModel)]="data.value.carType" />
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="destination"
+              ngModel
+              [(ngModel)]="data.value.carType"
+            />
             <label for="typeahead-basic">รุ่น</label>
-            <input id="typeahead-basic" type="text" class="form-control" name="worktype" ngModel
-              [(ngModel)]="data.value.carModel" />
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="worktype"
+              ngModel
+              [(ngModel)]="data.value.carModel"
+            />
             <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-            <input id="typeahead-basic" type="text" class="form-control" name="customerFirstname" ngModel
-              [(ngModel)]="data.value.purchaseDate" />
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="customerFirstname"
+              ngModel
+              [(ngModel)]="data.value.purchaseDate"
+            />
             <label for="typeahead-basic"> วันที่ซื้อ</label>
-            <input id="typeahead-basic" type="text" class="form-control" name="workDate" ngModel
-              [(ngModel)]="data.value.lastMaintenance" />
+            <input
+              id="typeahead-basic"
+              type="text"
+              class="form-control"
+              name="workDate"
+              ngModel
+              [(ngModel)]="data.value.lastMaintenance"
+            />
           </div>
 
-
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary">
-              edit
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="c('Save click')"
+            >
+              Close
             </button>
-            <button type="button" class="btn btn-outline-success" (click)="c('Save click')">
+          </div>
+        </ng-template>
+        {{ data.value.carId }}
+      </td>
+      <td (click)="openData(con)">{{ data.value.carType }}</td>
+      <td (click)="openData(con)">{{ data.value.carModel }}</td>
+      <td (click)="openData(con)">{{ data.value.purchaseDate }}</td>
+      <td (click)="openData(con)">{{ data.value.lastMaintenance }}</td>
+      <td>
+        <!-- editttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt -->
+        <ng-template #content let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+              กรุณากรอกบิลใบเสร็จ
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="editFormTemplate">
+              <div class="card-body">
+                <div class="text-center">
+                  <img
+                    [src]="data.value.imageUrl"
+                    width="350px"
+                    height="250px"
+                    (click)="fileUploader.click()"
+                  />
+                </div>
+                <label for="typeahead-basic">ทะเบียนรถ</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="carId"
+                  [(ngModel)]="data.value.carId"
+                />
+                <label for="typeahead-basic">ประเภทรถ</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="carType"
+                  [(ngModel)]="data.value.carType"
+                />
+                <label for="typeahead-basic">รุ่น</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="carModel"
+                  [(ngModel)]="data.value.carModel"
+                />
+                <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="purchaseDate"
+                  [(ngModel)]="data.value.purchaseDate"
+                />
+                <label for="typeahead-basic"> วันที่ซื้อ</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="lastMaintenance"
+                  [(ngModel)]="data.value.lastMaintenance"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="editCar(editFormTemplate, data)"
+            >
               Save
             </button>
           </div>
         </ng-template>
-        {{data.value.carId}}
-      </td>
-      <td (click)="openData(con)">{{data.value.carType}}</td>
-      <td (click)="openData(con)">{{data.value.carModel}}</td>
-      <td (click)="openData(con)">{{data.value.purchaseDate}}</td>
-      <td (click)="openData(con)">{{data.value.lastMaintenance}}</td>
-      <td>
-        <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">กรุณากรอกบิลใบเสร็จ</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <form [formGroup]="formTemplate">
-
-              <div class="card-body">
-                <!-- <div class="text-center"> <img [src]="data.value.imageUrl" width="350px" height="250px"
-                    class="img-fluid" /> </div> -->
-
-
-                <label for="typeahead-basic">ทะเบียนรถ</label>
-                <input id="typeahead-basic" type="text" class="form-control" formControlName="carId"
-                  [(ngModel)]="data.value.carId" />
-                <label for="typeahead-basic">ประเภทรถ</label>
-                <input id="typeahead-basic" type="text" class="form-control" formControlName="carType"
-                  [(ngModel)]="data.value.carType" />
-                <label for="typeahead-basic">รุ่น</label>
-                <input id="typeahead-basic" type="text" class="form-control" formControlName="carModel"
-                  [(ngModel)]="data.value.carModel" />
-                <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-                <input id="typeahead-basic" type="text" class="form-control" formControlName="purchaseDate"
-                  [(ngModel)]="data.value.purchaseDate" />
-                <label for="typeahead-basic"> วันที่ซื้อ</label>
-                <input id="typeahead-basic" type="text" class="form-control" formControlName="lastMaintenance"
-                  [(ngModel)]="data.value.lastMaintenance" />
-              </div>
-
-            </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" (click)="editCar(formTemplate,data)">Save</button>
-          </div>
-        </ng-template>
-        <button class="btn btn-lg btn-outline-secondary" (click)="openEditCar(content)">Edit </button>
+        <button
+          class="btn btn-lg btn-outline-secondary"
+          (click)="openEditCar(content)"
+        >
+          Edit
+        </button>
+        <!-- --------------------------------------------------------------------------------- -->
       </td>
     </tr>
   </tbody>
