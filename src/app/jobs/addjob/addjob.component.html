@@ -2,6 +2,7 @@
 <h1>เพิ่มข้อมูลการจ้าง</h1>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
+<div class="inputGroup">
   <label for="source">ระบุต้นทาง</label>
   <input type="text" name="source" ngModel />
   <label for="destination">ระบุปลายทาง</label>
@@ -37,7 +38,7 @@
   <input type="text" name="customerLine" ngModel />
   <label for="detail">รายละเอียดการจ้าง</label>
   <input type="text" name="detail" ngModel />
-
+</div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->
 
   <button type="submit">Submit</button>

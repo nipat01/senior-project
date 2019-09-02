@@ -91,15 +91,15 @@
 
 <!-- แสดงผล -->
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
-      <td>ทะเบียนรถ</td>
-      <td>ประเภทรถ</td>
-      <td>รุ่น</td>
-      <td>วันที่บำรุงรักษาครั้งล่าสุด</td>
-      <td>วันที่ซื้อ</td>
-      <td>action</td>
+      <th scope="col">ทะเบียนรถ</th>
+      <th scope="col">ประเภทรถ</th>
+      <th scope="col">รุ่น</th>
+      <th scope="col">วันที่บำรุงรักษาครั้งล่าสุด</th>
+      <th scope="col">วันที่ซื้อ</th>
+      <th scope="col">action</th>
     </tr>
   </thead>
 
@@ -273,10 +273,10 @@
           </div>
         </ng-template>
         <button
-          class="btn btn-lg btn-outline-secondary"
+          class="btn icon"
           (click)="openEditCar(content)"
         >
-          Edit
+          <i class="far fa-edit"></i>
         </button>
         <!-- --------------------------------------------------------------------------------- -->
       </td>

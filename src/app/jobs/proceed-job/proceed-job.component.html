@@ -1,20 +1,20 @@
 <app-job></app-job>
 <h3>ดำเนินการ</h3>
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
-      <td>source</td>
-      <td>destination</td>
-      <td>worktype</td>
-      <td>customerFirstname</td>
-      <td>workDate</td>
-      <td>workTime</td>
-      <td>customerPhone</td>
-      <td>customerLine</td>
-      <td>detail</td>
-      <td>status</td>
-      <td>driver</td>
-      <td>action</td>
+    <th scope="col">source</th>
+    <th scope="col">destination</th>
+    <th scope="col">worktype</th>
+    <th scope="col">customerFirstname</th>
+    <th scope="col">workDate</th>
+    <th scope="col">workTime</th>
+    <th scope="col">customerPhone</th>
+    <th scope="col">customerLine</th>
+    <th scope="col">detail</th>
+    <th scope="col">status</th>
+    <th scope="col">driver</th>
+    <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
@@ -142,8 +142,10 @@
       <td>{{ data.value.status }}</td>
       <td>{{ data.value.driver }}</td>
       <td>
-        <button type="button" (click)="delJob(data)">Delete</button>
-        <button type="button" (click)="editJob(data)">Submit</button>
+        <div class="iconGroup">
+          <button type="button" class="btn icon" (click)="delJob(data)"><i class="fas fa-trash-alt"></i></button>
+          <button type="button" class="btn icon" (click)="editJob(data)"><i class="fas fa-check-circle"></i></button>
+        </div>
       </td>
       <!-- <td>
         <select>

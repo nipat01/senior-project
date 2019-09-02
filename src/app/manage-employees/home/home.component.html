@@ -163,21 +163,21 @@
 </button>
 <!-- ------------------------------------------------------------------------------------- -->
 <!-- แสดงผลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
-      <td>Email</td>
-      <td>Firstname</td>
-      <td>Lastname</td>
-      <td>Address</td>
+     <th scope="col">Email</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Address</th>
 
-      <td>Role</td>
-      <td>Line</td>
-      <td>Citizen</td>
-      <td>Phone</td>
-      <td>HireDate</td>
-      <td>Status</td>
-      <td>Action</td>
+      <th scope="col">Role</th>
+      <th scope="col">Line</th>
+      <th scope="col">Citizen</th>
+      <th scope="col">Phone</th>
+      <th scope="col">HireDate</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -344,8 +344,14 @@
       <td (click)="openData(contentData)">{{ data.value.status }}</td>
 
       <td>
-        <button type="button" (click)="delWiki(data)">Delete</button>
-
+      <div class="iconGroup">
+        <button type="button" class="btn icon" (click)="delWiki(data)">
+        <i class="fas fa-trash-alt"></i>
+        </button>
+         <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
+          <i class="far fa-edit"></i>
+        </button>
+      </div>
         <!-- edit ----------------------------------------------------------------------------------- -->
         <ng-template #contentEditData let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -490,10 +496,6 @@
             </button>
           </div>
         </ng-template>
-
-        <button type="button" (click)="openEditData(contentEditData, data)">
-          Edit
-        </button>
         <!-- -------------------------------------------------------------------------------------- -->
       </td>
     </tr>

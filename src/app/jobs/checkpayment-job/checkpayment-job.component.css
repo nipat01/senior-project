@@ -1,4 +1,4 @@
-.table {
+/* .table {
     border-collapse: collapse;
     border-spacing: 0;
     empty-cells: show;
@@ -19,4 +19,22 @@
     text-align: left;
     vertical-align: bottom;
     }
-  
+   */
+select {
+    border-radius: 5px;
+}
+.btn.icon {
+     color: #004085;
+   }
+   .iconGroup {
+     display: flex;
+   }
+   th {
+     text-align: center;
+   }
+   td {
+     text-align: center;
+   }
+    thead {
+     background-color: #d8e3ef;
+   }

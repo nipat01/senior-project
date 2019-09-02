@@ -38,14 +38,14 @@
 <h3>ผลลัพท์ค้นหา</h3>
 <hr />
 <label>ภาพรวมระบบ :</label>
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
-      <td>พนักงาน</td>
-      <td>คะแนนความพึงพอใจ</td>
-      <td>การจ้างงาน</td>
-      <td>วันที่เริ่มงาน</td>
-      <td>action</td>
+      <th scope="col">พนักงาน</th>
+      <th scope="col">คะแนนความพึงพอใจ</th>
+      <th scope="col">การจ้างงาน</th>
+      <th scope="col">วันที่เริ่มงาน</th>
+      <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
@@ -61,12 +61,13 @@
       <td>
         <button
           type="button"
+          class="btn icon"
           (click)="showJobByDriver(data1)"
           (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed"
           aria-controls="collapForm"
         >
-          แสดงรายการ
+          <i class="far fa-file-alt"></i>
         </button>
       </td>
     </tr>
@@ -74,20 +75,20 @@
 </table>
 
 <div id="collapForm" [ngbCollapse]="!isCollapsed">
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
-        <td>source</td>
-        <td>destination</td>
-        <td>worktype</td>
-        <td>customerFirstname</td>
-        <td>workDate</td>
-        <td>workTime</td>
-        <td>customerPhone</td>
-        <td>customerLine</td>
-        <td>detail</td>
-        <td>status</td>
-        <td>driver</td>
+        <th scope="col">source</th>
+        <th scope="col">destination</th>
+        <th scope="col">worktype</th>
+        <th scope="col">customerFirstname</th>
+        <th scope="col">workDate</th>
+        <th scope="col">workTime</th>
+        <th scope="col">customerPhone</th>
+        <th scope="col">customerLine</th>
+        <th scope="col">detail</th>
+        <th scope="col">status</th>
+        <th scope="col">driver</th>
       </tr>
     </thead>
     <tbody>

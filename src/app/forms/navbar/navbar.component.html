@@ -101,7 +101,7 @@
           >
           <a
             *ngIf="auth.authenticated "
-            [routerLink]="['/profileuser']"
+            [routerLink]="['/']"
             class="dropdown-item"
             (click)="openEditData(contentEditData)"
             (click)="$event.preventDefault()"
@@ -121,7 +121,7 @@
 </nav>
 
 <!-- เปลี่ยนรหัสผ่าน----------------------------------------------------------------------- -->
-<!-- <ng-template #contentEditData let-c="close" let-d="dismiss">
+<ng-template #contentEditData let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">เปลี่ยนรหัสผ่าน</h4>
     <button
@@ -160,4 +160,4 @@
     </button>
   </div>
 </ng-template>
- -->
+

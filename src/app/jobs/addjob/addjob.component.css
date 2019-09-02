@@ -1,10 +1,10 @@
 input {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  font-size: 14px;
-  box-sizing: border-box;
-  }
+  width: 400px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 1px #95989a;
+}
+
 
 textarea{
 width: 100%;
@@ -20,4 +20,7 @@ margin: 8px 0;
 color: #000000;
 font-size: 14px;
 box-sizing: border-box;
+}
+.inputGroup{
+  display: grid;
 }

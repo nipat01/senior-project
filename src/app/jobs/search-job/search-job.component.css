@@ -1,4 +1,4 @@
-.table {
+/* .table {
     border-collapse: collapse;
     border-spacing: 0;
     empty-cells: show;
@@ -19,4 +19,10 @@
     text-align: left;
     vertical-align: bottom;
     }
-  
+   */
+  th {
+     text-align: center;
+   }
+ thead {
+     background-color: #d8e3ef;
+   }
