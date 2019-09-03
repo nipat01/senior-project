@@ -13,8 +13,8 @@
       <th scope="col">customerLine</th>
       <th scope="col">detail</th>
       <th scope="col">status</th>
-      <th scope="col">action</th>
       <th scope="col">driver</th>
+      <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
@@ -57,10 +57,10 @@
               [(ngModel)]="data.value.detail" />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary">
+            <button type="button" class="btn edit">
               edit
             </button>
-            <button type="button" class="btn btn-outline-success" (click)="c('Save click')">
+            <button type="button" class="btn save" (click)="c('Save click')">
               Save
             </button>
           </div>
@@ -78,18 +78,18 @@
       <td>{{ data.value.detail }}</td>
       <td>{{ data.value.status }}</td>
       <td>
-         <div class="iconGroup">
-          <button type="button" class="btn icon" (click)="delJob(data)"><i class="fas fa-trash-alt"></i></button>
-          <button type="button" class="btn icon" (click)="editJob(data, i)"><i class="fas fa-check-circle"></i></button>
-        </div>
-      </td>
-      <td>
         <select (change)="selectValue($event, i)">
           <option value="">------</option>
           <option value="{{data2.value.email}},{{data2.value.firstname}}" *ngFor="let data2 of wikis">
             {{ data2.value.firstname }}
           </option>
         </select>
+      </td>
+      <td>
+        <div class="iconGroup">
+          <button type="button" class="btn icon" (click)="editJob(data, i)" placement="bottom" ngbTooltip="Submit"><i class="fas fa-check-circle"></i></button>
+          <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
+        </div>
       </td>
     </tr>
   </tbody>

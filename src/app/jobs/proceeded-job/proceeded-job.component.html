@@ -15,8 +15,6 @@
     <th scope="col">status</th>
     <th scope="col">driver</th>
     <th scope="col">action</th>
-    <th scope="col">action</th>
-    <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
@@ -172,12 +170,12 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary">
+            <button type="button" class="btn edit">
               edit
             </button>
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="c('Save click')"
             >
               Save
@@ -203,9 +201,15 @@
       <td>{{ data.value.status }}</td>
       <td>{{ data.value.driver }}</td>
       <td>
-       <button type="button" class="btn icon" (click)="delJob(data)"><i class="fas fa-trash-alt"></i></button>
+        <div class="iconGroup">
+       <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
+       <button class="btn icon" (click)="openBill(data, content, contentEdit)" placement="bottom" ngbTooltip="บิลใบเสร็จ"><i class="fas fa-money-check-alt"></i></button>
+       <button class="btn icon" (click)="openReview(review)" placement="bottom" ngbTooltip="คะแนนการให้บริการ"><i class="far fa-comment-dots"></i></button>
+      </div>
       </td>
-      <td>
+    </tr>
+  </tbody>
+</table>
         <!-- diglog ใบเสร็จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ -->
         <ng-template #content let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -305,19 +309,13 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="onSubmit(formTemplate, data)"
             >
               Save
             </button>
           </div>
         </ng-template>
-        <button
-          class="btn icon"
-          (click)="openBill(data, content, contentEdit)"
-        >
-          <i class="fas fa-money-check-alt"></i>
-        </button>
         <!-- edit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
         <ng-template #contentEdit let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -398,7 +396,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="editformTemplateFor(formTemplateForEdit, data)"
             >
               Save
@@ -406,9 +404,6 @@
           </div>
         </ng-template>
         <!-- /////////////////////////////////////////////////////////////////////////// -->
-      </td>
-
-      <td>
         <ng-template #review let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">คะแนนการบริการ</h4>
@@ -430,20 +425,10 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="c('Save click')"
             >
               Submit
             </button>
           </div>
         </ng-template>
-        <button
-          class="btn icon"
-          (click)="openReview(review)"
-        >
-         <i class="far fa-comment-dots"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>

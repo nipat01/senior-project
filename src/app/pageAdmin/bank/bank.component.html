@@ -7,10 +7,12 @@
 <p>กรุณากรอกรายละเอียดธนาคาร</p>
 <p>Ex:ธนาคารกสิกร สาขา ราชมงคลธัญบุรี เลขที่บัญชี 123-4-56789-0</p>
 <form (ngSubmit)="addBank(bankForm)" #bankForm="ngForm">
+  <div class="control">
   <label for="bank">รายละเอียดธนาคาร</label>
-  <input type="text" name="bank" ngModel />
-  <button type="submit">Submit</button>
+  <input class="textBox" type="text" name="bank" ngModel />
+  <button class="btn submit" type="submit">Submit</button>
+  </div>
 </form>
-<div *ngFor="let data of bank">
+<label  *ngFor="let data of bank">
   {{ data.value.bank }}
-</div>
+<label>

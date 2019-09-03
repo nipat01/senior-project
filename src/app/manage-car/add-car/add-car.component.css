@@ -1,11 +1,19 @@
-input[type=text] {
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-font-size: 14px;
-box-sizing: border-box;
+.textBox {
+  width: 400px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 1px #95989a;
+  margin-left: 40px;
+   }
+   .btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+   }
+   .control {
+  display: grid;
 }
-
 
 
 /* input {

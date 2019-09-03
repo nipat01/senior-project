@@ -1,26 +1,31 @@
-input {
-  width: 400px;
-  height: 30px;
-  border-radius: 5px;
-  border: solid 1px #95989a;
-}
-
-
-textarea{
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-font-size: 14px;
-box-sizing: border-box;
-}
-button{
-width: 100%;
-padding: 12px 20px;
-margin: 8px 0;
-color: #000000;
-font-size: 14px;
-box-sizing: border-box;
-}
-.inputGroup{
-  display: grid;
-}
+.textBox {
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 40px;
+   }
+    .control {
+     display: grid;
+   }
+   .btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 40px;
+   }
+   .textArea{
+    width: 400px;
+    height: 100px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 40px;
+   }
+   label {
+     margin-left: 40px;
+   }
+   ngb-timepicker {
+     margin-left: 40px;
+   }

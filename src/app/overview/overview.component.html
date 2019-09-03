@@ -3,11 +3,10 @@
 <br />
 <p>ผลประเมินความพึงพอใจ</p>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+  <div class="control">
   <label>วันที่</label>
-  <div class="form-group">
-    <div class="input-group">
       <input
-        class="form-control"
+        class="textBox"
         (click)="d.toggle()"
         placeholder="yyyy-mm-dd"
         name="workDate"
@@ -15,13 +14,9 @@
         ngbDatepicker
         #d="ngbDatepicker"
       />
-    </div>
-  </div>
   <p>ถึง</p>
-  <div class="form-group">
-    <div class="input-group">
       <input
-        class="form-control"
+        class="textBox"
         (click)="d2.toggle()"
         placeholder="yyyy-mm-dd"
         name="endworkDate"
@@ -29,9 +24,8 @@
         ngbDatepicker
         #d2="ngbDatepicker"
       />
-    </div>
+  <button class="btn submit" type="submit">Submit</button>
   </div>
-  <button class="form-control" type="submit">Submit</button>
 </form>
 
 <hr />

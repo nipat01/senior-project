@@ -38,3 +38,15 @@ select {
     thead {
      background-color: #d8e3ef;
    }
+   .modal-header {
+     background-color: #d8e3ef;
+   }
+   .btn.save {
+     background-color: #d8e3ef;
+   }
+   .btn.icon {
+     color: #004085;
+   }
+   .btn.edit {
+      background-color: #d0cfcf;
+   }

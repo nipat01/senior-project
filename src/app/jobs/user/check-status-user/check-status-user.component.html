@@ -6,8 +6,10 @@
   <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
 
   <label>กรุณากรอกข้อมูล</label>
-  <input class="form-control" type="text" name="searchJob" ngModel /> <br />
-  <button class="form-control" type="submit">Submit</button>
+  <div class="control">
+  <input class="textBox" type="text" name="searchJob" ngModel /> <br />
+  <button class="btn submit" type="submit">Submit</button>
+  </div>
 </form>
 
 <hr />
@@ -16,6 +18,7 @@
 
 <div *ngFor="let data of job; let i = index">
   <hr />
+  <div class="text">
   วันที่: {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
   {{ data.value.workDate.year }} {{ data.value.workTime.hour }}:{{
     data.value.workTime.minute
@@ -27,6 +30,7 @@
   ปลายทาง: {{ data.value.worktype }}<br />
   พนักงานขับรถ: {{ data.value.driver }}<br />
   รีวิว: {{ data.value.review }} <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br>
+  </div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการ</h4>
@@ -58,7 +62,7 @@
     <div class="modal-footer">
       <button
         type="button"
-        class="btn btn-outline-success"
+        class="btn save"
         (click)="editJob(formTemplate, data)"
       >
         Save
@@ -66,10 +70,10 @@
     </div>
   </ng-template>
   <button
-    class="btn btn-lg btn-outline-secondary"
+    class="btn icon"
     (click)="openBill(content, data, alert222)"
   >
-    ให้คะแนนบริการ
+    <i class="far fa-comment-dots"></i> ให้คะแนนบริการ
   </button>
   <hr />
   <br />
@@ -97,7 +101,7 @@
     <div class="modal-footer">
       <button
         type="button"
-        class="btn btn-outline-success"
+        class="btn  save"
         (click)="d('Cross click')"
       >
         Close

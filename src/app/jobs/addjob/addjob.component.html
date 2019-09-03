@@ -2,11 +2,11 @@
 <h1>เพิ่มข้อมูลการจ้าง</h1>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
-<div class="inputGroup">
+<div class="control">
   <label for="source">ระบุต้นทาง</label>
-  <input type="text" name="source" ngModel />
+  <input class="textBox" type="text" name="source" ngModel />
   <label for="destination">ระบุปลายทาง</label>
-  <input type="text" name="destination" ngModel />
+  <input class="textBox" type="text" name="destination" ngModel />
   <label for="worktype">รูปแบบงาน</label>
   <div ngModel ngbRadioGroup name="worktype">
     <label ngbButtonLabel class="btn-primary">
@@ -18,9 +18,10 @@
   </div>
   <!-- <input type="text" name="worktype" ngModel /> -->
   <label for="customerFirstname">ชื่อลูกค้า</label>
-  <input type="text" name="customerFirstname" ngModel />
+  <input  class="textBox" type="text" name="customerFirstname" ngModel />
   <label for="workDate">วันที่</label>
   <input
+    class="textBox"
     (click)="d.toggle()"
     placeholder="yyyy-mm-dd"
     name="workDate"
@@ -33,13 +34,13 @@
   <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
   <!-- <input type="text" name="workTime" ngModel /> -->
   <label for="customerPhone">เบอร์ติดต่อ</label>
-  <input type="text" name="customerPhone" ngModel />
+  <input class="textBox" type="text" name="customerPhone" ngModel />
   <label for="customerLine">ไลน์ติดต่อ</label>
-  <input type="text" name="customerLine" ngModel />
+  <input  class="textBox" type="text" name="customerLine" ngModel />
   <label for="detail">รายละเอียดการจ้าง</label>
-  <input type="text" name="detail" ngModel />
+  <input  class="textArea"type="text" name="detail" ngModel />
 </div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->
 
-  <button type="submit">Submit</button>
+  <button  class="btn submit" type="submit">Submit</button>
 </form>

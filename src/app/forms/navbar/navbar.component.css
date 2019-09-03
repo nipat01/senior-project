@@ -4,3 +4,6 @@
 .bg-dark {
     background-color: #d8e3ef!important;
 }
+.navbar-brand.text {
+  color: #004085;
+}

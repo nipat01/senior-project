@@ -1,24 +1,4 @@
-/* .table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  empty-cells: show;
-  border: 1px solid #F1EFEF;
-  width: 100%;
-  }
-  .table  td, th {
-  border-left: 1px solid #CFCACA;
-  border-width: 0 0 0 1px;
-  font-size: inherit;
-  margin: 0;
-  overflow: visible;
-  padding: 0.5rem 1rem;
-  }
-  .table  thead {
-  background-color: #02348A;
-  color: #F3EDED;
-  text-align: left;
-  vertical-align: bottom;
-  } */
+
  .btn.icon {
      color: #004085;
    }
@@ -34,3 +14,34 @@
     thead {
      background-color: #d8e3ef;
    }
+   .btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+   }
+p {
+     margin-left: 40px;
+    margin-top: 20px;
+   }
+.btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 40px;
+   }
+    label {
+     margin-left: 40px;
+   }
+.textBox {
+  width: 400px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 1px #95989a;
+  margin-left: 40px;
+   }
+.control {
+  display: grid;
+}

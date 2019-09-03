@@ -1,15 +1,16 @@
 <br />
 <br />
 <br />
-<br />
 <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
-  <label for="firstname">FirstName</label>
-  <input class="form-control" type="text" name="firstname" ngModel />
-  <button class="form-control" type="submit">Submit</button>
+  <div class="control">
+  <label>แก้ไขข้อความ</label>
+  <input class="textBox" type="text" name="firstname" ngModel />
+  <button class="btn submit" type="submit">Submit</button>
+  </div>
 </form>
 <br />
 <br />
-<div class="text-center">
+<div class="text">
 
   <div *ngFor="let data of homepage">
     {{ data.value.firstname }}
@@ -25,11 +26,13 @@
   นำ C64wuNOj-do ไปใส่
 </p>
 <form (ngSubmit)="addVideo(videoForm)" #videoForm="ngForm">
+  <div class="control">
   <label for="video">video</label>
-  <input class="form-control" type="text" name="video1" ngModel />
-  <button class="form-control" type="submit" >Submit</button>
+  <input class="textBox" type="text" name="video1" ngModel />
+  <button class="btn submit" type="submit" >Submit</button>
+  </div>
 </form>
-<div class="text-center">
+<div class="text">
 <div *ngFor="let data of video">
   {{ data.value.video1 }}
   <br />

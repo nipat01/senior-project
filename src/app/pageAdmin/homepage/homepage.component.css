@@ -22,3 +22,40 @@
   box-sizing: border-box;
   }
    */
+  .btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 40px;
+   }
+   .btn.edit {
+      background-color: #d0cfcf;
+   }
+.btn.icon {
+     color: #004085;
+   }
+   .iconGroup {
+     display: flex;
+   }
+   .textBox {
+    width: 600px;
+    height: 200px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 40px;
+   }
+   .control {
+     display: grid;
+   }
+   .text {
+    margin-left: 100px;
+    margin-right: 100px;
+   }
+   label {
+     margin-left: 40px;
+   }
+    p {
+     margin-left: 40px;
+   }

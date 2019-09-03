@@ -34,3 +34,29 @@
  thead {
      background-color: #d8e3ef;
    }
+    .modal-header {
+     background-color: #d8e3ef;
+   }
+   .btn.save {
+     background-color: #d8e3ef;
+   }
+   .btn.edit {
+      background-color: #d0cfcf;
+   }
+   p {
+     margin-left: 20px;
+   }
+    label {
+     margin-left: 20px;
+   }
+.textBox {
+  width: 400px;
+  height: 30px;
+  border-radius: 5px;
+  border: solid 1px #95989a;
+  margin-left: 20px;
+   }
+.control {
+  display: grid;
+}
+

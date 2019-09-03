@@ -1,0 +1,41 @@
+.btn.submit {
+    background-color: #d8e3ef;
+    width: 99px;
+    height: 35px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-left: 40px;
+   }
+  .btn.icon {
+     color: #004085;
+     margin-left: 80px;
+   }
+   .iconGroup {
+     display: flex;
+   }
+   .textBox {
+    width: 400px;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 40px;
+   }
+   .text {
+    margin-left: 100px;
+    margin-right: 100px;
+   }
+    label {
+     margin-left: 40px;
+   }
+    p {
+     margin-left: 40px;
+   }
+ .modal-header {
+     background-color: #d8e3ef;
+   }
+   .btn.save {
+     background-color: #d8e3ef;
+   }
+   .btn.edit {
+      background-color: #d0cfcf;
+   }

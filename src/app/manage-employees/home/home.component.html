@@ -1,7 +1,6 @@
 <br />
 <br />
 <br />
-<br />
 <!-- เพิ่มข้อมูลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -150,7 +149,7 @@
   <div class="modal-footer">
     <button
       type="button"
-      class="btn btn-outline-success"
+      class="btn save"
       (click)="onSubmit()"
       (click)="c('Save click')"
     >
@@ -158,8 +157,8 @@
     </button>
   </div>
 </ng-template>
-<button class="btn btn-lg btn-outline-secondary" (click)="open(content)">
-  เพิ่มข้อมูลพนักงาน
+<button class="btn icon" (click)="open(content)">
+<i class="fas fa-user-plus"></i> เพิ่มข้อมูลพนักงาน
 </button>
 <!-- ------------------------------------------------------------------------------------- -->
 <!-- แสดงผลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
@@ -319,7 +318,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="c('Save click')"
             >
               Save
@@ -345,11 +344,11 @@
 
       <td>
       <div class="iconGroup">
+        <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
+         <i class="far fa-edit"></i>
+       </button>
         <button type="button" class="btn icon" (click)="delWiki(data)">
         <i class="fas fa-trash-alt"></i>
-        </button>
-         <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
-          <i class="far fa-edit"></i>
         </button>
       </div>
         <!-- edit ----------------------------------------------------------------------------------- -->
@@ -476,10 +475,10 @@
                   formControlName="status"
                   [(ngModel)]="data.value.status"
                 />
-                <button type="button" (click)="resetPassword(data)">
+                <button type="button" class="btn save" (click)="resetPassword(data)">
                   Reset Password?
                 </button>
-                <button type="button" (click)="deleteAccount(data)">
+                <button type="button" class="btn edit" (click)="deleteAccount(data)">
                   Delete
                 </button>
               </div>
@@ -488,7 +487,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="editWiki(editwikiForm, data)"
               (click)="c('Save click')"
             >

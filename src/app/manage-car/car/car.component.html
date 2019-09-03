@@ -23,12 +23,12 @@
           (click)="fileUploader.click()"
         />
       </div>
-      <div class="form-group">
+      <div class="control">
         <label>Select file to upload</label>
         <input
           type="file"
           accept="image/*"
-          class="form-control"
+          class="textBox"
           #fileUploader
           formControlName="imageUrl"
           (change)="showPreview($event)"
@@ -39,21 +39,21 @@
         <label>ทะเบียนรถ</label>
         <input
           type="text"
-          class="form-control"
+          class="textBox"
           formControlName="carId"
           ngModel
         />
         <label>ประเภทรถ</label>
         <input
           type="text"
-          class="form-control"
+          class="textBox"
           formControlName="carType"
           ngModel
         />
         <label>รุ่นของรถ</label>
         <input
           type="text"
-          class="form-control"
+          class="textBox"
           formControlName="carModel"
           ngModel
         />
@@ -61,14 +61,14 @@
         <label>วันที่ซื้อ</label>
         <input
           type="text"
-          class="form-control"
+          class="textBox"
           formControlName="purchaseDate"
           ngModel
         />
         <label>วันที่บำรุงรักษาล่าสุด</label>
         <input
           type="text"
-          class="form-control"
+          class="textBox"
           formControlName="lastMaintenance"
           ngModel
         />
@@ -78,15 +78,15 @@
   <div class="modal-footer">
     <button
       type="button"
-      class="btn btn-outline-success"
+      class="btn save"
       (click)="onSubmit(formTemplate)"
     >
       Save
     </button>
   </div>
 </ng-template>
-<button class="btn btn-lg btn-outline-secondary" (click)="openBill(content)">
-  เพิ่มข้อมูลรถ
+<button class="btn icon" (click)="openBill(content)">
+<i class="fas fa-bus"></i> เพิ่มข้อมูลรถ
 </button>
 
 <!-- แสดงผล -->
@@ -133,7 +133,7 @@
             <input
               id="typeahead-basic"
               type="text"
-              class="form-control"
+              class="textBox"
               name="carId"
               ngModel
               [(ngModel)]="data.value.carId"
@@ -142,7 +142,7 @@
             <input
               id="typeahead-basic"
               type="text"
-              class="form-control"
+              class="textBox"
               name="destination"
               ngModel
               [(ngModel)]="data.value.carType"
@@ -151,7 +151,7 @@
             <input
               id="typeahead-basic"
               type="text"
-              class="form-control"
+              class="textBox"
               name="worktype"
               ngModel
               [(ngModel)]="data.value.carModel"
@@ -160,7 +160,7 @@
             <input
               id="typeahead-basic"
               type="text"
-              class="form-control"
+              class="textBox"
               name="customerFirstname"
               ngModel
               [(ngModel)]="data.value.purchaseDate"
@@ -169,7 +169,7 @@
             <input
               id="typeahead-basic"
               type="text"
-              class="form-control"
+              class="textBox"
               name="workDate"
               ngModel
               [(ngModel)]="data.value.lastMaintenance"
@@ -179,7 +179,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="c('Save click')"
             >
               Close
@@ -223,7 +223,7 @@
                 <input
                   id="typeahead-basic"
                   type="text"
-                  class="form-control"
+                  class="textBox"
                   formControlName="carId"
                   [(ngModel)]="data.value.carId"
                 />
@@ -231,7 +231,7 @@
                 <input
                   id="typeahead-basic"
                   type="text"
-                  class="form-control"
+                  class="textBox"
                   formControlName="carType"
                   [(ngModel)]="data.value.carType"
                 />
@@ -239,7 +239,7 @@
                 <input
                   id="typeahead-basic"
                   type="text"
-                  class="form-control"
+                  class="textBox"
                   formControlName="carModel"
                   [(ngModel)]="data.value.carModel"
                 />
@@ -247,7 +247,7 @@
                 <input
                   id="typeahead-basic"
                   type="text"
-                  class="form-control"
+                  class="textBox"
                   formControlName="purchaseDate"
                   [(ngModel)]="data.value.purchaseDate"
                 />
@@ -255,7 +255,7 @@
                 <input
                   id="typeahead-basic"
                   type="text"
-                  class="form-control"
+                  class="textBox"
                   formControlName="lastMaintenance"
                   [(ngModel)]="data.value.lastMaintenance"
                 />
@@ -265,7 +265,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-outline-success"
+              class="btn save"
               (click)="editCar(editFormTemplate, data)"
             >
               Save

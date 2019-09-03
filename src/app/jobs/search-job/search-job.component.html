@@ -4,30 +4,23 @@
 <p>ค้นหา</p>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
     <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
-    <select class="form-control" name="selectSearchJob" ngModel>
+    <select class="textBox" name="selectSearchJob" ngModel>
         <option value="customerFirstname">ลูกค้า</option>
         <option value="driver">พนักงานขับรถ</option>
         <option value="status">stutus</option>
     </select>
+    <div class="control">
     <label>กรุณากรอกข้อมูล</label>
-    <input class="form-control" type="text" name="searchJob" ngModel /> <br>
+    <input class="textBox" type="text" name="searchJob" ngModel />
 
     <label>วันที่</label>
-    <div class="form-group">
-        <div class="input-group">
-            <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel
+            <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel
                 ngbDatepicker #d="ngbDatepicker">
-        </div>
-    </div>
-    <p>ถึง</p>
-    <div class="form-group">
-        <div class="input-group">
-            <input class="form-control" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel
+    <label>ถึง</label>
+            <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel
                 ngbDatepicker #d2="ngbDatepicker">
-
-        </div>
+    <button class="btn submit" type="submit">Submit</button>
     </div>
-    <button class="form-control" type="submit">Submit</button>
 </form>
 
 

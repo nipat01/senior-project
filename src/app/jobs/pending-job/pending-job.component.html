@@ -116,12 +116,12 @@
                 />
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary">
+                <button type="button" class="btn edit">
                   edit
                 </button>
                 <button
                   type="button"
-                  class="btn btn-outline-success"
+                  class="btn save"
                   (click)="c('Save click')"
                 >
                   Save
@@ -143,8 +143,8 @@
       <td>{{ data.value.driver }}</td>
       <td>
          <div class="iconGroup">
-          <button type="button" class="btn icon" (click)="delJob(data)"><i class="fas fa-trash-alt"></i></button>
-          <button type="button" class="btn icon" (click)="editJob(data)"><i class="fas fa-check-circle"></i></button>
+           <button type="button" class="btn icon" (click)="editJob(data)"placement="bottom" ngbTooltip="Submit"><i class="fas fa-check-circle"></i></button>
+          <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
         </div>
       </td>
       <!-- <td>

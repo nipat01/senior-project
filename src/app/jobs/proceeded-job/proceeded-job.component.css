@@ -1,26 +1,4 @@
-/* .table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    empty-cells: show;
-    border: 1px solid #F1EFEF;
-    width: 100%;
-    }
-    .table  td, th {
-    border-left: 1px solid #CFCACA;
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible;
-    padding: 0.5rem 1rem;
-    }
-    .table  thead {
-    background-color: #02348A;
-    color: #F3EDED;
-    text-align: left;
-    vertical-align: bottom;
-    }
-   */
-   .btn.icon {
+  .btn.icon {
      color: #004085;
    }
    .iconGroup {
@@ -34,4 +12,16 @@
    }
     td {
      text-align: center;
+   }
+   .modal-header {
+     background-color: #d8e3ef;
+   }
+   .btn.save {
+     background-color: #d8e3ef;
+   }
+   .btn.edit {
+      background-color: #d0cfcf;
+   }
+    .iconGroup {
+     display: flex;
    }
