@@ -21,7 +21,6 @@
     border-radius: 5px;
    }
 p {
-     margin-left: 40px;
     margin-top: 20px;
    }
 .btn.submit {
@@ -30,18 +29,15 @@ p {
     height: 35px;
     border-radius: 5px;
     margin-top: 20px;
-    margin-left: 40px;
    }
-    label {
-     margin-left: 40px;
-   }
+
 .textBox {
   width: 400px;
   height: 30px;
   border-radius: 5px;
   border: solid 1px #95989a;
-  margin-left: 40px;
    }
 .control {
   display: grid;
 }
+

@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   title = 'myjistig';
+
   // constructor(private db: AngularFireDatabase){}
   // addWiki(data: NgForm){
   //   console.log(data.value);
@@ -16,8 +17,7 @@ export class AppComponent {
   //   }
 
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 
 }
 

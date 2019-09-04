@@ -1,25 +1,28 @@
 <!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
-<h1>เพิ่มข้อมูลการจ้าง</h1>
+<br>
+<br>
+<br>
+<h1><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> เพิ่มข้อมูลการจ้าง</h1>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
 <div class="control">
-  <label for="source">ระบุต้นทาง</label>
+  <label class="text" for="source">ระบุต้นทาง</label>
   <input class="textBox" type="text" name="source" ngModel />
-  <label for="destination">ระบุปลายทาง</label>
+  <label class="text" for="destination">ระบุปลายทาง</label>
   <input class="textBox" type="text" name="destination" ngModel />
-  <label for="worktype">รูปแบบงาน</label>
+  <label class="text" for="worktype">รูปแบบงาน</label>
   <div ngModel ngbRadioGroup name="worktype">
-    <label ngbButtonLabel class="btn-primary">
+    <label  ngbButtonLabel >
       <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
     </label>
-    <label ngbButtonLabel class="btn-primary">
+    <label ngbButtonLabel>
       <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
     </label>
   </div>
   <!-- <input type="text" name="worktype" ngModel /> -->
-  <label for="customerFirstname">ชื่อลูกค้า</label>
+  <label class="text" for="customerFirstname">ชื่อลูกค้า</label>
   <input  class="textBox" type="text" name="customerFirstname" ngModel />
-  <label for="workDate">วันที่</label>
+  <label class="text" for="workDate">วันที่</label>
   <input
     class="textBox"
     (click)="d.toggle()"
@@ -30,17 +33,17 @@
     #d="ngbDatepicker"
   />
   <!-- <input type="text" name="workDate" ngModel /> -->
-  <label for="workTime">เวลา</label>
+  <label class="text" for="workTime">เวลา</label>
   <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
   <!-- <input type="text" name="workTime" ngModel /> -->
-  <label for="customerPhone">เบอร์ติดต่อ</label>
+  <label class="text" for="customerPhone">เบอร์ติดต่อ</label>
   <input class="textBox" type="text" name="customerPhone" ngModel />
-  <label for="customerLine">ไลน์ติดต่อ</label>
+  <label class="text" for="customerLine">ไลน์ติดต่อ</label>
   <input  class="textBox" type="text" name="customerLine" ngModel />
-  <label for="detail">รายละเอียดการจ้าง</label>
+  <label class="text" for="detail">รายละเอียดการจ้าง</label>
   <input  class="textArea"type="text" name="detail" ngModel />
+  <button  class="btn submit" type="submit">Submit</button>
 </div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->
 
-  <button  class="btn submit" type="submit">Submit</button>
 </form>

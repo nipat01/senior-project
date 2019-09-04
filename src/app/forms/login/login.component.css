@@ -1,0 +1,11 @@
+.bg-dark {
+    background-color: #d8e3ef!important;
+}
+.btn-primary {
+    color: rgba(0,0,0,.9);
+    background-color: #d8e3ef;
+    border-color: #d8e3ef;
+}
+.text-white {
+    color: rgb(0, 0, 0)!important;
+}

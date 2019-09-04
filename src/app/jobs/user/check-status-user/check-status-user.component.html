@@ -1,12 +1,12 @@
 <br />
 <br />
 <br />
-<h1>เช็คสถานะ</h1>
+<h1><img src="https://image.flaticon.com/icons/svg/854/854894.svg"> เช็คสถานะ </h1>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
 
+    <div class="control">
   <label>กรุณากรอกข้อมูล</label>
-  <div class="control">
   <input class="textBox" type="text" name="searchJob" ngModel /> <br />
   <button class="btn submit" type="submit">Submit</button>
   </div>
@@ -14,11 +14,11 @@
 
 <hr />
 
-<h3>ผลลัพท์ค้นหา</h3>
+<h3><img src="https://image.flaticon.com/icons/svg/164/164996.svg"> ผลลัพท์ค้นหา</h3>
 
 <div *ngFor="let data of job; let i = index">
   <hr />
-  <div class="text">
+  <div class="text control">
   วันที่: {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
   {{ data.value.workDate.year }} {{ data.value.workTime.hour }}:{{
     data.value.workTime.minute
@@ -30,6 +30,9 @@
   ปลายทาง: {{ data.value.worktype }}<br />
   พนักงานขับรถ: {{ data.value.driver }}<br />
   รีวิว: {{ data.value.review }} <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br>
+  <button class="btn icon" (click)="openBill(content, data, alert222)">
+  <img src="https://image.flaticon.com/icons/svg/942/942775.svg"> ให้คะแนนบริการ
+  </button>
   </div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -69,12 +72,7 @@
       </button>
     </div>
   </ng-template>
-  <button
-    class="btn icon"
-    (click)="openBill(content, data, alert222)"
-  >
-    <i class="far fa-comment-dots"></i> ให้คะแนนบริการ
-  </button>
+
   <hr />
   <br />
 </div>

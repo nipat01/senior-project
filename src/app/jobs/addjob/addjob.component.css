@@ -3,10 +3,12 @@
     height: 30px;
     border-radius: 5px;
     border: solid 1px #95989a;
-    margin-left: 40px;
    }
     .control {
-     display: grid;
+    display: grid;
+    background-color:white;
+    border-radius: 10px;
+    padding: 8px 20px;
    }
    .btn.submit {
     background-color: #d8e3ef;
@@ -14,18 +16,21 @@
     height: 35px;
     border-radius: 5px;
     margin-top: 20px;
-    margin-left: 40px;
    }
    .textArea{
     width: 400px;
     height: 100px;
     border-radius: 5px;
     border: solid 1px #95989a;
-    margin-left: 40px;
    }
-   label {
-     margin-left: 40px;
-   }
-   ngb-timepicker {
-     margin-left: 40px;
-   }
+
+
+  h1{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+img {
+  width: 45px;
+}
+
