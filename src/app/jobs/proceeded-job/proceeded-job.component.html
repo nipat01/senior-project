@@ -1,26 +1,26 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <h3>ดำเนินการแล้ว</h3>
 <table class="table table-striped ">
   <thead>
     <tr>
-    <th scope="col">source</th>
-    <th scope="col">destination</th>
-    <th scope="col">worktype</th>
-    <th scope="col">customerFirstname</th>
-    <th scope="col">workDate</th>
-    <th scope="col">workTime</th>
-    <th scope="col">customerPhone</th>
-    <th scope="col">customerLine</th>
-    <th scope="col">detail</th>
-    <th scope="col">status</th>
-    <th scope="col">driver</th>
-    <th scope="col">action</th>
+      <th scope="col">source</th>
+      <th scope="col">destination</th>
+      <th scope="col">worktype</th>
+      <th scope="col">customerFirstname</th>
+      <th scope="col">workDate</th>
+      <th scope="col">workTime</th>
+      <th scope="col">customerPhone</th>
+      <th scope="col">customerLine</th>
+      <th scope="col">detail</th>
+      <th scope="col">status</th>
+      <th scope="col">driver</th>
+      <th scope="col">action</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of job" >
+    <tr *ngFor="let data of job">
       <td (click)="openData(con)">
         <ng-template #con let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -175,11 +175,7 @@
             <button type="button" class="btn edit">
               edit
             </button>
-            <button
-              type="button"
-              class="btn save"
-              (click)="c('Save click')"
-            >
+            <button type="button" class="btn save" (click)="c('Save click')">
               Save
             </button>
           </div>
@@ -204,233 +200,254 @@
       <td>{{ data.value.driver }}</td>
       <td>
         <div class="iconGroup">
-       <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
-       <button class="btn icon" (click)="openBill(data, content, contentEdit)" placement="bottom" ngbTooltip="บิลใบเสร็จ"><i class="fas fa-money-check-alt"></i></button>
-       <button class="btn icon" (click)="openReview(review)" placement="bottom" ngbTooltip="คะแนนการให้บริการ"><i class="far fa-comment-dots"></i></button>
-      </div>
+          <button
+            type="button"
+            class="btn icon"
+            (click)="delJob(data)"
+            placement="bottom"
+            ngbTooltip="Delete"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <!-- diglog bill ------------------------------------------------------------------>
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">
+                กรุณากรอกบิลใบเสร็จ
+              </h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="formTemplate">
+                <!-- <div class="card" style="width:25rem"> -->
+                <div class="card-body">
+                  <div class="text-center">
+                    <img
+                      [src]="imgSrc"
+                      width="350px"
+                      height="250px"
+                      (click)="billfileUploader.click()"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Select file to upload</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="form-control"
+                      #billfileUploader
+                      formControlName="billImageUrl"
+                      (change)="showPreview($event)"
+                    />
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="text-center">
+                    <img
+                      [src]="imgSrc2"
+                      width="350px"
+                      height="250px"
+                      (click)="billNofileUploader.click()"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Select file to upload</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      class="form-control"
+                      #billNofileUploader
+                      formControlName="billNoImageUrl"
+                      (change)="showPreview2($event)"
+                    />
+                  </div>
+                </div>
+
+                <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="totalPayment"
+                  [(ngModel)]="data.value.totalPayment"
+                />
+                <label for="typeahead-basic">ค่ามัดจำ</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="deposit"
+                  [(ngModel)]="data.value.deposit"
+                />
+                <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="bill"
+                  [(ngModel)]="data.value.bill"
+                />
+                <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
+                <input
+                  id="typeahead-basic"
+                  type="text"
+                  class="form-control"
+                  formControlName="billNo"
+                  [(ngModel)]="data.value.billNo"
+                />
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn save"
+                (click)="onSubmit(formTemplate, data)"
+              >
+                Save
+              </button>
+            </div>
+          </ng-template>
+          <!-- review----------------------------------------------------------------------------- -->
+          <ng-template #review let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">คะแนนการบริการ</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <label for="typeahead-basic">คะแนนรีวิว: </label>
+              <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br />
+              <label for="typeahead-basic">คำติชม: </label>
+              {{ data.value.review }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn save" (click)="c('Save click')">
+                Submit
+              </button>
+            </div>
+          </ng-template>
+
+          <button
+            class="btn icon"
+            (click)="openBill(data, content, contentEdit)"
+            placement="bottom"
+            ngbTooltip="บิลใบเสร็จ"
+          >
+            <i class="fas fa-money-check-alt"></i>
+          </button>
+          <button
+            class="btn icon"
+            (click)="openReview(review)"
+            placement="bottom"
+            ngbTooltip="คะแนนการให้บริการ"
+          >
+            <i class="far fa-comment-dots"></i>
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
 </table>
-        <!-- diglog ใบเสร็จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ -->
-        <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">
-              กรุณากรอกบิลใบเสร็จ
-            </h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form [formGroup]="formTemplate">
-              <!-- <div class="card" style="width:25rem"> -->
-              <div class="card-body">
-                <div class="text-center">
-                  <img
-                    [src]="imgSrc"
-                    width="350px"
-                    height="250px"
-                    (click)="billfileUploader.click()"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Select file to upload</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    class="form-control"
-                    #billfileUploader
-                    formControlName="billImageUrl"
-                    (change)="showPreview($event)"
-                  />
-                </div>
-              </div>
 
-              <div class="card-body">
-                <div class="text-center">
-                  <img
-                    [src]="imgSrc2"
-                    width="350px"
-                    height="250px"
-                    (click)="billNofileUploader.click()"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Select file to upload</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    class="form-control"
-                    #billNofileUploader
-                    formControlName="billNoImageUrl"
-                    (change)="showPreview2($event)"
-                  />
-                </div>
-              </div>
+<!-- edit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<ng-template #contentEdit let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      กรุณากรอกบิลใบเสร็จ
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formTemplateForEdit">
+      <!-- <div class="card" style="width:25rem"> -->
+      <div class="card-body">
+        <div class="text-center">
+          <img
+            [src]="data.value.billImageUrl"
+            width="350px"
+            height="250px"
+            (click)="billfileUploader.click()"
+          />
+        </div>
+      </div>
+      <!-- </div> -->
 
-              <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="totalPayment"
-                [(ngModel)]="data.value.totalPayment"
-              />
-              <label for="typeahead-basic">ค่ามัดจำ</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="deposit"
-                [(ngModel)]="data.value.deposit"
-              />
-              <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="bill"
-                [(ngModel)]="data.value.bill"
-              />
-              <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="billNo"
-                [(ngModel)]="data.value.billNo"
-              />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn save"
-              (click)="onSubmit(formTemplate, data)"
-            >
-              Save
-            </button>
-          </div>
-        </ng-template>
-        <!-- edit!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-        <ng-template #contentEdit let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">
-              กรุณากรอกบิลใบเสร็จ
-            </h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form [formGroup]="formTemplateForEdit">
-              <!-- <div class="card" style="width:25rem"> -->
-              <div class="card-body">
-                <div class="text-center">
-                  <img
-                    [src]="data.value.billImageUrl"
-                    width="350px"
-                    height="250px"
-                    (click)="billfileUploader.click()"
-                  />
-                </div>
-              </div>
-              <!-- </div> -->
+      <!-- <div class="card" style="width:25rem"> -->
+      <div class="card-body">
+        <div class="text-center">
+          <img
+            [src]="data.value.billNoImageUrl"
+            width="350px"
+            height="250px"
+            (click)="billNofileUploader.click()"
+          />
+        </div>
+      </div>
+      <!-- </div> -->
 
-              <!-- <div class="card" style="width:25rem"> -->
-              <div class="card-body">
-                <div class="text-center">
-                  <img
-                    [src]="data.value.billNoImageUrl"
-                    width="350px"
-                    height="250px"
-                    (click)="billNofileUploader.click()"
-                  />
-                </div>
-              </div>
-              <!-- </div> -->
-
-              <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="totalPayment"
-                [(ngModel)]="data.value.totalPayment"
-              />
-              <label for="typeahead-basic">ค่ามัดจำ</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="deposit"
-                [(ngModel)]="data.value.deposit"
-              />
-              <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="bill"
-                [(ngModel)]="data.value.bill"
-              />
-              <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                formControlName="billNo"
-                [(ngModel)]="data.value.billNo"
-              />
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn save"
-              (click)="editformTemplateFor(formTemplateForEdit, data)"
-            >
-              Save
-            </button>
-          </div>
-        </ng-template>
-        <!-- /////////////////////////////////////////////////////////////////////////// -->
-        <ng-template #review let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">คะแนนการบริการ</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <label for="typeahead-basic">คะแนนรีวิว: </label>
-            <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br />
-            <label for="typeahead-basic">คำติชม: </label>
-            {{ data.value.review }}
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn save"
-              (click)="c('Save click')"
-            >
-              Submit
-            </button>
-          </div>
-        </ng-template>
+      <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
+      <input
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        formControlName="totalPayment"
+        [(ngModel)]="data.value.totalPayment"
+      />
+      <label for="typeahead-basic">ค่ามัดจำ</label>
+      <input
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        formControlName="deposit"
+        [(ngModel)]="data.value.deposit"
+      />
+      <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
+      <input
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        formControlName="bill"
+        [(ngModel)]="data.value.bill"
+      />
+      <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
+      <input
+        id="typeahead-basic"
+        type="text"
+        class="form-control"
+        formControlName="billNo"
+        [(ngModel)]="data.value.billNo"
+      />
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn save"
+      (click)="editformTemplateFor(formTemplateForEdit, data)"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+<!-- /////////////////////////////////////////////////////////////////////////// -->
