@@ -1,15 +1,16 @@
 <br>
 <br>
 <br>
-<p>ค้นหา</p>
+<h1><img src="https://image.flaticon.com/icons/svg/272/272365.svg"> ค้นหา</h1>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
-    <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
-    <select class="textBox" name="selectSearchJob" ngModel>
+  <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
+    <div class="control">
+      <p>สถานะ</p>
+      <select class="textBox" name="selectSearchJob" ngModel>
         <option value="customerFirstname">ลูกค้า</option>
         <option value="driver">พนักงานขับรถ</option>
         <option value="status">stutus</option>
     </select>
-    <div class="control">
     <label>กรุณากรอกข้อมูล</label>
     <input class="textBox" type="text" name="searchJob" ngModel />
 
@@ -20,12 +21,12 @@
             <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel
                 ngbDatepicker #d2="ngbDatepicker">
     <button class="btn submit" type="submit">Submit</button>
-    </div>
+  </div>
 </form>
 
 
 
-<h3>ผลลัพท์ค้นหา</h3>
+<h3><img src="https://image.flaticon.com/icons/svg/190/190798.svg">ผลลัพท์ค้นหา</h3>
 <table class="table table-striped">
   <thead>
         <tr>

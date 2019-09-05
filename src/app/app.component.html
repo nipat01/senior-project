@@ -4,13 +4,19 @@
 <div class="sidenav">
   <!-- <a routerLink="/job">Job</a> -->
   <!-- <a routerLink="/addjob">เพิ่มJob ***ทดสอบ***</a> -->
-  <a routerLink="/checkdatajob">รอตรวจสอบข้อมูล</a>
-  <a routerLink="/checkpaymentjob">รอชำระเงิน</a>
-  <a routerLink="/notificationjob">มอบหมายงาน</a>
-  <a routerLink="/pendingjob">รอดำเนินการ</a>
-  <a routerLink="/proceedjob">ดำเนินการ</a>
-  <a routerLink="/proceededjob">ดำเนินการแล้ว</a>
-  <a routerLink="/searchjob">ค้นหา</a><hr>
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel title="Job">
+      <ng-template ngbPanelContent>
+        <a routerLink="/checkdatajob">รอตรวจสอบข้อมูล</a>
+        <a routerLink="/checkpaymentjob">รอชำระเงิน</a>
+        <a routerLink="/notificationjob">มอบหมายงาน</a>
+        <a routerLink="/pendingjob">รอดำเนินการ</a>
+        <a routerLink="/proceedjob">ดำเนินการ</a>
+        <a routerLink="/proceededjob">ดำเนินการแล้ว</a>
+        <a routerLink="/searchjob">ค้นหา</a>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion> <hr>
   <a routerLink="/home">จัดการพนักงานขับรถ</a> <hr>
   <a routerLink="/car">จัดการข้อมูลรถ</a><hr>
   <a routerLink="/overview">ผลประเมินความพึงพอใจ</a><hr>

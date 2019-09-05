@@ -15,8 +15,12 @@
   border: solid 1px #95989a;
    }
 .control {
-  display: grid;
-}
+     display: grid;
+     background-color: white;
+     border-radius: 10px;
+     padding: 8px 20px;
+     margin-bottom: 10px;
+   }
 
 .textArea {
   width: 400px;
@@ -24,3 +28,11 @@
   border-radius: 5px;
   border: solid 1px #95989a;
    }
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+img {
+  width: 45px;
+}

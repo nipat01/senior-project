@@ -32,7 +32,7 @@
      text-align: center;
    }
  thead {
-     background-color: #d8e3ef;
+     background-color: white;
    }
     .modal-header {
      background-color: #d8e3ef;
@@ -60,3 +60,14 @@
   display: grid;
 }
 
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+.icons{
+  width: 45px;
+}
+table {
+  background-color: white;
+}

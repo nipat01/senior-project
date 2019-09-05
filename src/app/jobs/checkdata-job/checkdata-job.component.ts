@@ -18,8 +18,7 @@ export class CheckdataJobComponent implements OnInit {
   job: any[];
 
   List: AngularFireList<any>;
-
-
+  showEdit = true;
   // display: boolean = false;
 
   constructor(private db: AngularFireDatabase,
@@ -68,5 +67,13 @@ export class CheckdataJobComponent implements OnInit {
     // console.log(dataOfDailog.key);
 
     this.modalService.open(con);
+  }
+
+  buttonEdit() {
+    this.showEdit = false;
+  }
+
+  buttonSave() {
+    this.showEdit = true;
   }
 }

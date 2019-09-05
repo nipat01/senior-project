@@ -21,3 +21,11 @@ input {
  .btn.edit {
       background-color: #d0cfcf;
    }
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+.icon {
+  width: 45px;
+}

@@ -8,3 +8,16 @@ body{
     background-color: #e8e9ea;
 }
 
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+.accordion>.card .card-header {
+    margin-bottom: -11px;
+}
+.btn-link {
+    font-weight: 400;
+    color:black;
+    text-decoration: none;
+}

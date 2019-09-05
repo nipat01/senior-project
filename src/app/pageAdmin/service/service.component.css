@@ -18,3 +18,11 @@ input {
   border-radius: 5px;
   border: solid 1px #95989a;
 }
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+.icon {
+  width: 45px;
+}

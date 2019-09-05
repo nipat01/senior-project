@@ -30,7 +30,7 @@
      text-align: center;
    }
     thead {
-     background-color: #d8e3ef;
+     background-color:white;
    }
     td {
      text-align: center;
@@ -47,5 +47,15 @@
    .btn.edit {
       background-color: #d0cfcf;
    }
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+img {
+  width: 45px;
+}
 
-
+table {
+  background-color: white;
+}

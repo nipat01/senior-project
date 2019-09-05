@@ -1,11 +1,12 @@
 <br>
 <br>
 <br>
-<p>bank works!</p>
+<h3><img src="https://image.flaticon.com/icons/svg/1086/1086741.svg"> ช่องทางการชำระเงิน</h3>
+<div class="control">
 <p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
-<br />
 <p>กรุณากรอกรายละเอียดธนาคาร</p>
 <p>Ex:ธนาคารกสิกร สาขา ราชมงคลธัญบุรี เลขที่บัญชี 123-4-56789-0</p>
+</div>
 <form (ngSubmit)="addBank(bankForm)" #bankForm="ngForm">
   <div class="control">
   <label for="bank">รายละเอียดธนาคาร</label>
@@ -13,6 +14,7 @@
   <button class="btn submit" type="submit">Submit</button>
   </div>
 </form>
-<label  *ngFor="let data of bank">
-  {{ data.value.bank }}
-<label>
+  <label class="control"  *ngFor="let data of bank">
+    {{ data.value.bank }}
+    <label>
+

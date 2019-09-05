@@ -34,99 +34,114 @@
               </button>
             </div>
             <div class="modal-body">
+              <div class="control">
               <label for="typeahead-basic">ต้นทาง</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="source"
                 ngModel
                 [(ngModel)]="data.value.source"
+                [disabled]="showEdit"
               />
               <label for="typeahead-basic">ปลายทาง</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="destination"
                 ngModel
                 [(ngModel)]="data.value.destination"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic">ประเภทงาน</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="worktype"
                 ngModel
                 [(ngModel)]="data.value.worktype"
+                [disabled] = "showEdit"
               />
               <label for="typeahead-basic">ชื่อลูกค้า</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="customerFirstname"
                 ngModel
                 [(ngModel)]="data.value.customerFirstname"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic"> วันที่</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="workDate"
                 ngModel
                 [(ngModel)]="data.value.workDate.day"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic"> เวลา</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="workTime"
                 ngModel
                 [(ngModel)]="data.value.workTime.hour"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic"> เบอร์ติดต่อ</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="customerLine"
                 ngModel
                 [(ngModel)]="data.value.customerPhone"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic"> เบอร์ติดต่อ</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="customerLine"
                 ngModel
                 [(ngModel)]="data.value.customerPhone"
+                [disabled]= "showEdit"
               />
               <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
               <input
                 id="typeahead-basic"
                 type="text"
-                class="form-control"
+                class="textBox"
                 name="detail"
                 ngModel
                 [(ngModel)]="data.value.detail"
+                [disabled]= "showEdit"
               />
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn edit">
+              <button
+              type="button"
+              class="btn edit"
+              (click)="buttonEdit()">
                 edit
               </button>
               <button
                 type="button"
                 class="btn save"
                 (click)="c('Save click')"
+                (click)="buttonSave()"
               >
                 Save
               </button>
+              </div>
             </div>
           </ng-template>
 

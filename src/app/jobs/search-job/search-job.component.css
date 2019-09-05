@@ -24,7 +24,7 @@
      text-align: center;
    }
  thead {
-     background-color: #d8e3ef;
+     background-color: white;
    }
     .btn.submit {
     background-color: #d8e3ef;
@@ -33,7 +33,7 @@
     border-radius: 5px;
    }
 p {
-    margin-top: 10px;
+    margin-top: 20px;
    }
 .btn.submit {
     background-color: #d8e3ef;
@@ -41,6 +41,8 @@ p {
     height: 35px;
     border-radius: 5px;
     margin-top: 20px;
+    margin-bottom: 10px;
+
    }
 .textBox {
   width: 400px;
@@ -48,7 +50,27 @@ p {
   border-radius: 5px;
   border: solid 1px #95989a;
    }
-.control {
-  display: grid;
-}
+  .control {
+     display: grid;
+     background-color: white;
+     border-radius: 10px;
+     padding: 8px 20px;
+     margin-bottom: 50px;
+   }
 
+h3{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+img {
+  width: 45px;
+}
+table {
+  background-color: white;
+}
+h1{
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
