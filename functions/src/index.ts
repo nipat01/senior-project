@@ -34,34 +34,51 @@
 const functions = require('firebase-functions');
 const request = require('request-promise');
 
+// const lineNotify = (lineMessage: any) => {
+//     const options = {
+//         method: `POST`,
+//         uri: `https://notify-api.line.me/api/notify`,
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             'Authorization': 'Bearer UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'
+//         },
+//         form: {
+//             message: lineMessage,
+//         }
+//     }
+//     console.log('optionsจ้า', { options })
+//     return request(options).then((notifyResponse: any) => {
+//         console.log('notifyResponseจ้า', { notifyResponse })
+//         return notifyResponse
+//     }).catch((err: any) => {
+//         console.log({ err })
+//     })
+
+// };
+
 const lineNotify = (lineMessage: any) => {
 
-    const options = {
-        method: `POST`,
-        uri: `https://notify-api.line.me/api/notify`,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Bearer UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'
-        },
-        form: {
-            message: lineMessage,
+    var token = ["UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0"]; //ใส่ access token ที่ใช้งาน
+    var options = {
+        "method": "post",
+        "uri": `https://notify-api.line.me/api/notify`,
+        "payload": "message=" + lineMessage,
+        "headers": {
+            "Authorization": "Bearer " + token
         }
-    }
-
-    console.log({ options })
-
+    };
     return request(options).then((notifyResponse: any) => {
-        console.log({notifyResponse})
+        console.log('notifyResponseจ้า', { notifyResponse })
         return notifyResponse
     }).catch((err: any) => {
         console.log({ err })
     })
+}
 
-};
 
 
-exports.postNotifyToLine = functions.database.ref('/job')
-    .onCreate( (snapshot: any, context: any) => {
+exports.postNotifyToLine = functions.database.ref('/job{pushId}')
+    .onCreate((snapshot: any, context: any) => {
         // .onCreate((snapshot, context) => {
         const original = snapshot.val();
         console.log({ original });
