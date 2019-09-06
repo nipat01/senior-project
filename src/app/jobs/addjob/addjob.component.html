@@ -1,8 +1,6 @@
 <!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
-<br>
-<br>
-<br>
-<h1><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> เพิ่มข้อมูลการจ้าง</h1>
+
+<h4><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> กรอกรายละเอียดการจ้าง</h4>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
 <div class="control">
@@ -41,7 +39,7 @@
   <label class="text" for="customerLine">ไลน์ติดต่อ</label>
   <input  class="textBox" type="text" name="customerLine" ngModel />
   <label class="text" for="detail">รายละเอียดการจ้าง</label>
-  <input  class="textArea"type="text" name="detail" ngModel />
+  <textarea class="textArea" id="exampleFormControlTextarea1" rows="3"></textarea>
   <button  class="btn submit" type="submit">Submit</button>
 </div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->

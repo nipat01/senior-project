@@ -1,6 +1,8 @@
 <br />
 <br />
 <br />
+<div class="row">
+<div class="col-8">
 <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
 <h1><img src="https://image.flaticon.com/icons/svg/806/806647.svg"> ปรับแต่งเว็บแอพลิเคชั่น</h1>
   <div class="control">
@@ -32,21 +34,35 @@
   <input class="textBox" type="text" name="video1" ngModel />
   <button class="btn submit" type="submit" >Submit</button>
   </div>
+  <div class="text">
+  <div *ngFor="let data of video">
+    {{ data.value.video1 }}
+    <br />
+
+    <iframe
+      width="560"
+      height="315"
+      [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+  </div>
 </form>
-<div class="text">
-<div *ngFor="let data of video">
-  {{ data.value.video1 }}
-  <br />
-
-  <iframe
-    width="560"
-    height="315"
-    [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
-</div>
 </div>
 
-<app-addjob></app-addjob>
-<app-check-status-user></app-check-status-user>
+<div class="col-4">
+<ngb-tabset>
+  <ngb-tab title="กรอกรายละเอียดการจ้าง">
+    <ng-template ngbTabContent>
+      <app-addjob></app-addjob>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="เช็คสถานะ">
+    <ng-template ngbTabContent>
+      <app-check-status-user></app-check-status-user>
+    </ng-template>
+  </ngb-tab>
+  </ngb-tabset>
+</div>
+</div>
