@@ -1,8 +1,8 @@
-
 'use strict';
-
 const functions = require('firebase-functions');
 const request = require('request-promise');
+const admin = require('firebase-admin');
+admin.initializeApp();
 // const request = require('request')
 // const lineNotify = (lineMessage: any) => {
 //     const options = {
@@ -26,6 +26,8 @@ const request = require('request-promise');
 
 // };
 
+
+// 1-------------------------------------------------------------------------------------------
 const lineNotify = (lineMessage: any) => {
   const token = 'UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'; //ใส่ access token ที่ใช้งาน
   const options = {
@@ -67,15 +69,15 @@ exports.postNotifyToLine = functions.database.ref('/job/{pushId}')
 
     return lineNotify(dataOiginal);
   });
-
-const notifyToDriver = (lineMessage: any) => {
-  const token = '7y9LzqXlYOfsxIBY1hNAeFpmvd9qr1qLbMXkroeQNIr'; //ใส่ access token ที่ใช้งาน
+//2--------------------------------------------------------------------------------------
+const notifyToDriver = (lineMessage: any, token: any) => {
+  // const token = '7y9LzqXlYOfsxIBY1hNAeFpmvd9qr1qLbMXkroeQNIr';
   const options = {
     "method": 'POST',
     "uri": `https://notify-api.line.me/api/notify`,
     "headers": {
       'Content-Type': 'application/x-www-form-urlencoded',
-      "Authorization": "Bearer " + token
+      "Authorization": `Bearer ${token} `
     },
     // "payload": 'message=' + lineMessage,
 
@@ -90,17 +92,34 @@ const notifyToDriver = (lineMessage: any) => {
     console.log('erorจ้า', { err })
   })
 }
-exports.updateDriver = functions.database.ref('/job/{pushId}/driver')
-  .onWrite((change: any, context: any) => {
+
+exports.updateDriver = functions.database.ref('/job/{pushId}')
+  .onUpdate((change: any, context: any) => {
     const afterData = change.after.val(); // data after the write
     console.log(afterData);
-    return notifyToDriver(afterData);
+    const token = afterData.token
+
+    if (afterData.driver !== '') {  // return notifyToDriver(afterData,);
+      const dataOiginal = `แจ้งเตือนงานDriver
+    ชื่อ:${afterData.customerFirstname}
+    ไลน์:${afterData.customerLine}
+    เบอร์โทรศัพท์:${afterData.customerPhone}
+    ต้นทาง:${afterData.source}
+    ปลายทาง:${afterData.destination}
+    รายละเอียดการจ้างงาน:${afterData.detail}
+    วัน:${afterData.workDate}
+    เวลา:${afterData.workTime}
+    ประเภท:${afterData.worktype}
+    token: ${afterData.token}`
+
+      return notifyToDriver(dataOiginal, token);
+    }
   });
 
 
 
 
-
+//3------------------------------------------------------------------------------------------
 const notifyToGroupDriver = (lineMessage: any) => {
   const token = 'IAIHa96melOHxtzsG0qyIVtyBGnu9iH92gj65NKGLNG'; //ใส่ access token ที่ใช้งาน
   const options = {
@@ -128,6 +147,7 @@ exports.updateGroupDriver = functions.database.ref('/wikis/{pushId}/currentLat')
   .onWrite((change: any, context: any) => {
     const afterData = change.after.val(); // data after the write
     console.log(afterData);
+    console.log('Uppercasing', context.params.pushId, afterData);
     const sendNotify = `กรุณาส่งตำแหน่งปัจจุบัน`
     return notifyToGroupDriver(sendNotify);
   });

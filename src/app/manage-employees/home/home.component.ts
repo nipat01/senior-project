@@ -6,6 +6,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddWikiComponent } from '../add-wiki/add-wiki.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from "rxjs/operators";
+import { ImageService } from '../../services/image/image.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -42,6 +45,7 @@ export class HomeComponent implements OnInit {
     phoneId: new FormControl('', Validators.required),
     hireDate: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
+    token: new FormControl('', Validators.required),
 
   });
   editwikiForm = new FormGroup({
@@ -60,6 +64,7 @@ export class HomeComponent implements OnInit {
     hireDate: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
 
+
   });
 
   constructor(
@@ -68,6 +73,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private auth: AuthService,
+    private storage: AngularFireStorage,
+    private service: ImageService,
   ) { }
   // constructor(private db: AngularFireDatabase, private router: Router) {}
   ngOnInit() {
@@ -95,10 +102,7 @@ export class HomeComponent implements OnInit {
     const modalRef = this.modalService.open(contentEditData);
 
   }
-  onSubmit() {
-    console.log('onSubmit working');
 
-  }
   resetPassword(data) {
     this.auth.resetPassword(data.value.email)
   }
@@ -161,7 +165,32 @@ export class HomeComponent implements OnInit {
     // this.isSubmitted = false;
   }
 
+
+
+  onSubmit(formValue) {
+    console.log(formValue.value);
+
+    this.isSubmitted = true;
+    if (this.wikiForm.valid) {
+      var filePath = `image/wikis/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            formValue.value['imageUrl'] = url;
+            console.log(this.service.creatWikis(formValue.value));
+            this.service.creatWikis(formValue.value);
+
+          })
+        })
+      ).subscribe();
+    }
+
+  }
+
+
 }
+
 
 
 

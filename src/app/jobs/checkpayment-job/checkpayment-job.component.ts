@@ -24,6 +24,7 @@ export class CheckpaymentJobComponent implements OnInit {
 
   selectedNameDriver = [];
   selectedEmailDriver = [];
+  selectedTokenlDriver = [];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -63,6 +64,7 @@ export class CheckpaymentJobComponent implements OnInit {
       status: 'notification',
       driver: this.selectedNameDriver[index],
       emailDriver: this.selectedEmailDriver[index],
+      token: this.selectedTokenlDriver[index],
     }
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
@@ -73,11 +75,13 @@ export class CheckpaymentJobComponent implements OnInit {
     const getDriver = driver.target.value.split(",");
     const driverEmail = getDriver[0];
     const driverFirstname = getDriver[1];
+    const driverToken = getDriver[2];
 
     this.selectedEmailDriver[index] = driverEmail;
     this.selectedNameDriver[index] = driverFirstname;
-    console.log('index', index);
-    // console.log('data', data);
+    this.selectedTokenlDriver[index] = driverToken;
+    // console.log('index', index);
+    console.log('data', driver.target.value);
 
   }
 

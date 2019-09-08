@@ -147,6 +147,13 @@
           formControlName="status"
           ngModel
         />
+        <label>Token</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="token"
+          ngModel
+        />
       </div>
     </form>
   </div>
@@ -154,7 +161,7 @@
     <button
       type="button"
       class="btn save"
-      (click)="onSubmit()"
+      (click)="onSubmit(wikiForm)"
       (click)="c('Save click')"
     >
       Save

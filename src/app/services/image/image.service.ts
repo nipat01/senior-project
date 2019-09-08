@@ -46,7 +46,7 @@ export class ImageService {
       this.firebase.list('imageDetails/imageDetailList/Bird').push(imageDetails);
     }
   }
- 
+
   insertImagePortfolioDetails(imageDetails) {
     this.imageDetaiPortfoliolList.push(imageDetails);
   }
@@ -59,5 +59,9 @@ export class ImageService {
   insertImageJob(imageDetails) {
     // this.firebase.list('testcar').push(imageDetails);
     this.firebase.list("/car").push(imageDetails);
+  }
+  creatWikis(dataWikis) {
+    // this.firebase.list('testcar').push(imageDetails);
+    this.firebase.list("/wikis").push(dataWikis);
   }
 }
