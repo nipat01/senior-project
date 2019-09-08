@@ -35,7 +35,7 @@ export class CheckdataJobComponent implements OnInit {
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      console.log(job)
+      console.log(job.length)
       this.job = job.filter((data: any) => data.value.status === 'checkdata');
       // this.job = job
 

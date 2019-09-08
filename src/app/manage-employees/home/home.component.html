@@ -2,7 +2,10 @@
 <br />
 <br />
 <!-- เพิ่มข้อมูลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
-<h3><img src="https://image.flaticon.com/icons/svg/912/912216.svg"> จัดการพนักงานขับรถ</h3>
+<h3>
+  <img src="https://image.flaticon.com/icons/svg/912/912216.svg" />
+  จัดการพนักงานขับรถ
+</h3>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
@@ -159,14 +162,16 @@
   </div>
 </ng-template>
 <button class="btn icon plus" (click)="open(content)">
-<i class="fas fa-user-plus"></i> เพิ่มข้อมูลพนักงาน
+  <i class="fas fa-user-plus"></i> เพิ่มข้อมูลพนักงาน
 </button>
 <!-- ------------------------------------------------------------------------------------- -->
+<h1>ขอตำแหน่งปัจจุบัน</h1>
+<button (click)="getCurentAddress()" >Click</button>
 <!-- แสดงผลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
 <table class="table table-striped">
   <thead>
     <tr>
-     <th scope="col">Email</th>
+      <th scope="col">Email</th>
       <th scope="col">Firstname</th>
       <th scope="col">Lastname</th>
       <th scope="col">Address</th>
@@ -207,15 +212,17 @@
                 />
               </div>
               <div class="form-group">
-                <!-- <label>Select file to upload</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  class="form-control"
-                  #fileUploader
-                  formControlName="imageUrl"
-                  (change)="showPreview($event)"
-                /> -->
+                <div *ngIf="imgSrc">
+                  <label>Select file to upload</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    class="form-control"
+                    #fileUploader
+                    formControlName="imageUrl"
+                    (change)="showPreview($event)"
+                  />
+                </div>
 
                 <!-- </div> -->
                 <!-- <div class="form-row"> -->
@@ -317,11 +324,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn save"
-              (click)="c('Save click')"
-            >
+            <button type="button" class="btn save" (click)="c('Save click')">
               Save
             </button>
           </div>
@@ -344,15 +347,19 @@
       <td (click)="openData(contentData)">{{ data.value.status }}</td>
 
       <td>
-      <div class="iconGroup">
-        <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
-         <i class="far fa-edit"></i>
-       </button>
-        <button type="button" class="btn icon" (click)="delWiki(data)">
-        <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
-        <!-- edit ----------------------------------------------------------------------------------- -->
+        <div class="iconGroup">
+          <button
+            type="button"
+            class="btn icon"
+            (click)="openEditData(contentEditData, data)"
+          >
+            <i class="far fa-edit"></i>
+          </button>
+          <button type="button" class="btn icon" (click)="delWiki(data)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+        <!--
         <ng-template #contentEditData let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
@@ -476,10 +483,18 @@
                   formControlName="status"
                   [(ngModel)]="data.value.status"
                 />
-                <button type="button" class="btn save" (click)="resetPassword(data)">
+                <button
+                  type="button"
+                  class="btn save"
+                  (click)="resetPassword(data)"
+                >
                   Reset Password?
                 </button>
-                <button type="button" class="btn edit" (click)="deleteAccount(data)">
+                <button
+                  type="button"
+                  class="btn edit"
+                  (click)="deleteAccount(data)"
+                >
                   Delete
                 </button>
               </div>
@@ -495,11 +510,9 @@
               Save
             </button>
           </div>
-        </ng-template>
+        </ng-template> -->
         <!-- -------------------------------------------------------------------------------------- -->
       </td>
     </tr>
   </tbody>
 </table>
-
-

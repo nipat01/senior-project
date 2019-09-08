@@ -31,6 +31,7 @@ export class CarComponent implements OnInit {
 
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required),
+    filePath: new FormControl(),
     carId: new FormControl('', Validators.required),
     carType: new FormControl('', Validators.required),
     carModel: new FormControl('', Validators.required),
@@ -69,8 +70,13 @@ export class CarComponent implements OnInit {
     // show img
     this.starForm()
   }
-  editCar(editFormTemplate ,data) {
-    console.log('update:',data.key, editFormTemplate.value);
+  editCarTest(data) {
+    console.log(data.value);
+
+  }
+
+  editCar(editFormTemplate, data) {
+    console.log('update:', data.key, editFormTemplate.value);
     this.firebaseService.editCar(data.key, editFormTemplate.value);
 
   }
@@ -94,19 +100,33 @@ export class CarComponent implements OnInit {
   onSubmit(formValue) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      var filePath = `image/Job/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `imageCar/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue.value['imageUrl'] = url;
-            this.service.insertImageJob(formValue.value);
+            const addValue = {
+              ...formValue.value,
+              filePath: filePath
+            }
+            this.service.insertImageJob(addValue);
 
           })
         })
       ).subscribe();
-    }
+          }
+    console.log('filePath', filePath);
 
+  }
+  deleteImage(data) {
+    console.log(data.value);
+    this.storage.ref(data.value.filePath).delete();
+    const editUrl = {
+      ...data.value,
+      imageUrl: '',
+    }
+    this.firebaseService.editCar(data.key, editUrl);
   }
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {

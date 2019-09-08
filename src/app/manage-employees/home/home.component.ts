@@ -14,8 +14,8 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
   // wikiList: Observable<any>;
   wiki: any = {};
-
-  wikis: { key: string; value: unknown; }[];
+  wikis: any = []
+  // wikis: { key: string; value: unknown; }[];
 
 
 
@@ -110,6 +110,32 @@ export class HomeComponent implements OnInit {
     // this.router.navigate([`/editWiki/${data.key}`]);
     console.log('updateWikis:', data.key, editwikiForm.value);
     this.firebaseService.editWiki(data.key, editwikiForm.value);
+  }
+  getCurentAddress() {
+    this.wikis;
+    console.log(this.wikis.length);
+    // console.log(getDataWikis[0].key);
+    for (let i = 0; i < this.wikis.length; i++) {
+      console.log('test')
+      const setCurrentWikis = {
+        ...this.wikis[i],
+      }
+      let setCurrent = setCurrentWikis.value
+      let setCur2 = {
+        ...setCurrent,
+        currentLat: '1.1.1.1',
+        currentLong: '1.1.1.1',
+      }
+      console.log('setCurrent', setCurrent);
+      console.log('setCur2', setCur2);
+
+
+      // console.log('setCurrentWikis', setCurrentWikis);
+      // console.log('showValue', this.wikis[i].key,);
+
+      this.firebaseService.editWiki(this.wikis[i].key, setCur2);
+    }
+
   }
 
   delWiki(data) {

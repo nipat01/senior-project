@@ -1,7 +1,13 @@
 <br />
 <br />
 <br />
-<h3><img class="icons" src="https://image.flaticon.com/icons/svg/2016/2016803.svg"> จัดการข้อมูลรถ</h3>
+<h3>
+  <img
+    class="icons"
+    src="https://image.flaticon.com/icons/svg/2016/2016803.svg"
+  />
+  จัดการข้อมูลรถ
+</h3>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลรถ</h4>
@@ -38,26 +44,11 @@
         <!-- </div> -->
         <!-- <div class="form-row"> -->
         <label>ทะเบียนรถ</label>
-        <input
-          type="text"
-          class="textBox"
-          formControlName="carId"
-          ngModel
-        />
+        <input type="text" class="textBox" formControlName="carId" ngModel />
         <label>ประเภทรถ</label>
-        <input
-          type="text"
-          class="textBox"
-          formControlName="carType"
-          ngModel
-        />
+        <input type="text" class="textBox" formControlName="carType" ngModel />
         <label>รุ่นของรถ</label>
-        <input
-          type="text"
-          class="textBox"
-          formControlName="carModel"
-          ngModel
-        />
+        <input type="text" class="textBox" formControlName="carModel" ngModel />
 
         <label>วันที่ซื้อ</label>
         <input
@@ -77,17 +68,13 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn save"
-      (click)="onSubmit(formTemplate)"
-    >
+    <button type="button" class="btn save" (click)="onSubmit(formTemplate)">
       Save
     </button>
   </div>
 </ng-template>
 <button class="btn icon plus" (click)="openBill(content)">
-<i class="fas fa-bus"></i> เพิ่มข้อมูลรถ
+  <i class="fas fa-bus"></i> เพิ่มข้อมูลรถ
 </button>
 
 <!-- แสดงผล -->
@@ -107,7 +94,7 @@
   <tbody>
     <tr *ngFor="let data of car">
       <td (click)="openData(con)">
-        <!-- dialog -->
+        <!-- dialog ------------------------------------------------------------------------->
         <ng-template #con let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
@@ -127,7 +114,20 @@
                 width="350px"
                 height="250px"
                 class="img-fluid"
+                (click)="deleteImage(data)"
+
               />
+              <div *ngIf=!data.value.imageUrl>
+                <label>Select file to upload</label>
+                <input
+                type="file"
+                accept="image/*"
+                class="textBox"
+                #fileUploader
+                ngModel
+                (change)="showPreview($event)"
+                />
+              </div>
             </div>
 
             <label for="typeahead-basic">ทะเบียนรถ</label>
@@ -181,9 +181,10 @@
             <button
               type="button"
               class="btn save"
-              (click)="c('Save click')"
+              (click)="editCarTest(data)"
+
             >
-              Close
+              Save Test
             </button>
           </div>
         </ng-template>
@@ -273,10 +274,7 @@
             </button>
           </div>
         </ng-template>
-        <button
-          class="btn icon"
-          (click)="openEditCar(content)"
-        >
+        <button class="btn icon" (click)="openEditCar(content)">
           <i class="far fa-edit"></i>
         </button>
         <!-- --------------------------------------------------------------------------------- -->
