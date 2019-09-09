@@ -55,7 +55,7 @@ export class AddWikiComponent implements OnInit {
     } else {
       console.log(wikiForm);
       this.firebaseService.addWiki(wikiForm);
-      this.auth.emailSignUp(this.wikiForm.value.email, this.wikiForm.value.password).then(this.goToHome)
+      this.auth.emailSignUp(this.wikiForm.value.email, this.wikiForm.value.password)
 
     }
 

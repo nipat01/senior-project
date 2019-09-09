@@ -64,11 +64,8 @@ export class CarComponent implements OnInit {
     });
 
 
-
-
-
     // show img
-    this.starForm()
+    this.resetForm();
   }
   editCarTest(data) {
     console.log(data.value);
@@ -111,14 +108,14 @@ export class CarComponent implements OnInit {
               filePath: filePath
             }
             this.service.insertImageJob(addValue);
-
+            this.resetForm();
           })
         })
       ).subscribe();
-          }
+    }
     console.log('filePath', filePath);
-
   }
+
   deleteImage(data) {
     console.log(data.value);
     this.storage.ref(data.value.filePath).delete();
@@ -128,6 +125,7 @@ export class CarComponent implements OnInit {
     }
     this.firebaseService.editCar(data.key, editUrl);
   }
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -140,11 +138,12 @@ export class CarComponent implements OnInit {
       // this.selectedImage = null;
     }
   }
-  starForm() {
-    this.imgSrc = '/assets/img/image_placeholder.jpg';
 
+  resetForm() {
+    this.formTemplate.reset();
+
+    this.imgSrc = '/assets/img/image_placeholder.jpg';
     // this.selectedImage = null;
-    // this.selectedImage2 = null;
     // this.isSubmitted = false;
   }
 

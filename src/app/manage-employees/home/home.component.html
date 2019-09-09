@@ -1,9 +1,12 @@
 <br />
 <br />
 <br />
-<!-- เพิ่มข้อมูลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
+<!-- เพิ่มข้อมูล------------------------------------------------------------------------------- -->
 <h3>
-  <img src="https://image.flaticon.com/icons/svg/912/912216.svg" />
+  <img
+    class="icons"
+    src="https://image.flaticon.com/icons/svg/912/912216.svg"
+  />
   จัดการพนักงานขับรถ
 </h3>
 <ng-template #content let-c="close" let-d="dismiss">
@@ -19,7 +22,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="wikiForm">
+    <form [formGroup]="formTemplate">
       <div class="text-center">
         <img
           [src]="imgSrc"
@@ -158,12 +161,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn save"
-      (click)="onSubmit(wikiForm)"
-      (click)="c('Save click')"
-    >
+    <button type="button" class="btn save" (click)="onSubmit(formTemplate)">
       Save
     </button>
   </div>
@@ -173,8 +171,8 @@
 </button>
 <!-- ------------------------------------------------------------------------------------- -->
 <h1>ขอตำแหน่งปัจจุบัน</h1>
-<button (click)="getCurentAddress()" >Click</button>
-<!-- แสดงผลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล -->
+<button (click)="getCurentAddress()">Click</button>
+<!-- แสดงผลdialog--------------------------------------------------------------------------------- -->
 <table class="table table-striped">
   <thead>
     <tr>
@@ -209,128 +207,140 @@
             </button>
           </div>
           <div class="modal-body">
-            <form [formGroup]="wikiForm">
-              <div class="text-center">
-                <img
-                  [src]="imgSrc"
-                  width="350px"
-                  height="250px"
-                  (click)="fileUploader.click()"
+            <div class="text-center">
+              <img
+                [src]="data.value.imageUrl"
+                width="350px"
+                height="250px"
+                (click)="deleteImage(data)"
+              />
+            </div>
+            <div class="form-group">
+              <div *ngIf="!data.value.imageUrl">
+                <label>Select file to upload</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  class="form-control"
+                  #fileUploader
+                  name="imageUrl"
+                  (change)="showPreview($event)"
                 />
               </div>
-              <div class="form-group">
-                <div *ngIf="imgSrc">
-                  <label>Select file to upload</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    class="form-control"
-                    #fileUploader
-                    formControlName="imageUrl"
-                    (change)="showPreview($event)"
-                  />
-                </div>
 
-                <!-- </div> -->
-                <!-- <div class="form-row"> -->
-                <label>อีเมลล์</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="email"
-                  [(ngModel)]="data.value.firstname"
-                />
+              <label>อีเมลล์</label>
+              <input
+                type="text"
+                class="form-control"
+                name="email"
+                [(ngModel)]="data.value.firstname"
+              />
 
-                <label>ชื่อ</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="firstname"
-                  [(ngModel)]="data.value.firstname"
-                />
+              <label>ชื่อ</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstname"
+                [(ngModel)]="data.value.firstname"
+              />
 
-                <label>นามสกุล</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="lastname"
-                  [(ngModel)]="data.value.lastname"
-                />
-                <label>ที่อยู่</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="address"
-                  [(ngModel)]="data.value.address"
-                />
-                <label>ที่อยู่ตามพิกัด(Laitute)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="addressLat"
-                  [(ngModel)]="data.value.addressLat"
-                />
-                <label>ที่อยู่ตามพิกัด(Longtitute)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="addressLong"
-                  [(ngModel)]="data.value.addressLong"
-                />
-                <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="currentLat"
-                  [(ngModel)]="data.value.currentLat"
-                />
-                <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="currentLong"
-                  [(ngModel)]="data.value.currentLong"
-                />
-                <label>ตำแหน่ง</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="role"
-                  [(ngModel)]="data.value.role"
-                />
-                <label>ไลน์</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="lineId"
-                  [(ngModel)]="data.value.lineId"
-                />
-                <label>บัตรประชาชน</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="citizenId"
-                  [(ngModel)]="data.value.citizenId"
-                />
-                <label>เบอร์โทรศัพท์</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="phoneId"
-                  [(ngModel)]="data.value.phoneId"
-                />
+              <label>นามสกุล</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastname"
+                [(ngModel)]="data.value.lastname"
+              />
+              <label>ที่อยู่</label>
+              <input
+                type="text"
+                class="form-control"
+                name="address"
+                [(ngModel)]="data.value.address"
+              />
+              <label>ที่อยู่ตามพิกัด(Laitute)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="addressLat"
+                [(ngModel)]="data.value.addressLat"
+              />
+              <label>ที่อยู่ตามพิกัด(Longtitute)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="addressLong"
+                [(ngModel)]="data.value.addressLong"
+              />
+              <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="currentLat"
+                [(ngModel)]="data.value.currentLat"
+              />
+              <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
+              <input
+                type="text"
+                class="form-control"
+                name="currentLong"
+                [(ngModel)]="data.value.currentLong"
+              />
+              <label>ตำแหน่ง</label>
+              <input
+                type="text"
+                class="form-control"
+                name="role"
+                [(ngModel)]="data.value.role"
+              />
+              <label>ไลน์</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lineId"
+                [(ngModel)]="data.value.lineId"
+              />
+              <label>บัตรประชาชน</label>
+              <input
+                type="text"
+                class="form-control"
+                name="citizenId"
+                [(ngModel)]="data.value.citizenId"
+              />
+              <label>เบอร์โทรศัพท์</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phoneId"
+                [(ngModel)]="data.value.phoneId"
+              />
 
-                <label>สถานะการทำงาน</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="status"
-                  [(ngModel)]="data.value.status"
-                />
-              </div>
-            </form>
+              <label>สถานะการทำงาน</label>
+              <input
+                type="text"
+                class="form-control"
+                name="status"
+                [(ngModel)]="data.value.status"
+              />
+            </div>
           </div>
           <div class="modal-footer">
+            <div class="iconGroup">
+              <button
+                type="button"
+                class="btn icon"
+                (click)="openEditData(contentEditData, data)"
+              >
+                <i class="far fa-edit"></i>
+              </button>
+              <button
+                type="button"
+                class="btn save"
+                (click)="resetPassword(data)"
+              >
+                Reset Password?
+              </button>
+            </div>
             <button type="button" class="btn save" (click)="c('Save click')">
               Save
             </button>
@@ -358,11 +368,9 @@
           <button
             type="button"
             class="btn icon"
-            (click)="openEditData(contentEditData, data)"
+            (click)="delWiki(data)"
+            (click)="deleteAccount(data)"
           >
-            <i class="far fa-edit"></i>
-          </button>
-          <button type="button" class="btn icon" (click)="delWiki(data)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>

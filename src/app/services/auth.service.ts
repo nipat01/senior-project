@@ -103,13 +103,13 @@ export class AuthService {
   }
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        console.log('Sign Up Succed');
+      // .then((user) => {
+      //   console.log('Sign Up Succed');
 
-        // this.authState = user
-        // this.updateUserData();
-        // this.router.navigate(['/'])
-      })
+      //   this.authState = user
+      //   this.updateUserData();
+      //   this.router.navigate(['/'])
+      // })
     // .catch(error => console.log(error));
   }
   emailLogin(email: string, password: string) {

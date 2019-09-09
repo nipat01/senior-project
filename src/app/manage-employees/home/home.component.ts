@@ -16,7 +16,7 @@ import { ImageService } from '../../services/image/image.service';
 })
 export class HomeComponent implements OnInit {
   // wikiList: Observable<any>;
-  wiki: any = {};
+  // wiki: any = {};
   wikis: any = []
   // wikis: { key: string; value: unknown; }[];
 
@@ -26,9 +26,9 @@ export class HomeComponent implements OnInit {
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
+  formValue: any;
 
-
-  wikiForm = new FormGroup({
+  formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -48,24 +48,24 @@ export class HomeComponent implements OnInit {
     token: new FormControl('', Validators.required),
 
   });
-  editwikiForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    firstname: new FormControl('', Validators.required),
-    lastname: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    addressLat: new FormControl('', Validators.required),
-    addressLong: new FormControl('', Validators.required),
-    currentLat: new FormControl('', Validators.required),
-    currentLong: new FormControl('', Validators.required),
-    role: new FormControl('', Validators.required),
-    lineId: new FormControl('', Validators.required),
-    citizenId: new FormControl('', Validators.required),
-    phoneId: new FormControl('', Validators.required),
-    hireDate: new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
+  // editwikiForm = new FormGroup({
+  //   email: new FormControl('', Validators.required),
+  //   firstname: new FormControl('', Validators.required),
+  //   lastname: new FormControl('', Validators.required),
+  //   address: new FormControl('', Validators.required),
+  //   addressLat: new FormControl('', Validators.required),
+  //   addressLong: new FormControl('', Validators.required),
+  //   currentLat: new FormControl('', Validators.required),
+  //   currentLong: new FormControl('', Validators.required),
+  //   role: new FormControl('', Validators.required),
+  //   lineId: new FormControl('', Validators.required),
+  //   citizenId: new FormControl('', Validators.required),
+  //   phoneId: new FormControl('', Validators.required),
+  //   hireDate: new FormControl('', Validators.required),
+  //   status: new FormControl('', Validators.required),
 
 
-  });
+  // });
 
   constructor(
     private db: AngularFireDatabase,
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
     private storage: AngularFireStorage,
     private service: ImageService,
   ) { }
-  // constructor(private db: AngularFireDatabase, private router: Router) {}
+
   ngOnInit() {
 
     this.db.list('wikis').snapshotChanges().map(actions => {
@@ -86,28 +86,29 @@ export class HomeComponent implements OnInit {
       this.wikis = wikis;
 
     });
+    this.resetForm();
 
-    this.starForm();
   }
 
   open(content) {
     const modalRef = this.modalService.open(content);
-
   }
+
   openData(contentData) {
     const modalRef = this.modalService.open(contentData);
-
   }
+
   openEditData(contentEditData) {
     const modalRef = this.modalService.open(contentEditData);
-
   }
 
   resetPassword(data) {
     this.auth.resetPassword(data.value.email)
   }
+
   deleteAccount(data2) {
-    this.auth.deleteAccount(data2.value.email)
+    // console.log('data2',data2.value.email);
+    // this.auth.deleteAccount(data2.value.email)
   }
 
   editWiki(editwikiForm, data) {
@@ -115,6 +116,7 @@ export class HomeComponent implements OnInit {
     console.log('updateWikis:', data.key, editwikiForm.value);
     this.firebaseService.editWiki(data.key, editwikiForm.value);
   }
+
   getCurentAddress() {
     this.wikis;
     console.log(this.wikis.length);
@@ -145,6 +147,20 @@ export class HomeComponent implements OnInit {
   delWiki(data) {
     this.firebaseService.removeWiki(data.key);
   }
+
+  deleteImage(data) {
+    this.resetForm();
+    // console.log(data.value);
+    // this.storage.ref(data.value.filePath).delete();
+    // const editUrl = {
+    //   ...data.value,
+    //   imageUrl: '',
+    // }
+    // this.firebaseService.editWiki(data.key, editUrl);
+
+
+  }
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -171,23 +187,33 @@ export class HomeComponent implements OnInit {
     console.log(formValue.value);
 
     this.isSubmitted = true;
-    if (this.wikiForm.valid) {
+    if (this.formTemplate.valid) {
       var filePath = `image/wikis/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue.value['imageUrl'] = url;
-            console.log(this.service.creatWikis(formValue.value));
-            this.service.creatWikis(formValue.value);
-
+            const addValue = {
+              ...formValue.value,
+              filePath: filePath
+            }
+            this.service.creatWikis(addValue);
+            this.auth.emailSignUp(this.formTemplate.value.email, this.formTemplate.value.password);
+            this.resetForm();
           })
         })
       ).subscribe();
     }
-
+    console.log('filePath', filePath);
   }
+  resetForm() {
+    this.formTemplate.reset();
 
+    this.imgSrc = '/assets/img/image_placeholder.jpg';
+    // this.selectedImage = null;
+    // this.isSubmitted = false;
+  }
 
 }
 

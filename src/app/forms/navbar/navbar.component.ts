@@ -44,12 +44,12 @@ export class NavbarComponent implements OnInit {
     private modalService: NgbModal
   ) { }
   ngOnInit() {
-    this.db.list('wikis').snapshotChanges().map(actions => {
-      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
-    }).subscribe(wikis => {
-      console.log(this.auth.username);
-      this.wikis = wikis.filter((data: any) => data.value.email === this.auth.username)
-    });
+    // this.db.list('wikis').snapshotChanges().map(actions => {
+    //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(wikis => {
+    //   console.log(this.auth.username);
+    //   this.wikis = wikis.filter((data: any) => data.value.email === this.auth.username)
+    // });
 
   }
   openEditData(contentEditData) {
