@@ -1,0 +1,31 @@
+.control {
+     background-color: white;
+     border-radius: 10px;
+     padding: 8px 20px;
+     padding-bottom: 20px;
+     margin-top: 30px;
+}
+img  {
+  width: 45px;
+}
+ h1 {
+   background-color: white;
+   border-radius: 5px;
+   padding: 8px 20px;
+ }
+.process {
+  display: inline-grid;
+  text-align: -webkit-center;
+}
+.loco {
+  background-color: white;
+  margin-top: 30px;
+  padding: 20px 20px;
+  border-radius: 10px;
+
+ }
+
+ .formProcess {
+  display: flex;
+  justify-content: space-around;
+ }
