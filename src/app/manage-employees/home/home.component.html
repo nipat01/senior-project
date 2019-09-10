@@ -3,160 +3,61 @@
 <br />
 <!-- เพิ่มข้อมูล------------------------------------------------------------------------------- -->
 <h3>
-  <img
-    class="icons"
-    src="https://image.flaticon.com/icons/svg/912/912216.svg"
-  />
+  <img class="icons" src="https://image.flaticon.com/icons/svg/912/912216.svg" />
   จัดการพนักงานขับรถ
 </h3>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="d('Cross click')"
-    >
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="formTemplate">
       <div class="text-center">
-        <img
-          [src]="imgSrc"
-          width="350px"
-          height="250px"
-          (click)="fileUploader.click()"
-        />
+        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
       </div>
       <div class="form-group">
         <label>Select file to upload</label>
-        <input
-          type="file"
-          accept="image/*"
-          class="form-control"
-          #fileUploader
-          formControlName="imageUrl"
-          (change)="showPreview($event)"
-        />
+        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+          (change)="showPreview($event)" />
 
         <!-- </div> -->
         <!-- <div class="form-row"> -->
         <label>อีเมลล์</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="email"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="email" ngModel />
         <label>รหัสผ่าน</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="password"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="password" ngModel />
         <label>ชื่อ</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="firstname"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="firstname" ngModel />
 
         <label>นามสกุล</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="lastname"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="lastname" ngModel />
         <label>ที่อยู่</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="address"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="address" ngModel />
         <label>ที่อยู่ตามพิกัด(Laitute)</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="addressLat"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="addressLat" ngModel />
         <label>ที่อยู่ตามพิกัด(Longtitute)</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="addressLong"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="addressLong" ngModel />
         <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="currentLat"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="currentLat" ngModel />
         <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="currentLong"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="currentLong" ngModel />
         <label>ตำแหน่ง</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="role"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="role" ngModel />
         <label>ไลน์</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="lineId"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="lineId" ngModel />
         <label>บัตรประชาชน</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="citizenId"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="citizenId" ngModel />
         <label>เบอร์โทรศัพท์</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="phoneId"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="phoneId" ngModel />
         <label>วันที่เริ่มงาน</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="hireDate"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="hireDate" ngModel />
         <label>สถานะการทำงาน</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="status"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="status" ngModel />
         <label>Token</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="token"
-          ngModel
-        />
+        <input type="text" class="form-control" formControlName="token" ngModel />
       </div>
     </form>
   </div>
@@ -197,147 +98,59 @@
         <ng-template #contentData let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="text-center">
-              <img
-                [src]="data.value.imageUrl"
-                width="350px"
-                height="250px"
-                (click)="deleteImage(data)"
-              />
+              <img [src]="data.value.imageUrl" width="350px" height="250px" (click)="deleteImage(data)" />
+
             </div>
             <div class="form-group">
-              <div *ngIf="!data.value.imageUrl">
+              <div *ngIf="deleteImg">
                 <label>Select file to upload</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  class="form-control"
-                  #fileUploader
-                  name="imageUrl"
-                  (change)="showPreview($event)"
-                />
+                <input type="file" accept="image/*" class="form-control" #fileUploader name="imageUrl"
+                  (change)="showPreview($event)" />
               </div>
 
               <label>อีเมลล์</label>
-              <input
-                type="text"
-                class="form-control"
-                name="email"
-                [(ngModel)]="data.value.firstname"
-              />
+              <input type="text" class="form-control" name="email" [(ngModel)]="data.value.firstname" />
 
               <label>ชื่อ</label>
-              <input
-                type="text"
-                class="form-control"
-                name="firstname"
-                [(ngModel)]="data.value.firstname"
-              />
+              <input type="text" class="form-control" name="firstname" [(ngModel)]="data.value.firstname" />
 
               <label>นามสกุล</label>
-              <input
-                type="text"
-                class="form-control"
-                name="lastname"
-                [(ngModel)]="data.value.lastname"
-              />
+              <input type="text" class="form-control" name="lastname" [(ngModel)]="data.value.lastname" />
               <label>ที่อยู่</label>
-              <input
-                type="text"
-                class="form-control"
-                name="address"
-                [(ngModel)]="data.value.address"
-              />
+              <input type="text" class="form-control" name="address" [(ngModel)]="data.value.address" />
               <label>ที่อยู่ตามพิกัด(Laitute)</label>
-              <input
-                type="text"
-                class="form-control"
-                name="addressLat"
-                [(ngModel)]="data.value.addressLat"
-              />
+              <input type="text" class="form-control" name="addressLat" [(ngModel)]="data.value.addressLat" />
               <label>ที่อยู่ตามพิกัด(Longtitute)</label>
-              <input
-                type="text"
-                class="form-control"
-                name="addressLong"
-                [(ngModel)]="data.value.addressLong"
-              />
+              <input type="text" class="form-control" name="addressLong" [(ngModel)]="data.value.addressLong" />
               <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
-              <input
-                type="text"
-                class="form-control"
-                name="currentLat"
-                [(ngModel)]="data.value.currentLat"
-              />
+              <input type="text" class="form-control" name="currentLat" [(ngModel)]="data.value.currentLat" />
               <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
-              <input
-                type="text"
-                class="form-control"
-                name="currentLong"
-                [(ngModel)]="data.value.currentLong"
-              />
+              <input type="text" class="form-control" name="currentLong" [(ngModel)]="data.value.currentLong" />
               <label>ตำแหน่ง</label>
-              <input
-                type="text"
-                class="form-control"
-                name="role"
-                [(ngModel)]="data.value.role"
-              />
+              <input type="text" class="form-control" name="role" [(ngModel)]="data.value.role" />
               <label>ไลน์</label>
-              <input
-                type="text"
-                class="form-control"
-                name="lineId"
-                [(ngModel)]="data.value.lineId"
-              />
+              <input type="text" class="form-control" name="lineId" [(ngModel)]="data.value.lineId" />
               <label>บัตรประชาชน</label>
-              <input
-                type="text"
-                class="form-control"
-                name="citizenId"
-                [(ngModel)]="data.value.citizenId"
-              />
+              <input type="text" class="form-control" name="citizenId" [(ngModel)]="data.value.citizenId" />
               <label>เบอร์โทรศัพท์</label>
-              <input
-                type="text"
-                class="form-control"
-                name="phoneId"
-                [(ngModel)]="data.value.phoneId"
-              />
+              <input type="text" class="form-control" name="phoneId" [(ngModel)]="data.value.phoneId" />
 
               <label>สถานะการทำงาน</label>
-              <input
-                type="text"
-                class="form-control"
-                name="status"
-                [(ngModel)]="data.value.status"
-              />
+              <input type="text" class="form-control" name="status" [(ngModel)]="data.value.status" />
             </div>
           </div>
           <div class="modal-footer">
             <div class="iconGroup">
-              <button
-                type="button"
-                class="btn icon"
-                (click)="openEditData(contentEditData, data)"
-              >
+              <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
                 <i class="far fa-edit"></i>
               </button>
-              <button
-                type="button"
-                class="btn save"
-                (click)="resetPassword(data)"
-              >
+              <button type="button" class="btn save" (click)="resetPassword(data)">
                 Reset Password?
               </button>
             </div>
@@ -365,12 +178,7 @@
 
       <td>
         <div class="iconGroup">
-          <button
-            type="button"
-            class="btn icon"
-            (click)="delWiki(data)"
-            (click)="deleteAccount(data)"
-          >
+          <button type="button" class="btn icon" (click)="delWiki(data)" (click)="deleteAccount(data)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -531,3 +339,5 @@
     </tr>
   </tbody>
 </table>
+
+<pre>{{ list | json }}</pre>

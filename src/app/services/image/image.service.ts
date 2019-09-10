@@ -48,7 +48,9 @@ export class ImageService {
   }
 
   insertImagePortfolioDetails(imageDetails) {
-    this.imageDetaiPortfoliolList.push(imageDetails);
+    console.log(imageDetails);
+    
+    this.firebase.list('imageDetails/imageDetailPortfolioList').push(imageDetails)
   }
   insertImageCartypeDetails(imageDetails) {
     this.imageDetaiCartypelList.push(imageDetails);

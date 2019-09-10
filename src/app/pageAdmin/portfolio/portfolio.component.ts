@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
-
+import { FirebaseService } from '../../services/firebase-service.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -20,10 +20,13 @@ export class PortfolioComponent implements OnInit {
 
   formTemplate = new FormGroup({
     caption: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required)
+    imageUrl: new FormControl('', Validators.required),
+    filePath: new FormControl()
   })
 
-  constructor(private storage: AngularFireStorage, private service: ImageService) { }
+  constructor(private storage: AngularFireStorage,
+    private service: ImageService,
+    private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.resetForm();
@@ -32,13 +35,15 @@ export class PortfolioComponent implements OnInit {
     this.service.getImageDetailPortfolioList();
     this.service.imageDetaiPortfoliolList.snapshotChanges().subscribe(
       list => {
-        this.imageList = list.map(item => { return item.payload.val(); });
-        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
-        console.log(this.imageList);
+        this.imageList = list.map(item => ({ key: item.key, value: item.payload.val() }));
+        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 4)).keys());
+
+        console.log('value', this.imageList, 'imageListLength', this.imageList.length);
+        console.log('array', this.rowIndexArray, 'rowIndexArrayLength', this.rowIndexArray.length);
       }
     );
   }
-  
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -61,7 +66,11 @@ export class PortfolioComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
-            this.service.insertImagePortfolioDetails(formValue);
+            const addPath = {
+              ...formValue,
+              filePath: filePath
+            }
+            this.service.insertImagePortfolioDetails(addPath);
             this.resetForm();
           })
         })
@@ -79,6 +88,15 @@ export class PortfolioComponent implements OnInit {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     this.selectedImage = null;
     this.isSubmitted = false;
+  }
+
+  deleteImage(data) {
+  
+    console.log(data);
+    this.storage.ref(data.value.filePath).delete();
+    this.firebaseService.removPortolio(data.key);
+
+
   }
 
 }

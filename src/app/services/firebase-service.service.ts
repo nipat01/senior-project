@@ -15,6 +15,7 @@ export class FirebaseService {
   bankList: AngularFireList<any>
   aboutList: AngularFireList<any>
   aboutAccountList: AngularFireList<any>
+  portolio: AngularFireList<any>
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, ) {
     this.wikiList = db.list('wikis');
@@ -25,6 +26,7 @@ export class FirebaseService {
     this.bankList = db.list('bank');
     this.aboutList = db.list('allhomepage/about');
     this.aboutAccountList = db.list('allhomepage/lineAccount');
+    this.portolio = db.list('imageDetails/imageDetailPortfolioList');
   }
 
   getWikiList(): Observable<any[]> {
@@ -96,6 +98,9 @@ export class FirebaseService {
   }
   removeWiki(id): void {
     this.wikiList.remove(id);
+  }
+  removPortolio(id): void {
+    this.portolio.remove(id);
   }
 
 

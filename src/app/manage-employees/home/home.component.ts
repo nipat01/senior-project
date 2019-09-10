@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   selectedImage: any = null;
   isSubmitted: boolean;
   formValue: any;
-
+  deleteImg = false;
   formTemplate = new FormGroup({
     imageUrl: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.db.list('wikis').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(wikis => {
@@ -92,6 +91,7 @@ export class HomeComponent implements OnInit {
 
   open(content) {
     const modalRef = this.modalService.open(content);
+
   }
 
   openData(contentData) {
@@ -150,15 +150,16 @@ export class HomeComponent implements OnInit {
 
   deleteImage(data) {
     this.resetForm();
-    // console.log(data.value);
-    // this.storage.ref(data.value.filePath).delete();
-    // const editUrl = {
-    //   ...data.value,
-    //   imageUrl: '',
-    // }
-    // this.firebaseService.editWiki(data.key, editUrl);
+    console.log(data.value);
+    this.storage.ref(data.value.filePath).delete();
+    const editUrl = {
+      ...data.value,
+      imageUrl: '',
+    }
+    this.firebaseService.editWiki(data.key, editUrl)
 
-
+    this.deleteImg = true;
+    // data.value.imageUrl = this.imgSrc
   }
 
   showPreview(event: any) {
