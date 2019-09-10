@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
-
+import { FirebaseService } from '../../services/firebase-service.service';
 
 @Component({
   selector: 'app-service',
@@ -20,9 +20,12 @@ export class ServiceComponent implements OnInit {
 
   formTemplate = new FormGroup({
     caption: new FormControl('', Validators.required),
-    imageUrl: new FormControl('', Validators.required)
+    imageUrl: new FormControl('', Validators.required),
+    filePath: new FormControl()
   })
-  constructor(private storage: AngularFireStorage, private service: ImageService) { }
+  constructor(private storage: AngularFireStorage,
+    private service: ImageService,
+    private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.resetForm();
@@ -30,9 +33,11 @@ export class ServiceComponent implements OnInit {
     this.service.getImageDetailServiceList();
     this.service.imageDetailServiceList.snapshotChanges().subscribe(
       list => {
-        this.imageList = list.map(item => { return item.payload.val(); });
-        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
-        console.log(this.imageList);
+        this.imageList = list.map(item => ({ key: item.key, value: item.payload.val() }));
+        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 4)).keys());
+
+        console.log('value', this.imageList, 'imageListLength', this.imageList.length);
+        console.log('array', this.rowIndexArray, 'rowIndexArrayLength', this.rowIndexArray.length);
       }
     );
   }
@@ -52,13 +57,17 @@ export class ServiceComponent implements OnInit {
   onSubmit(formValue) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      var filePath = `image/imageService/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `image/Service/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
-            this.service.insertImageServiceDetails(formValue);
+            const addPath = {
+              ...formValue,
+              filePath: filePath
+            }
+            this.service.insertImageServiceDetails(addPath);
             this.resetForm();
           })
         })
@@ -76,6 +85,14 @@ export class ServiceComponent implements OnInit {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     this.selectedImage = null;
     this.isSubmitted = false;
+  }
+  deleteImage(data) {
+
+    console.log(data);
+    this.storage.ref(data.value.filePath).delete();
+    this.firebaseService.removService(data.key);
+
+
   }
 
 

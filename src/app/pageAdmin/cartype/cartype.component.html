@@ -61,36 +61,62 @@
   </tr>
 </table> -->
 
-<h3><img class="icon" src="https://image.flaticon.com/icons/svg/2101/2101321.svg"> ประเภทรถ</h3>
+<h3>
+  <img
+    class="icon"
+    src="https://image.flaticon.com/icons/svg/2101/2101321.svg"
+  />
+  ประเภทรถ
+</h3>
 <div class="card">
   <div class="card-body">
     <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
       <div class="text">
-        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()">
+        <img
+          [src]="imgSrc"
+          width="350px"
+          height="250px"
+          (click)="fileUploader.click()"
+        />
       </div>
       <div class="form-group">
         <label>Select file to upload</label>
-        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-          (change)="showPreview($event)">
-        <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required">This field is required.
+        <input
+          type="file"
+          accept="image/*"
+          class="form-control"
+          #fileUploader
+          formControlName="imageUrl"
+          (change)="showPreview($event)"
+        />
+        <div
+          class="text-danger"
+          *ngIf="isSubmitted && formControls.imageUrl.errors?.required"
+        >
+          This field is required.
         </div>
       </div>
-      <div class="form-group">
-        <input class="form-control" formControlName="caption" placeholder="Caption">
-        <div class="text-danger" *ngIf="isSubmitted && formControls.caption.errors ?.required">This field is required.
+      <!-- <div class="form-group">
+        <input
+          class="form-control"
+          formControlName="caption"
+          placeholder="Caption"
+        />
+        <div
+          class="text-danger"
+          *ngIf="isSubmitted && formControls.caption.errors?.required"
+        >
+          This field is required.
         </div>
-      </div>
+      </div> -->
       <div class="form-group">
         <select formControlName="category" class="form-control">
-          <option value="Animal">Animal</option>
-          <option value="Vehicle">Vehicle</option>
-          <option value="Bird">Bird</option>
+          <option value="type1">ประเภทรถที่1</option>
+          <option value="type2">ประเภทรถที่2</option>
+          <option value="type3">ประเภทรถที่3</option>
         </select>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <a routerLink="/image/list" class="btn edit">Go To Gallery</a>
-        </div>
         <div class="form-group col-md-6">
           <button type="submit" class="btn submit">Submit</button>
         </div>
@@ -100,95 +126,114 @@
 </div>
 
 <p>แสดงผล</p>
+<p>ประเภทรถที่1</p>
 <table *ngIf="imageList">
   <tr *ngFor="let i of rowIndexArray">
     <td>
-      <!-- <div class="imagebox" *ngIf="i==0">
-        <a routerLink="/image/upload">
-          <img src="/assets/img/new_image.jpg" class="img-fluid">
-          <span class="imagebox-desc">Insert New Image</span></a>
-      </div> -->
-      <!-- <div class="imagebox" *ngIf="i!=0"> -->
       <div class="imagebox" *ngIf="imageList[3 * i]">
-        <img [src]="imageList[3*i].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList[3*i].caption}}</span>
+        <img
+          [src]="imageList[3 * i].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType1(imageList[3 * i])"
+        />
       </div>
     </td>
-    <td *ngIf="imageList[3*i+1]">
+
+    <td *ngIf="imageList[3 * i + 1]">
       <div class="imagebox">
-        <img [src]="imageList[3*i+1].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList[3*i+1].caption}}</span>
+        <img
+          [src]="imageList[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType1(imageList[3 * i + 1])"
+        />
       </div>
     </td>
-    <td *ngIf="imageList[3*i+2]">
+
+    <td *ngIf="imageList[3 * i + 2]">
       <div class="imagebox">
-        <img [src]="imageList[3*i+2].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList[3*i+2].caption}}</span>
-      </div>
-    </td>
-  </tr>
-</table>
-<hr>
-<br>
-<br>
-<br>
-<p>รถกระบะ</p>
-<table *ngIf="imageList2">
-  <tr *ngFor="let i of rowIndexArray">
-    <td>
-      <div class="imagebox" *ngIf="i==0">
-        <a routerLink="/image/upload">
-          <img src="/assets/img/new_image.jpg" class="img-fluid">
-          <span class="imagebox-desc">Insert New Image</span></a>
-      </div>
-      <div class="imagebox" *ngIf="i!=0">
-        <img [src]="imageList2[3*i-1].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList2[3*i-1].caption}}</span>
-      </div>
-    </td>
-    <td *ngIf="imageList2[3*i]">
-      <div class="imagebox">
-        <img [src]="imageList2[3*i].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList2[3*i].caption}}</span>
-      </div>
-    </td>
-    <td *ngIf="imageList2[3*i+1]">
-      <div class="imagebox">
-        <img [src]="imageList2[3*i+1].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList2[3*i+1].caption}}</span>
+        <img
+          [src]="imageList[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType1(imageList[3 * i + 2])"
+        />
       </div>
     </td>
   </tr>
 </table>
 
-<br>
-<br>
-<br>
-<hr>
-<p>รถบรรทุก</p>
+<hr />
+<br />
+<br />
+<br />
+<p>ประเภทรถที่2</p>
+<table *ngIf="imageList2">
+  <tr *ngFor="let i of rowIndexArray">
+    <td>
+      <div class="imagebox" *ngIf="imageList2[3 * i]">
+        <img
+          [src]="imageList2[3 * i].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType2(imageList2[3 * i])"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList2[3 * i + 1]">
+      <div class="imagebox">
+        <img
+          [src]="imageList2[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType2(imageList2[3 * i + 1])"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList2[3 * i + 2]">
+      <div class="imagebox">
+        <img
+          [src]="imageList2[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType2(imageList2[3 * i + 2])"
+        />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<br />
+<br />
+<br />
+<hr />
+<p>ประเภทรถที่3</p>
 <table *ngIf="imageList3">
   <tr *ngFor="let i of rowIndexArray">
     <td>
-      <div class="imagebox" *ngIf="i==0">
-        <a routerLink="/image/upload">
-          <img src="/assets/img/new_image.jpg" class="img-fluid">
-          <span class="imagebox-desc">Insert New Image</span></a>
-      </div>
-      <div class="imagebox" *ngIf="i!=0">
-        <img [src]="imageList3[3*i-1].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList3[3*i-1].caption}}</span>
+      <div class="imagebox" *ngIf="imageList3[3 * i]">
+        <img
+          [src]="imageList3[3 * i].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType3(imageList3[3 * i])"
+        />
       </div>
     </td>
-    <td *ngIf="imageList3[3*i]">
+
+    <td *ngIf="imageList3[3 * i + 1]">
       <div class="imagebox">
-        <img [src]="imageList3[3*i].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList3[3*i].caption}}</span>
+        <img
+          [src]="imageList3[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType3(imageList3[3 * i + 1])"
+        />
       </div>
     </td>
-    <td *ngIf="imageList3[3*i+1]">
+
+    <td *ngIf="imageList3[3 * i + 2]">
       <div class="imagebox">
-        <img [src]="imageList3[3*i+1].imageUrl" class="img-fluid">
-        <span class="imagebox-desc">{{imageList3[3*i+1].caption}}</span>
+        <img
+          [src]="imageList3[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          (click)="deleteImageType3(imageList3[3 * i + 2])"
+        />
       </div>
     </td>
   </tr>

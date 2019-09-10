@@ -13,12 +13,21 @@ import * as cors from 'cors';
 })
 
 export class AddjobComponent implements OnInit {
-
-  ngOnInit() { }
+  token;
+  ngOnInit() {
+    this.db.list('token').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(token => {
+      console.log('token', token[0].value)
+      this.token = token;
+    });
+  }
   constructor(private db: AngularFireDatabase,
     private lineNotify: LineNotifyService) { }
 
   addjob(data: NgForm) {
+    console.log('addJob Token', this.token[0].value.tokenAdmin);
+
     console.log(data.value);
     let time = new Date();
     const jobData = {
@@ -31,6 +40,7 @@ export class AddjobComponent implements OnInit {
       billNo: '',
       billImageUrl: '',
       billNoImageUrl: '',
+      token: this.token[0].value.tokenAdmin,
       // review: time.getTime(),
 
     }

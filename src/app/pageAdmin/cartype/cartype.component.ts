@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
+import { FirebaseService } from '../../services/firebase-service.service';
 
 @Component({
   selector: 'app-cartype',
@@ -20,39 +21,39 @@ export class CartypeComponent implements OnInit {
   rowIndexArray: any[];//list
 
   formTemplate = new FormGroup({
-    caption: new FormControl('', Validators.required),
+    // caption: new FormControl('', Validators.required),
     category: new FormControl(''),
     imageUrl: new FormControl('', Validators.required)
   })
-  constructor(private storage: AngularFireStorage, private service: ImageService) { }
+  constructor(private storage: AngularFireStorage,
+    private service: ImageService,
+    private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     //colum1
     this.resetForm();
-    this.service.getImageDetailAnimalList();
+    this.service.getImageDetailCarType1();
     this.service.imageDetailList.snapshotChanges().subscribe(
       list => {
-        this.imageList = list.map(item => { return item.payload.val(); });
+        this.imageList = list.map(item => ({ key: item.key, value: item.payload.val() }));
         this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
-        
-        
       }
     );
     //coloum2
     this.resetForm();
-    this.service.getImageDetailVehicleList();
+    this.service.getImageDetailCarType2();
     this.service.imageDetailList.snapshotChanges().subscribe(
       list => {
-        this.imageList2 = list.map(item => { return item.payload.val(); });
+        this.imageList2 = list.map(item => ({ key: item.key, value: item.payload.val() }));
         this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList2.length + 1) / 3)).keys());
       }
     );
     //colum3
     this.resetForm();
-    this.service.getImageDetailBirdList();
+    this.service.getImageDetailCarType3();
     this.service.imageDetailList.snapshotChanges().subscribe(
       list => {
-        this.imageList3 = list.map(item => { return item.payload.val(); });
+        this.imageList3 = list.map(item => ({ key: item.key, value: item.payload.val() }));
         this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList3.length + 1) / 3)).keys());
       }
     );
@@ -81,7 +82,11 @@ export class CartypeComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
-            this.service.insertImageDetails(formValue);
+            const addPath = {
+              ...formValue,
+              filePath: filePath
+            }
+            this.service.insertImageDetails(addPath);
             this.resetForm();
           })
         })
@@ -100,5 +105,22 @@ export class CartypeComponent implements OnInit {
     this.selectedImage = null;
     this.isSubmitted = false;
   }
+
+  deleteImageType1(data) {
+    console.log(data);
+    this.storage.ref(data.value.filePath).delete();
+    this.firebaseService.removCartype1(data.key);
+  }
+  deleteImageType2(data) {
+    console.log(data);
+    this.storage.ref(data.value.filePath).delete();
+    this.firebaseService.removCartype2(data.key);
+  }
+  deleteImageType3(data) {
+    console.log(data);
+    this.storage.ref(data.value.filePath).delete();
+    this.firebaseService.removCartype3(data.key);
+  }
+
 
 }

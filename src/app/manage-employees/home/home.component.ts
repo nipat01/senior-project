@@ -27,9 +27,9 @@ export class HomeComponent implements OnInit {
   selectedImage: any = null;
   isSubmitted: boolean;
   formValue: any;
-  deleteImg = false;
+
   formTemplate = new FormGroup({
-    imageUrl: new FormControl('', Validators.required),
+    imageUrl: new FormControl(),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     firstname: new FormControl('', Validators.required),
@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
     hireDate: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
     token: new FormControl('', Validators.required),
+    filePath: new FormControl(),
 
   });
   // editwikiForm = new FormGroup({
@@ -78,6 +79,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.db.list('wikis').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(wikis => {
@@ -91,13 +93,15 @@ export class HomeComponent implements OnInit {
 
   open(content) {
     const modalRef = this.modalService.open(content);
-
   }
 
   openData(contentData) {
     const modalRef = this.modalService.open(contentData);
   }
 
+  openCurrentAddress(contentCurrent) {
+    const modalRef = this.modalService.open(contentCurrent);
+  }
   openEditData(contentEditData) {
     const modalRef = this.modalService.open(contentEditData);
   }
@@ -129,19 +133,40 @@ export class HomeComponent implements OnInit {
       let setCurrent = setCurrentWikis.value
       let setCur2 = {
         ...setCurrent,
-        currentLat: '1.1.1.1',
-        currentLong: '1.1.1.1',
+        currentLat: '',
+        currentLong: '',
+        sendCoordinates: 'send!',
       }
       console.log('setCurrent', setCurrent);
       console.log('setCur2', setCur2);
-
-
       // console.log('setCurrentWikis', setCurrentWikis);
       // console.log('showValue', this.wikis[i].key,);
 
       this.firebaseService.editWiki(this.wikis[i].key, setCur2);
     }
 
+  }
+  resetCoordinates() {
+    this.wikis;
+    console.log(this.wikis.length);
+    // console.log(getDataWikis[0].key);
+    for (let i = 0; i < this.wikis.length; i++) {
+      console.log('test')
+      const setCurrentWikis = {
+        ...this.wikis[i],
+      }
+      let setCurrent = setCurrentWikis.value
+      let setCur2 = {
+        ...setCurrent,
+        sendCoordinates: '',
+      }
+      console.log('setCurrent', setCurrent);
+      console.log('setCur2', setCur2);
+      // console.log('setCurrentWikis', setCurrentWikis);
+      // console.log('showValue', this.wikis[i].key,);
+
+      this.firebaseService.editWiki(this.wikis[i].key, setCur2);
+    }
   }
 
   delWiki(data) {
@@ -156,10 +181,9 @@ export class HomeComponent implements OnInit {
       ...data.value,
       imageUrl: '',
     }
-    this.firebaseService.editWiki(data.key, editUrl)
+    this.firebaseService.editWiki(data.key, editUrl);
 
-    this.deleteImg = true;
-    // data.value.imageUrl = this.imgSrc
+
   }
 
   showPreview(event: any) {

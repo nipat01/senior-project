@@ -13,9 +13,14 @@ export class FirebaseService {
   homepageList: AngularFireList<any>
   videoList: AngularFireList<any>
   bankList: AngularFireList<any>
+  tokenList: AngularFireList<any>
   aboutList: AngularFireList<any>
   aboutAccountList: AngularFireList<any>
   portolio: AngularFireList<any>
+  serivce: AngularFireList<any>
+  carType1: AngularFireList<any>
+  carType2: AngularFireList<any>
+  carType3: AngularFireList<any>
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth, ) {
     this.wikiList = db.list('wikis');
@@ -24,9 +29,14 @@ export class FirebaseService {
     this.homepageList = db.list('homepage');
     this.videoList = db.list('video');
     this.bankList = db.list('bank');
+    this.tokenList = db.list('token');
     this.aboutList = db.list('allhomepage/about');
     this.aboutAccountList = db.list('allhomepage/lineAccount');
     this.portolio = db.list('imageDetails/imageDetailPortfolioList');
+    this.serivce = db.list('imageDetails/imageDetailServicelList');
+    this.carType1 = db.list('imageDetails/imageDetailList/type1');
+    this.carType2 = db.list('imageDetails/imageDetailList/type2');
+    this.carType3 = db.list('imageDetails/imageDetailList/type3');
   }
 
   getWikiList(): Observable<any[]> {
@@ -89,10 +99,15 @@ export class FirebaseService {
     console.log(this.videoList);
     return this.videoList.update(id, data);
   }
+  editToken(id, data) {
+    console.log('tokenList',this.tokenList);
+    return this.tokenList.update(id, data);
+  }
 
   editJob(id, data) {
     return this.jobList.update(id, data);
   }
+
   removeJob(id): void {
     this.jobList.remove(id);
   }
@@ -101,6 +116,18 @@ export class FirebaseService {
   }
   removPortolio(id): void {
     this.portolio.remove(id);
+  }
+  removService(id): void {
+    this.serivce.remove(id);
+  }
+  removCartype1(id): void {
+    this.carType1.remove(id);
+  }
+  removCartype2(id): void {
+    this.carType2.remove(id);
+  }
+  removCartype3(id): void {
+    this.carType3.remove(id);
   }
 
 

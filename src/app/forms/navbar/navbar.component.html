@@ -100,12 +100,20 @@
             >ข้อมูลส่วนตัว</a
           >
           <a
-            *ngIf="auth.authenticated "
+            *ngIf="auth.authenticated"
             [routerLink]="['/']"
             class="dropdown-item"
             (click)="openEditData(contentEditData)"
             (click)="$event.preventDefault()"
             >เปลี่ยนรหัสผ่าน</a
+          >
+          <a
+            *ngIf="auth.authenticated"
+            [routerLink]="['/']"
+            class="dropdown-item"
+            (click)="openToken(token)"
+            (click)="$event.preventDefault()"
+            >token</a
           >
           <a
             class="dropdown-item"
@@ -134,21 +142,17 @@
     </button>
   </div>
   <div class="modal-body">
-      <form [formGroup]="editPasswordForm">
-
-        <div class="form-group">
-
-          <label>อีเมลล์</label>
-          <input
-            type="password"
-            class="form-control"
-            formControlName="password"
-
-          />
-
-        </div>
-      </form>
-    </div>
+    <form [formGroup]="editPasswordForm">
+      <div class="form-group">
+        <label>รหัสผ่านใหม่ของคุณ</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+        />
+      </div>
+    </form>
+  </div>
   <div class="modal-footer">
     <button
       type="button"
@@ -161,3 +165,39 @@
   </div>
 </ng-template>
 
+<!-- token----------------------------------------------------------------------------------- -->
+<ng-template #token let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Token</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="tokenForm">
+      <div class="form-group">
+        <!-- <div *ngFor="let data of token"> -->
+        <label>Token ผู้ดูแลระบบ</label>
+        <input type="text" class="form-control" formControlName="tokenAdmin" />
+        <label>Token กลุ่มพนักงานขับรถ</label>
+        <input type="text" class="form-control" formControlName="tokenGroup" />
+        <!-- </div> -->
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="addToken(tokenForm)"
+      (click)="c('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

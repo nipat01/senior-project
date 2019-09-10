@@ -73,7 +73,7 @@ const jobData = {
   emailDriver: this.selectedEmailDriver,
 }
  this.firebaseService.editJob(dataDriver.key, jobData);
- 
+
   }
   selectValue(driver) {
     console.log('showValue', driver.target.value.split(","));
@@ -87,7 +87,6 @@ const jobData = {
   openDataDriver(con) {
     console.log('showdataDialog', con);
     // console.log(dataOfDailog.key);
-
     this.modalService.open(con);
   }
 

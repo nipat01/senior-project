@@ -15,14 +15,14 @@ export class ImageService {
   getImageDetailList() {
     this.imageDetailList = this.firebase.list('imageDetails/imageDetailList');
   }
-  getImageDetailAnimalList() {
-    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/Animal');
+  getImageDetailCarType1() {
+    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/type1');
   }
-  getImageDetailVehicleList() {
-    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/Vehicle');
+  getImageDetailCarType2() {
+    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/type2');
   }
-  getImageDetailBirdList() {
-    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/Bird');
+  getImageDetailCarType3() {
+    this.imageDetailList = this.firebase.list('imageDetails/imageDetailList/type3');
   }
   getImageDetailPortfolioList() {
     this.imageDetaiPortfoliolList = this.firebase.list('imageDetails/imageDetailPortfolioList');
@@ -38,25 +38,25 @@ export class ImageService {
   }
 
   insertImageDetails(imageDetails) {
-    if (imageDetails.category === 'Animal') {
-      this.firebase.list('imageDetails/imageDetailList/Animal').push(imageDetails);
-    } else if (imageDetails.category === 'Vehicle') {
-      this.firebase.list('imageDetails/imageDetailList/Vehicle').push(imageDetails);
-    } else if (imageDetails.category === 'Bird') {
-      this.firebase.list('imageDetails/imageDetailList/Bird').push(imageDetails);
+    if (imageDetails.category === 'type1') {
+      this.firebase.list('imageDetails/imageDetailList/type1').push(imageDetails);
+    } else if (imageDetails.category === 'type2') {
+      this.firebase.list('imageDetails/imageDetailList/type2').push(imageDetails);
+    } else if (imageDetails.category === 'type3') {
+      this.firebase.list('imageDetails/imageDetailList/type3').push(imageDetails);
     }
   }
 
   insertImagePortfolioDetails(imageDetails) {
     console.log(imageDetails);
-    
+
     this.firebase.list('imageDetails/imageDetailPortfolioList').push(imageDetails)
   }
   insertImageCartypeDetails(imageDetails) {
     this.imageDetaiCartypelList.push(imageDetails);
   }
   insertImageServiceDetails(imageDetails) {
-    this.imageDetailServiceList.push(imageDetails);
+    this.firebase.list('imageDetails/imageDetailServicelList').push(imageDetails);
   }
   insertImageJob(imageDetails) {
     // this.firebase.list('testcar').push(imageDetails);

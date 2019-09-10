@@ -28,14 +28,14 @@ admin.initializeApp();
 
 
 // 1-------------------------------------------------------------------------------------------
-const lineNotify = (lineMessage: any) => {
-  const token = 'UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'; //ใส่ access token ที่ใช้งาน
+const lineNotify = (lineMessage: any, token: any) => {
+  // const token = 'UdN7DKK1OisfMWOEQaQsmtTTvspqFsGe7igVjKqxgR0'; //ใส่ access token ที่ใช้งาน
   const options = {
     "method": 'POST',
     "uri": `https://notify-api.line.me/api/notify`,
     "headers": {
       'Content-Type': 'application/x-www-form-urlencoded',
-      "Authorization": "Bearer " + token
+      "Authorization": `Bearer ${token}`
     },
     // "payload": 'message=' + lineMessage,
 
@@ -67,7 +67,7 @@ exports.postNotifyToLine = functions.database.ref('/job/{pushId}')
          เวลา:${original.workTime}
          ประเภท:${original.worktype}`
 
-    return lineNotify(dataOiginal);
+    return lineNotify(dataOiginal, original.token);
   });
 //2--------------------------------------------------------------------------------------
 const notifyToDriver = (lineMessage: any, token: any) => {
@@ -120,14 +120,14 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
 
 
 //3------------------------------------------------------------------------------------------
-const notifyToGroupDriver = (lineMessage: any) => {
-  const token = 'IAIHa96melOHxtzsG0qyIVtyBGnu9iH92gj65NKGLNG'; //ใส่ access token ที่ใช้งาน
+const notifyToGroupDriver = (lineMessage: any, token: any) => {
+  // const token = 'IAIHa96melOHxtzsG0qyIVtyBGnu9iH92gj65NKGLNG'; //ใส่ access token ที่ใช้งาน
   const options = {
     "method": 'POST',
     "uri": `https://notify-api.line.me/api/notify`,
     "headers": {
       'Content-Type': 'application/x-www-form-urlencoded',
-      "Authorization": "Bearer " + token
+      "Authorization": `Bearer ${token}`
     },
     // "payload": 'message=' + lineMessage,
 
@@ -143,13 +143,15 @@ const notifyToGroupDriver = (lineMessage: any) => {
   })
 }
 
-exports.updateGroupDriver = functions.database.ref('/wikis/{pushId}/currentLat')
+exports.updateGroupDriver = functions.database.ref('/wikis/{pushId}')
   .onWrite((change: any, context: any) => {
     const afterData = change.after.val(); // data after the write
     console.log(afterData);
-    console.log('Uppercasing', context.params.pushId, afterData);
-    const sendNotify = `กรุณาส่งตำแหน่งปัจจุบัน`
-    return notifyToGroupDriver(sendNotify);
+    const token = afterData.token
+    if (afterData.sendCoordinates === 'send!') {
+      const sendNotify = `กรุณาส่งตำแหน่งปัจจุบัน`
+      return notifyToGroupDriver(sendNotify, token);
+    }
   });
 
 
