@@ -3,45 +3,63 @@
 <h4><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> กรอกรายละเอียดการจ้าง</h4>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
-<div class="control">
-  <label class="text" for="source">ระบุต้นทาง</label>
-  <input class="textBox" type="text" name="source" ngModel />
-  <label class="text" for="destination">ระบุปลายทาง</label>
-  <input class="textBox" type="text" name="destination" ngModel />
-  <label class="text" for="worktype">รูปแบบงาน</label>
-  <div ngModel ngbRadioGroup name="worktype">
-    <label  ngbButtonLabel >
-      <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
-    </label>
-    <label ngbButtonLabel>
-      <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
-    </label>
+  <div class="control">
+    <label class="text" for="source">ระบุต้นทาง</label>
+    <input class="textBox" type="text" name="source" ngModel />
+    <label class="text" for="destination">ระบุปลายทาง</label>
+    <input class="textBox" type="text" name="destination" ngModel />
+    <label class="text" for="worktype">รูปแบบงาน</label>
+    <div ngModel ngbRadioGroup name="worktype">
+      <label ngbButtonLabel>
+        <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
+      </label>
+      <label ngbButtonLabel>
+        <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
+      </label>
+    </div>
+    <!-- <input type="text" name="worktype" ngModel /> -->
+    <label class="text" for="customerFirstname">ชื่อลูกค้า</label>
+    <input class="textBox" type="text" name="customerFirstname" ngModel />
+    <label class="text" for="workDate">วันที่</label>
+    <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
+      #d="ngbDatepicker" />
+    <!-- <input type="text" name="workDate" ngModel /> -->
+    <label class="text" for="workTime">เวลา</label>
+    <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
+    <!-- <input type="text" name="workTime" ngModel /> -->
+    <label class="text" for="customerPhone">เบอร์ติดต่อ</label>
+    <input class="textBox" type="text" name="customerPhone" ngModel />
+    <label class="text" for="customerLine">ไลน์ติดต่อ</label>
+    <input class="textBox" type="text" name="customerLine" ngModel />
+    <label class="text" for="detail">รายละเอียดการจ้าง</label>
+    <textarea class="textArea" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <button class="btn submit" type="submit">Submit</button>
   </div>
-  <!-- <input type="text" name="worktype" ngModel /> -->
-  <label class="text" for="customerFirstname">ชื่อลูกค้า</label>
-  <input  class="textBox" type="text" name="customerFirstname" ngModel />
-  <label class="text" for="workDate">วันที่</label>
-  <input
-    class="textBox"
-    (click)="d.toggle()"
-    placeholder="yyyy-mm-dd"
-    name="workDate"
-    ngModel
-    ngbDatepicker
-    #d="ngbDatepicker"
-  />
-  <!-- <input type="text" name="workDate" ngModel /> -->
-  <label class="text" for="workTime">เวลา</label>
-  <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
-  <!-- <input type="text" name="workTime" ngModel /> -->
-  <label class="text" for="customerPhone">เบอร์ติดต่อ</label>
-  <input class="textBox" type="text" name="customerPhone" ngModel />
-  <label class="text" for="customerLine">ไลน์ติดต่อ</label>
-  <input  class="textBox" type="text" name="customerLine" ngModel />
-  <label class="text" for="detail">รายละเอียดการจ้าง</label>
-  <textarea class="textArea" id="exampleFormControlTextarea1" rows="3"></textarea>
-  <button  class="btn submit" type="submit">Submit</button>
-</div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->
+  <!-- map---------------------------------------------------------------------------------------------------- -->
+  <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map> -->
+
+  <div class="container">
+
+    <h1>Angular Google Maps with Places Search Example</h1>
+
+    <div class="form-group">
+      <label>Enter address</label>
+      <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+        placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        #search>
+    </div>
+
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+        (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+
+    <h5>Address: {{address}}</h5>
+    <div>Latitude: {{latitude}}</div>
+    <div>Longitude: {{longitude}}</div>
+  </div>
 
 </form>
