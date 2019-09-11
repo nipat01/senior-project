@@ -6,6 +6,7 @@ import { switchMap } from 'rxjs/operators';
 import { LineNotifyService } from 'src/app/services/line-notify.service';
 import * as cors from 'cors';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-addjob',
@@ -30,12 +31,15 @@ export class AddjobComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private lineNotify: LineNotifyService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) { }
+    private ngZone: NgZone,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     //map--------------------------------------------------------------------------------------------
     // this.setCurrentLocation();
     this.mapsAPILoader.load().then(() => {
+      console.log(' this.setCurrentLocation()', this.setCurrentLocation());
+
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
 
@@ -102,6 +106,12 @@ export class AddjobComponent implements OnInit {
 
   }
 
+  openData(conMap) {
+    console.log('showdataDialog', conMap);
+    // console.log(dataOfDailog.key);
+    this.modalService.open(conMap);
+  }
+
 
   //map--------------------------------------------------------------------------------------------------
   private setCurrentLocation() {
@@ -116,7 +126,7 @@ export class AddjobComponent implements OnInit {
   };
 
   markerDragEnd($event: MouseEvent) {
-    console.log($event);
+    console.log('$event',$event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
@@ -124,8 +134,8 @@ export class AddjobComponent implements OnInit {
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
+      console.log('results',results);
+      console.log('status',status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;

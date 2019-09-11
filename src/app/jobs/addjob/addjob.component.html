@@ -1,11 +1,31 @@
 <!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
+<ng-template #conMap let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="text-center">
+    <div class="modal-body">
+      <label>
+        เฉพาะงานที่ดำเนินการแล้วเท่านั้น
+      </label>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn  save" (click)="d('Cross click')">
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
 
 <h4><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> กรอกรายละเอียดการจ้าง</h4>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
   <div class="control">
     <label class="text" for="source">ระบุต้นทาง</label>
-    <input class="textBox" type="text" name="source" ngModel />
+    <input class="textBox" type="text" name="source" ngModel  />
     <label class="text" for="destination">ระบุปลายทาง</label>
     <input class="textBox" type="text" name="destination" ngModel />
     <label class="text" for="worktype">รูปแบบงาน</label>
@@ -32,7 +52,7 @@
     <label class="text" for="customerLine">ไลน์ติดต่อ</label>
     <input class="textBox" type="text" name="customerLine" ngModel />
     <label class="text" for="detail">รายละเอียดการจ้าง</label>
-    <textarea class="textArea" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
     <button class="btn submit" type="submit">Submit</button>
   </div>
   <!-- <ngb-timepicker ngModel name="workTime"  [spinners]="OFF"></ngb-timepicker> -->
@@ -42,9 +62,7 @@
   </agm-map> -->
 
   <div class="container">
-
     <h1>Angular Google Maps with Places Search Example</h1>
-
     <div class="form-group">
       <label>Enter address</label>
       <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
@@ -61,5 +79,8 @@
     <div>Latitude: {{latitude}}</div>
     <div>Longitude: {{longitude}}</div>
   </div>
+
+
+
 
 </form>
