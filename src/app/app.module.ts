@@ -62,7 +62,7 @@ import { AuthService } from './services/auth.service';
 // import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SearchJobComponent } from './jobs/search-job/search-job.component';
 
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 
 
 import { AccordionModule } from 'primeng/accordion';
@@ -213,7 +213,7 @@ const routes: Routes = [
     AngularFireStorageModule,
 
     NgbModule,
-    AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
+    // AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     BrowserModule,
     BrowserAnimationsModule,
     DialogModule,
