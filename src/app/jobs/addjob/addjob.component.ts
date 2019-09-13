@@ -44,7 +44,7 @@ export class AddjobComponent implements OnInit {
       this.geoCoder = new google.maps.Geocoder;
 
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+        types: ["establishment","geocode"]
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
