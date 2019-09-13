@@ -88,7 +88,6 @@ export class CheckpaymentJobComponent implements OnInit {
   openData(con, ) {
     console.log('showdataDialog', con);
     // console.log(dataOfDailog.key);
-
     this.modalService.open(con);
   }
 }

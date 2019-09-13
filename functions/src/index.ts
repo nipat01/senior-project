@@ -107,8 +107,8 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
     ต้นทาง:${afterData.source}
     ปลายทาง:${afterData.destination}
     รายละเอียดการจ้างงาน:${afterData.detail}
-    วัน:${afterData.workDate}
-    เวลา:${afterData.workTime}
+    วัน:${afterData.workDate.day}/${afterData.workDate.month}/${afterData.workDate.year}
+    เวลา:${afterData.workTime.hour}:${afterData.workTime.minute}
     ประเภท:${afterData.worktype}
     token: ${afterData.token}`
 
