@@ -1,33 +1,23 @@
 <!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
-<ng-template #conMap let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="text-center">
-    <div class="modal-body">
-      <label>
-        เฉพาะงานที่ดำเนินการแล้วเท่านั้น
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn  save" (click)="d('Cross click')">
-        Close
-      </button>
-    </div>
-  </div>
-</ng-template>
+
 
 <h4><img src="https://image.flaticon.com/icons/svg/295/295681.svg"> กรอกรายละเอียดการจ้าง</h4>
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
   <div class="control">
     <label class="text" for="source">ระบุต้นทาง</label>
-    <input class="textBox" type="text" name="source" ngModel  />
+    <input class="textBox" type="text" name="source" ngModel [value]="username" (click)="openData(conMap)" />
+
+    <!-- <input class="textBox" type="text" name="source" (keydown.enter)="$event.preventDefault()" -->
+    <!-- placeholder="Source Location" autocorrect="off" autocapitalize="off" spellcheck="off" ngModel #search> -->
     <label class="text" for="destination">ระบุปลายทาง</label>
-    <input class="textBox" type="text" name="destination" ngModel />
+
+    <input class="textBox" type="text" name="destination" [value]="username2" (click)="openData(conMap)" ngModel />
+    <!-- <input class="textBox" type="text" name="destination" (keydown.enter)="$event.preventDefault()"
+      placeholder="Destination Location" autocorrect="off" autocapitalize="off" spellcheck="off" ngModel #search2> -->
+
+
+
     <label class="text" for="worktype">รูปแบบงาน</label>
     <div ngModel ngbRadioGroup name="worktype">
       <label ngbButtonLabel>
@@ -61,26 +51,80 @@
     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
   </agm-map> -->
 
+
+
+
+
+
   <div class="container">
-    <h1>Angular Google Maps with Places Search Example</h1>
     <div class="form-group">
       <label>Enter address</label>
-      <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+      <!-- input1------------------------------------------------------------------------------------------- -->
+      <input type="text" name="sourceMap" class="form-control" (keydown.enter)="$event.preventDefault()"
         placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
         #search>
+      <!-- input2---------------------------------------------------------------------------------------- -->
+      <input type="text" name="destMap" class="form-control" (keydown.enter)="$event.preventDefault()"
+        placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        #search2>
     </div>
 
     <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+      <agm-marker [label]="'ต้นทาง'" [latitude]="latitude" [longitude]="longitude" [markerDraggable]="flase">
+      </agm-marker>
+      <agm-marker [label]="'ปลายทาง'" [latitude]="latitude2" [longitude]="longitude2" [markerDraggable]="flase"
         (dragEnd)="markerDragEnd($event)"></agm-marker>
     </agm-map>
 
+
+    
     <h5>Address: {{address}}</h5>
     <div>Latitude: {{latitude}}</div>
     <div>Longitude: {{longitude}}</div>
+
+    <br>
+    <h5>Address: {{address}}</h5>
+    <div>Latitude2: {{latitude2}}</div>
+    <div>Longitude2: {{longitude2}}</div>
   </div>
 
 
 
+
+
+  <!-- <ng-template #conMap let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">ที่อยู่</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="text-center">
+      <div class="modal-body">
+        <div class="container">
+
+          <label>ระบุต้นทาง</label>
+          <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+            [value]="username" (input)="username = $event.target.value" #search>
+          <label>ระบุปลายทาง</label>
+          <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+            placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+            [value]="username2" (input)="username2 = $event.target.value" #search2>
+        </div>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
+        </agm-map>
+        <div>Latitude: {{latitude}}</div>
+        <div>Longitude: {{longitude}}</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn  save" (click)="d('Cross click')">
+        Close
+      </button>
+    </div>
+  </ng-template> -->
 
 </form>

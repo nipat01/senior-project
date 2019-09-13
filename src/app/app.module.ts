@@ -93,7 +93,7 @@ const routes: Routes = [
   { path: 'addcar', component: AddCarComponent, canActivate: [AdminAuthGuard] },
   { path: 'login', component: LoginComponent, },
   // { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AdminAuthGuard] },
+
 
   { path: 'overview', component: OverviewComponent, canActivate: [AdminAuthGuard] },
 
