@@ -83,6 +83,7 @@ import { ReviceUserComponent } from './jobs/user/revice-user/revice-user.compone
 import { ShowStatusComponent } from './jobs/user/show-status/show-status.component';
 import { CheckLocitionComponent } from './jobs/user/check-locition/check-locition.component';
 import { SideNavComponent } from './forms/side-nav/side-nav.component';
+import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
   { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
@@ -110,7 +111,6 @@ const routes: Routes = [
   { path: 'editjob/:id', component: AddjobComponent, canActivate: [AdminAuthGuard] },
   { path: 'checkstatus', component: CheckStatusUserComponent },
 
-  { path: 'jobdriver', component: JobDriverComponent, canActivate: [AuthGuard] },
   { path: 'notificationjobdriver', component: NotificationJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'pendingjobdriver', component: PendingJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'proceedjobdriver', component: ProceedJobDriverComponent, canActivate: [AuthGuard] },
@@ -213,7 +213,7 @@ const routes: Routes = [
     AngularFireStorageModule,
 
     NgbModule,
-    // AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
+    AgmCoreModule.forRoot({ apiKey: environment.googleMapsKey }),
     BrowserModule,
     BrowserAnimationsModule,
     DialogModule,

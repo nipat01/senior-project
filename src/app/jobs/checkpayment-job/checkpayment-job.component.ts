@@ -84,7 +84,9 @@ export class CheckpaymentJobComponent implements OnInit {
     console.log('data', driver.target.value);
 
   }
-
+  openBill(content) {
+    this.modalService.open(content);
+  }
   openData(con, ) {
     console.log('showdataDialog', con);
     // console.log(dataOfDailog.key);

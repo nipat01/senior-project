@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
+import { FirebaseService } from '../../services/firebase-service.service';
+
 
 
 @Component({
@@ -13,19 +15,21 @@ import { ImageService } from '../../services/image/image.service';
 export class PortfolioUserComponent implements OnInit {
   imageList: any[];//list
   rowIndexArray: any[];//list
-  constructor(private storage: AngularFireStorage, private service: ImageService) { }
+  constructor(private storage: AngularFireStorage,
+    private service: ImageService) { }
 
   ngOnInit() {
-    // list
-    this.service.getImageDetailList();
-
-    this.service.imageDetailList.snapshotChanges().subscribe(
+    this.service.getImageDetailPortfolioList();
+    this.service.imageDetaiPortfoliolList.snapshotChanges().subscribe(
       list => {
-        this.imageList = list.map(item => { return item.payload.val(); });
-        console.log(this.imageList);
+        this.imageList = list.map(item => ({ key: item.key, value: item.payload.val() }));
         this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
+
+        console.log('value', this.imageList, 'imageListLength', this.imageList.length);
+        console.log('array', this.rowIndexArray, 'rowIndexArrayLength', this.rowIndexArray.length);
       }
     );
+
 
   }
 

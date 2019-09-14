@@ -1,1 +1,124 @@
-<p>cartype-user works!</p>
+<br />
+<br />
+<br />
+<p>แสดงผล</p>
+<p>ประเภทรถที่1</p>
+<table *ngIf="imageList">
+  <tr *ngFor="let i of rowIndexArray">
+    <td>
+      <div class="imagebox" *ngIf="imageList[3 * i]">
+        <img
+          [src]="imageList[3 * i].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList[3 * i + 1]">
+      <div class="imagebox">
+        <img
+          [src]="imageList[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList[3 * i + 2]">
+      <div class="imagebox">
+        <img
+          [src]="imageList[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<br />
+<br />
+<br />
+<p>ประเภทรถที่2</p>
+<table *ngIf="imageList2">
+  <tr *ngFor="let i of rowIndexArray">
+    <td>
+      <div class="imagebox" *ngIf="imageList2[3 * i]">
+        <img
+          [src]="imageList2[3 * i].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList2[3 * i + 1]">
+      <div class="imagebox">
+        <img
+          [src]="imageList2[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList2[3 * i + 2]">
+      <div class="imagebox">
+        <img
+          [src]="imageList2[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+  </tr>
+</table>
+
+<br />
+<br />
+<br />
+<hr />
+<p>ประเภทรถที่3</p>
+<table *ngIf="imageList3">
+  <tr *ngFor="let i of rowIndexArray">
+    <td>
+      <div class="imagebox" *ngIf="imageList3[3 * i]">
+        <img
+          [src]="imageList3[3 * i].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList3[3 * i + 1]">
+      <div class="imagebox">
+        <img
+          [src]="imageList3[3 * i + 1].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+
+    <td *ngIf="imageList3[3 * i + 2]">
+      <div class="imagebox">
+        <img
+          [src]="imageList3[3 * i + 2].value.imageUrl"
+          class="img-fluid"
+          width="450px"
+          height="250px"
+        />
+      </div>
+    </td>
+  </tr>
+</table>

@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { AuthService } from '../../../services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-notification-job-driver',
@@ -15,18 +16,24 @@ import { AuthService } from '../../../services/auth.service';
 export class NotificationJobDriverComponent implements OnInit {
   jobList: AngularFireList<any>;
   job: any[];
-  job1: any[];
 
-  carList: AngularFireList<any>;
+
+  wikis: any[];
   car: any[];
-  id;
-  selectedDriver = [];
+  //map
+  longitude: number;
+  latitude: number;
+  zoom: number;
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
+    //currentAdrees
+    this.setCurrentLocation();
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
@@ -34,6 +41,14 @@ export class NotificationJobDriverComponent implements OnInit {
       this.job = job.filter((data: any) => data.value.status === 'notification'
         && data.value.emailDriver === this.auth.username);
       // this.job = job
+
+    });
+
+    this.db.list('wikis').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis.filter((data: any) => data.value.email === this.auth.username);;
 
     });
 
@@ -58,6 +73,33 @@ export class NotificationJobDriverComponent implements OnInit {
     this.firebaseService.editJob(data.key, jobData);
   }
 
+  getCurentAddress(data) {
+    console.log('send', data);
+    const currentAddress = {
+      ...data.value,
+      currentLat: this.longitude,
+      currentLong: this.latitude,
+    }
+    console.log('currentAddress', currentAddress);
+
+    this.firebaseService.editWiki(data.key, currentAddress)
+
+  }
+  openCurentAddress(contentCurrent) {
+    const modalRef = this.modalService.open(contentCurrent);
+  }
 
 
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 18;
+        console.log('lat,long', this.latitude, this.longitude);
+
+        // this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  };
 }

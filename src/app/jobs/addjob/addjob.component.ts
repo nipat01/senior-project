@@ -33,6 +33,8 @@ export class AddjobComponent implements OnInit {
   public searchElementRef2: ElementRef;
   //addJob
   token;
+
+
   constructor(private db: AngularFireDatabase,
     private lineNotify: LineNotifyService,
     private mapsAPILoader: MapsAPILoader,
@@ -55,7 +57,7 @@ export class AddjobComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
+          console.log('place',place);
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -64,6 +66,7 @@ export class AddjobComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
+          this.getAddress(this.latitude, this.longitude);
           this.zoom = 12;
         });
       });
@@ -75,6 +78,7 @@ export class AddjobComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete2.getPlace();
+          console.log('place2',place);
 
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
@@ -84,6 +88,7 @@ export class AddjobComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude2 = place.geometry.location.lat();
           this.longitude2 = place.geometry.location.lng();
+          this.getAddress2(this.latitude2, this.longitude2);
           this.zoom = 12;
         });
       });
@@ -103,7 +108,7 @@ export class AddjobComponent implements OnInit {
   addjob(data: NgForm) {
     console.log('addJob Token', this.token[0].value.tokenAdmin);
 
-    console.log(data.value);
+    // console.log(data.value);
     let time = new Date();
     const jobData = {
       ...data.value,
@@ -115,6 +120,12 @@ export class AddjobComponent implements OnInit {
       billNo: '',
       billImageUrl: '',
       billNoImageUrl: '',
+      sourceLatitude: this.latitude,
+      sourceLongitude: this.longitude,
+      source: this.address,
+      destination: this.address2,
+      destLatitude: this.latitude2,
+      destLongitude: this.longitude2 ,
       token: this.token[0].value.tokenAdmin,
       // review: time.getTime(),
 
@@ -124,6 +135,8 @@ export class AddjobComponent implements OnInit {
     //     return this.lineNotify.postMessage('test');
     //   }),
     //   ).subscribe(result => console.log(result));
+    console.log('jobdata', jobData);
+
     this.db.list("/job").push(jobData)
 
     //
@@ -147,8 +160,8 @@ export class AddjobComponent implements OnInit {
   //       this.latitude2 = position.coords.latitude;
   //       this.longitude2 = position.coords.longitude;
   //       this.zoom = 18;
-  //       // this.getAddress(this.latitude, this.longitude);
-  //       // this.getAddress(this.latitude2, this.longitude2);
+  //       this.getAddress(this.latitude, this.longitude);
+  //       this.getAddress(this.latitude2, this.longitude2);
   //     });
   //   }
   // };
@@ -160,25 +173,47 @@ export class AddjobComponent implements OnInit {
   //   this.latitude2 = $event.coords.lat;
   //   this.longitude2 = $event.coords.lng;
   //   this.getAddress(this.latitude, this.longitude);
+  //   console.log('this.getAddress(this.latitude, this.longitude)', this.getAddress(this.latitude, this.longitude));
+
   //   this.getAddress(this.latitude2, this.longitude2);
   // };
 
-  // getAddress(latitude, longitude) {
-  //   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-  //     console.log('results', results);
-  //     console.log('status', status);
-  //     if (status === 'OK') {
-  //       if (results[0]) {
-  //         this.zoom = 12;
-  //         this.address = results[0].formatted_address;
-  //       } else {
-  //         window.alert('No results found');
-  //       }
-  //     } else {
-  //       window.alert('Geocoder failed due to: ' + status);
-  //     }
-  //   });
-  // }
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log('results', results);
+      console.log('status', status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+
+          this.address = results[0].formatted_address;
+          console.log('this.address',this.address);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+  getAddress2(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log('results', results);
+      console.log('status', status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+
+          this.address2 = results[0].formatted_address;
+          console.log('this.address',this.address);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
 
 
 }
