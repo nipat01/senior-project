@@ -30,21 +30,52 @@ export class NotificationJobComponent implements OnInit {
     private modalService: NgbModal) { }
 
   ngOnInit() {
+
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      console.log(job)
+      console.log('notification', job)
       this.job = job.filter((data: any) => data.value.status === 'notification');
       // this.job = job
+      
+      console.log('checkTime', this.job.length);
+      for (let i = 0; i < this.job.length; i++) {
+        const jobTime = {
+          ...this.job[i],
+        }
+        let checkStatus = jobTime.value;
+        let timeNow = new Date();
+        let time = new Date(checkStatus.workDate.year, checkStatus.workDate.month - 1, checkStatus.workDate.day);
+        console.log('time', time, 'timeNow', timeNow);
+        console.log('checkStatus', checkStatus.workDate);
+        if (timeNow >= time) {
+          let setTime2 = {
+            ...checkStatus,
+            statusDriver: 'ไม่มีการยืนยัน',
+          }
+          this.firebaseService.editJob(this.job[i].key, setTime2);
+          // console.log('setTime2', setTime2);
+          console.log('ไม่มีการยืนยัน');
+        }
+      }
+
 
     });
 
-    this.db.list('car').snapshotChanges().map(action => {
-      return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    }).subscribe(car => {
-      console.log(car)
-      this.car = car;
-    });
+
+
+
+
+
+
+
+
+    // this.db.list('car').snapshotChanges().map(action => {
+    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(car => {
+    //   console.log(car)
+    //   this.car = car;
+    // });
 
     this.db.list('wikis').snapshotChanges().map(action => {
       return action.map(action => ({ key: action.key, value: action.payload.val() }));
@@ -66,15 +97,16 @@ export class NotificationJobComponent implements OnInit {
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
   }
-  editJobDriver(dataDriver){
-const jobData = {
-  ...dataDriver.value,
-  driver: this.selectedNameDriver,
-  emailDriver: this.selectedEmailDriver,
-}
- this.firebaseService.editJob(dataDriver.key, jobData);
+  editJobDriver(dataDriver) {
+    const jobData = {
+      ...dataDriver.value,
+      driver: this.selectedNameDriver,
+      emailDriver: this.selectedEmailDriver,
+    }
+    this.firebaseService.editJob(dataDriver.key, jobData);
 
   }
+  
   selectValue(driver) {
     console.log('showValue', driver.target.value.split(","));
     const getDriver = driver.target.value.split(",");
@@ -84,10 +116,18 @@ const jobData = {
     this.selectedEmailDriver = driverEmail;
     this.selectedNameDriver = driverFirstname;
   }
+
   openDataDriver(con) {
     console.log('showdataDialog', con);
     // console.log(dataOfDailog.key);
     this.modalService.open(con);
   }
+
+  // private checkStatus() {
+  //   this.job;
+  //   console.log('checkStatus', this.job.length);
+
+  // }
+
 
 }

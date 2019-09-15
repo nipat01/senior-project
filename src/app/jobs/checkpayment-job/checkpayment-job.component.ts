@@ -62,6 +62,7 @@ export class CheckpaymentJobComponent implements OnInit {
     const jobData = {
       ...data.value,
       status: 'notification',
+      statusDriver: 'รอการยืนยัน',
       driver: this.selectedNameDriver[index],
       emailDriver: this.selectedEmailDriver[index],
       token: this.selectedTokenlDriver[index],

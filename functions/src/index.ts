@@ -99,7 +99,7 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
     console.log(afterData);
     const token = afterData.token
 
-    if (afterData.driver !== '') {  // return notifyToDriver(afterData,);
+    if (afterData.driver !== '' && afterData.status==='notification') {  // return notifyToDriver(afterData,);
       const dataOiginal = `แจ้งเตือนงานDriver
     ชื่อ:${afterData.customerFirstname}
     ไลน์:${afterData.customerLine}

@@ -46,8 +46,8 @@ export class SearchJobComponent implements OnInit {
       console.log('endDate', endDate);
 
       this.job = job.filter((data: any) => {
-        const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
-        // const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
+        // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
+        const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
         const searchJob = data1.value.searchJob;
         const selectSearchJobByCustomerFirstname = data1.value.selectSearchJob === 'customerFirstname';
         const selectSearchJobByDriver = data1.value.selectSearchJob === 'driver';
