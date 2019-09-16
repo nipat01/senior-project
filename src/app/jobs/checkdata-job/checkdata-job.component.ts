@@ -16,9 +16,10 @@ import { MapsAPILoader, MouseEvent } from '@agm/core';
 export class CheckdataJobComponent implements OnInit {
   jobList: AngularFireList<any>
   job: any[];
-
+  wikis: any[];
   List: AngularFireList<any>;
   showEdit = true;
+  currentAddrres = false;
   // display: boolean = false;
   //map
   latitude: number;
@@ -37,14 +38,22 @@ export class CheckdataJobComponent implements OnInit {
 
   ngOnInit() {
     //map
-     this.setCurrentLocation();
+    this.setCurrentLocation();
     //
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      console.log(job.length)
+      console.log('job', job)
       this.job = job.filter((data: any) => data.value.status === 'checkdata');
       // this.job = job
+    });
+
+    //wikis
+    this.db.list('wikis').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis;
 
     });
   }

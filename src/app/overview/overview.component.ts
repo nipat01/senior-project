@@ -25,6 +25,15 @@ export class OverviewComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.db.list('job').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(job => {
+      console.log('job', job)
+      this.job = job;
+      // this.job = job
+    });
+
+
     // this.db.list('wikis').snapshotChanges().map(action => {
     //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
     // }).subscribe(wikis => {

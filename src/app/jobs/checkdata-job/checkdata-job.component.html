@@ -212,17 +212,35 @@
             [zoom]="zoom"
           >
             <agm-marker
+              [label]="'1'"
               [latitude]="data.value.sourceLatitude"
               [longitude]="data.value.sourceLongitude"
               [markerDraggable]="false"
             >
             </agm-marker>
             <agm-marker
+              [label]="'2'"
               [latitude]="data.value.destLatitude"
               [longitude]="data.value.destLongitude"
               [markerDraggable]="false"
             >
             </agm-marker>
+            <div *ngFor="let data2 of wikis">
+              <agm-marker
+                [label]="data2.value.firstname"
+                [latitude]="data2.value.addressLat"
+                [longitude]="data2.value.addressLong"
+                [markerDraggable]="false"
+              >
+              </agm-marker>
+              <agm-marker
+                [label]="'current!!!'"
+                [latitude]="data2.value.currentLat"
+                [longitude]="data2.value.currentLong"
+                [markerDraggable]="false"
+              >
+              </agm-marker>
+            </div>
           </agm-map>
         </div>
         <div class="modal-footer">
@@ -267,5 +285,3 @@
       </button>
     </div>
   </ng-template> -->
-
-

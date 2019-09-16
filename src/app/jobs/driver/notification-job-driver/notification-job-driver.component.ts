@@ -77,8 +77,8 @@ export class NotificationJobDriverComponent implements OnInit {
     console.log('send', data);
     const currentAddress = {
       ...data.value,
-      currentLat: this.longitude,
-      currentLong: this.latitude,
+      currentLat: this.latitude,
+      currentLong: this.longitude,
     }
     console.log('currentAddress', currentAddress);
 
