@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-about',
@@ -13,14 +15,22 @@ import { ActivatedRoute } from '@angular/router';
 export class AboutComponent implements OnInit {
   about: any[];
   account: any[];
+  location: any[];
+  longitude: number;
+  latitude: number;
+  zoom: number;
   // constructor() { }
   constructor(
     private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
+   
   ) { }
   ngOnInit() {
+
+    this.setCurrentLocation();
     this.db.list('allhomepage/about').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(about => {
@@ -28,12 +38,19 @@ export class AboutComponent implements OnInit {
       this.about = about;
 
     });
+
     this.db.list('allhomepage/lineAccount').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(account => {
       console.log(account)
       this.account = account;
 
+    });
+    this.db.list('allhomepage/location').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(location => {
+      console.log('location', location)
+      this.location = location;
     });
   }
 
@@ -63,4 +80,65 @@ export class AboutComponent implements OnInit {
       this.firebaseService.editAccount(key, data.value);
     }
   }
+  lacationOnAboutUs() {
+    console.log('555');
+    // for (let i = 0; i < this.location.length; i++) {
+    //   const setCurrentWikis = {
+    //     ...this.location[i],
+    //   }
+    //   let setCurrent = setCurrentWikis.value
+    //   let setCur2 = {
+    //     ...setCurrent,
+    //     currentLat: '',
+    //     currentLong: '',
+    //   }
+    //   console.log('setCurrent', setCurrent);
+    //   console.log('setCur2', setCur2);
+
+    // }
+
+    if (this.location.length === 0) {
+      const dataLocation = {
+        lat: this.latitude,
+        long: this.longitude,
+      }
+
+
+      console.log('success send locattiton');
+
+      this.db.list('allhomepage/location').push(dataLocation);
+    }
+    else {
+      console.log('location[0]', this.location[0]);
+      console.log('length', this.location.length);
+      let dataLocation = {
+        ...this.location[0].value,
+      }
+      let updateLocation = {
+        ...dataLocation,
+        lat: this.latitude,
+        long: this.longitude,
+      }
+
+      console.log('updateLocation', updateLocation);
+      this.firebaseService.editLocationOnAboutUs(this.location[0].key, updateLocation);
+    }
+  }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 18;
+        console.log('lat,long', this.latitude, this.longitude);
+
+        // this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  };
+  openCurrentAddress(contentCurrent) {
+    const modalRef = this.modalService.open(contentCurrent);
+  }
+
 }

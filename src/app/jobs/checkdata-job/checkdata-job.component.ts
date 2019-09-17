@@ -19,6 +19,7 @@ export class CheckdataJobComponent implements OnInit {
   wikis: any[];
   List: AngularFireList<any>;
   showEdit = true;
+  Addrres = false;
   currentAddrres = false;
   // display: boolean = false;
   //map
@@ -79,6 +80,25 @@ export class CheckdataJobComponent implements OnInit {
   }
   openMap(map) {
     this.modalService.open(map);
+  }
+  showCurrentAddress(checkAddress) {
+    console.log('currentMap', checkAddress);
+    if (checkAddress === 'addressEmp') {
+      console.log('111');
+
+      this.currentAddrres = false;
+      this.Addrres = true;
+    }
+    if (checkAddress == 'currentAddressEmp') {
+      console.log('222');
+      this.currentAddrres = true;
+      this.Addrres = false;
+    }
+    if (checkAddress == 'clearAddressEmp') {
+      console.log('333');
+      this.currentAddrres = false;
+      this.Addrres = false;
+    }
   }
 
   openData(con, ) {

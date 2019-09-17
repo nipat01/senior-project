@@ -16,6 +16,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class CheckStatusUserComponent implements OnInit {
   currentRate;
   job: any[];
+  wikis: any[];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -30,7 +31,16 @@ export class CheckStatusUserComponent implements OnInit {
 
   })
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    this.db.list('wikis').snapshotChanges().map(action => {
+      return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis;
+    });
+
+  }
   searchJob(data1) {
     console.log('data', data1.value);
 
@@ -52,16 +62,45 @@ export class CheckStatusUserComponent implements OnInit {
     const jobData = formTemplate.value
     console.log('job', jobData);
     this.firebaseService.editJob(data.key, jobData);
+    console.log('formTemplate', formTemplate, 'data', data.value);
+
+
+    console.log('length', this.wikis.length);
+    for (let i = 0; i < this.wikis.length; i++) {
+      console.log('test')
+      const getNameDriver = {
+        ...this.wikis[i],
+      }
+
+      let driver = getNameDriver.value
+      if (data.value.driver == driver.firstname) {
+        console.log('ชื่อพนักงานขับรถตรงกันนะ');
+        if (driver.rateReview) {
+          let dataEmp = {
+            ...driver,
+            rateReview: (driver.rateReview + jobData.rateReview) / 2,
+          }
+          this.firebaseService.editWiki(this.wikis[i].key, dataEmp);
+        } else {
+          let dataEmp = {
+            ...driver,
+            rateReview: jobData.rateReview,
+          }
+          this.firebaseService.editWiki(this.wikis[i].key, dataEmp);
+        }
+      }
+    }
+
+
   }
 
   openBill(content, dataFormJob, alert222) {
-    if (dataFormJob.value.status === 'proceeded'  ) {
+    if (dataFormJob.value.status === 'proceeded') {
       console.log(111);
       this.modalService.open(content);
     }
     else {
       console.log('ให้คะแนนไม่ได้');
-
       this.modalService.open(alert222);
     }
   }
