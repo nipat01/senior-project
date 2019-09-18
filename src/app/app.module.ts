@@ -84,6 +84,7 @@ import { ShowStatusComponent } from './jobs/user/show-status/show-status.compone
 import { CheckLocitionComponent } from './jobs/user/check-locition/check-locition.component';
 import { SideNavComponent } from './forms/side-nav/side-nav.component';
 import { AgmCoreModule } from '@agm/core';
+import { InvoiceComponent } from './overview/invoice/invoice.component';
 
 const routes: Routes = [
   { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
@@ -134,6 +135,8 @@ const routes: Routes = [
   { path: 'portfoliouser', component: PortfolioUserComponent },
   { path: 'bankuser', component: BankUserComponent },
   { path: 'aboutuser', component: AboutUserComponent },
+  { path: 'invoice', component: InvoiceComponent },
+  { path: 'invoice/:id', component: InvoiceComponent },
 
 
 
@@ -191,7 +194,8 @@ const routes: Routes = [
     ReviceUserComponent,
     ShowStatusComponent,
     CheckLocitionComponent,
-    SideNavComponent
+    SideNavComponent,
+    InvoiceComponent
 
 
 

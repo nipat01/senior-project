@@ -5,6 +5,7 @@ import { FirebaseService } from '../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -22,7 +23,8 @@ export class OverviewComponent implements OnInit {
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
@@ -101,5 +103,10 @@ export class OverviewComponent implements OnInit {
     });
     console.log("showByDriver", data1Firstname.value.firstname);
 
+  }
+
+  printInvoice(data) {
+    console.log('111',data.value);
+    this.router.navigate([`/invoice/${data.key}`]);
   }
 }
