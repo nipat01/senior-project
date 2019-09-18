@@ -82,6 +82,8 @@ export class HomepageComponent implements OnInit {
   }
 
   getVdoUrl(url: string): SafeResourceUrl {
+    console.log('url',url);
+    
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 

@@ -5,34 +5,20 @@
 <h3><img src="https://image.flaticon.com/icons/svg/1055/1055673.svg"> ผลประเมินความพึงพอใจ</h3>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <div class="control">
-  <label>วันที่</label>
-      <input
-        class="textBox"
-        (click)="d.toggle()"
-        placeholder="yyyy-mm-dd"
-        name="workDate"
-        ngModel
-        ngbDatepicker
-        #d="ngbDatepicker"
-      />
-  <p>ถึง</p>
-      <input
-        class="textBox"
-        (click)="d2.toggle()"
-        placeholder="yyyy-mm-dd"
-        name="endworkDate"
-        ngModel
-        ngbDatepicker
-        #d2="ngbDatepicker"
-      />
-  <button class="btn submit" type="submit">Submit</button>
+    <label>วันที่</label>
+    <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
+      #d="ngbDatepicker" />
+    <p>ถึง</p>
+    <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel ngbDatepicker
+      #d2="ngbDatepicker" />
+    <button class="btn submit" type="submit">Submit</button>
   </div>
 </form>
 
 <hr />
 <h3><img src="https://image.flaticon.com/icons/svg/190/190798.svg"> ผลลัพท์ค้นหา</h3>
 <hr />
-<label>ภาพรวมระบบ :</label>
+<label>ภาพรวมระบบ : {{totalReview}} </label>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -44,9 +30,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data1 of wikis" >
+    <tr *ngFor="let data1 of wikis">
+      <!-- <td> {{data.value.rateReview}}</td> -->
       <td>{{ data1.value.firstname }}</td>
-      <td>{{ data1.value.firstname }}</td>
+      <td>{{data1.value.rateReview}}</td>
       <td>พนักงานประจำ</td>
       <td>
         {{ data1.value.hireDate.day }} /{{ data1.value.hireDate.month }} /{{
@@ -54,14 +41,8 @@
         }}
       </td>
       <td>
-        <button
-          type="button"
-          class="btn icon"
-          (click)="showJobByDriver(data1)"
-          (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed"
-          aria-controls="collapForm"
-        >
+        <button type="button" class="btn icon" (click)="showJobByDriver(data1)" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapForm">
           <i class="far fa-file-alt"></i>
         </button>
       </td>

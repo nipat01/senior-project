@@ -18,6 +18,13 @@ export class OverviewComponent implements OnInit {
   wikis: any[];
   car: any[];
 
+  //rateReivew
+  totalReview = 0;
+  totalDivideReview = 0;
+  totalReviewDriver = 0;
+  totalDivideReviewDriver = 0;
+
+  //date
   publicStartDate;
   publicEndDate;
 
@@ -32,16 +39,38 @@ export class OverviewComponent implements OnInit {
     }).subscribe(job => {
       console.log('job', job)
       this.job = job;
-      // this.job = job
     });
 
 
-    // this.db.list('wikis').snapshotChanges().map(action => {
-    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe(wikis => {
-    //   console.log(wikis)
-    //   this.wikis = wikis;
-    // })
+    this.db.list('wikis').snapshotChanges().map(action => {
+      return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis;
+      console.log('jobLength', this.wikis.length);
+      for (let i = 0; i < this.wikis.length; i++) {
+        const dataObjEmp = {
+          ...this.wikis[i],
+        }
+        let dataEmp = dataObjEmp.value;
+        // console.log('driver',checkStatus.driver);
+
+        if (dataEmp.rateReview) {
+          this.totalDivideReview = this.totalDivideReview + 1
+          let sum = dataEmp.rateReview
+          this.totalReview = (this.totalReview + sum)
+        }
+
+      }
+
+      console.log('totalDivideReview', this.totalDivideReview);
+      this.totalReview = this.totalReview / this.totalDivideReview
+      console.log('totalReview', this.totalReview);
+
+
+
+
+    });
   }
 
   searchJob(data1) {

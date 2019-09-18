@@ -13,7 +13,10 @@ import { ActivatedRoute } from '@angular/router';
 export class AboutUserComponent implements OnInit {
   about: any[];
   account: any[];
-  // constructor() { }
+  location: any[];
+  longitude: number;
+  latitude: number;
+  zoom: number;
   constructor(
     private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
@@ -21,6 +24,7 @@ export class AboutUserComponent implements OnInit {
     private router: Router,
   ) { }
   ngOnInit() {
+    this.zoom = 18;
     this.db.list('allhomepage/about').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(about => {
@@ -35,6 +39,13 @@ export class AboutUserComponent implements OnInit {
       console.log(account)
       this.account = account;
 
+    });
+
+    this.db.list('allhomepage/location').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(location => {
+      console.log('location', location)
+      this.location = location;
     });
   }
 

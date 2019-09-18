@@ -16,6 +16,7 @@ export class FirebaseService {
   tokenList: AngularFireList<any>
   aboutList: AngularFireList<any>
   aboutAccountList: AngularFireList<any>
+  aboutLocationList: AngularFireList<any>
   portolio: AngularFireList<any>
   serivce: AngularFireList<any>
   carType1: AngularFireList<any>
@@ -32,6 +33,7 @@ export class FirebaseService {
     this.tokenList = db.list('token');
     this.aboutList = db.list('allhomepage/about');
     this.aboutAccountList = db.list('allhomepage/lineAccount');
+    this.aboutLocationList = db.list('allhomepage/location');
     this.portolio = db.list('imageDetails/imageDetailPortfolioList');
     this.serivce = db.list('imageDetails/imageDetailServicelList');
     this.carType1 = db.list('imageDetails/imageDetailList/type1');
@@ -94,6 +96,10 @@ export class FirebaseService {
   editAccount(id, data) {
     console.log(this.aboutAccountList);
     return this.aboutAccountList.update(id, data);
+  }
+  editLocationOnAboutUs(id, data) {
+    console.log(this.aboutLocationList);
+    return this.aboutLocationList.update(id, data);
   }
   editVideo(id, data) {
     console.log(this.videoList);

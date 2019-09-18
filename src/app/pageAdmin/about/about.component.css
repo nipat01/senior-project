@@ -36,3 +36,8 @@ h3{
 img {
   width: 45px;
 }
+
+agm-map {
+  height: 300px;
+
+}
