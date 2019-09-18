@@ -30,6 +30,8 @@ export class ProceededJobComponent implements OnInit {
   selectedImage2: any = null;
   isSubmitted: boolean;
 
+  checkImageUrlBill = true;
+  checkImageUrlBillNo = true;
   imageList: any[];//list
   rowIndexArray: any[];//list
 
@@ -103,7 +105,7 @@ export class ProceededJobComponent implements OnInit {
   }
 
   openBill(data, content, contentEdit) {
-    if(data.value.billImageUrl==='' ){
+    if (data.value.billImageUrl === '') {
       console.log(111);
       this.modalService.open(content);
     }
@@ -122,39 +124,55 @@ export class ProceededJobComponent implements OnInit {
 
 
   onSubmit(formValue, dataFormJob) {
+    if (!dataFormJob.value.billNoImageUrl) {
+      console.log('uploadData');
 
-    this.firebaseService.editJob(dataFormJob.key, formValue.value);
+      this.firebaseService.editJob(dataFormJob.key, formValue.value);
 
-    this.isSubmitted = true;
-    if (this.formTemplate.valid) {
-      var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      const billfileRef = this.storage.ref(billFilePath);
-      var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      const billNofileRef = this.storage.ref(billNoFilePath);
+      this.isSubmitted = true;
+      if (this.formTemplate.valid) {
+        var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        const billfileRef = this.storage.ref(billFilePath);
+        var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        const billNofileRef = this.storage.ref(billNoFilePath);
 
 
 
-      this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
-        finalize(() => {
-          billfileRef.getDownloadURL().subscribe((url) => {
-            formValue.value['billImageUrl'] = url;
-            this.firebaseService.editJob(dataFormJob.key, formValue.value);
+        this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
+          finalize(() => {
+            billfileRef.getDownloadURL().subscribe((url) => {
+              formValue.value['billImageUrl'] = url;
+              const addValue = {
+                ...formValue.value,
+                filePath: billFilePath
+              }
+              this.firebaseService.editJob(dataFormJob.key, addValue);
+            })
           })
-        })
-      ).subscribe();
+        ).subscribe();
 
-      this.storage.upload(billNoFilePath, this.selectedImage).snapshotChanges().pipe(
-        finalize(() => {
-          billNofileRef.getDownloadURL().subscribe((url) => {
-            formValue.value['billNoImageUrl'] = url;
-            this.firebaseService.editJob(dataFormJob.key, formValue.value);
+        this.storage.upload(billNoFilePath, this.selectedImage).snapshotChanges().pipe(
+          finalize(() => {
+            billNofileRef.getDownloadURL().subscribe((url) => {
+              formValue.value['billNoImageUrl'] = url;
+              const addValue = {
+                ...formValue.value,
+                filePath: billNoFilePath
+              }
+              this.firebaseService.editJob(dataFormJob.key, addValue);
+            })
           })
-        })
-      ).subscribe();
+        ).subscribe();
+      }
+    }
+    if (dataFormJob.value.billNoImageUrl) {
+      console.log('ไม่มีการอัปโหลด');
+
     }
   }
-  editformTemplateFor(formTemplateForEdit, data){
-    console.log('formTemplateForEdit',formTemplateForEdit);
+
+  editformTemplateFor(formTemplateForEdit, data) {
+    console.log('formTemplateForEdit', formTemplateForEdit);
 
     this.firebaseService.editJob(data.key, formTemplateForEdit.value);
   }
@@ -198,6 +216,19 @@ export class ProceededJobComponent implements OnInit {
       this.imgSrc2 = '/assets/img/image_placeholder.jpg';
       this.selectedImage = null;
     }
+  }
+
+  deleteImage(data) {
+    console.log('deleteImage',data.value);
+
+    // this.checkImageUrl = false;
+    // console.log(data.value);
+    // this.storage.ref(data.value.filePath).delete();
+    // const editUrl = {
+    //   ...data.value,
+    //   imageUrl: '',
+    // }
+    // this.firebaseService.editCar(data.key, editUrl);
   }
 
 }

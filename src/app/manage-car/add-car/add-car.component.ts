@@ -67,7 +67,7 @@ export class AddCarComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             formValue['imageUrl'] = url;
-            this.service.insertImageJob(formValue);
+            this.service.insertCar(formValue);
             this.resetForm();
           })
         })

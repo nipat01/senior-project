@@ -21,6 +21,7 @@ export class CarComponent implements OnInit {
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
+  checkImageUrl = true;
   car: any[];
   constructor(private db: AngularFireDatabase,
     private modalService: NgbModal,
@@ -40,6 +41,8 @@ export class CarComponent implements OnInit {
 
   })
   editFormTemplate = new FormGroup({
+    imageUrl: new FormControl(),
+    filePath: new FormControl(),
     carId: new FormControl('', Validators.required),
     carType: new FormControl('', Validators.required),
     carModel: new FormControl('', Validators.required),
@@ -73,8 +76,34 @@ export class CarComponent implements OnInit {
   }
 
   editCar(editFormTemplate, data) {
-    console.log('update:', data.key, editFormTemplate.value);
-    this.firebaseService.editCar(data.key, editFormTemplate.value);
+    // this.checkImageUrl = true;
+    console.log('update editFormTemplate', editFormTemplate.value,data.value);
+    // console.log('update:', data.key, editFormTemplate.value);
+    // this.firebaseService.editCar(data.key, editFormTemplate.value);
+    if (data.value.imageUrl === '') {
+      console.log('!editCar', editFormTemplate.value, data);
+      this.isSubmitted = true;
+      if (this.editFormTemplate.valid) {
+        var filePath = `imageCar/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        const fileRef = this.storage.ref(filePath);
+        this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe((url) => {
+              editFormTemplate.value['imageUrl'] = url;
+              const addValue = {
+                ...editFormTemplate.value,
+                filePath: filePath
+              }
+              this.firebaseService.editCar(data.key, addValue);
+              // this.resetForm();
+            })
+          })
+        ).subscribe();
+      }
+      console.log('filePath', filePath);
+    }
+
+
 
   }
   // open() {
@@ -107,7 +136,7 @@ export class CarComponent implements OnInit {
               ...formValue.value,
               filePath: filePath
             }
-            this.service.insertImageJob(addValue);
+            this.service.insertCar(addValue);
             this.resetForm();
           })
         })
@@ -117,6 +146,9 @@ export class CarComponent implements OnInit {
   }
 
   deleteImage(data) {
+    console.log('deleteImage');
+
+    this.checkImageUrl = false;
     console.log(data.value);
     this.storage.ref(data.value.filePath).delete();
     const editUrl = {
@@ -124,6 +156,9 @@ export class CarComponent implements OnInit {
       imageUrl: '',
     }
     this.firebaseService.editCar(data.key, editUrl);
+  }
+  checkImageFalse() {
+    this.checkImageUrl = true;
   }
 
   showPreview(event: any) {
@@ -134,8 +169,8 @@ export class CarComponent implements OnInit {
       this.selectedImage = event.target.files[0];
     }
     else {
-      // this.imgSrc = '/assets/img/image_placeholder.jpg';
-      // this.selectedImage = null;
+      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.selectedImage = null;
     }
   }
 
@@ -145,6 +180,9 @@ export class CarComponent implements OnInit {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     // this.selectedImage = null;
     // this.isSubmitted = false;
+  }
+  resetEditForm() {
+    this.editFormTemplate.reset();
   }
 
 }

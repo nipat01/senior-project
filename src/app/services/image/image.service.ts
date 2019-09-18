@@ -58,7 +58,7 @@ export class ImageService {
   insertImageServiceDetails(imageDetails) {
     this.firebase.list('imageDetails/imageDetailServicelList').push(imageDetails);
   }
-  insertImageJob(imageDetails) {
+  insertCar(imageDetails) {
     // this.firebase.list('testcar').push(imageDetails);
     this.firebase.list("/car").push(imageDetails);
   }
