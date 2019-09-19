@@ -1,17 +1,22 @@
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
 <div id="invoice">
-<h1>ใบกำกับภาษีอย่างย่อ</h1>
-<div *ngFor="let data of about">
-  <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }} </p>
-</div>
-</div>
-ชื่อ   {{title}}
+  <h1>ใบกำกับภาษีอย่างย่อ</h1>
+  <div *ngFor="let data of about">
+    <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }}</p>
+  </div>
+  ชื่อ {{ title }}
+  วันที่
 
-{{invoiceJob.customerFirstname}}
-วันที่
+  <pre>{{ invoiceJob | json }} </pre>
+</div>
 
-<button class="btn icon" (click)="dowloadPDF()" placement="bottom" ngbTooltip="Dowload PDF">
+<button
+  class="btn icon"
+  (click)="dowloadPDF()"
+  placement="bottom"
+  ngbTooltip="Dowload PDF"
+>
   <i class="fas fa-download"></i>
 </button>

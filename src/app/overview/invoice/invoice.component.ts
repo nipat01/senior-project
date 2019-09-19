@@ -5,7 +5,7 @@ import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-
+import { AngularFireObject, AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-invoice',
@@ -13,30 +13,28 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-  about:any;
+  about: any;
 
-  //id
-  invoiceJob: any = [];
+  id
+
+  invoiceJob: any = {};
   title: string = "Add Wiki";
-  id;
+
   constructor(
     private firebaseService: FirebaseService,
     private db: AngularFireDatabase,
-    private route: ActivatedRoute
-    ) { }
+    private route: ActivatedRoute,
+
+  ) { }
 
   ngOnInit() {
 
-     const id = this.route.snapshot.paramMap.get("id");
-     console.log('id',id);
+    this.id = this.route.snapshot.paramMap.get("id");
+    console.log('id', this.id);
 
-    if (id) {
-
+    if (this.id) {
       this.title = "Edit wiki";
-
-      this.getWikiByKey(id);
-      console.log('invoiceJob',this.invoiceJob)
-
+      this.getWikiByKey(this.id);
     }
 
   }
@@ -61,14 +59,18 @@ export class InvoiceComponent implements OnInit {
 
 
 
+  // getWikiByKey(id) {
+  //   this.invoiceJob = this.db.object('job/' + id).snapshotChanges().map(res => {
+  //     console.log('resssss', this.invoiceJob)
+  //     return res.payload.val();
+  //   });
+  // }
+
   getWikiByKey(id) {
-
-    this.invoiceJob = this.db.object('job/'+id).snapshotChanges().map(res => {
-      console.log('resssss', res.payload.val());
-      return res.payload.val();
+    this.firebaseService.getWiki(id).subscribe((data) => {
+      this.invoiceJob = data;
+      console.log('invoiceJob', this.invoiceJob)
     });
-    console.log('this.invoiceJob', this.invoiceJob);
-
   }
 
 }

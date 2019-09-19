@@ -53,7 +53,7 @@ export class FirebaseService {
   }
 
   getWiki(id): Observable<any> {
-    return this.db.object('wikis/' + id).snapshotChanges().map(res => {
+    return this.db.object('job/' + id).snapshotChanges().map(res => {
       return res.payload.val();
     });
   }
