@@ -26,150 +26,57 @@
         <ng-template #con let-c="close" let-d="dismiss">
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <label for="typeahead-basic">ต้นทาง</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="source"
-              ngModel
-              [(ngModel)]="data.value.source"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="source" ngModel
+              [(ngModel)]="data.value.source" />
             <label for="typeahead-basic">ปลายทาง</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="destination"
-              ngModel
-              [(ngModel)]="data.value.destination"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="destination" ngModel
+              [(ngModel)]="data.value.destination" />
             <label for="typeahead-basic">ประเภทงาน</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="worktype"
-              ngModel
-              [(ngModel)]="data.value.worktype"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="worktype" ngModel
+              [(ngModel)]="data.value.worktype" />
             <label for="typeahead-basic">ชื่อลูกค้า</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="customerFirstname"
-              ngModel
-              [(ngModel)]="data.value.customerFirstname"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="customerFirstname" ngModel
+              [(ngModel)]="data.value.customerFirstname" />
             <label for="typeahead-basic"> วันที่</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="workDate"
-              ngModel
-              [(ngModel)]="data.value.workDate.day"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="workDate" ngModel
+              [(ngModel)]="data.value.workDate.day" />
             <label for="typeahead-basic"> เวลา</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="workTime"
-              ngModel
-              [(ngModel)]="data.value.workTime.hour"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="workTime" ngModel
+              [(ngModel)]="data.value.workTime.hour" />
             <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="customerLine"
-              ngModel
-              [(ngModel)]="data.value.customerPhone"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="customerLine" ngModel
+              [(ngModel)]="data.value.customerPhone" />
             <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="customerLine"
-              ngModel
-              [(ngModel)]="data.value.customerPhone"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="customerLine" ngModel
+              [(ngModel)]="data.value.customerPhone" />
             <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="detail"
-              ngModel
-              [(ngModel)]="data.value.detail"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="detail" ngModel
+              [(ngModel)]="data.value.detail" />
             <label for="typeahead-basic"> บิลใบเสร็จเล่มที่</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="bill"
-              ngModel
-              [(ngModel)]="data.value.bill"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="bill" ngModel
+              [(ngModel)]="data.value.bill" />
             <label for="typeahead-basic"> บิลใบเสร็จเลขที่</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="billNo"
-              ngModel
-              [(ngModel)]="data.value.billNo"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="billNo" ngModel
+              [(ngModel)]="data.value.billNo" />
             <label for="typeahead-basic"> มัดจำ</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="deposit"
-              ngModel
-              [(ngModel)]="data.value.deposit"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="deposit" ngModel
+              [(ngModel)]="data.value.deposit" />
             <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
-            <input
-              id="typeahead-basic"
-              type="text"
-              class="form-control"
-              name="totalPayment"
-              ngModel
-              [(ngModel)]="data.value.totalPayment"
-            />
+            <input id="typeahead-basic" type="text" class="form-control" name="totalPayment" ngModel
+              [(ngModel)]="data.value.totalPayment" />
             <label for="typeahead-basic"> มัดจำ</label>
             <div class="text-center">
-              <img
-                [src]="data.value.billImageUrl"
-                width="350px"
-                height="250px"
-                class="img-fluid"
-              />
+              <img [src]="data.value.billImageUrl" width="350px" height="250px" class="img-fluid" />
             </div>
             <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
             <div class="text-center">
-              <img
-                [src]="data.value.billNoImageUrl"
-                width="350px"
-                height="250px"
-                class="img-fluid"
-              />
+              <img [src]="data.value.billNoImageUrl" width="350px" height="250px" class="img-fluid" />
             </div>
           </div>
           <div class="modal-footer">
@@ -201,117 +108,66 @@
       <td>{{ data.value.driver }}</td>
       <td>
         <div class="iconGroup">
-          <button
-            type="button"
-            class="btn icon"
-            (click)="delJob(data)"
-            placement="bottom"
-            ngbTooltip="Delete"
-          >
+          <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete">
             <i class="fas fa-trash-alt"></i>
           </button>
           <!-- diglog bill ----------------------------------------------------------------------------->
           <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">
-                กรุณากรอกบิลใบเสร็จ
+                กรุณากรอกบิลใบเสร็จ111
               </h4>
-              <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="d('Cross click')"
-              >
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <form [formGroup]="formTemplate">
-                <!-- <div class="card" style="width:25rem"> -->
-                <div class="card-body">
-                  <div class="text-center" >
-                    <img
-                      [src]="imgSrc"
-                      width="350px"
-                      height="250px"
-                      (click)="billfileUploader.click()"
-                    />
-                  </div>
-                  <div class="form-group">
+
+
+                <div class="text-center">
+                  <img [src]="data.value.billImageUrl" width="350px" height="250px" (click)="deleteImageBill(data)"
+                    *ngIf=checkImageUrlBill />
+                  <div *ngIf="!checkImageUrlBill">
+                    <img [src]="imgSrc" width="350px" height="250px" (click)="billfileUploader.click()" />
                     <label>Select file to upload</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      class="form-control"
-                      #billfileUploader
-                      formControlName="billImageUrl"
-                      (change)="showPreview($event)"
-                    />
+                    <input type="file" accept="image/*" class="form-control" #billfileUploader
+                      formControlName="billImageUrl" (change)="showPreview($event)" />
                   </div>
                 </div>
 
-                <div class="card-body">
-                  <div class="text-center" >
-                    <img
-                      [src]="imgSrc2"
-                      width="350px"
-                      height="250px"
-                      (click)="billNofileUploader.click()"
-                    />
-                  </div>
-                  <div class="form-group">
+                <br>
+
+                <div class="text-center">
+                  <img [src]="data.value.billNoImageUrl" width="350px" height="250px" (click)="deleteImageNoBill(data)"
+                    *ngIf=checkImageUrlNoBill />
+
+                  <div *ngIf=!checkImageUrlNoBill>
+                    <img [src]="imgSrc2" width="350px" height="250px" (click)="billNofileUploader.click()" />
                     <label>Select file to upload</label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      class="form-control"
-                      #billNofileUploader
-                      formControlName="billNoImageUrl"
-                      (change)="showPreview2($event)"
-                    />
+                    <input type="file" accept="image/*" class="form-control" #billNofileUploader
+                      formControlName="billNoImageUrl" (change)="showPreview2($event)" />
                   </div>
+
                 </div>
+
 
                 <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  formControlName="totalPayment"
-                  [(ngModel)]="data.value.totalPayment"
-                />
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="totalPayment"
+                  [(ngModel)]="data.value.totalPayment" />
                 <label for="typeahead-basic">ค่ามัดจำ</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  formControlName="deposit"
-                  [(ngModel)]="data.value.deposit"
-                />
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="deposit"
+                  [(ngModel)]="data.value.deposit" />
                 <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  formControlName="bill"
-                  [(ngModel)]="data.value.bill"
-                />
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="bill"
+                  [(ngModel)]="data.value.bill" />
                 <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  formControlName="billNo"
-                  [(ngModel)]="data.value.billNo"
-                />
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="billNo"
+                  [(ngModel)]="data.value.billNo" />
               </form>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn save"
-                (click)="onSubmit(formTemplate, data)"
-              >
+              <button type="button" class="btn save" (click)="onSubmit(formTemplate, data)">
                 Save
               </button>
             </div>
@@ -320,12 +176,7 @@
           <ng-template #review let-c="close" let-d="dismiss">
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">คะแนนการบริการ</h4>
-              <button
-                type="button"
-                class="close"
-                aria-label="Close"
-                (click)="d('Cross click')"
-              >
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -342,20 +193,11 @@
             </div>
           </ng-template>
 
-          <button
-            class="btn icon"
-            (click)="openBill(data, content, contentEdit)"
-            placement="bottom"
-            ngbTooltip="บิลใบเสร็จ"
-          >
+          <button class="btn icon" (click)="openBill(data, content, contentEdit)" placement="bottom"
+            ngbTooltip="บิลใบเสร็จ">
             <i class="fas fa-money-check-alt"></i>
           </button>
-          <button
-            class="btn icon"
-            (click)="openReview(review)"
-            placement="bottom"
-            ngbTooltip="คะแนนการให้บริการ"
-          >
+          <button class="btn icon" (click)="openReview(review)" placement="bottom" ngbTooltip="คะแนนการให้บริการ">
             <i class="far fa-comment-dots"></i>
           </button>
         </div>
@@ -370,83 +212,42 @@
     <h4 class="modal-title" id="modal-basic-title">
       กรุณากรอกบิลใบเสร็จ
     </h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="d('Cross click')"
-    >
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="formTemplateForEdit">
-      <!-- <div class="card" style="width:25rem"> -->
-      <div class="card-body">
-        <div class="text-center">
-          <img
-            [src]="data.value.billImageUrl"
-            width="350px"
-            height="250px"
-            (click)="billfileUploader.click()"
-          />
-        </div>
-      </div>
-      <!-- </div> -->
 
-      <!-- <div class="card" style="width:25rem"> -->
       <div class="card-body">
         <div class="text-center">
-          <img
-            [src]="data.value.billNoImageUrl"
-            width="350px"
-            height="250px"
-            (click)="billNofileUploader.click()"
-          />
+          <img [src]="data.value.billImageUrl" width="350px" height="250px" (click)="billfileUploader.click()" />
         </div>
       </div>
-      <!-- </div> -->
+
+      <div class="card-body">
+        <div class="text-center">
+          <img [src]="data.value.billNoImageUrl" width="350px" height="250px" (click)="billNofileUploader.click()" />
+        </div>
+      </div>
+
 
       <label for="typeahead-basic">ยอดชำระทั้งหมด</label>
-      <input
-        id="typeahead-basic"
-        type="text"
-        class="form-control"
-        formControlName="totalPayment"
-        [(ngModel)]="data.value.totalPayment"
-      />
+      <input id="typeahead-basic" type="text" class="form-control" formControlName="totalPayment"
+        [(ngModel)]="data.value.totalPayment" />
       <label for="typeahead-basic">ค่ามัดจำ</label>
-      <input
-        id="typeahead-basic"
-        type="text"
-        class="form-control"
-        formControlName="deposit"
-        [(ngModel)]="data.value.deposit"
-      />
+      <input id="typeahead-basic" type="text" class="form-control" formControlName="deposit"
+        [(ngModel)]="data.value.deposit" />
       <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
-      <input
-        id="typeahead-basic"
-        type="text"
-        class="form-control"
-        formControlName="bill"
-        [(ngModel)]="data.value.bill"
-      />
+      <input id="typeahead-basic" type="text" class="form-control" formControlName="bill"
+        [(ngModel)]="data.value.bill" />
       <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
-      <input
-        id="typeahead-basic"
-        type="text"
-        class="form-control"
-        formControlName="billNo"
-        [(ngModel)]="data.value.billNo"
-      />
+      <input id="typeahead-basic" type="text" class="form-control" formControlName="billNo"
+        [(ngModel)]="data.value.billNo" />
     </form>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn save"
-      (click)="editformTemplateFor(formTemplateForEdit, data)"
-    >
+    <button type="button" class="btn save" (click)="onSubmit(formTemplateForEdit, data)">
       Save
     </button>
   </div>

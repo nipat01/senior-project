@@ -31,7 +31,7 @@ export class ProceededJobComponent implements OnInit {
   isSubmitted: boolean;
 
   checkImageUrlBill = true;
-  checkImageUrlBillNo = true;
+  checkImageUrlNoBill = true;
   imageList: any[];//list
   rowIndexArray: any[];//list
 
@@ -66,6 +66,7 @@ export class ProceededJobComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.starForm();
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
@@ -75,22 +76,18 @@ export class ProceededJobComponent implements OnInit {
 
 
 
-      this.starForm();
-
-
-
-      this.service.getImageDetailServiceList();
-      this.service.imageDetailServiceList.snapshotChanges().subscribe(
-        list => {
-          this.imageList = list.map(item => { return item.payload.val(); });
-          this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
-          console.log(this.imageList);
-        }
-      );
+      // this.service.getImageDetailServiceList();
+      // this.service.imageDetailServiceList.snapshotChanges().subscribe(
+      //   list => {
+      //     this.imageList = list.map(item => { return item.payload.val(); });
+      //     this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
+      //     console.log(this.imageList);
+      //   }
+      // );
     });
 
-
   }
+
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }
@@ -105,11 +102,15 @@ export class ProceededJobComponent implements OnInit {
   }
 
   openBill(data, content, contentEdit) {
-    if (data.value.billImageUrl === '') {
-      console.log(111);
-      this.modalService.open(content);
-    }
-    else this.modalService.open(contentEdit)
+    // if (data.value.billImageUrl === '') {
+    //   console.log('1111');
+    //   this.modalService.open(content);
+    // }
+    // else this.modalService.open(contentEdit)
+    // console.log('222');
+    console.log('open content');
+
+    this.modalService.open(content);
 
   }
 
@@ -124,40 +125,22 @@ export class ProceededJobComponent implements OnInit {
 
 
   onSubmit(formValue, dataFormJob) {
-    if (!dataFormJob.value.billNoImageUrl) {
-      console.log('uploadData');
+    console.log('formValue', formValue.value);
 
-      this.firebaseService.editJob(dataFormJob.key, formValue.value);
-
+    this.firebaseService.editJob(dataFormJob.key, formValue.value);
+    if (!dataFormJob.value.billImageUrl) {
+      console.log('uploadData billImageUrl');
       this.isSubmitted = true;
       if (this.formTemplate.valid) {
         var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
         const billfileRef = this.storage.ref(billFilePath);
-        var billNoFilePath = `image/imageJob/billNo/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-        const billNofileRef = this.storage.ref(billNoFilePath);
-
-
-
         this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
           finalize(() => {
             billfileRef.getDownloadURL().subscribe((url) => {
               formValue.value['billImageUrl'] = url;
               const addValue = {
                 ...formValue.value,
-                filePath: billFilePath
-              }
-              this.firebaseService.editJob(dataFormJob.key, addValue);
-            })
-          })
-        ).subscribe();
-
-        this.storage.upload(billNoFilePath, this.selectedImage).snapshotChanges().pipe(
-          finalize(() => {
-            billNofileRef.getDownloadURL().subscribe((url) => {
-              formValue.value['billNoImageUrl'] = url;
-              const addValue = {
-                ...formValue.value,
-                filePath: billNoFilePath
+                billFilePath: billFilePath
               }
               this.firebaseService.editJob(dataFormJob.key, addValue);
             })
@@ -165,10 +148,31 @@ export class ProceededJobComponent implements OnInit {
         ).subscribe();
       }
     }
-    if (dataFormJob.value.billNoImageUrl) {
-      console.log('ไม่มีการอัปโหลด');
 
+
+    if (!dataFormJob.value.billNoImageUrl) {
+      console.log('upload billNoImageUrl');
+
+      this.isSubmitted = true;
+      if (this.formTemplate.valid) {
+        var billNoFilePath = `image/imageJob/billNo/${this.selectedImage2.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        const billNofileRef = this.storage.ref(billNoFilePath);
+        this.storage.upload(billNoFilePath, this.selectedImage2).snapshotChanges().pipe(
+          finalize(() => {
+            billNofileRef.getDownloadURL().subscribe((url) => {
+              formValue.value['billNoImageUrl'] = url;
+              const addValue = {
+                ...formValue.value,
+                billNoFilePath: billNoFilePath
+              }
+              this.firebaseService.editJob(dataFormJob.key, addValue);
+            })
+          })
+        ).subscribe();
+      }
     }
+
+
   }
 
   editformTemplateFor(formTemplateForEdit, data) {
@@ -204,31 +208,44 @@ export class ProceededJobComponent implements OnInit {
       this.selectedImage = null;
     }
   }
+
   showPreview2(event2: any) {
     console.log(this.formTemplate.get('billNoImageUrl').value);
     if (event2.target.files && event2.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgSrc2 = e.target.result;
       reader.readAsDataURL(event2.target.files[0]);
-      this.selectedImage = event2.target.files[0];
+      this.selectedImage2 = event2.target.files[0];
     }
     else {
       this.imgSrc2 = '/assets/img/image_placeholder.jpg';
-      this.selectedImage = null;
+      this.selectedImage2 = null;
     }
   }
 
-  deleteImage(data) {
-    console.log('deleteImage',data.value);
+  deleteImageBill(data) {
+    this.checkImageUrlBill = false;
+    console.log('deleteImage111111111', data.value);
+    data.value = {
+      ...data.value,
+      billImageUrl: '',
+    }
 
-    // this.checkImageUrl = false;
-    // console.log(data.value);
-    // this.storage.ref(data.value.filePath).delete();
-    // const editUrl = {
-    //   ...data.value,
-    //   imageUrl: '',
-    // }
-    // this.firebaseService.editCar(data.key, editUrl);
+    this.storage.ref(data.value.billFilePath).delete();
+    const editUrl = data.value;
+    this.firebaseService.editJob(data.key, editUrl);
+  }
+
+  deleteImageNoBill(data) {
+    console.log('deleteImage', data.value);
+    this.checkImageUrlNoBill = false;
+    data.value = {
+      ...data.value,
+      billNoImageUrl: '',
+    }
+    this.storage.ref(data.value.billNoFilePath).delete();
+    const editUrl = data.value
+    this.firebaseService.editJob(data.key, editUrl);
   }
 
 }
