@@ -99,6 +99,7 @@ export class ProceededJobComponent implements OnInit {
 
   delJob(data) {
     this.storage.ref(data.value.billFilePath).delete();
+    this.storage.ref(data.value.billNoFilePath).delete();
     this.firebaseService.removeJob(data.key);
   }
   editJob(data) {
