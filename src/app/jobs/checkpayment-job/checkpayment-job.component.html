@@ -19,6 +19,7 @@
       <th scope="col">detail</th>
       <th scope="col">status</th>
       <th scope="col">driver</th>
+      <th scope="col">car</th>
       <th scope="col">action</th>
     </tr>
   </thead>
@@ -148,7 +149,7 @@
       <td>{{ data.value.status }}</td>
       <td>
         <select (change)="selectValue($event, i)">
-          <option value="">------</option>
+          <option value="">-----------</option>
           <option
             value="{{ data2.value.email }},{{ data2.value.firstname }},{{
               data2.value.token
@@ -156,6 +157,17 @@
             *ngFor="let data2 of wikis"
           >
             {{ data2.value.firstname }}
+          </option>
+        </select>
+      </td>
+      <td>
+        <select (change)="selectCarValue($event, i)">
+          <option value="">------</option>
+          <option
+            value=" {{ data3.value.carModel }},{{ data3.value.carId }}"
+            *ngFor="let data3 of car"
+          >
+            {{ data3.value.carModel }}/{{ data3.value.carId }}
           </option>
         </select>
       </td>
@@ -201,13 +213,27 @@
             </button>
           </div>
           <div class="modal-body">
-            <label for="typeahead-basic">กรุุณากรอกค่าจ้าง</label>
-            <input id="typeahead-basic" type="text" class="form-control" />
-            <label for="typeahead-basic">กรุณากรอกค่ามัดจำ</label>
-            <input id="typeahead-basic" type="text" class="form-control" />
+            <form [formGroup]="formBill">
+              <label for="typeahead-basic">กรุุณากรอกค่าจ้าง</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="totalPayment"
+                [(ngModel)]="data.value.totalPayment"
+              />
+              <label for="typeahead-basic">กรุณากรอกค่ามัดจำ</label>
+              <input
+                id="typeahead-basic"
+                type="text"
+                class="form-control"
+                formControlName="deposit"
+                [(ngModel)]="data.value.deposit"
+              />
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn save " (click)="c('Save click')">
+            <button type="button" class="btn save " (click)="editBill(data)" (click)="c('Save click')">
               Save
             </button>
           </div>

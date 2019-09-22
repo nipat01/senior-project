@@ -13,7 +13,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./notification-job.component.css']
 })
 export class NotificationJobComponent implements OnInit {
-  jobList: AngularFireList<any>;
+  // jobList: AngularFireList<any>;
   job: any[];
   job1: any[];
 
@@ -24,6 +24,7 @@ export class NotificationJobComponent implements OnInit {
 
   selectedNameDriver = [];
   selectedEmailDriver = [];
+  selectedTokenDriver = [];
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -37,7 +38,7 @@ export class NotificationJobComponent implements OnInit {
       console.log('notification', job)
       this.job = job.filter((data: any) => data.value.status === 'notification');
       // this.job = job
-      
+
       console.log('checkTime', this.job.length);
       for (let i = 0; i < this.job.length; i++) {
         const jobTime = {
@@ -46,8 +47,8 @@ export class NotificationJobComponent implements OnInit {
         let checkStatus = jobTime.value;
         let timeNow = new Date();
         let time = new Date(checkStatus.workDate.year, checkStatus.workDate.month - 1, checkStatus.workDate.day);
-        console.log('time', time, 'timeNow', timeNow);
-        console.log('checkStatus', checkStatus.workDate);
+        // console.log('time', time, 'timeNow', timeNow);
+        // console.log('checkStatus', checkStatus.workDate);
         if (timeNow >= time) {
           let setTime2 = {
             ...checkStatus,
@@ -61,12 +62,6 @@ export class NotificationJobComponent implements OnInit {
 
 
     });
-
-
-
-
-
-
 
 
 
@@ -102,19 +97,22 @@ export class NotificationJobComponent implements OnInit {
       ...dataDriver.value,
       driver: this.selectedNameDriver,
       emailDriver: this.selectedEmailDriver,
+      token: this.selectedTokenDriver
     }
     this.firebaseService.editJob(dataDriver.key, jobData);
 
   }
-  
+
   selectValue(driver) {
     console.log('showValue', driver.target.value.split(","));
     const getDriver = driver.target.value.split(",");
     const driverEmail = getDriver[0];
     const driverFirstname = getDriver[1];
+    const tokenDriver = getDriver[2];
 
     this.selectedEmailDriver = driverEmail;
     this.selectedNameDriver = driverFirstname;
+    this.selectedTokenDriver = tokenDriver;
   }
 
   openDataDriver(con) {

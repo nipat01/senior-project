@@ -94,7 +94,7 @@
             <label for="typeahead-basic">เปลี่ยนพนักงานขับรถ</label>
             <select (change)="selectValue($event)" class="form-control">
               <option value="">{{ data.value.driver }} พนักงานขับรถปัจจุบัน</option>
-              <option value="{{data2.value.email}},{{data2.value.firstname}}" *ngFor="let data2 of wikis">
+              <option value="{{data2.value.email}},{{data2.value.firstname}},{{data2.value.token}}" *ngFor="let data2 of wikis">
                 {{ data2.value.firstname }}
               </option>
             </select>

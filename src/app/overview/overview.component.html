@@ -76,46 +76,46 @@
   </tbody>
 </table>
 
-<div id="collapForm" [ngbCollapse]="!isCollapsed">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">source</th>
-        <th scope="col">destination</th>
-        <th scope="col">worktype</th>
-        <th scope="col">customerFirstname</th>
-        <th scope="col">workDate</th>
-        <th scope="col">workTime</th>
-        <th scope="col">customerPhone</th>
-        <th scope="col">customerLine</th>
-        <th scope="col">detail</th>
-        <th scope="col">status</th>
-        <th scope="col">driver</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of job">
-        <td>{{ data.value.source }}</td>
-        <td>{{ data.value.destination }}</td>
-        <td>{{ data.value.worktype }}</td>
-        <td>{{ data.value.customerFirstname }}</td>
-        <td>
-          {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-          {{ data.value.workDate.year }}
-        </td>
-        <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
-        <td>{{ data.value.customerPhone }}</td>
-        <td>{{ data.value.customerLine }}</td>
-        <td>{{ data.value.detail }}</td>
-        <td>{{ data.value.status }}</td>
-        <td>{{ data.value.driver }}</td>
-        <td><button (click)="printInvoice(data)">print</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!-- <div id="collapForm" [ngbCollapse]="!isCollapsed"> -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">source</th>
+      <th scope="col">destination</th>
+      <th scope="col">worktype</th>
+      <th scope="col">customerFirstname</th>
+      <th scope="col">workDate</th>
+      <th scope="col">workTime</th>
+      <th scope="col">customerPhone</th>
+      <th scope="col">customerLine</th>
+      <th scope="col">detail</th>
+      <th scope="col">status</th>
+      <th scope="col">driver</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of job">
+      <td>{{ data.value.source }}</td>
+      <td>{{ data.value.destination }}</td>
+      <td>{{ data.value.worktype }}</td>
+      <td>{{ data.value.customerFirstname }}</td>
+      <td>
+        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+        {{ data.value.workDate.year }}
+      </td>
+      <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
+      <td>{{ data.value.customerPhone }}</td>
+      <td>{{ data.value.customerLine }}</td>
+      <td>{{ data.value.detail }}</td>
+      <td>{{ data.value.status }}</td>
+      <td>{{ data.value.driver }}</td>
+      <td><button (click)="printInvoice(data)">print</button></td>
+    </tr>
+  </tbody>
+</table>
+<!-- </div> -->
 
-<pre> {{ job | json }} </pre>
+<!-- <pre> {{ job | json }} </pre> -->
 
 <!-- <table class="table">
   <thead>

@@ -117,6 +117,9 @@ export class FirebaseService {
   removeJob(id): void {
     this.jobList.remove(id);
   }
+  removeCar(id): void {
+    this.carList.remove(id);
+  }
   removeWiki(id): void {
     this.wikiList.remove(id);
   }

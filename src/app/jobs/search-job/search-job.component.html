@@ -1,65 +1,160 @@
 <app-side-nav></app-side-nav>
-<br>
-<br>
-<br>
-<h1><img src="https://image.flaticon.com/icons/svg/272/272365.svg"> ค้นหา</h1>
-<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+<br />
+<br />
+<br />
+<h1><img src="https://image.flaticon.com/icons/svg/272/272365.svg" /> ค้นหา</h1>
+<div class="control">
   <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
-    <div class="control">
-      <p>สถานะ</p>
-      <select class="textBox" name="selectSearchJob" ngModel>
-        <option value="customerFirstname">ลูกค้า</option>
-        <option value="driver">พนักงานขับรถ</option>
-        <option value="status">stutus</option>
+  <p>ค้นหาโดย</p>
+  <select
+    (change)="selectCheckValue($event)"
+    class="textBox"
+    name="selectSearchJob"
+    ngModel
+  >
+    <option value="customerFirstname">ลูกค้า</option>
+    <option value="driver">พนักงานขับรถ</option>
+    <option value="status">stutus</option>
+  </select>
+  <form [formGroup]="formCustomer" *ngIf="checkCustomer">
+    <p>กรอกชื่อลูกค้า</p>
+    <input class="textBox" type="text" formControlName="searchJob" ngModel />
+
+    <p>วันที่</p>
+    <input
+      class="textBox"
+      (click)="d.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="workDate"
+      ngModel
+      ngbDatepicker
+      #d="ngbDatepicker"
+    />
+    <p>ถึง</p>
+    <input
+      class="textBox"
+      (click)="d2.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="endworkDate"
+      ngModel
+      ngbDatepicker
+      #d2="ngbDatepicker"
+    />
+    <button class="btn submit" (click)="searchJob(formCustomer)">Submit</button>
+  </form>
+
+  <form [formGroup]="formDriver" *ngIf="checkDriver">
+    <p>
+      เลือกพนักงาน
+    </p>
+
+    <select class="textBox" formControlName="searchJob" ngModel>
+      <option value="{{ emp.value.firstname }}" *ngFor="let emp of wikis">{{
+        emp.value.firstname
+      }}</option>
     </select>
-    <label>กรุณากรอกข้อมูล</label>
-    <input class="textBox" type="text" name="searchJob" ngModel />
 
-    <label>วันที่</label>
-            <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel
-                ngbDatepicker #d="ngbDatepicker">
-    <label>ถึง</label>
-            <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel
-                ngbDatepicker #d2="ngbDatepicker">
-    <button class="btn submit" type="submit">Submit</button>
-  </div>
-</form>
+    <p>วันที่</p>
+    <input
+      class="textBox"
+      (click)="d.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="workDate"
+      ngModel
+      ngbDatepicker
+      #d="ngbDatepicker"
+    />
 
+    <p>ถึง</p>
+    <input
+      class="textBox"
+      (click)="d2.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="endworkDate"
+      ngModel
+      ngbDatepicker
+      #d2="ngbDatepicker"
+    />
+    <button class="btn submit" (click)="searchJob(formDriver)">Submit</button>
+  </form>
 
+  <form [formGroup]="formStatus" *ngIf="checkStatusJob">
+    <p>สถานะ</p>
+    <select class="textBox" formControlName="searchJob" ngModel>
+      <option value="checkdata">รอตรวจสอบข้อมูล</option>
+      <option value="checkpayment">รอชำระเงิน</option>
+      <option value="notification">มอบหมายงาน</option>
+      <option value="Pending">รอดำเนินการ</option>
+      <option value="proceed">กำลังดำเนินการ</option>
+      <option value="proceeded">ดำเนินการแล้ว</option>
+    </select>
 
-<h3><img src="https://image.flaticon.com/icons/svg/190/190798.svg">ผลลัพท์ค้นหา</h3>
+    <p>วันที่</p>
+    <input
+      class="textBox"
+      (click)="d.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="workDate"
+      ngModel
+      ngbDatepicker
+      #d="ngbDatepicker"
+    />
+    <p>ถึง</p>
+    <input
+      class="textBox"
+      (click)="d2.toggle()"
+      placeholder="yyyy-mm-dd"
+      formControlName="endworkDate"
+      ngModel
+      ngbDatepicker
+      #d2="ngbDatepicker"
+    />
+    <button class="btn submit" (click)="searchJob(formStatus)">Submit</button>
+  </form>
+</div>
+
+<h3>
+  <img src="https://image.flaticon.com/icons/svg/190/190798.svg" />ผลลัพท์ค้นหา
+</h3>
+
+<p>รายได้ปัจจุบัน: {{ totalOnPreceededAndDeposit }}</p>
+<p>รายได้คาดว่าจะได้รับ: {{ totalPayment }}</p>
+
 <table class="table table-striped">
   <thead>
-        <tr>
-            <th scope="col">source</th>
-            <th scope="col">destination</th>
-            <th scope="col">worktype</th>
-            <th scope="col">customerFirstname</th>
-            <th scope="col">workDate</th>
-            <th scope="col">workTime</th>
-            <th scope="col">customerPhone</th>
-            <th scope="col">customerLine</th>
-            <th scope="col">detail</th>
-            <th scope="col">status</th>
-            <th scope="col">driver</th>
-            <!-- <td>action</td>
+    <tr>
+      <th scope="col">source</th>
+      <th scope="col">destination</th>
+      <th scope="col">worktype</th>
+      <th scope="col">customerFirstname</th>
+      <th scope="col">workDate</th>
+      <th scope="col">workTime</th>
+      <th scope="col">customerPhone</th>
+      <th scope="col">customerLine</th>
+      <th scope="col">detail</th>
+      <th scope="col">status</th>
+      <th scope="col">driver</th>
+      <!-- <td>action</td>
             <td>driver</td> -->
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of job ; let i = index">
-            <td>{{ data.value.source }}</td>
-            <td>{{ data.value.destination }}</td>
-            <td>{{ data.value.worktype }}</td>
-            <td>{{ data.value.customerFirstname }}</td>
-            <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
-            <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}}</td>
-            <td>{{ data.value.customerPhone }}</td>
-            <td>{{ data.value.customerLine }}</td>
-            <td>{{ data.value.detail }}</td>
-            <td>{{ data.value.status }}</td>
-            <td>{{ data.value.driver }}</td>
-            <!-- <td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of job">
+      <td>{{ data.value.source }}</td>
+      <td>{{ data.value.destination }}</td>
+      <td>{{ data.value.worktype }}</td>
+      <td>{{ data.value.customerFirstname }}</td>
+      <td>
+        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
+        {{ data.value.workDate.year }}
+      </td>
+      <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
+      <td>{{ data.value.customerPhone }}</td>
+      <td>{{ data.value.customerLine }}</td>
+      <td>{{ data.value.detail }}</td>
+      <td>{{ data.value.status }}</td>
+      <td>{{ data.value.driver }}</td>
+      <!-- <td>
                 <button type="button" (click)="delJob(data)">Delete</button>
                 <button type="button" (click)="editJob(data,i)">Submit</button>
             </td>
@@ -71,6 +166,6 @@
                     </option>
                 </select>
             </td> -->
-        </tr>
-    </tbody>
+    </tr>
+  </tbody>
 </table>

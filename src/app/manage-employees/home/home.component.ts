@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
   isSubmitted: boolean;
   formValue: any;
 
+  checkImageUrl = true;
+
   formTemplate = new FormGroup({
     imageUrl: new FormControl(),
     email: new FormControl('', Validators.required),
@@ -49,24 +51,27 @@ export class HomeComponent implements OnInit {
     filePath: new FormControl(),
 
   });
-  // editwikiForm = new FormGroup({
-  //   email: new FormControl('', Validators.required),
-  //   firstname: new FormControl('', Validators.required),
-  //   lastname: new FormControl('', Validators.required),
-  //   address: new FormControl('', Validators.required),
-  //   addressLat: new FormControl('', Validators.required),
-  //   addressLong: new FormControl('', Validators.required),
-  //   currentLat: new FormControl('', Validators.required),
-  //   currentLong: new FormControl('', Validators.required),
-  //   role: new FormControl('', Validators.required),
-  //   lineId: new FormControl('', Validators.required),
-  //   citizenId: new FormControl('', Validators.required),
-  //   phoneId: new FormControl('', Validators.required),
-  //   hireDate: new FormControl('', Validators.required),
-  //   status: new FormControl('', Validators.required),
+  editwikiForm = new FormGroup({
+    email: new FormControl('', Validators.required),
+    firstname: new FormControl('', Validators.required),
+    lastname: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    addressLat: new FormControl('', Validators.required),
+    addressLong: new FormControl('', Validators.required),
+    currentLat: new FormControl('', Validators.required),
+    currentLong: new FormControl('', Validators.required),
+    role: new FormControl('', Validators.required),
+    lineId: new FormControl('', Validators.required),
+    citizenId: new FormControl('', Validators.required),
+    phoneId: new FormControl('', Validators.required),
+    // hireDate: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required),
+  });
 
+  editImageUrl = new FormGroup({
+    imageUrl: new FormControl(),
+  })
 
-  // });
 
   constructor(
     private db: AngularFireDatabase,
@@ -115,11 +120,7 @@ export class HomeComponent implements OnInit {
     // this.auth.deleteAccount(data2.value.email)
   }
 
-  editWiki(editwikiForm, data) {
-    // this.router.navigate([`/editWiki/${data.key}`]);
-    console.log('updateWikis:', data.key, editwikiForm.value);
-    this.firebaseService.editWiki(data.key, editwikiForm.value);
-  }
+
 
   getCurentAddress() {
     this.wikis;
@@ -170,12 +171,14 @@ export class HomeComponent implements OnInit {
   }
 
   delWiki(data) {
+    this.storage.ref(data.value.filePath).delete();
     this.firebaseService.removeWiki(data.key);
   }
 
   deleteImage(data) {
+    this.checkImageUrl = false;
     this.resetForm();
-    console.log(data.value);
+    console.log(data.value.filePath);
     this.storage.ref(data.value.filePath).delete();
     const editUrl = {
       ...data.value,
@@ -183,6 +186,12 @@ export class HomeComponent implements OnInit {
     }
     this.firebaseService.editWiki(data.key, editUrl);
 
+
+  }
+
+  checkImageFalse() {
+    this.checkImageUrl = true;
+    this.resetForm();
 
   }
 
@@ -200,7 +209,6 @@ export class HomeComponent implements OnInit {
   }
   starForm() {
     this.imgSrc = '/assets/img/image_placeholder.jpg';
-
     // this.selectedImage = null;
     // this.selectedImage2 = null;
     // this.isSubmitted = false;
@@ -232,9 +240,41 @@ export class HomeComponent implements OnInit {
     }
     console.log('filePath', filePath);
   }
+
+  editWiki(editwikiForm, data) {
+    // this.router.navigate([`/editWiki/${data.key}`]);
+    console.log('updateWikis:', data.key, editwikiForm.value);
+    this.firebaseService.editWiki(data.key, editwikiForm.value);
+  }
+
+  uploadImage(editImageUrl, data) {
+    console.log('update:', data.key, editImageUrl.value);
+
+    console.log('!editCar', editImageUrl.value, data);
+    this.isSubmitted = true;
+    if (this.editImageUrl.valid) {
+      var filePath = `imageCar/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            editImageUrl.value['imageUrl'] = url;
+            const addValue = {
+              ...editImageUrl.value,
+              filePath: filePath
+            }
+            this.firebaseService.editWiki(data.key, addValue);
+            // this.resetForm();
+          })
+        })
+      ).subscribe();
+    }
+    console.log('filePath', filePath);
+  }
+
   resetForm() {
     this.formTemplate.reset();
-
+    this.editImageUrl.reset();
     this.imgSrc = '/assets/img/image_placeholder.jpg';
     // this.selectedImage = null;
     // this.isSubmitted = false;

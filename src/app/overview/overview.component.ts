@@ -34,12 +34,12 @@ export class OverviewComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.db.list('job').snapshotChanges().map(actions => {
-      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
-    }).subscribe(job => {
-      console.log('job', job)
-      this.job = job;
-    });
+    // this.db.list('job').snapshotChanges().map(actions => {
+    //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(job => {
+    //   console.log('job', job)
+    //   this.job = job;
+    // });
 
 
     this.db.list('wikis').snapshotChanges().map(action => {
@@ -66,7 +66,8 @@ export class OverviewComponent implements OnInit {
       console.log('totalDivideReview', this.totalDivideReview);
       this.totalReview = this.totalReview / this.totalDivideReview
       console.log('totalReview', this.totalReview);
-
+      let intTotalReview = Math.ceil(this.totalReview)
+      console.log('intTotalReview',intTotalReview);
 
 
 

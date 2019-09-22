@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-checkpayment-job',
@@ -25,6 +25,17 @@ export class CheckpaymentJobComponent implements OnInit {
   selectedNameDriver = [];
   selectedEmailDriver = [];
   selectedTokenlDriver = [];
+  //car
+  selectedCarModel = [];
+  selectedCarId = [];
+
+
+  formBill = new FormGroup({
+    deposit: new FormControl(),
+    totalPayment: new FormControl(),
+  })
+
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -43,7 +54,7 @@ export class CheckpaymentJobComponent implements OnInit {
     }).subscribe(wikis => {
       console.log(wikis)
       this.wikis = wikis;
-    })
+    });
     this.db.list('car').snapshotChanges().map(action => {
       return action.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(car => {
@@ -52,6 +63,20 @@ export class CheckpaymentJobComponent implements OnInit {
     })
 
   }
+  editBill(data) {
+    console.log('testeditjob');
+
+    // console.log(data.value);
+    data.value = {
+      ...data.value,
+
+
+    }
+    const billData = data.value
+    console.log('billData',billData);
+    this.firebaseService.editJob(data.key, billData);
+  }
+
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }
@@ -66,6 +91,9 @@ export class CheckpaymentJobComponent implements OnInit {
       driver: this.selectedNameDriver[index],
       emailDriver: this.selectedEmailDriver[index],
       token: this.selectedTokenlDriver[index],
+      carModel: this.selectedCarModel[index],
+      carId: this.selectedCarId[index]
+
     }
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
@@ -83,6 +111,20 @@ export class CheckpaymentJobComponent implements OnInit {
     this.selectedTokenlDriver[index] = driverToken;
     // console.log('index', index);
     console.log('data', driver.target.value);
+
+  }
+  selectCarValue(car, index) {
+    console.log('showValue', car.target.value.split(","));
+    const getCar = car.target.value.split(",");
+    const carModel = getCar[0];
+    const carId = getCar[1];
+    // const driverToken = getDriver[2];
+
+    this.selectedCarModel[index] = carModel;
+    this.selectedCarId[index] = carId;
+    // this.selectedTokenlDriver[index] = driverToken;
+    // console.log('index', index);
+    console.log('data', car.target.value);
 
   }
   openBill(content) {
