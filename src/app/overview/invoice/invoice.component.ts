@@ -16,7 +16,7 @@ export class InvoiceComponent implements OnInit {
   about: any;
 
   id
-
+  timeNow;
   invoiceJob: any = {};
   title: string = "Add Wiki";
 
@@ -31,11 +31,19 @@ export class InvoiceComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get("id");
     console.log('id', this.id);
-
     if (this.id) {
-      this.title = "Edit wiki";
       this.getWikiByKey(this.id);
     }
+
+    this.db.list('allhomepage/about').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(about => {
+      console.log(about)
+      this.about = about;
+    });
+
+    this.timeNow = new Date();
+
 
   }
   dowloadPDF() {

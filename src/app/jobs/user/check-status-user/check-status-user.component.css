@@ -22,9 +22,9 @@
     border: solid 1px #95989a;
     margin-left: 15px;
    }
-   .text {
+   /* .text {
     margin-right: 240px;
-   }
+   } */
  .modal-header {
      background-color: #d8e3ef;
    }
@@ -52,4 +52,9 @@ h4{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
+  }
+
+  agm-map {
+    height: 300px;
+  
   }

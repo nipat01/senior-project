@@ -32,10 +32,17 @@
         />
         <div
           class="text-danger"
-          *ngIf="isSubmitted && formControls.errors?.required"
         >
           This field is required.
         </div>
+        
+        <!-- มีปัญหาตอนdeploy -->
+        <!-- <div
+          class="text-danger"
+          *ngIf="isSubmitted && formControls.errors?.required"
+        >
+          This field is required.
+        </div> -->
       </div>
       <div class="form-group">
         <input

@@ -131,6 +131,8 @@ export class OverviewComponent implements OnInit {
 
 
     });
+    console.log('thisjob',this.job);
+    
     console.log("showByDriver", data1Firstname.value.firstname);
 
   }
