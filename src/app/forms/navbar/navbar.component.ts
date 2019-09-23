@@ -46,7 +46,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private db: AngularFireDatabase,
     private router: Router,
-    private auth: AuthService,
+    public auth: AuthService,
+    // private auth: AuthService,
     private modalService: NgbModal,
     private firebaseService: FirebaseService
   ) { }

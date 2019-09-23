@@ -21,75 +21,39 @@
 <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)" ngForm>
   <div class="modal-body">
     <div class="text-center">
-      <img
-        [src]="imgSrc"
-        width="350px"
-        height="250px"
-        (click)="fileUploader.click()"
-      />
+      <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
     </div>
     <div class="control">
       <label>Select file to upload</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="file"
-        accept="image/*"
-        class="form-control"
-        #fileUploader
-        formControlName="imageUrl"
-        (change)="showPreview($event)"
-      />
-      <div
+      <input id="typeahead-basic" class="textBox" type="file" accept="image/*" class="form-control" #fileUploader
+        formControlName="imageUrl" (change)="showPreview($event)" />
+      <div class="text-danger" ngModel>
+        This field is required.
+      </div>
+
+      <!-- มีปัญหาตอนdeploy -->
+      <!-- <div
         class="text-danger"
         *ngIf="isSubmitted && formControls.errors?.required"
         ngModel
       >
         This field is required.
-      </div>
+      </div> -->
+
+
       <!-- </div> -->
       <!-- <div class="form-row"> -->
       <label>ทะเบียนรถ</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="text"
-        formControlName="carId"
-        ngModel
-      />
+      <input id="typeahead-basic" class="textBox" type="text" formControlName="carId" ngModel />
       <label>ประเภทรถ</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="text"
-        formControlName="carType"
-        ngModel
-      />
+      <input id="typeahead-basic" class="textBox" type="text" formControlName="carType" ngModel />
       <label>รุ่นของรถ</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="text"
-        formControlName="carModel"
-        ngModel
-      />
+      <input id="typeahead-basic" class="textBox" type="text" formControlName="carModel" ngModel />
 
       <label>วันที่ซื้อ</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="text"
-        formControlName="purchaseDate"
-        ngModel
-      />
+      <input id="typeahead-basic" class="textBox" type="text" formControlName="purchaseDate" ngModel />
       <label>วันที่บำรุงรักษาล่าสุด</label>
-      <input
-        id="typeahead-basic"
-        class="textBox"
-        type="text"
-        formControlName="lastMaintenance"
-        ngModel
-      />
+      <input id="typeahead-basic" class="textBox" type="text" formControlName="lastMaintenance" ngModel />
       <!-- ใส่รูปรถยังไง -->
       <!-- <button type="submit">Submit</button> -->
       <!-- <div class="form-group col-md-6"> -->

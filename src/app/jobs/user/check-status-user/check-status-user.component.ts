@@ -17,6 +17,12 @@ export class CheckStatusUserComponent implements OnInit {
   currentRate;
   job: any[];
   wikis: any[];
+  wikis111;
+
+  //map
+  latitude: number;
+  longitude: number;
+  zoom: number;
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -32,13 +38,14 @@ export class CheckStatusUserComponent implements OnInit {
   })
 
   ngOnInit() {
+    this.zoom = 10;
 
-    this.db.list('wikis').snapshotChanges().map(action => {
-      return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    }).subscribe(wikis => {
-      console.log(wikis)
-      this.wikis = wikis;
-    });
+    // this.db.list('wikis').snapshotChanges().map(action => {
+    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(wikis => {
+    //   console.log(wikis)
+    //   this.wikis = wikis;
+    // });
 
   }
   searchJob(data1) {
@@ -92,6 +99,35 @@ export class CheckStatusUserComponent implements OnInit {
     }
 
 
+  }
+
+  openMap(map, data222, notMap) {
+    console.log('data222', data222.value.emailDriver);
+    let driver = data222.value.emailDriver;
+
+    // this.db.list('wikis').snapshotChanges().map(actions => {
+    //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(wikis => {
+    //   this.wikis = wikis.filter((data: any) => data.value.driver === data222.value.driver);
+    // });
+
+    this.db.list('wikis').snapshotChanges().map(action => {
+
+      return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis.filter((data: any) => data.value.firstname === data222.value.driver)
+      console.log('this.wikis', this.wikis.length);
+    });
+
+    if (data222.value.status === 'proceed') {
+      console.log('openMap');
+      this.modalService.open(map);
+    }
+    else {
+      console.log('ให้คะแนนไม่ได้');
+      this.modalService.open(notMap);
+    }
   }
 
   openBill(content, dataFormJob, alert222) {

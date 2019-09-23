@@ -3,10 +3,7 @@
 <br />
 <br />
 <h3>
-  <img
-    class="icon"
-    src="https://image.flaticon.com/icons/svg/1044/1044288.svg"
-  />
+  <img class="icon" src="https://image.flaticon.com/icons/svg/1044/1044288.svg" />
   บริการของเรา
 </h3>
 
@@ -14,40 +11,26 @@
   <div class="card-body">
     <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
       <div class="text">
-        <img
-          [src]="imgSrc"
-          width="350px"
-          height="250px"
-          (click)="fileUploader.click()"
-        />
+        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
       </div>
       <div class="form-group">
         <label>Select file to upload</label>
-        <input
-          type="file"
-          accept="image/*"
-          class="form-control"
-          #fileUploader
-          formControlName="imageUrl"
-          (change)="showPreview($event)"
-        />
-        <div
+        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
+          (change)="showPreview($event)" />
+        <div class="text-danger">
+          This field is required.
+        </div>
+        <!-- มีปัญหาตอนdeploy -->
+        <!-- <div
           class="text-danger"
           *ngIf="isSubmitted && formControls.errors?.required"
         >
           This field is required.
-        </div>
+        </div> -->
       </div>
       <div class="form-group">
-        <input
-          class="form-control"
-          formControlName="caption"
-          placeholder="Caption"
-        />
-        <div
-          class="text-danger"
-          *ngIf="isSubmitted && formControls.imageUrl.errors?.required"
-        >
+        <input class="form-control" formControlName="caption" placeholder="Caption" />
+        <div class="text-danger" *ngIf="isSubmitted && formControls.imageUrl.errors?.required">
           This field is required.
         </div>
       </div>
@@ -76,26 +59,16 @@
           <span class="imagebox-desc">Insert New Image</span></a>
       </div> -->
       <div class="imagebox" *ngIf="imageList[3 * i]">
-        <img
-          [src]="imageList[3 * i].value.imageUrl"
-          class="img-fluid"
-          (click)="deleteImage(imageList[3 * i])"
-          width="450px"
-          height="250px"
-        />
+        <img [src]="imageList[3 * i].value.imageUrl" class="img-fluid" (click)="deleteImage(imageList[3 * i])"
+          width="450px" height="250px" />
         <span class="imagebox-desc">{{ imageList[3 * i].value.caption }}</span>
       </div>
     </td>
 
     <td *ngIf="imageList[3 * i + 1]">
       <div class="imagebox">
-        <img
-          [src]="imageList[3 * i + 1].value.imageUrl"
-          class="img-fluid"
-          (click)="deleteImage(imageList[3 * i + 1])"
-          width="450px"
-          height="250px"
-        />
+        <img [src]="imageList[3 * i + 1].value.imageUrl" class="img-fluid" (click)="deleteImage(imageList[3 * i + 1])"
+          width="450px" height="250px" />
         <span class="imagebox-desc">{{
           imageList[3 * i + 1].value.caption
         }}</span>
@@ -104,13 +77,8 @@
 
     <td *ngIf="imageList[3 * i + 2]">
       <div class="imagebox">
-        <img
-          [src]="imageList[3 * i + 2].value.imageUrl"
-          class="img-fluid"
-          (click)="deleteImage(imageList[3 * i + 2])"
-          width="450px"
-          height="250px"
-        />
+        <img [src]="imageList[3 * i + 2].value.imageUrl" class="img-fluid" (click)="deleteImage(imageList[3 * i + 2])"
+          width="450px" height="250px" />
         <span class="imagebox-desc">{{
           imageList[3 * i + 2].value.caption
         }}</span>

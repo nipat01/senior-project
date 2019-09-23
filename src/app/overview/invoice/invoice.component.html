@@ -4,19 +4,21 @@
 <div id="invoice">
   <h1>ใบกำกับภาษีอย่างย่อ</h1>
   <div *ngFor="let data of about">
-    <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }}</p>
+    <p>อยู่ที่บริษัท : {{ data.value.about }}</p>
   </div>
-  ชื่อ {{ title }}
-  วันที่
-
-  <pre>{{ invoiceJob | json }} </pre>
+  <!-- ชื่อ {{ title }} -->
+  วันที่: {{timeNow}} <br>
+  บิล:{{invoiceJob.bill}} <br><br>
+  บิลเลขที่:{{invoiceJob.billNo}}<br><br>
+  ชื่อลูกค้า:{{invoiceJob.customerFirstname}}<br><br>
+  ค่าจ้าง:{{invoiceJob.totalPayment}}<br><br>
+  ที่อยู่ต้นทาง:{{invoiceJob.source}}<br><br>
+  ที่อยู่ปลายทาง:{{invoiceJob.destination}}<br><br>
+  วันที่ใช้บริการ:{{invoiceJob.workDate.day}}/{{invoiceJob.workDate.month}}/{{invoiceJob.workDate.year}}<br><br>
+  พนักงานขับรถ:{{invoiceJob.driver}}<br><br>
+  <!-- <pre>{{ invoiceJob | json }} </pre> -->
 </div>
 
-<button
-  class="btn icon"
-  (click)="dowloadPDF()"
-  placement="bottom"
-  ngbTooltip="Dowload PDF"
->
+<button class="btn icon" (click)="dowloadPDF()" placement="bottom" ngbTooltip="Dowload PDF">
   <i class="fas fa-download"></i>
 </button>
