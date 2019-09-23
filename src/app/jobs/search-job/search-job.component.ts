@@ -77,6 +77,8 @@ export class SearchJobComponent implements OnInit {
         const jobTime = {
           ...this.job2[i],
         }
+      console.log('jobtime',jobTime);
+
         let checkStatus = jobTime.value;
         let sum = +checkStatus.totalPayment;
         let depositNotProceeded = +checkStatus.deposit;
@@ -115,6 +117,7 @@ export class SearchJobComponent implements OnInit {
       console.log('endDate', endDate);
 
       this.job = job.filter((data: any) => {
+
 
 
         // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
