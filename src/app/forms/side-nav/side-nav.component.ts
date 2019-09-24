@@ -13,8 +13,8 @@ export class SideNavComponent implements OnInit {
   closeResult: string;
   selectedColor: string;
   constructor(
-     public auth: AuthService,
-    //  private auth: AuthService,
+     private auth: AuthService,
+    private modalService: NgbModal
      ) { }
 
   ngOnInit() {
