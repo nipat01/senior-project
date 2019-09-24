@@ -7,12 +7,12 @@
 
 <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
   <div class="control">
-    <label class="text" for="source">ระบุต้นทาง</label>
+    <label class="textinput" for="source">ระบุต้นทาง</label>
     <!-- <input class="textBox" type="text" name="source" ngModel /> -->
 
     <input type="text" name="sourceMap" class="textBox" (keydown.enter)="$event.preventDefault()"
       placeholder="source  Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search />
-    <label class="text" for="destination">ระบุปลายทาง</label>
+    <label class="textinput" for="destination">ระบุปลายทาง</label>
     <!-- <input class="textBox" type="text" name="destination" ngModel /> -->
     <input type="text" name="destMap" class="textBox" (keydown.enter)="$event.preventDefault()"
       placeholder="destination Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search2 />
@@ -24,7 +24,7 @@
       </agm-map>
     </div>
 
-    <label class="text" for="worktype">รูปแบบงาน</label>
+    <label class="textinput" for="worktype">รูปแบบงาน</label>
     <div ngModel ngbRadioGroup name="worktype">
       <label ngbButtonLabel>
         <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
@@ -34,20 +34,20 @@
       </label>
     </div>
     <!-- <input type="text" name="worktype" ngModel /> -->
-    <label class="text" for="customerFirstname">ชื่อลูกค้า</label>
+    <label class="textinput" for="customerFirstname">ชื่อลูกค้า</label>
     <input class="textBox" type="text" name="customerFirstname" ngModel />
-    <label class="text" for="workDate">วันที่</label>
+    <label class="textinput" for="workDate">วันที่</label>
     <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
       #d="ngbDatepicker" />
     <!-- <input type="text" name="workDate" ngModel /> -->
-    <label class="text" for="workTime">เวลา</label>
+    <label class="textinput" for="workTime">เวลา</label>
     <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
     <!-- <input type="text" name="workTime" ngModel /> -->
-    <label class="text" for="customerPhone">เบอร์ติดต่อ</label>
+    <label class="textinput" for="customerPhone">เบอร์ติดต่อ</label>
     <input class="textBox" type="text" name="customerPhone" ngModel />
-    <label class="text" for="customerLine">ไลน์ติดต่อ</label>
+    <label class="textinput" for="customerLine">ไลน์ติดต่อ</label>
     <input class="textBox" type="text" name="customerLine" ngModel />
-    <label class="text" for="detail">รายละเอียดการจ้าง</label>
+    <label class="textinput" for="detail">รายละเอียดการจ้าง</label>
     <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
     <button class="btn submit" type="submit">Submit</button>
   </div>

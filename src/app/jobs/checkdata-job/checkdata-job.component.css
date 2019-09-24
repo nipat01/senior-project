@@ -1,13 +1,5 @@
 
-   .modal-header {
-     background-color: #d8e3ef;
-   }
-   .btn.save {
-     background-color: #d8e3ef;
-   }
-   .btn.icon {
-     color: #004085;
-   }
+
    .iconGroup {
      display: flex;
    }

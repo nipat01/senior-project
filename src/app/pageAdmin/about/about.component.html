@@ -10,7 +10,7 @@
     <button class="btn submit" type="submit">Submit</button>
   </div>
 </form>
-<div *ngFor="let data of about" class="control">
+<div class="textValue" *ngFor="let data of about">
   <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }} </p>
 </div>
 
@@ -24,7 +24,7 @@
   </div>
 </form>
 
-<div class="control" *ngFor="let data of account">
+<div class="textValue" *ngFor="let data of account">
   <p>Line : {{ data.value.account }} </p>
 </div>
 

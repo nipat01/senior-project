@@ -11,7 +11,7 @@
       </h1>
       <div class="control">
         <label>แก้ไขข้อความ</label>
-        <input class="textBox" type="text" name="firstname" ngModel />
+        <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
         <button class="btn submit" type="submit">Submit</button>
       </div>
     </form>
@@ -26,7 +26,7 @@
     <br />
     <br />
     <br />
-    <p>
+    <p class="text">
       ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง <br />
       Ex: https://www.youtube.com/watch?v=C64wuNOj-do <br />
       นำ C64wuNOj-do ไปใส่
@@ -34,11 +34,11 @@
     <form (ngSubmit)="addVideo(videoForm)" #videoForm="ngForm">
       <div class="control">
         <label for="video">video</label>
-        <input class="textBox" type="text" name="video1" ngModel />
+        <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
         <button class="btn submit" type="submit">Submit</button>
       </div>
 
-      <div class="text">
+      <div class="video">
         <div *ngFor="let data of video">
           {{ data.value.video1 }}
           <br />

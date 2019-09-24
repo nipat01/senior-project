@@ -1,12 +1,13 @@
 
-  .btn.submit {
+
+  /* .btn.submit {
     background-color: #d8e3ef;
     width: 99px;
     height: 35px;
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 10px;
-   }
+   } */
    .btn.edit {
       background-color: #d0cfcf;
    }
@@ -29,18 +30,14 @@
      padding: 8px 20px;
      margin-bottom: 50px;
    }
- .text{
-   background-color: #d8e3ef;
-    border-radius: 5px;
-    padding: 8px 20px;
-    margin-top: -30px;
- }
- p{
+
+
+ /* p{
   background-color: #d8e3ef;
     border-radius: 5px;
     padding: 8px 20px;
     margin-top: -53px;
- }
+ } */
 h1{
     background-color: white;
     border-radius: 5px;

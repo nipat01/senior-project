@@ -9,6 +9,7 @@ import { AuthService } from "./services/auth.service";
 export class AppComponent {
 
   title = 'myjistig';
+  selectedColor: string;
 
   // constructor(private db: AngularFireDatabase){}
   // addWiki(data: NgForm){
@@ -19,6 +20,12 @@ export class AppComponent {
 
   ngOnInit() {}
 
+  changesColor() {
+    // var x=document.getElementById("selectColor");
+    // var themeColor= x.options[x.selectedIndex].value;
+    // document.body.style.backgroundColor=themeColor;
+    console.log(this.selectedColor);
+  }
 }
 
 

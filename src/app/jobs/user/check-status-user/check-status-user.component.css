@@ -1,13 +1,4 @@
-.btn.submit {
-    background-color: #d8e3ef;
-    width: 99px;
-    height: 35px;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: 16px;
-    margin-bottom: 10px;
-   }
+
   .btn.icon {
      color: #004085;
     text-align: inherit;
@@ -15,13 +6,7 @@
    .iconGroup {
      display: flex;
    }
-   .textBox {
-    width: 275px;
-    height: 30px;
-    border-radius: 5px;
-    border: solid 1px #95989a;
-    margin-left: 15px;
-   }
+
    /* .text {
     margin-right: 240px;
    } */
@@ -56,5 +41,5 @@ h4{
 
   agm-map {
     height: 300px;
-  
+
   }

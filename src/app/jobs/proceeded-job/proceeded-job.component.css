@@ -1,6 +1,4 @@
-  .btn.icon {
-     color: #004085;
-   }
+
    .iconGroup {
      display: flex;
    }
@@ -13,17 +11,8 @@
     td {
      text-align: center;
    }
-   .modal-header {
-     background-color: #d8e3ef;
-   }
-   .btn.save {
-     background-color: #d8e3ef;
-   }
    .btn.edit {
       background-color: #d0cfcf;
-   }
-    .iconGroup {
-     display: flex;
    }
 h3{
     background-color: white;

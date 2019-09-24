@@ -1,33 +1,11 @@
-.textBox {
-    width: 275px;
-    height: 30px;
-    border-radius: 5px;
-    border: solid 1px #95989a;
-    margin-left: 15px;
-   }
+
     .control {
     display: grid;
     background-color:white;
     border-radius: 10px;
     padding: 8px 20px;
    }
-   .btn.submit {
-    background-color: #d8e3ef;
-    width: 99px;
-    height: 35px;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: 16px;
-    margin-bottom: 10px;
-   }
-   .textArea{
-    width: 275px;
-    height: 100px;
-    border-radius: 5px;
-    border: solid 1px #95989a;
-    margin-left: 15px;
-   }
+
 
 
   h4{
