@@ -63,8 +63,8 @@ exports.postNotifyToLine = functions.database.ref('/job/{pushId}')
          ต้นทาง:${original.source}
          ปลายทาง:${original.destination}
          รายละเอียดการจ้างงาน:${original.detail}
-         วัน:${original.workDate}
-         เวลา:${original.workTime}
+         วัน:${original.workDate.day}/${original.workDate.month}/${original.workDate.year}
+         เวลา:${original.workTime.hour}:${original.workTime.minute}
          ประเภท:${original.worktype}`
 
     return lineNotify(dataOiginal, original.token);
@@ -99,7 +99,7 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
     console.log(afterData);
     const token = afterData.token
 
-    if (afterData.driver !== '' && afterData.status==='notification') {  // return notifyToDriver(afterData,);
+    if (afterData.driver !== '' && afterData.status === 'notification') {  // return notifyToDriver(afterData,);
       const dataOiginal = `แจ้งเตือนงานDriver
     ชื่อ:${afterData.customerFirstname}
     ไลน์:${afterData.customerLine}
