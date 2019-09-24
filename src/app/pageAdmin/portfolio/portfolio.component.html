@@ -12,14 +12,12 @@
 <div class="card">
   <div class="card-body">
     <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
-      <div class="text">
         <img
           [src]="imgSrc"
           width="350px"
           height="250px"
           (click)="fileUploader.click()"
         />
-      </div>
       <div class="form-group">
         <label>Select file to upload</label>
         <input
@@ -35,7 +33,7 @@
         >
           This field is required.
         </div>
-        
+
         <!-- มีปัญหาตอนdeploy -->
         <!-- <div
           class="text-danger"

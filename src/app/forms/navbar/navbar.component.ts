@@ -30,7 +30,7 @@ import { FirebaseService } from '../../services/firebase-service.service';
 })
 export class NavbarComponent implements OnInit {
 
-  selectedColor: string;
+
   wikis: any[];
   token: any[];
 
@@ -101,10 +101,5 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  changesColor() {
-    // var x=document.getElementById("selectColor");
-    // var themeColor= x.options[x.selectedIndex].value;
-    // document.body.style.backgroundColor=themeColor;
-    console.log(this.selectedColor);
-  }
+
 }

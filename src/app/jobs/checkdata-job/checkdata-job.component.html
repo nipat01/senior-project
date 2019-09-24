@@ -65,7 +65,7 @@
               <button type="button" class="btn edit" (click)="buttonEdit()">
                 edit
               </button>
-              <button type="button" class="btn save" (click)="c('Save click')" (click)="buttonSave()">
+              <button type="button" class="btn submit" (click)="c('Save click')" (click)="buttonSave()">
                 Save
               </button>
             </div>
@@ -97,7 +97,7 @@
             <i class="fas fa-trash-alt"></i>
           </button>
           <button class="btn icon" (click)="openMap(map)" placement="bottom" ngbTooltip="Map">
-            <i class="fas fa-file-invoice-dollar"></i>
+            <i class="fas fa-map"></i>
           </button>
         </div>
       </td>
@@ -133,9 +133,14 @@
           </agm-map>
         </div>
         <div class="modal-footer">
-          <button (click)="showCurrentAddress('addressEmp')">ตำแหน่งปกติ</button>
-          <button (click)="showCurrentAddress('currentAddressEmp')">ตำแหน่งปัจจุบัน</button>
-          <button (click)="showCurrentAddress('clearAddressEmp')">ปิดแสดงตำแหน่งพนักงาน</button>
+          <button class="btn icon" (click)="showCurrentAddress('addressEmp')"placement="bottom" ngbTooltip="ตำแหน่งปกติ">
+            <i class="fas fa-map-marker-alt"></i></button>
+          <button class="btn icon" (click)="showCurrentAddress('currentAddressEmp')" placement="bottom" ngbTooltip="ตำแหน่งปัจจุบัน">
+            <i class="fas fa-street-view"></i>
+          </button>
+          <button class="btn icon" (click)="showCurrentAddress('clearAddressEmp')"placement="bottom" ngbTooltip="ปิดแสดงตำแหน่งพนักงาน">
+            <i class="fas fa-eye-slash"></i>
+          </button>
           <button type="button" class="btn save " (click)="c('Save click')">
             Save
           </button>

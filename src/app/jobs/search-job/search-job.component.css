@@ -26,23 +26,8 @@
  thead {
      background-color: white;
    }
-    .btn.submit {
-    background-color: #d8e3ef;
-    width: 99px;
-    height: 35px;
-    border-radius: 5px;
-   }
 p {
     margin-top: 20px;
-   }
-.btn.submit {
-    background-color: #d8e3ef;
-    width: 99px;
-    height: 35px;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-
    }
 .textBox {
   width: 400px;

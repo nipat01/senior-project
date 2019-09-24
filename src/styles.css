@@ -1,26 +1,67 @@
-
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
-/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+
 body{
     font-family: 'Mitr', cursive;
     padding-left: 220px;
     padding-right: 15px;
     background-color: #e8e9ea;
+
 }
 
-.card-header {
-    padding: .75rem 1.25rem;
-    margin-bottom: 0;
-    background-color: rgba(255, 255, 255, 0.03);
-}
-.accordion>.card .card-header {
-    margin-bottom: -11px;
-}
-.btn-link {
-    font-weight: 400;
-    color:black;
-    text-decoration: none;
-}
 .pink {
   background-color: darksalmon;
 }
+.btn.submit {
+  background-color:  #abc;
+  width: 99px;
+  height: 35px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.bg-header {
+    background-color: #abc!important
+}
+.modal-header {
+    background-color: #abc!important
+}
+.text{
+   background-color:  #abc;
+    border-radius: 5px;
+    padding: 8px 20px;
+    margin-top: -80px;
+    margin-bottom: 25px;
+}
+.video {
+   background-color:  #abc;
+    border-radius: 5px;
+    padding: 8px 20px;
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+.textArea{
+    height: 100px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 15px;
+   }
+.textBox {
+    width: 275px;
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px #95989a;
+    margin-left: 15px;
+   }
+.textValue {
+  display: grid;
+  background-color:#abc;
+  border-radius: 10px;
+  padding: 8px 20px;
+  margin-bottom: 10px;
+}
+.btn.save{
+  background-color:  #abc;
+}
+.btn.icon {
+     color: #004085;
+   }
