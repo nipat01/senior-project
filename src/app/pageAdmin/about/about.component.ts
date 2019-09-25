@@ -1,10 +1,11 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, OnChanges, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppComponent } from 'src/app/app.component';
 
 
 @Component({
@@ -12,13 +13,27 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnChanges   {
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
+
   about: any[];
   account: any[];
   location: any[];
   longitude: number;
   latitude: number;
   zoom: number;
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
+
   // constructor() { }
   constructor(
     private db: AngularFireDatabase,

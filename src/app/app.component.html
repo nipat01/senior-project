@@ -1,13 +1,7 @@
-<app-navbar [style.background-color]="selectedColor"></app-navbar>
-<router-outlet [style.background-color]="selectedColor" ></router-outlet>
+<app-navbar></app-navbar>
+<router-outlet ></router-outlet>
 
-<select [(ngModel)]="selectedColor" id="selectColor" (change)=changesColor()>
-  <option value="darksalmon" class="pink">darksalmon</option>
-  <option value="silver">silver</option>
-  <option value="darkseagreen">darkseagreen</option>
-  <option value="#abc">lightblue</option>
-  <option value="burlywood">burlywood</option>
-</select>
+
 
 <!-- <div class="sidenav">
   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">

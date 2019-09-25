@@ -16,24 +16,33 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from "../../services/auth.service";
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase-service.service';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit , OnChanges {
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('navbar', changes.color.currentValue);
+    const nav = document.querySelector('nav');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(nav.className)
+  }
 
-
+  // static COLOR = '';
+  // static DEFAULTCOLOR = '#abc';
+  public isCollapsed = true;
+  selectedColor: string;
   wikis: any[];
   token: any[];
-
   editPasswordForm = new FormGroup({
     password: new FormControl('', Validators.required),
   });
@@ -42,6 +51,10 @@ export class NavbarComponent implements OnInit {
     tokenAdmin: new FormControl(),
     tokenGroup: new FormControl(),
   });
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(
     private db: AngularFireDatabase,
@@ -52,6 +65,7 @@ export class NavbarComponent implements OnInit {
     private firebaseService: FirebaseService
   ) { }
   ngOnInit() {
+    console.log('navbar',this.color);
     // this.db.list('wikis').snapshotChanges().map(actions => {
     //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     // }).subscribe(wikis => {
@@ -100,6 +114,11 @@ export class NavbarComponent implements OnInit {
       // }
     }
   }
+  changesColor() {
 
+    console.log(this.selectedColor);
+    AppComponent.COLOR = this.selectedColor;
+    console.log(AppComponent.COLOR);
+  }
 
 }

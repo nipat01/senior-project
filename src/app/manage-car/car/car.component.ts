@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,12 +10,25 @@ import { AddCarComponent } from '../add-car/add-car.component';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { FirebaseService } from '../../services/firebase-service.service';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-car',
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css']
 })
-export class CarComponent implements OnInit {
+export class CarComponent implements OnInit, OnChanges{
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
   carList: Observable<any>;
 
   imgSrc: string;

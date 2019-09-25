@@ -2,8 +2,20 @@
     color: #000000;
 }
 
-.navbar-brand.text {
-  color: #004085;
+.navbar-brand.texts {
+  color: #070707;
 }
 
-
+.icons{
+  width: 25px;
+}
+.btn-outline-primary {
+  color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  width: 0px;
+  margin-right: 15px;
+}
+select{
+word-wrap: normal;
+border-radius: 10px;
+}

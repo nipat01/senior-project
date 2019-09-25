@@ -4,13 +4,40 @@ body{
     font-family: 'Mitr', cursive;
     padding-left: 220px;
     padding-right: 15px;
-    background-color: #e8e9ea;
-
+    background-color:rgb(228, 225, 225)
 }
 
 .pink {
   background-color: darksalmon;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
 }
+.silver {
+  background-color: silver;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+.darkseagreen {
+  background-color: darkseagreen;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+.lightblue {
+  background-color: lightblue;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+.burlywood {
+  background-color: burlywood;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+
 .btn.submit {
   background-color:  #abc;
   width: 99px;
@@ -22,9 +49,7 @@ body{
 .bg-header {
     background-color: #abc!important
 }
-.modal-header {
-    background-color: #abc!important
-}
+
 .text{
    background-color:  #abc;
     border-radius: 5px;
@@ -65,3 +90,5 @@ body{
 .btn.icon {
      color: #004085;
    }
+
+

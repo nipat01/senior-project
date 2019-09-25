@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { FirebaseService } from '../../services/firebase-service.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.css']
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements OnInit, OnChanges  {
+
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
@@ -23,6 +34,10 @@ export class PortfolioComponent implements OnInit {
     imageUrl: new FormControl('', Validators.required),
     filePath: new FormControl()
   })
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(private storage: AngularFireStorage,
     private service: ImageService,

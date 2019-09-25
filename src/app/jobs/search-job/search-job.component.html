@@ -40,7 +40,8 @@
       ngbDatepicker
       #d2="ngbDatepicker"
     />
-    <button class="btn submit" (click)="searchJob(formCustomer)">Submit</button>
+    <br>
+    <button [ngStyle]="{'background-color': color }" class="btn submit" (click)="searchJob(formCustomer)">Submit</button>
   </form>
 
   <form [formGroup]="formDriver" *ngIf="checkDriver">
@@ -75,7 +76,7 @@
       ngbDatepicker
       #d2="ngbDatepicker"
     />
-    <button class="btn submit" (click)="searchJob(formDriver)">Submit</button>
+    <button [ngStyle]="{'background-color': color }"  class="btn submit" (click)="searchJob(formDriver)">Submit</button>
   </form>
 
   <form [formGroup]="formStatus" *ngIf="checkStatusJob">
@@ -109,7 +110,7 @@
       ngbDatepicker
       #d2="ngbDatepicker"
     />
-    <button class="btn submit" (click)="searchJob(formStatus)">Submit</button>
+    <button [ngStyle]="{'background-color': color }" class="btn submit " (click)="searchJob(formStatus)">Submit</button>
   </form>
 </div>
 

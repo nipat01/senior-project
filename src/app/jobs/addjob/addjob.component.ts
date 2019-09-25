@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { from } from 'rxjs';
@@ -7,6 +7,7 @@ import { LineNotifyService } from 'src/app/services/line-notify.service';
 import * as cors from 'cors';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-addjob',
@@ -14,7 +15,14 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./addjob.component.css']
 })
 
-export class AddjobComponent implements OnInit {
+export class AddjobComponent implements OnInit, OnChanges {
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
 
   //map-----------------------------------------------------------------------------------------------
   title: string = 'AGM project';
@@ -34,6 +42,9 @@ export class AddjobComponent implements OnInit {
   //addJob
   token;
 
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(private db: AngularFireDatabase,
     private lineNotify: LineNotifyService,

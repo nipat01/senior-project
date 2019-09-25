@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { Router } from '@angular/router';
@@ -9,18 +9,31 @@ import { AuthService } from '../../services/auth.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
   // wikiList: Observable<any>;
   // wiki: any = {};
   wikis: any = []
   // wikis: { key: string; value: unknown; }[];
 
 
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
 
   imgSrc: string;

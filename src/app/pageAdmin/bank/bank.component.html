@@ -12,7 +12,7 @@
   <div class="control">
   <label for="bank">รายละเอียดธนาคาร</label>
   <input class="textBox" type="text" name="bank" ngModel />
-  <button class="btn submit" type="submit">Submit</button>
+  <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
   <label class="control"  *ngFor="let data of bank">

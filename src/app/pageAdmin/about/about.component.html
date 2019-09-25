@@ -7,10 +7,10 @@
   <div class="control">
     <label for="about">กรุณากรอกที่อยู่บริษัท</label>
     <input class="textArea" type="text" name="about" ngModel />
-    <button class="btn submit" type="submit">Submit</button>
+    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
-<div class="textValue" *ngFor="let data of about">
+<div [ngStyle]="{'background-color': color }" class="textValue" *ngFor="let data of about">
   <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }} </p>
 </div>
 
@@ -20,11 +20,11 @@
   <div class="control">
     <label for="account">กรุณากรอกไอดีไลน์</label>
     <input class="textBox" type="text" name="account" ngModel />
-    <button class="btn submit" type="submit">Submit</button>
+    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
 
-<div class="textValue" *ngFor="let data of account">
+<div [ngStyle]="{'background-color': color }" class="textValue" *ngFor="let data of account">
   <p>Line : {{ data.value.account }} </p>
 </div>
 

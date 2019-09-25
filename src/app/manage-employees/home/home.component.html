@@ -11,7 +11,7 @@
   จัดการพนักงานขับรถ
 </h3>
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
+  <div [ngStyle]="{'background-color': color }" class="header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
     <button
       type="button"
@@ -162,7 +162,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn save" (click)="onSubmit(formTemplate)">
+    <button [ngStyle]="{'background-color': color }" type="button" class="btn save" (click)="onSubmit(formTemplate)">
       Save
     </button>
   </div>
@@ -202,7 +202,7 @@
       <!-- dialogเมื่อคลิกที่ชื่อ --------------------------------------------------------------- -->
       <td (click)="openData(contentData)">
         <ng-template #contentData let-c="close" let-d="dismiss">
-          <div class="modal-header">
+          <div [ngStyle]="{'background-color': color }" class="header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
             <button
               type="button"
@@ -352,7 +352,7 @@
               </button>
               <button
                 type="button"
-                class="btn save"
+                class="btn edit"
                 (click)="resetPassword(data)"
               >
                 Reset Password?
@@ -363,6 +363,7 @@
               class="btn save"
               (click)="editWiki(editwikiForm, data)"
               (click)="c('Save click')"
+              [ngStyle]="{'background-color': color }"
             >
               Save
             </button>
@@ -556,8 +557,8 @@
 </table>
 
 <ng-template #contentCurrent let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
+  <div [ngStyle]="{'background-color': color }" class="header">
+    <h4 class="modal-title" id="modal-basic-title">ยืนยันการส่งตำแหน่ง</h4>
     <button
       type="button"
       class="close"
@@ -580,6 +581,7 @@
         class="btn  save"
         (click)="resetCoordinates()"
         (click)="d('Cross click')"
+        [ngStyle]="{'background-color': color }"
       >
         Close
       </button>

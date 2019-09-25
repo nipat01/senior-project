@@ -32,12 +32,10 @@
    }
 
 
- /* p{
-  background-color: #d8e3ef;
-    border-radius: 5px;
-    padding: 8px 20px;
-    margin-top: -53px;
- } */
+ .videos {
+  width: 100%;
+  height: auto;
+ }
 h1{
     background-color: white;
     border-radius: 5px;

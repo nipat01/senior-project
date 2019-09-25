@@ -1,5 +1,6 @@
-<nav    class="navbar navbar-expand-md navbar-dark bg-header fixed-top">
-  <a class="navbar-brand text" [routerLink]="['/homepageuser']"> J I S T I G </a>
+<nav  [ngStyle]="{'background-color': color? color :'#abc' }"
+ class="navbar navbar-expand-md navbar-dark fixed-top">
+  <a class="navbar-brand texts" [routerLink]="['/homepageuser']"> J I S T I G </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,6 +9,13 @@
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav">
 
+<select [(ngModel)]="selectedColor" id="selectColor" (change)=changesColor()>
+  <option value="darksalmon" class="pink">pink</option>
+  <option value="silver" class="silver">silver</option>
+  <option value="darkseagreen" class="darkseagreen">darkseagreen</option>
+  <option value="#abc" class="lightblue">lightblue</option>
+  <option value="burlywood" class="burlywood">burlywood</option>
+</select>
 
       <!-- <li>
         <a class="nav-link" [routerLink]="['/']"> หน้าแรก</a>

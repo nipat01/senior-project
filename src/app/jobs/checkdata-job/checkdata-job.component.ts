@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
@@ -7,13 +7,23 @@ import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-checkdata-job',
   templateUrl: './checkdata-job.component.html',
   styleUrls: ['./checkdata-job.component.css']
 })
-export class CheckdataJobComponent implements OnInit {
+export class CheckdataJobComponent implements OnInit, OnChanges{
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
   jobList: AngularFireList<any>
   job: any[];
   wikis: any[];
@@ -26,6 +36,11 @@ export class CheckdataJobComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom: number;
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,

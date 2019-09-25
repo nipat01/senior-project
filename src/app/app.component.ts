@@ -7,9 +7,11 @@ import { AuthService } from "./services/auth.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  static COLOR='';
+  static DEFAULTCOLOR = '#abc';
   title = 'myjistig';
   selectedColor: string;
+
 
   // constructor(private db: AngularFireDatabase){}
   // addWiki(data: NgForm){
@@ -17,15 +19,11 @@ export class AppComponent {
   //   this.db.list("/wikis").push(data.value);
   //   }
 
+  constructor() {}
 
   ngOnInit() {}
 
-  changesColor() {
-    // var x=document.getElementById("selectColor");
-    // var themeColor= x.options[x.selectedIndex].value;
-    // document.body.style.backgroundColor=themeColor;
-    console.log(this.selectedColor);
-  }
+
 }
 
 

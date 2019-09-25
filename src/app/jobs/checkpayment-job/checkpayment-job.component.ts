@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
@@ -7,13 +7,22 @@ import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-checkpayment-job',
   templateUrl: './checkpayment-job.component.html',
   styleUrls: ['./checkpayment-job.component.css']
 })
-export class CheckpaymentJobComponent implements OnInit {
+export class CheckpaymentJobComponent implements OnInit, OnChanges {
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
   jobList: AngularFireList<any>
   job: any[];
 
@@ -35,6 +44,9 @@ export class CheckpaymentJobComponent implements OnInit {
     totalPayment: new FormControl(),
   })
 
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,

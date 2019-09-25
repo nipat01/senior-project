@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
@@ -6,12 +6,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-search-job',
   templateUrl: './search-job.component.html',
   styleUrls: ['./search-job.component.css']
 })
-export class SearchJobComponent implements OnInit {
+export class SearchJobComponent implements OnInit, OnChanges {
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
 
   job: any[];
   job2: any[];
@@ -52,6 +61,10 @@ export class SearchJobComponent implements OnInit {
     workDate: new FormControl(),
     endworkDate: new FormControl(),
   })
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,

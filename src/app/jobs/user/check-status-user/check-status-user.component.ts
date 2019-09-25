@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../../services/firebase-service.service';
@@ -8,12 +8,21 @@ import { database } from 'firebase';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
 @Component({
   selector: 'app-check-status-user',
   templateUrl: './check-status-user.component.html',
   styleUrls: ['./check-status-user.component.css']
 })
-export class CheckStatusUserComponent implements OnInit {
+export class CheckStatusUserComponent implements OnInit, OnChanges {
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
+
   currentRate;
   job: any[];
   wikis: any[];
@@ -23,6 +32,11 @@ export class CheckStatusUserComponent implements OnInit {
   latitude: number;
   longitude: number;
   zoom: number;
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,

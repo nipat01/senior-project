@@ -1,17 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnChanges{
+
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    console.log('button', changes.color.currentValue);
+    const button = document.querySelector('button');
+    // nav.classList.replace('bg-header', 'warning');
+    console.log(button.className)
+  }
   public isCollapsed = false;
 
   job: any[];
@@ -27,6 +36,10 @@ export class OverviewComponent implements OnInit {
   //date
   publicStartDate;
   publicEndDate;
+
+  get color() {
+    return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
+  }
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
@@ -132,7 +145,7 @@ export class OverviewComponent implements OnInit {
 
     });
     console.log('thisjob',this.job);
-    
+
     console.log("showByDriver", data1Firstname.value.firstname);
 
   }
