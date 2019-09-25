@@ -26,10 +26,10 @@ export class AboutComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
-   
+
   ) { }
   ngOnInit() {
-
+    this.zoom=18;
     this.setCurrentLocation();
     this.db.list('allhomepage/about').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
