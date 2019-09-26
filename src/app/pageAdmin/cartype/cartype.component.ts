@@ -5,6 +5,7 @@ import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { AppComponent } from 'src/app/app.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cartype',
@@ -42,7 +43,8 @@ export class CartypeComponent implements OnInit, OnChanges  {
 
   constructor(private storage: AngularFireStorage,
     private service: ImageService,
-    private firebaseService: FirebaseService) { }
+    private firebaseService: FirebaseService,
+    private modalService: NgbModal,) { }
 
   ngOnInit() {
     //colum1
@@ -75,6 +77,12 @@ export class CartypeComponent implements OnInit, OnChanges  {
 
 
   }
+
+  openDeleteImage(deleteImg) {
+    console.log('deleteImg', deleteImg);
+    this.modalService.open(deleteImg)
+  }
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

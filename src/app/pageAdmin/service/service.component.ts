@@ -5,13 +5,14 @@ import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { AppComponent } from 'src/app/app.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
   styleUrls: ['./service.component.css']
 })
-export class ServiceComponent implements OnInit, OnChanges  {
+export class ServiceComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
     console.log('button', changes.color.currentValue);
@@ -39,7 +40,8 @@ export class ServiceComponent implements OnInit, OnChanges  {
 
   constructor(private storage: AngularFireStorage,
     private service: ImageService,
-    private firebaseService: FirebaseService) { }
+    private firebaseService: FirebaseService,
+    private modalService: NgbModal, ) { }
 
   ngOnInit() {
     this.resetForm();
@@ -55,6 +57,12 @@ export class ServiceComponent implements OnInit, OnChanges  {
       }
     );
   }
+
+  openDeleteImage(deleteImg) {
+    console.log('deleteImg', deleteImg);
+    this.modalService.open(deleteImg)
+  }
+
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

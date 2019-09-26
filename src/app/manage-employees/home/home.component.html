@@ -11,7 +11,7 @@
   จัดการพนักงานขับรถ
 </h3>
 <ng-template #content let-c="close" let-d="dismiss">
-  <div [ngStyle]="{'background-color': color }" class="header">
+  <div [ngStyle]="{ 'background-color': color }" class="header">
     <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
     <button
       type="button"
@@ -162,7 +162,12 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button [ngStyle]="{'background-color': color }" type="button" class="btn save" (click)="onSubmit(formTemplate)">
+    <button
+      [ngStyle]="{ 'background-color': color }"
+      type="button"
+      class="btn save"
+      (click)="onSubmit(formTemplate)"
+    >
       Save
     </button>
   </div>
@@ -202,7 +207,7 @@
       <!-- dialogเมื่อคลิกที่ชื่อ --------------------------------------------------------------- -->
       <td (click)="openData(contentData)">
         <ng-template #contentData let-c="close" let-d="dismiss">
-          <div [ngStyle]="{'background-color': color }" class="header">
+          <div [ngStyle]="{ 'background-color': color }" class="header">
             <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
             <button
               type="button"
@@ -221,7 +226,7 @@
                   [src]="data.value.imageUrl"
                   width="350px"
                   height="250px"
-                  (click)="deleteImage(data)"
+                  (click)="openDeleteImage(deleteImg)"
                   *ngIf="checkImageUrl"
                 />
                 <div *ngIf="!checkImageUrl">
@@ -363,10 +368,47 @@
               class="btn save"
               (click)="editWiki(editwikiForm, data)"
               (click)="c('Save click')"
-              [ngStyle]="{'background-color': color }"
+              [ngStyle]="{ 'background-color': color }"
             >
               Save
             </button>
+          </div>
+        </ng-template>
+
+        <!-- dialog delete image -->
+        <ng-template #deleteImg let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">
+              ต้องการเปลี่ยนแปลงรูปภาพหรือไม่?
+            </h5>
+
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="text-center">
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn  save"
+                (click)="deleteImage(data)"
+                (click)="d('Cross click')"
+              >
+                Yes
+              </button>
+              <button
+                type="button"
+                class="btn  save"
+                (click)="d('Cross click')"
+              >
+                No
+              </button>
+            </div>
           </div>
         </ng-template>
         {{ data.value.email }}
@@ -557,7 +599,7 @@
 </table>
 
 <ng-template #contentCurrent let-c="close" let-d="dismiss">
-  <div [ngStyle]="{'background-color': color }" class="header">
+  <div [ngStyle]="{ 'background-color': color }" class="header">
     <h4 class="modal-title" id="modal-basic-title">ยืนยันการส่งตำแหน่ง</h4>
     <button
       type="button"
@@ -581,7 +623,7 @@
         class="btn  save"
         (click)="resetCoordinates()"
         (click)="d('Cross click')"
-        [ngStyle]="{'background-color': color }"
+        [ngStyle]="{ 'background-color': color }"
       >
         Close
       </button>

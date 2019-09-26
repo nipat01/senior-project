@@ -5,6 +5,7 @@ import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { AppComponent } from 'src/app/app.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-portfolio',
@@ -41,7 +42,8 @@ export class PortfolioComponent implements OnInit, OnChanges  {
 
   constructor(private storage: AngularFireStorage,
     private service: ImageService,
-    private firebaseService: FirebaseService) { }
+    private firebaseService: FirebaseService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.resetForm();
@@ -57,6 +59,12 @@ export class PortfolioComponent implements OnInit, OnChanges  {
         console.log('array', this.rowIndexArray, 'rowIndexArrayLength', this.rowIndexArray.length);
       }
     );
+  }
+
+  openDeleteImage(deleteImg1) {
+    console.log('deleteImg1');
+    this.modalService.open(deleteImg1)
+
   }
 
   showPreview(event: any) {

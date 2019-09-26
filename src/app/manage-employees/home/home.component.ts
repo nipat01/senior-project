@@ -124,6 +124,12 @@ export class HomeComponent implements OnInit, OnChanges {
     const modalRef = this.modalService.open(contentEditData);
   }
 
+  openDeleteImage(deleteImg) {
+    console.log('deleteImg');
+    this.modalService.open(deleteImg)
+
+  }
+
   resetPassword(data) {
     this.auth.resetPassword(data.value.email)
   }

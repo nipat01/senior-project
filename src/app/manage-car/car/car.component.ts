@@ -139,6 +139,13 @@ export class CarComponent implements OnInit, OnChanges{
   openData(con) {
     this.modalService.open(con);
   }
+
+  openDeleteImage(deleteImg) {
+    console.log('deleteImg');
+    this.modalService.open(deleteImg)
+
+  }
+
   onSubmit(formValue) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
