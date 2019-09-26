@@ -48,7 +48,7 @@ export class ServiceComponent implements OnInit, OnChanges  {
     this.service.imageDetailServiceList.snapshotChanges().subscribe(
       list => {
         this.imageList = list.map(item => ({ key: item.key, value: item.payload.val() }));
-        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 4)).keys());
+        this.rowIndexArray = Array.from(Array(Math.ceil((this.imageList.length + 1) / 3)).keys());
 
         console.log('value', this.imageList, 'imageListLength', this.imageList.length);
         console.log('array', this.rowIndexArray, 'rowIndexArrayLength', this.rowIndexArray.length);

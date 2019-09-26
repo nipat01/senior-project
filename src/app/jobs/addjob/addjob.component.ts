@@ -8,6 +8,7 @@ import * as cors from 'cors';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'src/app/app.component';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-addjob',
@@ -50,7 +51,8 @@ export class AddjobComponent implements OnInit, OnChanges {
     private lineNotify: LineNotifyService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit() {
     //map--------------------------------------------------------------------------------------------
@@ -68,7 +70,7 @@ export class AddjobComponent implements OnInit, OnChanges {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log('place',place);
+          console.log('place', place);
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -89,7 +91,7 @@ export class AddjobComponent implements OnInit, OnChanges {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete2.getPlace();
-          console.log('place2',place);
+          console.log('place2', place);
 
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
@@ -136,7 +138,7 @@ export class AddjobComponent implements OnInit, OnChanges {
       source: this.address,
       destination: this.address2,
       destLatitude: this.latitude2,
-      destLongitude: this.longitude2 ,
+      destLongitude: this.longitude2,
       token: this.token[0].value.tokenAdmin,
       // review: time.getTime(),
 
@@ -148,7 +150,7 @@ export class AddjobComponent implements OnInit, OnChanges {
     //   ).subscribe(result => console.log(result));
     console.log('jobdata', jobData);
 
-    this.db.list("/job").push(jobData)
+    this.db.list("/job").push(jobData).then(this.goToHome)
 
     //
     // this.db.list("/job").push(data.value).child('status').set("waiting");
@@ -198,7 +200,7 @@ export class AddjobComponent implements OnInit, OnChanges {
           this.zoom = 12;
 
           this.address = results[0].formatted_address;
-          console.log('this.address',this.address);
+          console.log('this.address', this.address);
         } else {
           window.alert('No results found');
         }
@@ -216,7 +218,7 @@ export class AddjobComponent implements OnInit, OnChanges {
           this.zoom = 12;
 
           this.address2 = results[0].formatted_address;
-          console.log('this.address',this.address);
+          console.log('this.address', this.address);
         } else {
           window.alert('No results found');
         }
@@ -224,6 +226,13 @@ export class AddjobComponent implements OnInit, OnChanges {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
+  }
+
+  goToHome = () => {
+    console.log('this is homepage');
+    
+    this.router.navigate(['/bankuser']);
+
   }
 
 

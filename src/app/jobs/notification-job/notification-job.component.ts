@@ -111,7 +111,7 @@ export class NotificationJobComponent implements OnInit, OnChanges {
       ...dataDriver.value,
       driver: this.selectedNameDriver,
       emailDriver: this.selectedEmailDriver,
-      token: this.selectedTokenDriver
+      tokenDriver: this.selectedTokenDriver
     }
     this.firebaseService.editJob(dataDriver.key, jobData);
 

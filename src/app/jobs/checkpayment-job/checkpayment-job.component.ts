@@ -8,6 +8,7 @@ import { database } from 'firebase';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-checkpayment-job',
@@ -48,12 +49,15 @@ export class CheckpaymentJobComponent implements OnInit, OnChanges {
     return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
   }
 
+  myObs$: Observable<any>;
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.myObs$ = this.db.list('job').valueChanges();
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
@@ -102,7 +106,7 @@ export class CheckpaymentJobComponent implements OnInit, OnChanges {
       statusDriver: 'รอการยืนยัน',
       driver: this.selectedNameDriver[index],
       emailDriver: this.selectedEmailDriver[index],
-      token: this.selectedTokenlDriver[index],
+      tokenDriver: this.selectedTokenlDriver[index],
       carModel: this.selectedCarModel[index],
       carId: this.selectedCarId[index]
 

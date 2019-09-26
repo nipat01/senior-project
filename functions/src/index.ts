@@ -97,7 +97,7 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
   .onUpdate((change: any, context: any) => {
     const afterData = change.after.val(); // data after the write
     console.log(afterData);
-    const token = afterData.token
+    // const token = afterData.token  token=admin,tokenDriver=driver
 
     if (afterData.driver !== '' && afterData.status === 'notification') {  // return notifyToDriver(afterData,);
       const dataOiginal = `แจ้งเตือนงานDriver
@@ -112,7 +112,23 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
     ประเภท:${afterData.worktype}
     token: ${afterData.token}`
 
-      return notifyToDriver(dataOiginal, token);
+      return notifyToDriver(dataOiginal, afterData.tokenDriver);
+    }
+    if (afterData.driver !== '' && afterData.status === 'proceed') {
+      const dataOiginal = `
+    ${afterData.driver} เริ่มปฏิบัติงานของ
+    คุณ:${afterData.customerFirstname}
+    ไลน์:${afterData.customerLine}
+    เบอร์โทรศัพท์:${afterData.customerPhone}
+    ต้นทาง:${afterData.source}
+    ปลายทาง:${afterData.destination}
+    รายละเอียดการจ้างงาน:${afterData.detail}
+    วัน:${afterData.workDate.day}/${afterData.workDate.month}/${afterData.workDate.year}
+    เวลา:${afterData.workTime.hour}:${afterData.workTime.minute}
+    ประเภท:${afterData.worktype}
+    แล้ว`
+
+      return notifyToDriver(dataOiginal, afterData.token);
     }
   });
 
