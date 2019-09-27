@@ -1,5 +1,4 @@
-<nav  [ngStyle]="{'background-color': color? color :'#abc' }"
- class="navbar navbar-expand-md navbar-dark fixed-top">
+<nav [ngStyle]="{'background-color': color? color :'#abc' }" class="navbar navbar-expand-md navbar-dark fixed-top">
   <a class="navbar-brand texts" [routerLink]="['/homepageuser']"> J I S T I G </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,13 +8,13 @@
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav">
 
-<select [(ngModel)]="selectedColor" id="selectColor" (change)=changesColor()>
-  <option value="darksalmon" class="pink">pink</option>
-  <option value="silver" class="silver">silver</option>
-  <option value="darkseagreen" class="darkseagreen">darkseagreen</option>
-  <option value="#abc" class="lightblue">lightblue</option>
-  <option value="burlywood" class="burlywood">burlywood</option>
-</select>
+      <select [(ngModel)]="selectedColor" id="selectColor" (change)=changesColor()>
+        <option value="darksalmon" class="pink">pink</option>
+        <option value="silver" class="silver">silver</option>
+        <option value="darkseagreen" class="darkseagreen">darkseagreen</option>
+        <option value="#abc" class="lightblue">lightblue</option>
+        <option value="burlywood" class="burlywood">burlywood</option>
+      </select>
 
 
       <!-- <li>
@@ -97,31 +96,31 @@
 
 
 <!-- เปลี่ยนรหัสผ่าน----------------------------------------------------------------------- -->
-<div *ngIf="auth.authenticated">
+<!-- <div *ngIf="auth.authenticated"> -->
 
-  <ng-template #contentEditData let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">เปลี่ยนรหัสผ่าน</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="editPasswordForm">
-        <div class="form-group">
-          <label>รหัสผ่านใหม่ของคุณ</label>
-          <input type="password" class="form-control" formControlName="password" />
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="editPassword(editPasswordForm)"
-        (click)="c('Save click')">
-        Save
-      </button>
-    </div>
-  </ng-template>
-</div>
+<ng-template #contentEditData let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เปลี่ยนรหัสผ่าน</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editPasswordForm">
+      <div class="form-group">
+        <label>รหัสผ่านใหม่ของคุณ</label>
+        <input type="password" class="form-control" formControlName="password" />
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="editPassword(editPasswordForm)"
+      (click)="c('Save click')">
+      Save
+    </button>
+  </div>
+</ng-template>
+<!-- </div> -->
 
 <!-- token----------------------------------------------------------------------------------- -->
 <ng-template #token let-c="close" let-d="dismiss">
