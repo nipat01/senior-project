@@ -138,12 +138,12 @@ const routes: Routes = [
   { path: 'invoice', component: InvoiceComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
 
-
-
-
-
-
+  { path: '', redirectTo: '/homepageuser', pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
+
+
+
+
 
 
 ];

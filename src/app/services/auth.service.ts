@@ -103,13 +103,13 @@ export class AuthService {
   }
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      // .then((user) => {
-      //   console.log('Sign Up Succed');
+    // .then((user) => {
+    //   console.log('Sign Up Succed');
 
-      //   this.authState = user
-      //   this.updateUserData();
-      //   this.router.navigate(['/'])
-      // })
+    //   this.authState = user
+    //   this.updateUserData();
+    //   this.router.navigate(['/'])
+    // })
     // .catch(error => console.log(error));
   }
   emailLogin(email: string, password: string) {
@@ -135,7 +135,7 @@ export class AuthService {
   updatePassword(password: string) {
     var user = firebase.auth().currentUser;
     user.updatePassword(password).then(function () {
-     console.log('update password succed');
+      console.log('update password succed');
 
     }).catch(function (error) {
       console.log('update password fail');
@@ -147,13 +147,17 @@ export class AuthService {
   getCurrentLoggedIn() {
     this.afAuth.authState.subscribe(auth => {
       if (auth) {
-        this.router.navigate(['/'])
+        console.log('auth', auth.email);
+        if (auth.email === 'admin@jistic.com') {
+          this.router.navigate(['/homepageadmin'])
+        }
+        else this.router.navigate(['/notificationjobdriver'])
       }
     });
   }
   signOut(): void {
     this.afAuth.auth.signOut();
-    this.router.navigate(['/'])
+    this.router.navigate(['/homepageuser'])
   }
   private updateUserData(): void {
     const path = `users/${this.currentUserId}`; // Endpoint on firebase
