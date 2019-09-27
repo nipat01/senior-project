@@ -207,7 +207,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
 
     console.log('uploadData billImageUrl');
     this.isSubmitted = true;
-    if (this.formTemplate.valid) {
+    if (this.formBillImageUrl.valid) {
       var billFilePath = `image/imageJob/bill/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const billfileRef = this.storage.ref(billFilePath);
       this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
@@ -230,7 +230,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     console.log('upload billNoImageUrl');
 
     this.isSubmitted = true;
-    if (this.formTemplate.valid) {
+    if (this.formBillNoImageUrl.valid) {
       var billNoFilePath = `image/imageJob/billNo/${this.selectedImage2.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const billNofileRef = this.storage.ref(billNoFilePath);
       this.storage.upload(billNoFilePath, this.selectedImage2).snapshotChanges().pipe(
