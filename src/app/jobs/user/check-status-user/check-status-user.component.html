@@ -1,56 +1,90 @@
 <app-side-nav></app-side-nav>
-<h4><img src="https://image.flaticon.com/icons/svg/854/854894.svg"> เช็คสถานะ </h4>
+<h4>
+  <img src="https://image.flaticon.com/icons/svg/854/854894.svg" /> เช็คสถานะ
+</h4>
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
 
   <div class="control">
     <label>กรุณากรอกข้อมูล</label>
     <input class="textBox" type="text" name="searchJob" ngModel /> <br />
-    <button  [ngStyle]="{'background-color': color }"  class="btn submit" type="submit">Submit</button>
+    <button
+      [ngStyle]="{ 'background-color': color }"
+      class="btn submit"
+      type="submit"
+    >
+      Submit
+    </button>
   </div>
 </form>
 
 <hr />
 
-<h4><img src="https://image.flaticon.com/icons/svg/164/164996.svg"> ผลลัพท์ค้นหา</h4>
-
+<h4>
+  <img src="https://image.flaticon.com/icons/svg/164/164996.svg" /> ผลลัพท์ค้นหา
+</h4>
 
 <div *ngFor="let data of job; let i = index">
   <hr />
   <div class="text control">
     วันที่: {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
     {{ data.value.workDate.year }} {{ data.value.workTime.hour }}:{{
-    data.value.workTime.minute
-  }}<br />
+      data.value.workTime.minute
+    }}<br />
     คุณ: {{ data.value.customerFirstname }} <br />
     สถานะ: {{ data.value.status }}<br />
     ต้นทาง: {{ data.value.source }} <br />
     ต้นทาง: {{ data.value.destination }} <br />
     ปลายทาง: {{ data.value.worktype }}<br />
     พนักงานขับรถ: {{ data.value.driver }}<br />
-    รีวิว: {{ data.value.review }} <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br>
+    รีวิว: {{ data.value.review }}
+    <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br />
     <button class="btn icon" (click)="openBill(content, data, alert222)">
-      <img src="https://image.flaticon.com/icons/svg/942/942775.svg"> ให้คะแนนบริการ
+      <img src="https://image.flaticon.com/icons/svg/942/942775.svg" />
+      ให้คะแนนบริการ
     </button>
     <ng-template #map let-c="close" let-d="dismiss">
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">ตำแหน่งปัจจุบันพนักงานขับรถ</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <h4 class="modal-title" id="modal-basic-title">
+          ตำแหน่งปัจจุบันพนักงานขับรถ
+        </h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="text-center">
         <div class="modal-body" *ngFor="let emp of wikis">
-          <agm-map [latitude]="emp.value.addressLat" [longitude]="emp.value.addressLong" [zoom]="zoom">
-            <agm-marker [latitude]="emp.value.addressLat" [longitude]="emp.value.addressLong" [markerDraggable]="true">
+          <agm-map
+            [latitude]="emp.value.currentLat"
+            [longitude]="emp.value.currentLong"
+            [zoom]="zoom"
+          >
+            <agm-marker
+             [label]="'driver'"
+              [latitude]="emp.value.currentLat"
+              [longitude]="emp.value.currentLong"
+              [markerDraggable]="true"
+            >
             </agm-marker>
-            <agm-marker [latitude]="data.value.sourceLatitude" [longitude]="data.value.sourceLongitude"
-              [markerDraggable]="true">
+            <agm-marker
+              [label]="'1'"
+              [latitude]="data.value.sourceLatitude"
+              [longitude]="data.value.sourceLongitude"
+              [markerDraggable]="true"
+            >
             </agm-marker>
-            <agm-marker [latitude]="data.value.destLatitude" [longitude]="data.value.destLongitude"
-              [markerDraggable]="true">
+            <agm-marker
+              [label]="'2'"
+              [latitude]="data.value.destLatitude"
+              [longitude]="data.value.destLongitude"
+              [markerDraggable]="true"
+            >
             </agm-marker>
-
           </agm-map>
         </div>
         <div class="modal-footer">
@@ -60,30 +94,48 @@
         </div>
       </div>
     </ng-template>
-    <button (click)="openMap(map, data, notMap)">แสดงตำแหน่งปัจจุบันพนักงาน</button>
+    <button (click)="openMap(map, data, notMap)">
+      แสดงตำแหน่งปัจจุบันพนักงาน
+    </button>
   </div>
-
 
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการ</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="d('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <form [formGroup]="formTemplate">
         <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
-        <ngb-rating formControlName="rateReview" [(rate)]="currentRate"></ngb-rating>
+        <ngb-rating
+          formControlName="rateReview"
+          [(rate)]="currentRate"
+        ></ngb-rating>
         <hr />
         <pre>Rate: <b>{{currentRate}}</b></pre>
         <label>กรุณากรอกความคิดเห็น</label>
-        <input class="form-control" type="text" name="review" formControlName="review" />
+        <input
+          class="form-control"
+          type="text"
+          name="review"
+          formControlName="review"
+        />
         <br />
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn save" (click)="editJob(formTemplate, data)">
+      <button
+        type="button"
+        class="btn save"
+        (click)="editJob(formTemplate, data)"
+      >
         Save
       </button>
     </div>
@@ -96,7 +148,12 @@
 <ng-template #alert222 let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -117,8 +174,15 @@
 <!-- แสดงmap เมื่อไม่อยู่ในงานที่กำลังดำเนินการ  -->
 <ng-template #notMap let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ไม่สามารถแสดงตำแหน่งพนักงานได้</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <h4 class="modal-title" id="modal-basic-title">
+      ไม่สามารถแสดงตำแหน่งพนักงานได้
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

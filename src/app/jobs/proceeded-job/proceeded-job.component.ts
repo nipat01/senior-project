@@ -49,10 +49,10 @@ export class ProceededJobComponent implements OnInit, OnChanges {
   rowIndexArray: any[];//list
 
   formTemplate: FormGroup = new FormGroup({
-    totalPayment: new FormControl('', Validators.required),
-    deposit: new FormControl('', Validators.required),
-    bill: new FormControl('', Validators.required),
-    billNo: new FormControl('', Validators.required),
+    totalPayment: new FormControl(),
+    deposit: new FormControl(),
+    bill: new FormControl(),
+    billNo: new FormControl(),
     // billImageUrl: new FormControl('', Validators.required),
     // billNoImageUrl: new FormControl('', Validators.required)
   })
@@ -143,6 +143,16 @@ export class ProceededJobComponent implements OnInit, OnChanges {
 
   }
 
+  openDeleteBill(content) {
+    console.log('delete');
+    this.modalService.open(content);
+
+  }
+  openDeleteBill2(content) {
+    console.log('delete2');
+    this.modalService.open(content);
+
+  }
 
   openData(con) {
     this.modalService.open(con);
@@ -299,7 +309,6 @@ export class ProceededJobComponent implements OnInit, OnChanges {
   }
 
   resetForm() {
-    this.formTemplate.reset();
     this.formBillImageUrl.reset();
     this.formBillNoImageUrl.reset();
 
