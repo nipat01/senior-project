@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
   <div class="col-md-6">
     <div class="card">
-      <div class="card-header text-center text-white bg-header">
+      <div [ngStyle]="{'background-color': color? color :'#abc' }" class="card-header text-center text-white ">
         เข้าสู่ระบบ
       </div>
       <div class="card-body">
@@ -28,7 +28,7 @@
               </a>
             </div> -->
             <div class="col-6 text-right">
-              <button type="submit" class="btn submit" (click)="login()">
+              <button [ngStyle]="{'background-color': color? color :'#abc' }" type="submit" class="btn submit" (click)="login()">
                 <i class="fa fa-lock" aria-hidden="true"></i>
                 เข้าสู่ระบบ
               </button>

@@ -1,11 +1,5 @@
 
 
-.textBox {
-  width: 400px;
-  height: 30px;
-  border-radius: 5px;
-  border: solid 1px #95989a;
-   }
 .control {
      display: grid;
      background-color: white;
@@ -14,12 +8,6 @@
      margin-bottom: 10px;
    }
 
-.textArea {
-  width: 400px;
-  height: 100px;
-  border-radius: 5px;
-  border: solid 1px #95989a;
-   }
 h3{
     background-color: white;
     border-radius: 5px;

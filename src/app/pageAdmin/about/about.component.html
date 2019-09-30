@@ -6,7 +6,7 @@
 <form (ngSubmit)="addAbout(aboutForm)" #aboutForm="ngForm">
   <div class="control">
     <label for="about">กรุณากรอกที่อยู่บริษัท</label>
-    <input class="textArea" type="text" name="about" ngModel />
+    <textarea class="form-control" type="text" name="about" ngModel ></textarea>
     <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
@@ -19,7 +19,7 @@
   <!-- <form (ngSubmit)="addLineAccount(lineForm)" #lineForm="ngForm"> -->
   <div class="control">
     <label for="account">กรุณากรอกไอดีไลน์</label>
-    <input class="textBox" type="text" name="account" ngModel />
+    <input class="form-control" type="text" name="account" ngModel />
     <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
