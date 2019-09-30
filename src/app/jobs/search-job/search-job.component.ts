@@ -90,7 +90,7 @@ export class SearchJobComponent implements OnInit, OnChanges {
         const jobTime = {
           ...this.job2[i],
         }
-      console.log('jobtime',jobTime);
+        console.log('jobtime', jobTime);
 
         let checkStatus = jobTime.value;
         let sum = +checkStatus.totalPayment;
@@ -133,7 +133,7 @@ export class SearchJobComponent implements OnInit, OnChanges {
 
 
       this.job = job.filter((data: any) => {
-          // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
+        // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
         const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
         const searchJob = data1.value.searchJob;
 
@@ -156,51 +156,112 @@ export class SearchJobComponent implements OnInit, OnChanges {
           return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime()
             && this.dataSearch === searchJob;
 
-          }
-          console.log('jobbbbbb', this.job.length);
-        if (searchJob) {
-          console.log('searchJob');
-
-          return this.dataSearch === searchJob;
         }
 
-        // if (selectSearchJobByDriver && startDate && endDate) {
-        //   return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime()
-        //     && searchDriver === searchJob;
-        // }
-        else {
-          console.log('data else', data);
-          return data
-        }
+
+
       }
-      );
+      )
+      this.totalOnProceeded = 0;
+      this.deposit = 0;
+      this.totalOnPreceededAndDeposit = 0;
+      this.totalPayment = 0;
+      console.log('thisjob', this.job.length,this.job);
+      for (let i = 0; i < this.job.length; i++) {
+        const jobTime = {
+          ...this.job[i],
+        }
+        console.log('jobtime', jobTime);
+
+        let checkStatus = jobTime.value;
+        let sum = +checkStatus.totalPayment;
+        let depositNotProceeded = +checkStatus.deposit;
+
+        // console.log('checkStatus', checkStatus);
+        if (checkStatus.status === 'proceeded') {
+          console.log('checkStatus.totalPayment', checkStatus.totalPayment);
+          this.totalOnProceeded = (this.totalOnProceeded + sum)
+          // console.log('this.totalPayment', this.totalPayment);
+        }
+        if (checkStatus.status !== 'proceeded') {
+          this.deposit = this.deposit + depositNotProceeded
+        }
+        this.totalPayment = this.totalPayment + sum
 
 
+      }
+      console.log('total', this.totalOnProceeded, 'deposit', this.deposit, 'totalPayment');
+      this.totalOnPreceededAndDeposit = this.totalOnProceeded + this.deposit
+      console.log('this.totalOnPreceededAndDeposit', this.totalOnPreceededAndDeposit);
+      console.log('totalPayment', this.totalPayment);
 
 
-
-
-
-      // (data.value.workDate.day >= data1.value.workDate.day
-      //   &&
-      //   data.value.workDate.month >= data1.value.workDate.month &&
-      //   data.value.workDate.month != data1.value.endworkDate.month
-      //   &&
-      //   data.value.workDate.year >= data1.value.workDate.year
-      // )
-      // ||
-      // (data.value.workDate.day <= data1.value.endworkDate.day
-      //   &&
-      //   data.value.workDate.month <= data1.value.endworkDate.month &&
-      //   data.value.workDate.month != data1.value.workDate.month
-      //   &&
-      //   data.value.workDate.year <= data1.value.endworkDate.year
-      // ));
 
 
     });
-
   }
+
+  //  old function
+  // searchJob(data1) {
+  //   console.log('data', data1.value);
+  //   this.db.list('job').snapshotChanges().map(actions => {
+  //     return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+  //   }).subscribe(job => {
+  //     console.log('job', job)
+  //     const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
+  //     const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
+  //     console.log('startDate', startDate);
+  //     console.log('endDate', endDate);
+
+
+
+
+  //     this.job = job.filter((data: any) => {
+  //       // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
+  //       const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
+  //       const searchJob = data1.value.searchJob;
+
+  //       if (this.checkSelect) {
+  //         if (this.checkSelect === 'customerFirstname') {
+  //           console.log('searchJobBySelect customerFirstname');
+  //           this.dataSearch = data.value.customerFirstname;
+  //         }
+  //         if (this.checkSelect === 'driver') {
+  //           console.log('searchJobBySelect driver');
+  //           this.dataSearch = data.value.driver;
+  //         }
+  //         if (this.checkSelect === 'status') {
+  //           console.log('searchJobBySelect status');
+  //           this.dataSearch = data.value.status
+  //         }
+  //       }
+
+  //       if (searchJob && startDate && endDate) {
+  //         return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime()
+  //           && this.dataSearch === searchJob;
+
+  //       }
+  //       console.log('jobbbbbb', this.job.length);
+  //       if (searchJob) {
+  //         console.log('searchJob');
+  //         return this.dataSearch === searchJob;
+  //       }
+
+  //       // if (selectSearchJobByDriver && startDate && endDate) {
+  //       //   return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime()
+  //       //     && searchDriver === searchJob;
+  //       // }
+
+
+  //       else {
+  //         console.log('data else', data);
+  //         return data
+  //       }
+  //     }
+  //     );
+  //   });
+  // }
+
 
   // selectValue(dataValue) {
   //   console.log(dataValue.target.value);
