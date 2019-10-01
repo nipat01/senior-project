@@ -114,7 +114,23 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
 
       return notifyToDriver(dataOiginal, afterData.tokenDriver);
     }
-    if (afterData.driver !== '' && afterData.status === 'proceed') {
+    else if (afterData.driver !== '' && afterData.status === 'pending') {
+      const dataOiginal = `
+      ${afterData.driver} ยืนยันคำสั่งจ้างของ
+      คุณ:${afterData.customerFirstname}
+      ไลน์:${afterData.customerLine}
+      เบอร์โทรศัพท์:${afterData.customerPhone}
+      ต้นทาง:${afterData.source}
+      ปลายทาง:${afterData.destination}
+      รายละเอียดการจ้างงาน:${afterData.detail}
+      วัน:${afterData.workDate.day}/${afterData.workDate.month}/${afterData.workDate.year}
+      เวลา:${afterData.workTime.hour}:${afterData.workTime.minute}
+      ประเภท:${afterData.worktype}`
+
+      return notifyToDriver(dataOiginal, afterData.token);
+    }
+
+    else if (afterData.driver !== '' && afterData.status === 'proceed') {
       const dataOiginal = `
     ${afterData.driver} เริ่มปฏิบัติงานของ
     คุณ:${afterData.customerFirstname}
@@ -125,8 +141,7 @@ exports.updateDriver = functions.database.ref('/job/{pushId}')
     รายละเอียดการจ้างงาน:${afterData.detail}
     วัน:${afterData.workDate.day}/${afterData.workDate.month}/${afterData.workDate.year}
     เวลา:${afterData.workTime.hour}:${afterData.workTime.minute}
-    ประเภท:${afterData.worktype}
-    แล้ว`
+    ประเภท:${afterData.worktype}`
 
       return notifyToDriver(dataOiginal, afterData.token);
     }
