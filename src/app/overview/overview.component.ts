@@ -12,7 +12,7 @@ import { AppComponent } from '../app.component';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit, OnChanges{
+export class OverviewComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
@@ -36,7 +36,11 @@ export class OverviewComponent implements OnInit, OnChanges{
   //date
   publicStartDate;
   publicEndDate;
-
+  checkStartDate;
+  checkEndDate;
+  //รายชื่อพนักงาน เอาไว้เก็บ review
+  totaoReview = 0;
+  empList: any[];
   get color() {
     return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
   }
@@ -80,7 +84,7 @@ export class OverviewComponent implements OnInit, OnChanges{
       this.totalReview = this.totalReview / this.totalDivideReview
       console.log('totalReview', this.totalReview);
       let intTotalReview = Math.ceil(this.totalReview)
-      console.log('intTotalReview',intTotalReview);
+      console.log('intTotalReview', intTotalReview);
 
 
 
@@ -88,63 +92,142 @@ export class OverviewComponent implements OnInit, OnChanges{
   }
 
   searchJob(data1) {
+    this.totalReview = 0;
+    //กำหนด true ไว้ ในกรณีที่ มีค่าวันที่ ต้นทาง กับปลายจะ จะเอาไปfilter อีกfunction
+    this.checkEndDate = true;
+    this.checkStartDate = true;
 
-    this.db.list('wikis').snapshotChanges().map(action => {
-      return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    }).subscribe(wikis => {
-      console.log(wikis)
-      this.wikis = wikis;
-    })
+    // this.db.list('wikis').snapshotChanges().map(action => {
+    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    // }).subscribe(wikis => {
+    //   console.log(wikis)
+    //   this.wikis = wikis;
+    // });
+    this.wikis.length
+    console.log('this.wikis.length', this.wikis.length);
+    for (let index = 0; index < this.wikis.length; index++) {
+      console.log('length', this.wikis[index].value.firstname);
+    }
+
+    console.log('empList', this.empList);
+
 
 
     console.log(data1.value);
     console.log('workdate', data1.value.workDate);
-    console.log('workdate', data1.value.workDate.day);
-    console.log('workdate', data1.value.workDate.month);
-    console.log('workdate', data1.value.workDate.year);
+    // console.log('workdate', data1.value.workDate.day);
+    // console.log('workdate', data1.value.workDate.month);
+    // console.log('workdate', data1.value.workDate.year);
     console.log('endworkDate', data1.value.endworkDate);
-    console.log('endworkDate', data1.value.endworkDate.day);
-    console.log('endworkDate', data1.value.endworkDate.month);
-    console.log('endworkDate', data1.value.workDate.year);
+    // console.log('endworkDate', data1.value.endworkDate.day);
+    // console.log('endworkDate', data1.value.endworkDate.month);
+    // console.log('endworkDate', data1.value.workDate.year);
+    if (data1.value.workDate === '') {
+      console.log('this.checkStartDate = false');
+
+      this.checkStartDate = false;
+    }
+    if (data1.value.endworkDate === '') {
+      console.log('this.checkEndDate = false;');
+
+      this.checkEndDate = false;
+    }
+
 
     const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
     const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
     this.publicStartDate = startDate;
     this.publicEndDate = endDate;
-    // this.db.list('job').snapshotChanges().map(actions => {
-    //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe(job => {
-    //   console.log(job);
-    //   const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
-    //   const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
-    //   this.job = job.filter((data: any) => {
+    if (this.checkStartDate === true && this.checkEndDate === true) {
 
-    //     const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
-    //     return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime();
-    //   }
+      this.db.list('job').snapshotChanges().map(actions => {
+        return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+      }).subscribe(job => {
+        console.log(job);
+        const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
+        const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
+        this.job = job.filter((data: any) => {
+
+          const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
+          return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime();
+        })
+        console.log('lengthJob', this.job.length);
+        for (let empIndex = 0; empIndex < this.wikis.length; empIndex++) {
+          // console.log('lengthJob',this.job.length);
+          let wikis = this.wikis[empIndex].value
+          const tmp = []
+          // console.log('job', job);
 
 
-    //   )
-    // });
+          let averageRating = 0;
+          let sum = 0;
+          let count = 0;
+          for (let index = 0; index < this.job.length; index++) {
+            if (this.job[index].value.rateReview) {
+              if (wikis.firstname === this.job[index].value.driver) {
+                console.log('wikis', this.wikis[empIndex].value.firstname,
+                  'driver', this.job[index].value.driver);
+                console.log('job', this.job[index].value);
+                sum = this.job[index].value.rateReview + sum;
+                count++;
+                console.log('sum', sum, 'count', count);
+
+              }
+            }
+
+          }
+
+          this.wikis[empIndex].value.rateReview = sum / count;
+          console.log('this.wikis[empIndex].value.rateReview', this.wikis[empIndex].value.rateReview);
+          if (this.totalReview = 0) {
+            this.totalReview = this.totalReview + this.wikis[empIndex].value.rateReview;
+          }
+          this.totalReview = (this.totalReview + this.wikis[empIndex].value.rateReview) / 2
+          // objectReturn.rateReview = averageRating
+
+          // console.log('review', this.job[index].value.rateReview);
+          // this.empList = [...tmp];
+        }
+        // console.log('empList', this.empList);
+      });
+    }
 
   }
 
   showJobByDriver(data1Firstname) {
+    console.log('data1Firstname', data1Firstname);
 
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
       this.job = job.filter((data: any) => {
         const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
-        return data.value.driver === data1Firstname.value.firstname
-          && jobDate.getTime() >= this.publicStartDate.getTime() && jobDate.getTime() <= this.publicEndDate.getTime();
+        if (this.checkStartDate === true && this.checkEndDate === true) {
+          console.log('startDate and endDate');
 
-      }
-      );
+          return data.value.driver === data1Firstname.value.firstname
+            && jobDate.getTime() >= this.publicStartDate.getTime() && jobDate.getTime() <= this.publicEndDate.getTime();
+        }
+        if (this.checkStartDate === true && this.checkEndDate === false) {
+          console.log('only startDate ');
+          return data.value.driver === data1Firstname.value.firstname && jobDate.getTime() >= this.publicStartDate.getTime();
+        }
+        if (this.checkStartDate === false && this.checkEndDate === true) {
+          console.log('only endDate');
+          return data.value.driver === data1Firstname.value.firstname && jobDate.getTime() <= this.publicEndDate.getTime();
+        }
+        else {
+          console.log('No date');
+          return data.value.driver === data1Firstname.value.firstname
+
+        }
+
+
+      });
+      console.log('thisjob', this.job.length, this.job);
 
 
     });
-    console.log('thisjob',this.job);
 
     console.log("showByDriver", data1Firstname.value.firstname);
 

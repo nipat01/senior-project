@@ -9,25 +9,11 @@
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <div class="control">
     <label>วันที่</label>
-    <input
-      class="textBox"
-      (click)="d.toggle()"
-      placeholder="yyyy-mm-dd"
-      name="workDate"
-      ngModel
-      ngbDatepicker
-      #d="ngbDatepicker"
-    />
+    <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
+      #d="ngbDatepicker" />
     <p>ถึง</p>
-    <input
-      class="textBox"
-      (click)="d2.toggle()"
-      placeholder="yyyy-mm-dd"
-      name="endworkDate"
-      ngModel
-      ngbDatepicker
-      #d2="ngbDatepicker"
-    />
+    <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel ngbDatepicker
+      #d2="ngbDatepicker" />
     <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
@@ -49,7 +35,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data1 of wikis">
+    <tr *ngFor="let data1 of wikis;let i =index">
       <!-- <td> {{data.value.rateReview}}</td> -->
       <td>{{ data1.value.firstname }}</td>
       <td>{{ data1.value.rateReview }}</td>
@@ -61,14 +47,8 @@
       </td>
       <!-- <td> <button (click)="printInvoice(data1)">print</button></td> -->
       <td>
-        <button
-          type="button"
-          class="btn icon"
-          (click)="showJobByDriver(data1)"
-          (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed"
-          aria-controls="collapForm"
-        >
+        <button type="button" class="btn icon" (click)="showJobByDriver(data1)" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapForm">
           <i class="far fa-file-alt"></i>
         </button>
       </td>
