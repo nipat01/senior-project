@@ -1,7 +1,52 @@
-<div class="sidenav">
-    <!-- <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0"> -->
-        <!-- <ngb-panel title="Job"> -->
-            <!-- <ng-template ngbPanelContent> -->
+<nav class="sidenav ">
+
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/checkdatajob">รอตรวจสอบข้อมูล</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/checkpaymentjob">รอชำระเงิน</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/notificationjob">มอบหมายงาน</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/pendingjob">รอดำเนินการ</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/proceedjob">ดำเนินการ</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/proceededjob">ดำเนินการแล้ว</a>
+  <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/searchjob">ค้นหา</a>
+  <hr>
+
+  <div *ngIf="auth.authenticated && auth.authenticatedAdmin()">
+    <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/home">จัดการพนักงานขับรถ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/car">จัดการข้อมูลรถ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/overview">ผลประเมินความพึงพอใจ</a>
+    <hr>
+  </div>
+
+  <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/pendingjobdriver">รอดำเนินการ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceedjobdriver">กำลังดำเนินการ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
+    <hr>
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarNavDropdown"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto"></ul>
+    <ul class="navbar-nav">
+    </ul>
+  </div>
+</nav>
+
+
+
+
+
+<!-- <div class="sidenav">
+
                 <a *ngIf="auth.authenticated && auth.authenticatedAdmin()"
                     routerLink="/checkdatajob">รอตรวจสอบข้อมูล</a>
                 <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/checkpaymentjob">รอชำระเงิน</a>
@@ -11,9 +56,7 @@
                 <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/proceededjob">ดำเนินการแล้ว</a>
                 <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/searchjob">ค้นหา</a>
                 <hr>
-            <!-- </ng-template> -->
-        <!-- </ngb-panel> -->
-    <!-- </ngb-accordion> -->
+
 
     <div *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a *ngIf="auth.authenticated && auth.authenticatedAdmin()" routerLink="/home">จัดการพนักงานขับรถ</a>
@@ -35,4 +78,4 @@
         <hr>
     </div>
 
-</div>
+</div> -->

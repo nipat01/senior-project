@@ -2,9 +2,8 @@
 
 body{
     font-family: 'Mitr', cursive;
-    padding-left: 220px;
-    padding-right: 15px;
-    background-color:rgb(228, 225, 225)
+    background-color:rgb(228, 225, 225);
+    padding-left: -220px;
 }
 
 .pink {
