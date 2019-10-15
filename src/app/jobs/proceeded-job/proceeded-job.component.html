@@ -241,14 +241,16 @@
             <div class="modal-body">
               <form [formGroup]="formBillImageUrl">
                 <div class="text-center">
-                  <img
-                    [src]="data.value.billImageUrl"
-                    width="350px"
-                    height="250px"
-                    (click)="openDeleteBill(deleteBillImage)"
-                    *ngIf="checkImageUrlBill"
-                  />
-                  <div *ngIf="!checkImageUrlBill">
+                  <div *ngIf="data.value.billImageUrl">
+                    <img
+                      [src]="data.value.billImageUrl"
+                      width="350px"
+                      height="250px"
+                      (click)="openDeleteBill(deleteBillImage)"
+                      *ngIf="checkImageUrlBill"
+                    />
+                  </div>
+                  <div *ngIf="!checkImageUrlBill || !data.value.billImageUrl">
                     <img
                       [src]="imgSrc"
                       width="350px"
@@ -280,10 +282,10 @@
                     width="350px"
                     height="250px"
                     (click)="openDeleteBill2(deleteBillNoImage)"
-                    *ngIf="checkImageUrlNoBill"
+                    *ngIf="checkImageUrlNoBill && data.value.billNoImageUrl"
                   />
 
-                  <div *ngIf="!checkImageUrlNoBill">
+                  <div *ngIf="!checkImageUrlNoBill || !data.value.billNoImageUrl">
                     <img
                       [src]="imgSrc2"
                       width="350px"

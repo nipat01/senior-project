@@ -25,6 +25,28 @@ export class NotificationJobDriverComponent implements OnInit {
   latitude: number;
   zoom: number;
 
+  watcher = navigator.geolocation.watchPosition(
+    position => {
+      let { latitude, longitude } = position.coords;
+      console.log({ latitude, longitude })
+
+      this.wikis[0].value = {
+        ...this.wikis[0].value,
+        currentLat: latitude,
+        currentLong: longitude,
+      }
+      console.log('watch', this.wikis[0].value);
+
+      this.firebaseService.editWiki(this.wikis[0].key, this.wikis[0].value);
+    },
+    error => {
+      console.error(error);
+    },
+    {
+      enableHighAccuracy: true
+    }
+  );
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -60,6 +82,11 @@ export class NotificationJobDriverComponent implements OnInit {
     // })
 
   }
+
+  ngOnDestroy() {
+    navigator.geolocation.clearWatch(this.watcher)
+  }
+
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }

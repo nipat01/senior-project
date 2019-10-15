@@ -14,11 +14,35 @@ import { AuthService } from '../../../services/auth.service';
 export class ProceedJobDriverComponent implements OnInit {
   jobList: AngularFireList<any>
   job: any[];
+  wikis: any[];
   job1: any[];
 
   carList: AngularFireList<any>;
   car: any[];
   id;
+
+  watcher = navigator.geolocation.watchPosition(
+    position => {
+      let { latitude, longitude } = position.coords;
+      console.log({ latitude, longitude })
+
+      this.wikis[0].value = {
+        ...this.wikis[0].value,
+        currentLat: latitude,
+        currentLong: longitude,
+      }
+      console.log('watch', this.wikis[0].value);
+
+      this.firebaseService.editWiki(this.wikis[0].key, this.wikis[0].value);
+    },
+    error => {
+      console.error(error);
+    },
+    {
+      enableHighAccuracy: true
+    }
+  );
+
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
@@ -35,6 +59,14 @@ export class ProceedJobDriverComponent implements OnInit {
 
     });
 
+    this.db.list('wikis').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis.filter((data: any) => data.value.email === this.auth.username);;
+
+    });
+
     this.db.list('car').snapshotChanges().map(action => {
       return action.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(car => {
@@ -43,6 +75,12 @@ export class ProceedJobDriverComponent implements OnInit {
     })
 
   }
+
+  ngOnDestroy() {
+    navigator.geolocation.clearWatch(this.watcher)
+  }
+
+
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }

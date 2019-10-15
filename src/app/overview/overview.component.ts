@@ -24,6 +24,7 @@ export class OverviewComponent implements OnInit, OnChanges {
   public isCollapsed = false;
 
   job: any[];
+  job2: any[];
   wikis: any[];
   car: any[];
 
@@ -103,14 +104,6 @@ export class OverviewComponent implements OnInit, OnChanges {
     //   console.log(wikis)
     //   this.wikis = wikis;
     // });
-    this.wikis.length
-    console.log('this.wikis.length', this.wikis.length);
-    for (let index = 0; index < this.wikis.length; index++) {
-      console.log('length', this.wikis[index].value.firstname);
-    }
-
-    console.log('empList', this.empList);
-
 
 
     console.log(data1.value);
@@ -123,13 +116,11 @@ export class OverviewComponent implements OnInit, OnChanges {
     // console.log('endworkDate', data1.value.endworkDate.month);
     // console.log('endworkDate', data1.value.workDate.year);
     if (data1.value.workDate === '') {
-      console.log('this.checkStartDate = false');
-
+      // console.log('this.checkStartDate = false');
       this.checkStartDate = false;
     }
     if (data1.value.endworkDate === '') {
-      console.log('this.checkEndDate = false;');
-
+      // console.log('this.checkEndDate = false;');
       this.checkEndDate = false;
     }
 
@@ -142,53 +133,46 @@ export class OverviewComponent implements OnInit, OnChanges {
 
       this.db.list('job').snapshotChanges().map(actions => {
         return actions.map(action => ({ key: action.key, value: action.payload.val() }));
-      }).subscribe(job => {
-        console.log(job);
+      }).subscribe(job2 => {
+        console.log(job2);
         const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
         const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
-        this.job = job.filter((data: any) => {
+        this.job2 = job2.filter((data: any) => {
 
           const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
           return jobDate.getTime() >= startDate.getTime() && jobDate.getTime() <= endDate.getTime();
         })
-        console.log('lengthJob', this.job.length);
+        console.log('lengthJob', this.job2.length);
+        let averageRating = [];
         for (let empIndex = 0; empIndex < this.wikis.length; empIndex++) {
-          // console.log('lengthJob',this.job.length);
           let wikis = this.wikis[empIndex].value
-          const tmp = []
-          // console.log('job', job);
-
-
-          let averageRating = 0;
           let sum = 0;
           let count = 0;
-          for (let index = 0; index < this.job.length; index++) {
-            if (this.job[index].value.rateReview) {
-              if (wikis.firstname === this.job[index].value.driver) {
-                console.log('wikis', this.wikis[empIndex].value.firstname,
-                  'driver', this.job[index].value.driver);
-                console.log('job', this.job[index].value);
-                sum = this.job[index].value.rateReview + sum;
+          for (let index = 0; index < this.job2.length; index++) {
+            if (this.job2[index].value.rateReview) {
+              if (wikis.firstname === this.job2[index].value.driver) {
+                sum = this.job2[index].value.rateReview + sum;
                 count++;
-                console.log('sum', sum, 'count', count);
-
+                // console.log('sum', sum, 'count', count);
               }
             }
-
           }
-
           this.wikis[empIndex].value.rateReview = sum / count;
           console.log('this.wikis[empIndex].value.rateReview', this.wikis[empIndex].value.rateReview);
-          if (this.totalReview = 0) {
-            this.totalReview = this.totalReview + this.wikis[empIndex].value.rateReview;
+          if (this.wikis[empIndex].value.rateReview) {
+            console.log('wikis rateReview', this.wikis[empIndex].value.rateReview);
+            averageRating.push(this.wikis[empIndex].value.rateReview);
           }
-          this.totalReview = (this.totalReview + this.wikis[empIndex].value.rateReview) / 2
           // objectReturn.rateReview = averageRating
 
           // console.log('review', this.job[index].value.rateReview);
           // this.empList = [...tmp];
         }
-        // console.log('empList', this.empList);
+        console.log('averageRating', averageRating);
+        console.log('averageRating length', averageRating.length);
+        const accumulator = (accumulator, currentValue) => accumulator + currentValue;
+        this.totalReview = averageRating.reduce(accumulator) / averageRating.length
+        console.log('totalReview', this.totalReview);
       });
     }
 
