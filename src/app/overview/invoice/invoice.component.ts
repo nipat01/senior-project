@@ -59,7 +59,7 @@ export class InvoiceComponent implements OnInit {
       let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('ใบกำกับภาษีอย่างย่อ.pdf'); // Generated PDF
+      pdf.save('ใบกำกับภาษี.pdf'); // Generated PDF
     });
   }
 
