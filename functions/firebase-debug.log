@@ -1,0 +1,23 @@
+[debug] [2019-10-16T06:54:04.861Z] ----------------------------------------------------------------------
+[debug] [2019-10-16T06:54:04.864Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\NIPAT\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-10-16T06:54:04.865Z] CLI Version:   7.2.2
+[debug] [2019-10-16T06:54:04.865Z] Platform:      win32
+[debug] [2019-10-16T06:54:04.865Z] Node Version:  v10.15.3
+[debug] [2019-10-16T06:54:04.866Z] Time:          Wed Oct 16 2019 13:54:04 GMT+0700 (Indochina Time)
+[debug] [2019-10-16T06:54:04.866Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-16T06:54:04.879Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-16T06:54:04.880Z] > authorizing via signed-in user
+[debug] [2019-10-16T06:54:04.880Z] [iam] checking project jistigdatabase for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2019-10-16T06:54:04.883Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/jistigdatabase:testIamPermissions  
+
+[debug] [2019-10-16T06:54:06.344Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-16T06:54:06.347Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/jistigdatabase  
+ 
+[debug] [2019-10-16T06:54:06.841Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'jistigdatabase'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
