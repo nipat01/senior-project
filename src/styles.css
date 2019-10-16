@@ -2,9 +2,8 @@
 
 body{
     font-family: 'Mitr', cursive;
-    padding-left: 220px;
-    padding-right: 15px;
-    background-color:rgb(228, 225, 225)
+    background-color:rgb(228, 225, 225);
+    padding-left: -220px;
 }
 
 .pink {
@@ -21,6 +20,12 @@ body{
 }
 .darkseagreen {
   background-color: darkseagreen;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+.lightpink {
+  background-color: #fda77f;
   width: 30px;
   height: 30px;
   border-radius: 50px;
