@@ -22,7 +22,9 @@ export class ProceededJobDriverComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private auth: AuthService) { }
+    public auth: AuthService,
+    // private auth: AuthService
+    ) { }
 
   ngOnInit() {
 

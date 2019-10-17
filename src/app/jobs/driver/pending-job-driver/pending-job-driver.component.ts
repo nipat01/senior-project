@@ -46,7 +46,9 @@ export class PendingJobDriverComponent implements OnInit {
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
-    private auth: AuthService) { }
+    public auth: AuthService,
+    // private auth: AuthService,
+    ) { }
   ngOnInit() {
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
