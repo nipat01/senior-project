@@ -1,10 +1,13 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
+</div>
+<div class="col-md-10">
 <h3>
   <img src="https://image.flaticon.com/icons/svg/138/138849.svg" /> รอตรวจสอบ
 </h3>
+<div class="overflow-auto">
 <table class="table table-striped ">
   <thead>
     <tr>
@@ -43,7 +46,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="source"
                 ngModel
                 [(ngModel)]="data.value.source"
@@ -53,7 +56,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="destination"
                 ngModel
                 [(ngModel)]="data.value.destination"
@@ -63,7 +66,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="worktype"
                 ngModel
                 [(ngModel)]="data.value.worktype"
@@ -73,7 +76,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="customerFirstname"
                 ngModel
                 [(ngModel)]="data.value.customerFirstname"
@@ -83,7 +86,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="workDate"
                 ngModel
                 [(ngModel)]="data.value.workDate.day"
@@ -93,7 +96,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="workTime"
                 ngModel
                 [(ngModel)]="data.value.workTime.hour"
@@ -103,7 +106,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="customerLine"
                 ngModel
                 [(ngModel)]="data.value.customerPhone"
@@ -113,7 +116,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="customerLine"
                 ngModel
                 [(ngModel)]="data.value.customerPhone"
@@ -123,7 +126,7 @@
               <input
                 id="typeahead-basic"
                 type="text"
-                class="textBox"
+                class="form-control"
                 name="detail"
                 ngModel
                 [(ngModel)]="data.value.detail"
@@ -295,6 +298,10 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
 
 <!-- <ng-template #con let-c="close" let-d="dismiss">
     <div class="modal-header">

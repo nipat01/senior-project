@@ -1,8 +1,19 @@
-<app-side-nav></app-side-nav>
-<br>
-<br>
-<br>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2 sidenav">
+  <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/pendingjobdriver">รอดำเนินการ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceedjobdriver">กำลังดำเนินการ</a>
+    <hr>
+    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
+    <hr>
+  </div>
+<div class="col-md-10">
 <h3>รอดำเนินการ</h3>
+<div class="overflow-auto">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -48,3 +59,8 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
+

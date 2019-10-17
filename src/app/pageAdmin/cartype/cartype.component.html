@@ -1,7 +1,9 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
+</div>
+
 <!-- <p>มอเตอร์ไซต์</p>
 <div class="card" style="width:25rem">
   <div class="card-body">
@@ -61,7 +63,7 @@
     </td>
   </tr>
 </table> -->
-
+<div class="col-md-10">
 <h3>
   <img
     class="icon"
@@ -73,6 +75,7 @@
   <div class="card-body">
     <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
       <img
+        class="img-fluid"
         [src]="imgSrc"
         width="350px"
         height="250px"
@@ -558,3 +561,6 @@
     </td>
   </tr>
 </table>
+</div>
+</div>
+</div>

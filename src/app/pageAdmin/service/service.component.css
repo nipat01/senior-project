@@ -1,19 +1,9 @@
 
-
-.card {
-  margin-right: 240px;
-}
-
-input {
-   width: 400px;
-  height: 30px;
-  border-radius: 5px;
-  border: solid 1px #95989a;
-}
 h3{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
+    margin-top: 60px;
   }
 .icon {
   width: 45px;

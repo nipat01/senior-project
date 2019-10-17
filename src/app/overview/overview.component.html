@@ -1,7 +1,9 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
+</div>
+<div class="col-md-10">
 <h3>
   <img src="https://image.flaticon.com/icons/svg/1055/1055673.svg" />
   ผลประเมินความพึงพอใจ
@@ -9,10 +11,10 @@
 <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <div class="control">
     <label>วันที่</label>
-    <input class="textBox" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
+    <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
       #d="ngbDatepicker" />
     <p>ถึง</p>
-    <input class="textBox" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel ngbDatepicker
+    <input class="form-control" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel ngbDatepicker
       #d2="ngbDatepicker" />
     <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
@@ -24,6 +26,7 @@
 </h3>
 <hr />
 <label>ภาพรวมระบบ : {{ totalReview }} </label>
+<div class="overflow-auto">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -55,8 +58,10 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- <div id="collapForm" [ngbCollapse]="!isCollapsed"> -->
+<div class="overflow-auto">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -93,6 +98,10 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
 <!-- </div> -->
 
 <!-- <pre> {{ job | json }} </pre> -->

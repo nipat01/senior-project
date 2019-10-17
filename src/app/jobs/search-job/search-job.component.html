@@ -1,8 +1,10 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
-<h1><img src="https://image.flaticon.com/icons/svg/272/272365.svg" /> ค้นหา</h1>
+</div>
+<div class="col-md-10">
+<h3><img src="https://image.flaticon.com/icons/svg/272/272365.svg" /> ค้นหา</h3>
 <div class="control">
   <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
   <p>ค้นหาโดย</p>
@@ -114,13 +116,13 @@
   </form>
 </div>
 
-<h3>
+<h4>
   <img src="https://image.flaticon.com/icons/svg/190/190798.svg" />ผลลัพท์ค้นหา
-</h3>
+</h4>
 
 <p>รายได้ปัจจุบัน: {{ totalOnPreceededAndDeposit }}</p>
 <p>รายได้คาดว่าจะได้รับ: {{ totalPayment }}</p>
-
+<div class="overflow-auto">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -170,3 +172,7 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>

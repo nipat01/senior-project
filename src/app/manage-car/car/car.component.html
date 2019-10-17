@@ -1,7 +1,9 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
+</div>
+<div class="col-md-10">
 <h3>
   <img class="icons" src="https://image.flaticon.com/icons/svg/2016/2016803.svg" />
   จัดการข้อมูลรถ
@@ -16,26 +18,26 @@
   <div class="modal-body">
     <form [formGroup]="formTemplate">
       <div class="text-center">
-        <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
+        <img class="img-fluid" [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
       </div>
       <div class="control">
         <label>Select file to upload</label>
-        <input type="file" accept="image/*" class="textBox" #fileUploader formControlName="imageUrl"
+        <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
           (change)="showPreview($event)" />
 
         <!-- </div> -->
         <!-- <div class="form-row"> -->
         <label>ทะเบียนรถ</label>
-        <input type="text" class="textBox" formControlName="carId" ngModel />
+        <input type="text" class="form-control" formControlName="carId" ngModel />
         <label>ประเภทรถ</label>
-        <input type="text" class="textBox" formControlName="carType" ngModel />
+        <input type="text" class="form-control" formControlName="carType" ngModel />
         <label>รุ่นของรถ</label>
-        <input type="text" class="textBox" formControlName="carModel" ngModel />
+        <input type="text" class="form-control" formControlName="carModel" ngModel />
 
         <label>วันที่ซื้อ</label>
-        <input type="text" class="textBox" formControlName="purchaseDate" ngModel />
+        <input type="text" class="form-control" formControlName="purchaseDate" ngModel />
         <label>วันที่บำรุงรักษาล่าสุด</label>
-        <input type="text" class="textBox" formControlName="lastMaintenance" ngModel />
+        <input type="text" class="form-control" formControlName="lastMaintenance" ngModel />
       </div>
     </form>
   </div>
@@ -50,7 +52,7 @@
 </button>
 
 <!-- แสดงผล -->
-
+<div class="overflow-auto">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -76,29 +78,29 @@
           </div>
           <div class="modal-body">
             <div class="text-center">
-              <img [src]="data.value.imageUrl" width="350px" height="250px" class="img-fluid"
+              <img class="img-fluid" [src]="data.value.imageUrl" width="350px" height="250px" class="img-fluid"
                 (click)="deleteImage(data)" />
               <div *ngIf="!data.value.imageUrl">
                 <label>Select file to upload</label>
-                <input type="file" accept="image/*" class="textBox" #fileUploader ngModel
+                <input type="file" accept="image/*" class="form-control" #fileUploader ngModel
                   (change)="showPreview($event)" />
               </div>
             </div>
 
             <label for="typeahead-basic">ทะเบียนรถ</label>
-            <input id="typeahead-basic" type="text" class="textBox" name="carId" ngModel
+            <input id="typeahead-basic" type="text" class="form-control" name="carId" ngModel
               [(ngModel)]="data.value.carId" />
             <label for="typeahead-basic">ประเภทรถ</label>
-            <input id="typeahead-basic" type="text" class="textBox" name="destination" ngModel
+            <input id="typeahead-basic" type="text" class="form-control" name="destination" ngModel
               [(ngModel)]="data.value.carType" />
             <label for="typeahead-basic">รุ่น</label>
-            <input id="typeahead-basic" type="text" class="textBox" name="worktype" ngModel
+            <input id="typeahead-basic" type="text" class="form-control" name="worktype" ngModel
               [(ngModel)]="data.value.carModel" />
             <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-            <input id="typeahead-basic" type="text" class="textBox" name="customerFirstname" ngModel
+            <input id="typeahead-basic" type="text" class="form-control" name="customerFirstname" ngModel
               [(ngModel)]="data.value.purchaseDate" />
             <label for="typeahead-basic"> วันที่ซื้อ</label>
-            <input id="typeahead-basic" type="text" class="textBox" name="workDate" ngModel
+            <input id="typeahead-basic" type="text" class="form-control" name="workDate" ngModel
               [(ngModel)]="data.value.lastMaintenance" />
           </div>
 
@@ -130,12 +132,12 @@
           <div class="modal-body">
             <form [formGroup]="editimageUrl">
               <div class="text-center">
-                <img [src]="data.value.imageUrl" width="350px" height="250px" (click)="openDeleteImage(deleteImg)"
+                <img class="img-fluid" [src]="data.value.imageUrl" width="350px" height="250px" (click)="openDeleteImage(deleteImg)"
                   *ngIf="checkImageUrl" />
                 <div *ngIf="!checkImageUrl">
                   <img [src]="imgSrc" width="350px" height="250px" />
                   <label>Select file to upload</label>
-                  <input type="file" accept="image/*" class="textBox" #fileUploader formControlName="imageUrl"
+                  <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
                     (change)="showPreview($event)" />
                   <button (click)="uploadimage(editimageUrl, data)">
                     Upload
@@ -147,19 +149,19 @@
             <form [formGroup]="editFormTemplate">
               <div class="card-body">
                 <label for="typeahead-basic">ทะเบียนรถ</label>
-                <input id="typeahead-basic" type="text" class="textBox" formControlName="carId"
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="carId"
                   [(ngModel)]="data.value.carId" />
                 <label for="typeahead-basic">ประเภทรถ</label>
-                <input id="typeahead-basic" type="text" class="textBox" formControlName="carType"
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="carType"
                   [(ngModel)]="data.value.carType" />
                 <label for="typeahead-basic">รุ่น</label>
-                <input id="typeahead-basic" type="text" class="textBox" formControlName="carModel"
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="carModel"
                   [(ngModel)]="data.value.carModel" />
                 <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-                <input id="typeahead-basic" type="text" class="textBox" formControlName="purchaseDate"
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="purchaseDate"
                   [(ngModel)]="data.value.purchaseDate" />
                 <label for="typeahead-basic"> วันที่ซื้อ</label>
-                <input id="typeahead-basic" type="text" class="textBox" formControlName="lastMaintenance"
+                <input id="typeahead-basic" type="text" class="form-control" formControlName="lastMaintenance"
                   [(ngModel)]="data.value.lastMaintenance" />
               </div>
             </form>
@@ -204,3 +206,7 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>

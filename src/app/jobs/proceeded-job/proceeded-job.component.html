@@ -1,7 +1,9 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br />
-<br />
-<br />
+</div>
+<div class="col-md-10">
 <h3>
   <img
     class="icons"
@@ -9,6 +11,7 @@
   />
   ดำเนินการแล้ว
 </h3>
+<div class="overflow-auto">
 <table class="table table-striped ">
   <thead>
     <tr>
@@ -162,19 +165,20 @@
             <label for="typeahead-basic"> มัดจำ</label>
             <div class="text-center">
               <img
+                class="img-fluid"
                 [src]="data.value.billImageUrl"
                 width="350px"
                 height="250px"
-                class="img-fluid"
               />
             </div>
             <label for="typeahead-basic"> ยอดชำระทั้งหมด</label>
             <div class="text-center">
               <img
+                class="img-fluid"
                 [src]="data.value.billNoImageUrl"
                 width="350px"
                 height="250px"
-                class="img-fluid"
+
               />
             </div>
           </div>
@@ -243,6 +247,7 @@
                 <div class="text-center">
                   <div *ngIf="data.value.billImageUrl">
                     <img
+                      class="img-fluid"
                       [src]="data.value.billImageUrl"
                       width="350px"
                       height="250px"
@@ -252,6 +257,7 @@
                   </div>
                   <div *ngIf="!checkImageUrlBill || !data.value.billImageUrl">
                     <img
+                      class="img-fluid"
                       [src]="imgSrc"
                       width="350px"
                       height="250px"
@@ -278,6 +284,7 @@
               <form [formGroup]="formBillNoImageUrl">
                 <div class="text-center">
                   <img
+                    class="img-fluid"
                     [src]="data.value.billNoImageUrl"
                     width="350px"
                     height="250px"
@@ -287,6 +294,7 @@
 
                   <div *ngIf="!checkImageUrlNoBill || !data.value.billNoImageUrl">
                     <img
+                      class="img-fluid"
                       [src]="imgSrc2"
                       width="350px"
                       height="250px"
@@ -486,6 +494,10 @@
     </tr>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
 
 <!-- edit------------------------------------------------------------------------------------------------- -->
 <!-- <ng-template #contentEdit let-c="close" let-d="dismiss">

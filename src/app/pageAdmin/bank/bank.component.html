@@ -1,7 +1,9 @@
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
-<br>
-<br>
-<br>
+</div>
+<div class="col-md-10">
 <h3><img src="https://image.flaticon.com/icons/svg/1086/1086741.svg"> ช่องทางการชำระเงิน</h3>
 <div class="control">
 <p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
@@ -11,11 +13,13 @@
 <form (ngSubmit)="addBank(bankForm)" #bankForm="ngForm">
   <div class="control">
   <label for="bank">รายละเอียดธนาคาร</label>
-  <input class="textBox" type="text" name="bank" ngModel />
+  <input class="form-control" type="text" name="bank" ngModel />
   <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
   </div>
 </form>
   <label class="control"  *ngFor="let data of bank">
     {{ data.value.bank }}
-    <label>
-
+  </label>
+</div>
+</div>
+</div>

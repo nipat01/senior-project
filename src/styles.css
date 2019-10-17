@@ -3,7 +3,6 @@
 body{
     font-family: 'Mitr', cursive;
     background-color:rgb(228, 225, 225);
-    padding-left: -220px;
 }
 
 .pink {
@@ -45,7 +44,7 @@ body{
 
 .btn.submit {
   background-color:  #abc;
-  width: 99px;
+  width: 115px;
   height: 35px;
   border-radius: 5px;
   margin-top: 20px;

@@ -1,12 +1,13 @@
-
-
-
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-2">
 <app-side-nav></app-side-nav>
+</div>
 
-<br />
-<br />
-<br />
-  <div class="col-6">
+
+
+
+  <div class="col-md-6">
     <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
       <h1>
         <img src="https://image.flaticon.com/icons/svg/806/806647.svg" />
@@ -59,7 +60,7 @@
     </form>
   </div>
 
-  <div class="col-4">
+  <div class="col-md-4">
     <ngb-tabset>
       <ngb-tab title="กรอกรายละเอียดการจ้าง">
         <ng-template ngbTabContent>
@@ -73,4 +74,6 @@
       </ngb-tab>
     </ngb-tabset>
   </div>
+</div>
+</div>
 
