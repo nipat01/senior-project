@@ -16,7 +16,7 @@ import { AppComponent } from 'src/app/app.component';
   templateUrl: './car.component.html',
   styleUrls: ['./car.component.css']
 })
-export class CarComponent implements OnInit, OnChanges{
+export class CarComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
@@ -147,6 +147,13 @@ export class CarComponent implements OnInit, OnChanges{
   }
 
   onSubmit(formValue) {
+    console.log('form', formValue);
+    formValue.value = {
+      ...formValue.value,
+      lastMaintenance: `${formValue.value.lastMaintenance.year}/${formValue.value.lastMaintenance.month}/${formValue.value.lastMaintenance.day}`,
+      purchaseDate: `${formValue.value.purchaseDate.year}/${formValue.value.purchaseDate.month}/${formValue.value.purchaseDate.day}`
+    }
+    console.log('after form', formValue.value);
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
       var filePath = `imageCar/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -160,6 +167,7 @@ export class CarComponent implements OnInit, OnChanges{
               filePath: filePath
             }
             const addValue = formValue.value
+            console.log('addValue', addValue);
             this.service.insertCar(addValue);
             this.resetForm();
           })

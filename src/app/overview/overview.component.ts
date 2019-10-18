@@ -25,6 +25,7 @@ export class OverviewComponent implements OnInit, OnChanges {
 
   job: any[];
   job2: any[];
+  job3: any[];
   wikis: any[];
   car: any[];
 
@@ -52,12 +53,12 @@ export class OverviewComponent implements OnInit, OnChanges {
     private router: Router) { }
 
   ngOnInit() {
-    // this.db.list('job').snapshotChanges().map(actions => {
-    //   return actions.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe(job => {
-    //   console.log('job', job)
-    //   this.job = job;
-    // });
+    this.db.list('job').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(job3 => {
+      console.log('job', job3)
+      this.job3 = job3;
+    });
 
 
     this.db.list('wikis').snapshotChanges().map(action => {
@@ -65,29 +66,56 @@ export class OverviewComponent implements OnInit, OnChanges {
     }).subscribe(wikis => {
       console.log(wikis)
       this.wikis = wikis;
-      console.log('jobLength', this.wikis.length);
-      for (let i = 0; i < this.wikis.length; i++) {
-        const dataObjEmp = {
-          ...this.wikis[i],
-        }
-        let dataEmp = dataObjEmp.value;
-        // console.log('driver',checkStatus.driver);
+      console.log('wikis', this.wikis);
+      // console.log('jobLength', this.wikis.length);
+      // for (let i = 0; i < this.wikis.length; i++) {
+      //   const dataObjEmp = {
+      //     ...this.wikis[i],
+      //   }
+      //   let dataEmp = dataObjEmp.value;
+      //   // console.log('driver',checkStatus.driver);
 
-        if (dataEmp.rateReview) {
-          this.totalDivideReview = this.totalDivideReview + 1
-          let sum = dataEmp.rateReview
-          this.totalReview = (this.totalReview + sum)
-        }
+      //   if (dataEmp.rateReview) {
+      //     this.totalDivideReview = this.totalDivideReview + 1
+      //     let sum = dataEmp.rateReview
+      //     this.totalReview = (this.totalReview + sum)
+      //   }
 
+      // }
+
+      // console.log('totalDivideReview', this.totalDivideReview);
+      // this.totalReview = this.totalReview / this.totalDivideReview
+      // console.log('totalReview', this.totalReview);
+      // let intTotalReview = Math.ceil(this.totalReview)
+      // console.log('intTotalReview', intTotalReview);
+
+      console.log('lengthJob', this.job3.length);
+      let averageRating = [];
+      for (let empIndex = 0; empIndex < this.wikis.length; empIndex++) {
+        let wikis = this.wikis[empIndex].value
+        let sum = 0;
+        let count = 0;
+        for (let index = 0; index < this.job3.length; index++) {
+          if (this.job3[index].value.rateReview) {
+            if (wikis.firstname === this.job3[index].value.driver) {
+              sum = this.job3[index].value.rateReview + sum;
+              count++;
+            }
+          }
+        }
+        this.wikis[empIndex].value.rateReview = sum / count;
+        console.log('this.wikis[empIndex].value.rateReview', this.wikis[empIndex].value.rateReview);
+        if (this.wikis[empIndex].value.rateReview) {
+          console.log('wikis rateReview', this.wikis[empIndex].value.rateReview);
+          averageRating.push(this.wikis[empIndex].value.rateReview);
+        }
+  
       }
-
-      console.log('totalDivideReview', this.totalDivideReview);
-      this.totalReview = this.totalReview / this.totalDivideReview
+      console.log('averageRating', averageRating);
+      console.log('averageRating length', averageRating.length);
+      const accumulator = (accumulator, currentValue) => accumulator + currentValue;
+      this.totalReview = averageRating.reduce(accumulator) / averageRating.length
       console.log('totalReview', this.totalReview);
-      let intTotalReview = Math.ceil(this.totalReview)
-      console.log('intTotalReview', intTotalReview);
-
-
 
     });
   }

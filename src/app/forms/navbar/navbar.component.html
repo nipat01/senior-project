@@ -1,15 +1,17 @@
-<nav [ngStyle]="{'background-color': color? color :'#abc' }" class="navbar navbar-expand-md navbar-dark fixed-top">
-  <a class="navbar-brand texts" [routerLink]="['/homepageuser']"> J I S T I G </a>
+<nav *ngIf="pickerColor" [ngStyle]="{'background-color': color? color :'#abc' }"
+  class="navbar navbar-expand-md navbar-dark fixed-top">
+  <a class="navbar-brand texts" [routerLink]="['/homepageuser']"> หน้าแรก</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-          (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarNavDropdown"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown"  [ngbCollapse]="isCollapsed">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav">
 
-      <select [(ngModel)]="selectedColor" id="selectColor" (change)=changesColor()>
+      <select *ngIf="auth.authenticated && auth.authenticatedAdmin()" [(ngModel)]="selectedColor" id="selectColor"
+        (change)=changesColor()>
         <option value="darksalmon" class="pink">pink</option>
         <option value="silver" class="silver">silver</option>
         <option value="darkseagreen" class="darkseagreen">darkseagreen</option>
