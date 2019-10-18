@@ -10,7 +10,7 @@
   <p>ค้นหาโดย</p>
   <select
     (change)="selectCheckValue($event)"
-    class="textBox"
+    class="form-control"
     name="selectSearchJob"
     ngModel
   >
@@ -20,11 +20,11 @@
   </select>
   <form [formGroup]="formCustomer" *ngIf="checkCustomer">
     <p>กรอกชื่อลูกค้า</p>
-    <input class="textBox" type="text" formControlName="searchJob" ngModel />
+    <input class="form-control" type="text" formControlName="searchJob" ngModel />
 
     <p>วันที่</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="workDate"
@@ -34,7 +34,7 @@
     />
     <p>ถึง</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d2.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="endworkDate"
@@ -51,7 +51,7 @@
       เลือกพนักงาน
     </p>
 
-    <select class="textBox" formControlName="searchJob" ngModel>
+    <select class="form-control" formControlName="searchJob" ngModel>
       <option value="{{ emp.value.firstname }}" *ngFor="let emp of wikis">{{
         emp.value.firstname
       }}</option>
@@ -59,7 +59,7 @@
 
     <p>วันที่</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="workDate"
@@ -70,7 +70,7 @@
 
     <p>ถึง</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d2.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="endworkDate"
@@ -94,7 +94,7 @@
 
     <p>วันที่</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="workDate"
@@ -104,7 +104,7 @@
     />
     <p>ถึง</p>
     <input
-      class="textBox"
+      class="form-control"
       (click)="d2.toggle()"
       placeholder="yyyy-mm-dd"
       formControlName="endworkDate"

@@ -8,14 +8,9 @@
 p {
     margin-top: 20px;
    }
-.textBox {
-  width: 400px;
-  height: 30px;
-  border-radius: 5px;
-  border: solid 1px #95989a;
-   }
+
   .control {
-     display: grid;
+
      background-color: white;
      border-radius: 10px;
      padding: 8px 20px;

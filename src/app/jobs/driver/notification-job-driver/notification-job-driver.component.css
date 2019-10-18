@@ -44,3 +44,6 @@ h3 {
   .btn-link{
     color: rgba(0,0,0,.9);
   }
+img {
+  width: 45px;
+}

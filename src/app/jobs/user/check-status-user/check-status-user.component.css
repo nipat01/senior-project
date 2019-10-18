@@ -37,9 +37,15 @@ h4{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
+    margin-bottom: 90px;
   }
 
   agm-map {
     height: 300px;
 
   }
+h3 {
+   background-color: white;
+   border-radius: 5px;
+   padding: 8px 20px;
+ }

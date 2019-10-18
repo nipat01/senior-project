@@ -1,3 +1,5 @@
+<div class="container-fluid">
+<div class="row">
 <div class="col-md-2 sidenav">
   <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
     <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
@@ -9,8 +11,9 @@
     <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
     <hr>
   </div>
+</div>
 <div class="col-md-10">
-<h3>ดำเนินการแล้ว</h3>
+<h3><img class="icons" src="https://image.flaticon.com/icons/svg/1632/1632599.svg" />ดำเนินการแล้ว</h3>
 <div class="overflow-auto">
 <table class="table table-striped">
   <thead>
@@ -60,3 +63,5 @@
 </div>
 </div>
 </div>
+</div>
+
