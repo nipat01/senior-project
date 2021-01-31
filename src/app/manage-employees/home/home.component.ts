@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { FirebaseService } from '../../services/firebase-service.service';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from "rxjs/operators";
 import { ImageService } from '../../services/image/image.service';
 import { AppComponent } from 'src/app/app.component';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -50,11 +51,12 @@ export class HomeComponent implements OnInit, OnChanges {
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    addressLat: new FormControl('', Validators.required),
-    addressLong: new FormControl('', Validators.required),
-    currentLat: new FormControl('', Validators.required),
-    currentLong: new FormControl('', Validators.required),
-    role: new FormControl('', Validators.required),
+    // addressLat: new FormControl('', Validators.required),
+    // addressLong: new FormControl('', Validators.required),
+    currentAddress: new FormControl('', Validators.required),
+    currentLat: new FormControl(),
+    currentLong: new FormControl(),
+    // role: new FormControl('', Validators.required),
     lineId: new FormControl('', Validators.required),
     citizenId: new FormControl('', Validators.required),
     phoneId: new FormControl('', Validators.required),
@@ -69,15 +71,16 @@ export class HomeComponent implements OnInit, OnChanges {
     firstname: new FormControl('', Validators.required),
     lastname: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    addressLat: new FormControl('', Validators.required),
-    addressLong: new FormControl('', Validators.required),
-    currentLat: new FormControl('', Validators.required),
-    currentLong: new FormControl('', Validators.required),
-    role: new FormControl('', Validators.required),
+    // addressLat: new FormControl('', Validators.required),
+    // addressLong: new FormControl('', Validators.required),
+    currentAddress: new FormControl('', Validators.required),
+    // currentLat: new FormControl('', Validators.required),
+    // currentLong: new FormControl('', Validators.required),
+    // role: new FormControl('', Validators.required),
     lineId: new FormControl('', Validators.required),
     citizenId: new FormControl('', Validators.required),
     phoneId: new FormControl('', Validators.required),
-    // hireDate: new FormControl('', Validators.required),
+    hireDate: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
   });
 
@@ -94,9 +97,19 @@ export class HomeComponent implements OnInit, OnChanges {
     private auth: AuthService,
     private storage: AngularFireStorage,
     private service: ImageService,
+    private ngZone: NgZone,
+    private mapsAPILoader: MapsAPILoader,
   ) { }
 
+  longitude: number;
+  latitude: number;
+  zoom: number;
+  checkSubmitAndDel = [];
+
   ngOnInit() {
+    // this.latitude = 14.0352539;
+    // this.longitude = 100.7210703;
+    // this.zoom = 8;
 
     this.db.list('wikis').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
@@ -109,25 +122,35 @@ export class HomeComponent implements OnInit, OnChanges {
 
   }
 
-  open(content) {
-    const modalRef = this.modalService.open(content);
+  openAddEmployees(content) {
+    this.setCurrentLocation();
+    const modalRef = this.modalService.open(content, { size: 'lg' });
   }
 
   openData(contentData) {
-    const modalRef = this.modalService.open(contentData);
+    const modalRef = this.modalService.open(contentData, { size: 'lg' });
   }
 
   openCurrentAddress(contentCurrent) {
     const modalRef = this.modalService.open(contentCurrent);
   }
   openEditData(contentEditData) {
-    const modalRef = this.modalService.open(contentEditData);
+    const modalRef = this.modalService.open(contentEditData, { size: 'lg' });
   }
 
   openDeleteImage(deleteImg) {
     console.log('deleteImg');
     this.modalService.open(deleteImg)
 
+  }
+
+  open(content, value) {
+
+    if (value === 'del') {
+      this.checkSubmitAndDel[0] = "ต้องการลบข้อมูลหรือไม่";
+      this.checkSubmitAndDel[1] = "ลบ";
+    }
+    this.modalService.open(content);
   }
 
   resetPassword(data) {
@@ -248,7 +271,11 @@ export class HomeComponent implements OnInit, OnChanges {
             formValue.value['imageUrl'] = url;
             const addValue = {
               ...formValue.value,
-              filePath: filePath
+              filePath: filePath,
+              currentLat: this.latitude,
+              currentLong: this.longitude,
+              hireDate: `${formValue.value.hireDate.day}/${formValue.value.hireDate.month}/${formValue.value.hireDate.year}`
+
             }
             this.service.creatWikis(addValue);
             this.auth.emailSignUp(this.formTemplate.value.email, this.formTemplate.value.password);
@@ -261,14 +288,21 @@ export class HomeComponent implements OnInit, OnChanges {
   }
 
   editWiki(editwikiForm, data) {
+    console.log('111');
+    console.log('editwikiForm', editwikiForm.value);
+    console.log('data', data.value);
+    editwikiForm.value = {
+      ...editwikiForm.value,
+      ...data.value
+    }
     // this.router.navigate([`/editWiki/${data.key}`]);
-    console.log('updateWikis:', data.key, editwikiForm.value);
+    console.log('editwikiForm', editwikiForm.value);
     this.firebaseService.editWiki(data.key, editwikiForm.value);
   }
 
   uploadImage(editImageUrl, data) {
-    console.log('update:', data.key, editImageUrl.value);
-
+    // console.log('update:', data.key, editImageUrl.value);
+    // data.value.
     console.log('!editCar', editImageUrl.value, data);
     this.isSubmitted = true;
     if (this.editImageUrl.valid) {
@@ -277,18 +311,19 @@ export class HomeComponent implements OnInit, OnChanges {
       this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
-            editImageUrl.value['imageUrl'] = url;
-            const addValue = {
-              ...editImageUrl.value,
+            data.value['imageUrl'] = url;
+            data.value = {
+              ...data.value,
               filePath: filePath
             }
-            this.firebaseService.editWiki(data.key, addValue);
+            this.firebaseService.editWiki(data.key, data.value);
             // this.resetForm();
           })
         })
       ).subscribe();
     }
     console.log('filePath', filePath);
+    this.checkImageUrl = true;
   }
 
   resetForm() {
@@ -298,6 +333,36 @@ export class HomeComponent implements OnInit, OnChanges {
     // this.selectedImage = null;
     // this.isSubmitted = false;
   }
+  test(event) {
+    console.log(event.target.value);
+    if (event.target.value !== '') {
+      console.log('testqqq');
+
+    }
+
+  }
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    // this.getAddress(this.latitude, this.longitude);
+    console.log(this.latitude, this.longitude);
+    // window.alert('Geocoder failed due to: ');
+  }
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 18;
+        console.log('lat,long', this.latitude, this.longitude);
+
+        // this.getAddress(this.latitude, this.longitude);
+      });
+    }
+  };
 
 }
 

@@ -1,24 +1,144 @@
 <br />
 <br />
 <br />
-<div id="invoice">
-  <h1>ใบกำกับภาษี</h1>
-  <div *ngFor="let data of about">
-    <p>อยู่ที่บริษัท : {{ data.value.about }}</p>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <button
+        style="margin-left: 50px;"
+        class="btn icon"
+        (click)="dowloadPDF()"
+        placement="bottom"
+        ngbTooltip="Dowload PDF"
+      >
+        <i class="fas fa-download"></i>พิมพ์ใบกำกับภาษี
+      </button>
+    </div>
   </div>
-  <!-- ชื่อ {{ title }} -->
-  วันที่: {{timeNow}} <br>
-  บิล:{{invoiceJob.bill}} <br><br>
-  บิลเลขที่:{{invoiceJob.billNo}}<br><br>
-  ชื่อลูกค้า:{{invoiceJob.customerFirstname}}<br><br>
-  ค่าจ้าง:{{invoiceJob.totalPayment}}<br><br>
-  ที่อยู่ต้นทาง:{{invoiceJob.source}}<br><br>
-  ที่อยู่ปลายทาง:{{invoiceJob.destination}}<br><br>
-  วันที่ใช้บริการ:{{invoiceJob.workDate.day}}/{{invoiceJob.workDate.month}}/{{invoiceJob.workDate.year}}<br><br>
-  พนักงานขับรถ:{{invoiceJob.driver}}<br><br>
-  <!-- <pre>{{ invoiceJob | json }} </pre> -->
 </div>
 
-<button class="btn icon" (click)="dowloadPDF()" placement="bottom" ngbTooltip="Dowload PDF">
-  <i class="fas fa-download"></i>
-</button>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div id="invoice">
+        <div class="space">
+          <div style="margin-top: 40px;">
+            <div *ngFor="let data of about">
+              <p>ที่อยู่บริษัท : {{ data.value.about }}</p>
+              <p>เลขประจำตัวผู้เสียภาษีอากร: {{ token[0].value.idTax }}</p>
+            </div>
+            <h1>ใบกำกับภาษี</h1>
+            <p class="bill">
+              บิลเล่มที่: {{ invoiceJob.bill }} บิลเลขที่:
+              {{ invoiceJob.billNo }}
+            </p>
+
+            <!-- ชื่อ {{ title }} -->
+
+            <div class="customer">
+              <span class="time">{{ timeNow }}</span>
+              <!-- <span class="name">ชื่อลูกค้า: {{ invoiceJob.customerFirstname }}</span> -->
+            </div>
+            <br /><br />
+            <div>
+              <p>ชื่อผู้ใช้บริการ : {{ invoiceJob.nameForInvoice }}</p>
+              <!-- <p>เบอร์ : {{ invoiceJob.customerPhoneForInvoice }}</p> -->
+              <p>ที่อยู่ : {{ invoiceJob.addressForInvoice }}</p>
+              <p>เลขประจำตัวผู้เสียภาษีอากร : {{ invoiceJob.invoiceNo }}</p>
+            </div>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th style="width: 35%;" scope="col">รายการ</th>
+                  <th scope="col">จำนวน</th>
+                  <th scope="col">ราคาต่อหน่วย</th>
+                  <th scope="col">ยอดรวม</th>
+                  <!-- <th scope="col">ภาษีมูลค่าเพิ่ม</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="list">
+                    <p>ค่าบริการรับส่งสินค้า</p>
+                    <p>วันที่: {{ invoiceJob.workDate }}</p>
+                    <p>ประเภท: {{ invoiceJob.worktype }}</p>
+                    <p>
+                      ต้นทาง: {{ invoiceJob.source }}
+                      {{ invoiceJob.subDistictSource }}
+                      {{ invoiceJob.distictSource }}
+                      {{ invoiceJob.provinceSource }}
+                    </p>
+                    <p>
+                      ปลายทาง: {{ invoiceJob.destination }}
+                      {{ invoiceJob.subDistictDestination }}
+                      {{ invoiceJob.distictDestination }}
+                      {{ invoiceJob.provinceDestination }}
+                    </p>
+                  </td>
+                  <td>1</td>
+                  <td>{{ invoiceJob.totalPayment | currency: " " }}</td>
+                  <td>{{ invoiceJob.totalPayment | currency: " " }}</td>
+                </tr>
+                <tr>
+                  <th style="text-align: center;" colspan="3">
+                    ภาษีมูลค่าเพิ่ม 7%
+                  </th>
+                  <td>
+                    {{ invoiceJob.totalPayment * 0.07 | currency: " " }}
+                  </td>
+                </tr>
+                <tr>
+                  <th style="text-align: center;" colspan="3">
+                    ยอดเงินสุทธิ
+                  </th>
+                  <td>
+                    {{ invoiceJob.totalPayment * 1.07 | currency: " " }}
+                    <!-- {{ invoiceJob.totalPayment * 1.07 | currency:"THB":"symbol" }} -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div>
+              <div class="row">
+                <div class="col-sm" style="text-align: center;">
+                  <br /><br /><br />
+                  <p>
+                    ลงชื่อ............................................................ผู้รับบริการ
+                  </p>
+                  <p>
+                    (...............................................................)
+                  </p>
+                  <p>
+                    วันที่......................................................................................
+                  </p>
+                </div>
+                <div class="col-sm" style="text-align: center;">
+                  <br /><br /><br />
+                  <p>
+                    ลงชื่อ............................................................ผู้รับเงิน
+                  </p>
+                  <p>
+                    (...............................................................)
+                  </p>
+                  <p>
+                    วันที่..................................................................................
+                  </p>
+                </div>
+              </div>
+              <br /><br /><br /><br /><br /><br />
+              <div style="text-align: right;">
+                <!-- {{ timeNow }} -->
+                {{ dateNow }}
+                {{ times }}
+              </div>
+            </div>
+
+            <!-- <pre>{{ invoiceJob | json }} </pre> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

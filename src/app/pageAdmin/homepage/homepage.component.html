@@ -1,79 +1,133 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
+  <div class="row">
+    <!-- <app-side-nav></app-side-nav> -->
 
-
-
-
-  <div class="col-md-6">
-    <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
-      <h1>
-        <img src="https://image.flaticon.com/icons/svg/806/806647.svg" />
-        ปรับแต่งเว็บแอพลิเคชั่น
-      </h1>
-      <div class="control">
-        <label>แก้ไขข้อความ</label>
-        <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
-        <button  [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
-      </div>
-    </form>
-    <br />
-    <br />
-    <div [ngStyle]="{'background-color': color }" class="text">
+    <div class="col-md-12">
       <div *ngFor="let data of homepage">
-        {{ data.value.firstname }}
-      </div>
-    </div>
+        <form (ngSubmit)="addHomepage(homeForm)" #homeForm="ngForm">
+          <h3 class="title">
+            <img src="https://image.flaticon.com/icons/svg/1649/1649096.svg" />
+            หน้าแรก
+          </h3>
+          <div class="row">
+            <div class="col-md">
+              <div class="control">
+                <label>แก้ไขข้อความ</label>
+                <textarea
+                  style="padding: 10px;"
+                  class="textArea"
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  name="detail"
+                  ngModel
+                  [(ngModel)]="data.value.detail"
+                  rows="7"
+                ></textarea>
+                <br />
+                <label for="video">
+                  video
+                  <img
+                    class="warming"
+                    src="https://image.flaticon.com/icons/svg/457/457553.svg"
+                    placement="top"
+                    ngbTooltip="ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง
+             Ex: https://www.youtube.com/watch?v=C64wuNOj-do
+             นำ C64wuNOj-do ไปใส่"
+                  />
+                </label>
+                <input
+                  style="padding: 10px;"
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  name="video"
+                  ngModel
+                  [(ngModel)]="data.value.video"
+                  rows="3"
+                />
+                <br>
+                <button
+                [ngStyle]="{ 'background-color': color }"
+                class="btn submit s"
+                type="submit"
+              >
+                บันทึก
+              </button>
+                <!-- <form
+              (ngSubmit)="addVideo(videoForm)"
+              #videoForm="ngForm"
+              *ngFor="let data of video"
+              style="display: grid;"
+            >
+              <label for="video">
+                video
+                <img
+                  class="warming"
+                  src="https://image.flaticon.com/icons/svg/457/457553.svg"
+                  placement="top"
+                  ngbTooltip="ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง
+             Ex: https://www.youtube.com/watch?v=C64wuNOj-do
+             นำ C64wuNOj-do ไปใส่"
+                />
+              </label>
+              <input
+                style="padding: 10px;"
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                name="detail"
+                ngModel
+                [(ngModel)]="data.value.video1"
+                rows="3"
+              />
+              <br />
+            </form> -->
+                <br />
+              </div>
+            </div>
+            <div class="col-md">
+              <div [ngStyle]="{ 'background-color': color }" class="video">
+                <!-- {{linkVideo}} -->
 
-    <br />
-    <br />
-    <br />
-    <p [ngStyle]="{'background-color': color }" class="text">
-      ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง <br />
-      Ex: https://www.youtube.com/watch?v=C64wuNOj-do <br />
-      นำ C64wuNOj-do ไปใส่
-    </p>
-    <form (ngSubmit)="addVideo(videoForm)" #videoForm="ngForm">
-      <div class="control">
-        <label for="video">video</label>
-        <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
-        <button [ngStyle]="{'background-color': color }"  class="btn submit" type="submit">Submit</button>
-      </div>
-
-      <div [ngStyle]="{'background-color': color }" class="video">
-        <div *ngFor="let data of video">
-          {{ data.value.video1 }}
-          <br />
-
-          <iframe
-            class="videos"
-            [src]="
-              getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)
-            "
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+                <iframe
+                  width="100%"
+                  height="315"
+                  class="videos"
+                  [src]="linkVideo"
+                  frameborder="0"
+                ></iframe>
+              </div>
+              <!-- <div [ngStyle]="{ 'background-color': color }" class="video">
+                  <div *ngFor="let data of homepage">
+                    {{ data.value.video }}
+                    <br />
+                    <iframe
+                    width="100%"
+                    height="315"
+                      class="videos"
+                      [src]="
+                        getVdoUrl('https://www.youtube.com/embed/' + data.value.video)
+                      "
+                      frameborder="0"
+                    ></iframe>
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </form>
+        <!-- <div [ngStyle]="{ 'background-color': color }" class="text">
+          <div *ngFor="let data2 of homepage">
+            {{ data.value.detail }}
+          </div>
         </div>
+      </div> -->
+        <!-- <p [ngStyle]="{ 'background-color': color }" class="text">
+        ก็อปปี้คำที่อยู่หลังwatch?v=มาใส่ในช่อง <br />
+        Ex: https://www.youtube.com/watch?v=C64wuNOj-do <br />
+        นำ C64wuNOj-do ไปใส่
+      </p> -->
       </div>
-    </form>
-  </div>
+      <!-- </div> -->
 
-  <div class="col-md-4">
-    <ngb-tabset>
-      <ngb-tab title="กรอกรายละเอียดการจ้าง">
-        <ng-template ngbTabContent>
-          <app-addjob></app-addjob>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="เช็คสถานะ">
-        <ng-template ngbTabContent>
-          <app-check-status-user></app-check-status-user>
-        </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
+      <!-- <div class="col-md-4"> -->
+    </div>
   </div>
 </div>
-</div>
-

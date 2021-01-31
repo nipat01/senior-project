@@ -1,0 +1,70 @@
+
+
+   .iconGroup {
+    display: flex;
+    justify-content: center;
+  }
+  th {
+    text-align: center;
+  }
+  thead {
+    background-color: white;
+  }
+  td {
+    text-align: center;
+  }
+  .btn.edit {
+     background-color: #d0cfcf;
+  }
+
+h3{
+   background-color: white;
+   border-radius: 5px;
+   padding: 8px 20px;
+   margin-top: 60px;
+ }
+img {
+ width: 45px;
+}
+table {
+ background-color: white;
+}
+.control {
+    display: grid;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    padding: 5px;
+ }
+.textBox {
+ width: 400px;
+ height: 30px;
+ border-radius: 5px;
+ border: solid 1px #95989a;
+ padding: 5px;
+  }
+
+  agm-map {
+   height: 300px;
+
+ }
+.header {
+ display: flex;
+ -webkit-box-align: start;
+ align-items: flex-start;
+ -webkit-box-pack: justify;
+ justify-content: space-between;
+ padding: 1rem 1rem;
+ border-bottom: 1px solid #dee2e6;
+ border-top-left-radius: .3rem;
+ border-top-right-radius: .3rem;
+}
+.pop{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}

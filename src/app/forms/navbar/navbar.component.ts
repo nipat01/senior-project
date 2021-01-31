@@ -43,6 +43,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   selectedColor: string;
   wikis: any[];
   token: any[];
+  tokenAdmin
   pickerColor: any[];
   editPasswordForm = new FormGroup({
     password: new FormControl('', Validators.required),
@@ -50,7 +51,8 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   tokenForm = new FormGroup({
     tokenAdmin: new FormControl(),
-    tokenGroup: new FormControl(),
+    idTax: new FormControl(),
+    // tokenGroup: new FormControl(),
   });
 
   get color() {
@@ -80,6 +82,10 @@ export class NavbarComponent implements OnInit, OnChanges {
     }).subscribe(token => {
       console.log('token', token[0].value)
       this.token = token;
+      console.log('token', this.token);
+      this.tokenAdmin = this.token[0]
+      console.log('tokenAdmin', this.tokenAdmin);
+
     });
 
     // this.db.list('token').snapshotChanges().subscribe(
@@ -95,7 +101,7 @@ export class NavbarComponent implements OnInit, OnChanges {
       this.pickerColor = pickerColor;
       console.log('thispicker', this.pickerColor[0].value.color);
       AppComponent.COLOR = this.pickerColor[0].value.color;
-
+      // this.selectedColor = this.pickerColor[0].value.color;
     });
 
 
@@ -128,8 +134,10 @@ export class NavbarComponent implements OnInit, OnChanges {
     }
   }
   changesColor() {
-    console.log(this.selectedColor);
-    AppComponent.COLOR = this.selectedColor;
+    console.log(this.pickerColor[0].value.color);
+    AppComponent.COLOR = this.pickerColor[0].value.color;
+    // console.log(this.selectedColor);
+    // AppComponent.COLOR = this.selectedColor;
     console.log(AppComponent.COLOR);
     let pickerColorObj = {
       color: AppComponent.COLOR

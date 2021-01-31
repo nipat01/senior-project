@@ -20,3 +20,11 @@ agm-map {
   height: 300px;
 
 }
+.box {
+  border-style: solid;
+  border-color: #d8dee4;
+  padding: 8px 20px;
+  border-radius: 5px;
+
+  margin-bottom: 10px;
+}

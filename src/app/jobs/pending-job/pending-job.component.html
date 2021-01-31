@@ -1,160 +1,933 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-<div class="col-md-10">
-<h3><img src="https://image.flaticon.com/icons/svg/1055/1055648.svg"> รอดำเนินการ</h3>
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">driver</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-        <td (click)="openData(con)">
-            <ng-template #con let-c="close" let-d="dismiss">
-              <div [ngStyle]="{'background-color': color }" class="header">
-                <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
-                <button
-                  type="button"
-                  class="close"
-                  aria-label="Close"
-                  (click)="d('Cross click')"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <label for="typeahead-basic">ต้นทาง</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="source"
-                  ngModel
-                  [(ngModel)]="data.value.source"
-                />
-                <label for="typeahead-basic">ปลายทาง</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="destination"
-                  ngModel
-                  [(ngModel)]="data.value.destination"
-                />
-                <label for="typeahead-basic">ประเภทงาน</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="worktype"
-                  ngModel
-                  [(ngModel)]="data.value.worktype"
-                />
-                <label for="typeahead-basic">ชื่อลูกค้า</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="customerFirstname"
-                  ngModel
-                  [(ngModel)]="data.value.customerFirstname"
-                />
-                <label for="typeahead-basic"> วันที่</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="workDate"
-                  ngModel
-                  [(ngModel)]="data.value.workDate.day"
-                />
-                <label for="typeahead-basic"> เวลา</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="workTime"
-                  ngModel
-                  [(ngModel)]="data.value.workTime.hour"
-                />
-                <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="customerLine"
-                  ngModel
-                  [(ngModel)]="data.value.customerPhone"
-                />
-                <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="customerLine"
-                  ngModel
-                  [(ngModel)]="data.value.customerPhone"
-                />
-                <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
-                <input
-                  id="typeahead-basic"
-                  type="text"
-                  class="form-control"
-                  name="detail"
-                  ngModel
-                  [(ngModel)]="data.value.detail"
-                />
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn edit">
-                  edit
-                </button>
-                <button
-                  type="button"
-                  class="btn save"
-                  (click)="c('Save click')"
-                  [ngStyle]="{'background-color': color }"
-                >
-                  Save
-                </button>
-              </div>
-            </ng-template>
+  <div class="row">
+    <div class="col-md-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-md-10">
+      <h3>
+        <img class="ic" src="https://image.flaticon.com/icons/svg/1055/1055648.svg" />
+        รอดำเนินการ
+      </h3>
+      <div class="overflow-auto">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">วันที่</th>
+              <th scope="col">เวลา</th>
+              <th style="width: 15%;" scope="col">ต้นทาง</th>
+              <th style="width: 15%;" scope="col">ปลายทาง</th>
+              <!-- <th scope="col">worktype</th> -->
+              <th scope="col">ชื่อลูกค้า</th>
+              <!-- <th scope="col">customerPhone</th> -->
+              <!-- <th scope="col">customerLine</th> -->
+              <!-- <th scope="col">detail</th> -->
+              <!-- <th scope="col">status</th> -->
+              <th scope="col">พนักงานขับรถ</th>
+              <th scope="col"></th>
+              <!-- <th scope="col">action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of job">
+              <td (click)="openData(con, data)">
+                {{ data.value.workDate }}
+              </td>
+              <td (click)="openData(con, data)">
+                {{ data.value.timeHour }}:00 น.
+              </td>
+              <td (click)="openData(con, data)">
+                <ng-template #con let-c="close" let-d="dismiss">
+                  <div [ngStyle]="{ 'background-color': color }" class="header">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      ข้อมูลการจ้าง
+                    </h4>
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      (click)="buttonEdit('closeEdit')"
+                      (click)="d('Cross click')"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <ngb-tabset>
+                      <ngb-tab title="ข้อมูลทั่วไป">
+                        <ng-template ngbTabContent>
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md">
+                                <br />
+                                <div class="box">
+                                  <label for="typeahead-basic">ต้นทาง</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="source"
+                                    ngModel
+                                    [(ngModel)]="data.value.source"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                                <div class="box">
+                                  <label for="province">จังหวัด</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="provinceSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.provinceSource"
+                                    [readonly]="showEdit"
+                                  />
 
-            {{ data.value.source }}
-          </td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
-      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-      <td>{{ data.value.driver }}</td>
-      <td>
-         <div class="iconGroup">
-           <button type="button" class="btn icon" (click)="editJob(data)"placement="bottom" ngbTooltip="Submit"><i class="fas fa-check-circle"></i></button>
-          <button type="button" class="btn icon" (click)="delJob(data)" placement="bottom" ngbTooltip="Delete"><i class="fas fa-trash-alt"></i></button>
-        </div>
-      </td>
-      <!-- <td>
+                                  <!-- <select
+                                    class="forms"
+                                    (change)="changeProvnice($event, 'source')"
+                                    name="provinceSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.provinceSource"
+                                  >
+                                    >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="
+                                        let i of province;
+                                        let index = index
+                                      "
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label for="distict">อำเภอ</label>
+
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="distictSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.distictSource"
+                                    [readonly]="showEdit"
+                                  />
+
+                                  <!-- <select
+                                    class="forms"
+                                    (change)="changeDistict($event, 'source')"
+                                    name="distictSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.distictSource"
+                                  >
+                                    >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="let i of objCountrySource.pv[1]"
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label class="textinput" for="distict"
+                                    >ตำบล</label
+                                  >
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="subDistictSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.subDistictSource"
+                                    [readonly]="showEdit"
+                                  />
+
+                                  <!-- <select
+                                    class="forms"
+                                    name="subDistictSource"
+                                    ngModel
+                                    [(ngModel)]="data.value.subDistictSource"
+                                  >
+                                    >
+                                    >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="let i of objCountrySource.dt[1]"
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label for="typeahead-basic"
+                                    >ชื่อลูกค้า</label
+                                  >
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="customerFirstname"
+                                    ngModel
+                                    [(ngModel)]="data.value.customerFirstname"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+
+                                <div class="box">
+                                  <label for="typeahead-basic">
+                                    เบอร์ติดต่อ</label
+                                  >
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="customerLine"
+                                    ngModel
+                                    [(ngModel)]="data.value.customerPhone"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                                <div class="boxs">
+                                  <label for="typeahead-basic">
+                                    รายละเอียดการจ้าง</label
+                                  >
+                                  <textarea
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="detail"
+                                    ngModel
+                                    [(ngModel)]="data.value.detail"
+                                    [readonly]="showEdit"
+                                  ></textarea>
+                                </div>
+                                <div class="box">
+                                  <label for="typeahead-basic"> มัดจำ</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="deposit"
+                                    ngModel
+                                    [(ngModel)]="data.value.deposit"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-md">
+                                <br />
+                                <div class="box">
+                                  <label for="typeahead-basic">ปลายทาง</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="destination"
+                                    ngModel
+                                    [(ngModel)]="data.value.destination"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                                <div class="box">
+                                  <label for="province">จังหวัด</label>
+
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="provinceDestination"
+                                    ngModel
+                                    [(ngModel)]="data.value.provinceDestination"
+                                    [readonly]="showEdit"
+                                  />
+
+                                  <!-- <select
+                                    class="forms"
+                                    (change)="
+                                      changeProvnice($event, 'destination')
+                                    "
+                                    name="provinceDestination"
+                                    ngModel
+                                    [(ngModel)]="data.value.provinceDestination"
+                                  >
+                                    >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="
+                                        let i of province;
+                                        let index = index
+                                      "
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label for="distict">อำเภอ</label>
+
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="distictDestination"
+                                    ngModel
+                                    [(ngModel)]="data.value.distictDestination"
+                                    [readonly]="showEdit"
+                                  />
+                                  <!-- <select
+                                    class="forms"
+                                    (change)="
+                                      changeDistict($event, 'destination')
+                                    "
+                                    name="distictDestination"
+                                    ngModel
+                                    [(ngModel)]="data.value.distictDestination"
+                                  >
+                                    >
+
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="
+                                        let i of objCountryDestination.pv[1]
+                                      "
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label class="textinput" for="distict"
+                                    >ตำบล</label
+                                  >
+
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="subDistictDestination"
+                                    ngModel
+                                    [(ngModel)]="
+                                      data.value.subDistictDestination
+                                    "
+                                    [readonly]="showEdit"
+                                  />
+
+                                  <!-- <select
+                                    class="forms"
+                                    name="subDistictDestination"
+                                    ngModel
+                                    [(ngModel)]="
+                                      data.value.subDistictDestination
+                                    "
+                                  >
+                                    >
+                                    >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="
+                                        let i of objCountryDestination.dt[1]
+                                      "
+                                      value="{{ i[0] }}"
+                                      >{{ i[0] }}
+                                    </option>
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label for="typeahead-basic">ประเภทงาน</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="form"
+                                    name="worktype"
+                                    ngModel
+                                    [(ngModel)]="data.value.worktype"
+                                  />
+                                  <!-- <select
+                                    class="forms"
+                                    name="worktype"
+                                    [(ngModel)]="data.value.worktype"
+                                  >
+                                    <option
+                                      [disabled]="showEdit"
+                                      value="ขาเดียว"
+                                      >ขาเดียว</option
+                                    >
+                                    <option [disabled]="showEdit" value="ไปกลับ"
+                                      >ไปกลับ</option
+                                    >
+                                  </select> -->
+                                </div>
+                                <div class="box">
+                                  <label for="typeahead-basic"> วันที่</label>
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="workDate"
+                                    ngModel
+                                    [(ngModel)]="data.value.workDate"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                                <div class="box">
+                                  <label for="typeahead-basic"> เวลา</label>
+                                  <p class="cock">
+                                    {{ data.value.timeHour }}:00 น.
+                                  </p>
+                                  <!-- <input
+                                    type="text"
+                                    class="form-time t"
+                                    name="timeHour"
+                                    ngModel
+                                    [(ngModel)]="data.value.timeHour"
+                                    [readonly]="showEdit"
+                                  /> -->
+                                  <!-- <select
+                                    class="forms"
+                                    name="timeHour"
+                                    [(ngModel)]="data.value.timeHour"
+                                    ngModel
+                                  >
+                                    <option
+                                      [disabled]="showEdit"
+                                      *ngFor="
+                                        let i of [
+                                          8,
+                                          9,
+                                          10,
+                                          11,
+                                          12,
+                                          13,
+                                          14,
+                                          15,
+                                          16,
+                                          17,
+                                          18
+                                        ]
+                                      "
+                                      value="{{ i }}"
+                                      >{{ i }}:00 น.
+                                    </option>
+                                  </select> -->
+                                </div>
+
+                                <!-- <select
+                            class="form-control"
+                            name="timeMinute"
+                            [(ngModel)]="data.value.timeMinute"
+                            ngModel
+                          >
+                            <option value="00">00 </option>
+                            <option value="15"> 15 </option>
+                            <option value="45">45 </option>
+                          </select> -->
+
+                                <div class="box">
+                                  <label for="typeahead-basic">
+                                    ยอดชำระทั้งหมด</label
+                                  >
+                                  <input
+                                    id="typeahead-basic"
+                                    type="text"
+                                    class="forms"
+                                    name="totalPayment"
+                                    ngModel
+                                    [(ngModel)]="data.value.totalPayment"
+                                    [readonly]="showEdit"
+                                  />
+                                </div>
+                                <div class="money">
+                                  <label>ยอดคงค้าง</label>
+                                  <label class="dep">{{
+                                    data.value.totalPayment - data.value.deposit
+                                  }}</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </ngb-tab>
+
+                      <div>
+                        <ngb-tab title="แผนที่">
+                          <ng-template ngbTabContent>
+                            <br />
+                            <!-- <h4 style="text-align: center;">
+                              ข้อมูลใบกำกับภาษี
+                            </h4> -->
+
+                            <agm-map
+                              [latitude]="data.value.sourceLatitude"
+                              [longitude]="data.value.sourceLongitude"
+                              [zoom]="12"
+                            >
+                              <agm-marker
+                                [label]="'1'"
+                                [latitude]="data.value.sourceLatitude"
+                                [longitude]="data.value.sourceLongitude"
+                                [markerDraggable]="!showEdit"
+                                (dragEnd)="markerDragEnd($event)"
+                                [iconUrl]="{
+                                  url: iconUrl,
+                                  scaledSize: {
+                                    width: 45,
+                                    height: 60
+                                  }
+                                }"
+                              >
+                              </agm-marker>
+                              <agm-marker
+                                [label]="'2'"
+                                [latitude]="data.value.destLatitude"
+                                [longitude]="data.value.destLongitude"
+                                [markerDraggable]="!showEdit"
+                                (dragEnd)="markerDragEnd2($event)"
+                                [iconUrl]="{
+                                  url:
+                                    'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+                                  scaledSize: {
+                                    width: 40,
+                                    height: 60
+                                  }
+                                }"
+                              >
+                              </agm-marker>
+                              <div *ngFor="let data2 of wikis">
+                                <div *ngIf="Addrres">
+                                  <agm-marker
+                                    [label]="data2.value.firstname"
+                                    [latitude]="data2.value.currentLat"
+                                    [longitude]="data2.value.currentLong"
+                                    [markerDraggable]="false"
+                                  >
+                                  </agm-marker>
+                                </div>
+                                <div *ngIf="currentAddrres">
+                                  <agm-marker
+                                    [label]="'current!!!'"
+                                    [latitude]="data2.value.currentLat2"
+                                    [longitude]="data2.value.currentLong2"
+                                    [markerDraggable]="false"
+                                  >
+                                  </agm-marker>
+                                </div>
+                              </div>
+                            </agm-map>
+                          </ng-template>
+                        </ngb-tab>
+                      </div>
+
+                      <div *ngIf="data.value.invoiceNo">
+                        <ngb-tab title="ข้อมูลใบกำกับภาษี">
+                          <ng-template ngbTabContent>
+                            <br />
+                            <h4 style="text-align: center;">
+                              ข้อมูลใบกำกับภาษี
+                            </h4>
+                            <div class="inv">
+                              ชื่อลูกค้า:
+                              {{ data.value.nameForInvoice }} <br />
+                              เลขประจำตัวผู้เสียภาษี:
+                              {{ data.value.invoiceNo }} <br />
+                              เบอร์ติดต่อ:
+                              {{ data.value.customerPhoneForInvoice }} <br />
+                              ที่อยู่:
+                              {{ data.value.addressForInvoice }}
+                            </div>
+                          </ng-template>
+                        </ngb-tab>
+                      </div>
+                    </ngb-tabset>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn edit"
+                      (click)="newEditJob(data)"
+                      (click)="d('Cross click')"
+                    >
+                      แก้ไข
+                    </button>
+                    <!-- <button
+                      type="button"
+                      class="btn edit"
+                      (click)="buttonEdit('edit')"
+                    >
+                      แก้ไข
+                    </button>
+                    <button
+                      type="button"
+                      class="btn save"
+                      (click)="editForm(data)"
+                      (click)="buttonEdit('closeEdit')"
+                      (click)="c('Save click')"
+                      [ngStyle]="{ 'background-color': color }"
+                    >
+                      บันทึก
+                    </button> -->
+                  </div>
+                </ng-template>
+                {{ data.value.subDistictSource }}
+                {{ data.value.distictSource }}
+                {{ data.value.provinceSource }}
+              </td>
+              <td (click)="openData(con, data)">
+                {{ data.value.subDistictDestination }}
+                {{ data.value.distictDestination }}
+                {{ data.value.provinceDestination }}
+              </td>
+              <!-- <td>{{ data.value.worktype }}</td> -->
+              <td (click)="openData(con, data)">
+                {{ data.value.customerFirstname }}
+              </td>
+
+              <!-- <td>{{ data.value.customerPhone }}</td> -->
+              <!-- <td>{{ data.value.customerLine }}</td> -->
+              <!-- <td>{{ data.value.detail }}</td> -->
+              <!-- <td>{{ data.value.status }}</td> -->
+              <td (click)="openData(con, data)">{{ data.value.driver }}</td>
+              <td>
+                <div class="iconGroup">
+                  <!-- <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'submit')"
+                    placement="bottom"
+                    ngbTooltip="Submit"
+                  >
+                    <i class="fas fa-check-circle"></i>
+                  </button> -->
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'del')"
+                    placement="bottom"
+                    ngbTooltip="Delete"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button
+                    class="btn icon"
+                    (click)="openBill(data, content, contentEdit)"
+                    placement="bottom"
+                    ngbTooltip="บิลใบเสร็จ"
+                  >
+                    <i class="fas fa-money-check-alt"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="newEditJob(data)"
+                    placement="bottom"
+                    ngbTooltip="edit"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+              </td>
+
+              <!-- diglog bill ----------------------------------------------------------------------------->
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div [ngStyle]="{ 'background-color': color }" class="header">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    กรุณากรอกบิลใบเสร็จ
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="checkImageFalse()"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md">
+                        <form [formGroup]="formTemplate">
+                          <label for="typeahead-basic">ค่าจ้าง (บาท)</label>
+                          <input
+                            id="typeahead-basic"
+                            type="text"
+                            class="form-control"
+                            formControlName="totalPayment"
+                            [(ngModel)]="data.value.totalPayment"
+                          />
+                          <label for="typeahead-basic" style="margin-top: 8.4px;">ค่ามัดจำ (บาท)</label>
+                          <input
+                            id="typeahead-basic"
+                            type="text"
+                            class="form-control"
+                            formControlName="deposit"
+                            [(ngModel)]="data.value.deposit"
+                          />
+                          <br>
+                        </form>
+                        <form [formGroup]="formBillImageUrl">
+                          <div class="text-center">
+                            <div *ngIf="data.value.billImageUrl">
+                              <img
+                                class="pic"
+                                [src]="data.value.billImageUrl"
+                                (click)="openModal(deleteBillImage)"
+                                *ngIf="checkImageUrlBill"
+                              />
+                            </div>
+                            <div
+                              *ngIf="
+                                !checkImageUrlBill || !data.value.billImageUrl
+                              "
+                            >
+                              <img
+                                class="pic"
+                                [src]="imgSrc"
+                                (click)="billfileUploader.click()"
+                              />
+                              <label hidden>Select file to upload</label>
+                              <input
+                                hidden
+                                type="file"
+                                accept="image/*"
+                                class="form-control"
+                                #billfileUploader
+                                formControlName="billImageUrl"
+                                (change)="showPreview($event)"
+                              />
+                              <button
+                                *ngIf="selectedImage"
+                                (click)="
+                                  uploadbillImage(formBillImageUrl, data)
+                                "
+                              >
+                                Upload
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+
+                      <div class="col-md">
+                      <div style="display: grid;">
+                        <label>คงเหลือ</label>
+                        <label class="form-control" > {{
+                          data.value.totalPayment - data.value.deposit
+                            | currency: " "
+                        }}</label>
+                      </div>
+                        <form [formGroup]="formTemplate">
+                          <div class="area">
+                          <div>
+                          <label for="typeahead-basic">บิลใบเสร็จเลขที่</label>
+                          <input
+                            id="typeahead-basic"
+                            type="text"
+                            class="formx"
+                            formControlName="billNo"
+                            [(ngModel)]="data.value.billNo"
+                          />
+                          </div>
+                          <div>
+                          <label for="typeahead-basic">บิลใบเสร็จเล่มที่</label>
+                          <input
+                            id="typeahead-basic"
+                            type="text"
+                            class="formx"
+                            formControlName="bill"
+                            [(ngModel)]="data.value.bill"
+                          />
+                        </div>
+                          </div>
+                        </form>
+                        <br>
+                        <form [formGroup]="formBillNoImageUrl">
+                          <div class="text-center">
+                            <img
+                              class="pic"
+                              [src]="data.value.billNoImageUrl"
+                              (click)="openModal(deleteBillNoImage)"
+                              *ngIf="
+                                checkImageUrlNoBill && data.value.billNoImageUrl
+                              "
+                            />
+
+                            <div
+                              *ngIf="
+                                !checkImageUrlNoBill ||
+                                !data.value.billNoImageUrl
+                              "
+                            >
+                              <img
+                                class="pic"
+                                [src]="imgSrc2"
+                                (click)="billNofileUploader.click()"
+                              />
+                              <label hidden>Select file to upload</label>
+                              <input
+                                hidden
+                                type="file"
+                                accept="image/*"
+                                class="form-control"
+                                #billNofileUploader
+                                formControlName="billNoImageUrl"
+                                (change)="showPreview2($event)"
+                              />
+                              <button
+                                *ngIf="selectedImage2"
+                                (click)="
+                                  uploadbillNoImage(formBillNoImageUrl, data)
+                                "
+                              >
+                                Upload
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pop">
+                  <button
+                    type="button"
+                    class="btn save"
+                    (click)="onSubmit(formTemplate, data)"
+                    (click)="d('Cross click')"
+                  >
+                    บันทึก
+                  </button>
+                </div>
+              </ng-template>
+
+              <!-- delete image  dialog  on diglog bill-------------------------------------->
+              <!-- billImage -->
+              <ng-template #deleteBillImage let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการเปลี่ยนแปลงรูปภาพหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImageBill(data)"
+                      (click)="d('Cross click')"
+                    >
+                      ใช่
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      ไม่
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+
+              <!-- billNoImage -->
+              <ng-template #deleteBillNoImage let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการเปลี่ยนแปลงรูปภาพหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImageNoBill(data)"
+                      (click)="d('Cross click')"
+                    >
+                      ใช่
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      ไม่
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+
+              <!-- checkSubmitAndDelete -->
+              <ng-template #submitAndDelete let-c="close" let-d="dismiss">
+                <div
+                  class="modal-header"
+                  [ngStyle]="{ 'background-color': color }"
+                >
+                  <h4 class="modal-title" id="modal-basic-title">
+                    {{ checkSubmitAndDel[0] }}
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!-- <div class="modal-body"></div> -->
+                <div class="pop">
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการยืนยันงานหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn save"
+                      (click)="c('Save click')"
+                      (click)="editJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการลบการจ้างหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="c('Save click')"
+                      (click)="delJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+
+              <!-- <td>
                 <select>
                     <option value="">------</option>
                     <option [ngValue]="data2" *ngFor="let data2 of car">
@@ -162,10 +935,10 @@
                     </option>
                 </select>
             </td> -->
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

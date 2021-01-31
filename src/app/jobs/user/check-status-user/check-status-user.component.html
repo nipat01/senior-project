@@ -1,13 +1,21 @@
 <!-- <app-side-nav></app-side-navs> -->
+<div class="container">
+  <div class="row">
+    <div class="col-12">
 <h3>
-  <img src="https://image.flaticon.com/icons/svg/854/854894.svg" /> เช็คสถานะ
+  <img class="icon" src="https://image.flaticon.com/icons/svg/854/854894.svg" /> เช็คสถานะ
 </h3>
-<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
-  <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
-
+<!-- <form (ngSubmit)="newSearchJob(SearchJobForm)" #SearchJobForm="ngForm">
   <div class="control">
     <label>กรุณากรอกข้อมูล</label>
-    <input class="form-control" type="text" name="searchJob" ngModel /> <br />
+    <input
+      class="form-control"
+      type="text"
+      name="searchJob"
+      ngModel
+      [(ngModel)]="id"
+    />
+    <br />
     <button
       [ngStyle]="{ 'background-color': color }"
       class="btn submit"
@@ -16,56 +24,67 @@
       Submit
     </button>
   </div>
-</form>
-
+</form> -->
+<br />
 <hr />
 
-<h4>
-  <img src="https://image.flaticon.com/icons/svg/164/164996.svg" /> ผลลัพท์ค้นหา
-</h4>
+<!-- <h5>
+  <img src="https://image.flaticon.com/icons/svg/164/164996.svg" /> ผลลัพธ์ค้นหา
+</h5> -->
 
 <div *ngFor="let data of job; let i = index">
   <hr />
   <div class="text control">
-    วันที่: {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-    {{ data.value.workDate.year }} {{ data.value.workTime.hour }}:{{
-      data.value.workTime.minute
-    }}<br />
+    <div class="container">
+      <div class="row">
+        <div class="col-md frame">
+    วันที่: {{ data.value.workDate }} {{ data.value.timeHour }}:00 น.
+    <br />
     คุณ: {{ data.value.customerFirstname }} <br />
     สถานะ: {{ data.value.status }}<br />
-    ต้นทาง: {{ data.value.source }} <br />
-    ต้นทาง: {{ data.value.destination }} <br />
-    ปลายทาง: {{ data.value.worktype }}<br />
-    พนักงานขับรถ: {{ data.value.driver }}<br />
-    รีวิว: {{ data.value.review }}
-    <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating> <br />
-    <button class="btn icon" (click)="openBill(content, data, alert222)">
-      <img src="https://image.flaticon.com/icons/svg/942/942775.svg" />
-      ให้คะแนนบริการ
-    </button>
-    <ng-template #map let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">
-          ตำแหน่งปัจจุบันพนักงานขับรถ
-        </h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="d('Cross click')"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+    ต้นทาง: {{ data.value.source }}
+    {{ data.value.subDistictSource }}
+    {{ data.value.distictSource }}
+    {{ data.value.provinceSource }}
+    <br />
+    ปลายทาง: {{ data.value.destination }}
+    {{ data.value.subDistictDestination }}
+    {{ data.value.distictDestination }}
+    {{ data.value.provinceDestination }} <br />
+    ประเภทงาน: {{ data.value.worktype }}<br />
+    <div *ngIf="data.value.rateReview || data.value.review">
+      <ngb-rating [(rate)]="data.value.rateReview"></ngb-rating>
+      รีวิว: {{ data.value.review }}
+    </div>
+    พนักงานขับรถ: {{ data.value.driver }}
+    <div *ngFor="let emp of wikis">
+      <div class="box" *ngIf="data.value.driver === emp.value.firstname">
+        <img
+          [src]="emp.value.imageUrl"
+          width="350px"
+          height="300px"
+        />
       </div>
-      <div class="text-center">
-        <div class="modal-body" *ngFor="let emp of wikis">
+    </div>
+
+    <div *ngIf="data.value.status === 'proceeded' && !data.value.rateReview">
+      <button class="btn icon" (click)="openBill(content, data, alert222)">
+        <img src="https://image.flaticon.com/icons/svg/942/942775.svg" />
+        ให้คะแนนบริการ
+      </button>
+    </div>
+        </div>
+      <div class="col-md">
+    <div *ngIf="data.value.status === 'proceed'">
+      <div *ngFor="let emp of wikis">
+        <div *ngIf="data.value.driver === emp.value.firstname">
           <agm-map
             [latitude]="emp.value.currentLat"
             [longitude]="emp.value.currentLong"
             [zoom]="zoom"
           >
             <agm-marker
-             [label]="'driver'"
+              [label]="'driver'"
               [latitude]="emp.value.currentLat"
               [longitude]="emp.value.currentLong"
               [markerDraggable]="true"
@@ -87,16 +106,11 @@
             </agm-marker>
           </agm-map>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn  save" (click)="d('Cross click')">
-            Close
-          </button>
-        </div>
       </div>
-    </ng-template>
-    <button (click)="openMap(map, data, notMap)">
-      แสดงตำแหน่งปัจจุบันพนักงาน
-    </button>
+    </div>
+    </div>
+    </div>
+    </div>
   </div>
 
   <ng-template #content let-c="close" let-d="dismiss">
@@ -113,10 +127,10 @@
     </div>
     <div class="modal-body">
       <form [formGroup]="formTemplate">
-        <!-- <select class="form-control" (change)="selectValue($event)" name="selectSearchJob" ngModel> -->
         <ngb-rating
           formControlName="rateReview"
           [(rate)]="currentRate"
+          [ngModel]="data.value.rateReview"
         ></ngb-rating>
         <hr />
         <pre>Rate: <b>{{currentRate}}</b></pre>
@@ -126,6 +140,7 @@
           type="text"
           name="review"
           formControlName="review"
+          [ngModel]="data.value.review"
         />
         <br />
       </form>
@@ -135,67 +150,71 @@
         type="button"
         class="btn save"
         (click)="editJob(formTemplate, data)"
+        (click)="d('Cross click')"
       >
-        Save
+        บันทึก
       </button>
     </div>
   </ng-template>
   <hr />
   <br />
 </div>
+</div>
+</div>
+</div>
 
-<!-- ส่วนที่แสดงเมื่อ สถานะไม่ตรง -->
+<!-- ส่วนที่แสดงเมื่อ สถานะไม่ตรง
 <ng-template #alert222 let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
     <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="d('Cross click')"
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="d('Cross click')"
     >
-      <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="text-center">
+  <div class="modal-body">
+    <label>
+      เฉพาะงานที่ดำเนินการแล้วเท่านั้น
+    </label>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn  save" (click)="d('Cross click')">
+      Close
     </button>
   </div>
-  <div class="text-center">
-    <div class="modal-body">
-      <label>
-        เฉพาะงานที่ดำเนินการแล้วเท่านั้น
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn  save" (click)="d('Cross click')">
-        Close
-      </button>
-    </div>
-  </div>
-</ng-template>
+</div>
+</ng-template> -->
 
-<!-- แสดงmap เมื่อไม่อยู่ในงานที่กำลังดำเนินการ  -->
+<!-- แสดงmap เมื่อไม่อยู่ในงานที่กำลังดำเนินการ
 <ng-template #notMap let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">
       ไม่สามารถแสดงตำแหน่งพนักงานได้
     </h4>
     <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="d('Cross click')"
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="d('Cross click')"
     >
-      <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="text-center">
+  <div class="modal-body">
+    <label>
+      เฉพาะงานที่กำลังดำเนินการเท่านั้น
+    </label>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn  save" (click)="d('Cross click')">
+      Close
     </button>
   </div>
-  <div class="text-center">
-    <div class="modal-body">
-      <label>
-        เฉพาะงานที่กำลังดำเนินการเท่านั้น
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn  save" (click)="d('Cross click')">
-        Close
-      </button>
-    </div>
-  </div>
-</ng-template>
+</div>
+</ng-template> -->

@@ -9,8 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent implements OnInit {
-
-  public isCollapsed = true;
+  public isCollapsed = false;
+  // public isCollapsed = true;
   closeResult: string;
   selectedColor: string;
   constructor(

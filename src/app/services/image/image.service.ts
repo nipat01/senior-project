@@ -38,13 +38,14 @@ export class ImageService {
   }
 
   insertImageDetails(imageDetails) {
-    if (imageDetails.category === 'type1') {
-      this.firebase.list('imageDetails/imageDetailList/type1').push(imageDetails);
-    } else if (imageDetails.category === 'type2') {
-      this.firebase.list('imageDetails/imageDetailList/type2').push(imageDetails);
-    } else if (imageDetails.category === 'type3') {
-      this.firebase.list('imageDetails/imageDetailList/type3').push(imageDetails);
-    }
+    this.firebase.list('imageDetails/imageDetailList/type1').push(imageDetails);
+    // if (imageDetails.category === 'type1') {
+    //   this.firebase.list('imageDetails/imageDetailList/type1').push(imageDetails);
+    // } else if (imageDetails.category === 'type2') {
+    //   this.firebase.list('imageDetails/imageDetailList/type2').push(imageDetails);
+    // } else if (imageDetails.category === 'type3') {
+    //   this.firebase.list('imageDetails/imageDetailList/type3').push(imageDetails);
+    // }
   }
 
   insertImagePortfolioDetails(imageDetails) {

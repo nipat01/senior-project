@@ -2,21 +2,29 @@
 <br>
 <br>
 <div class="row justify-content-center">
-  <div class="col-md-6">
-    <div class="card">
-      <div [ngStyle]="{'background-color': color? color :'#abc' }" class="card-header text-center text-white ">
+  <div class="col-md-6" >
+    <div class="login">
+      <!-- <div [ngStyle]="{'background-color': color? color :'#abc' }" class="card-header text-center text-white ">
         เข้าสู่ระบบ
-      </div>
-      <div class="card-body">
+      </div> -->
+      <div class="body" >
         <form [formGroup]="loginForm">
+
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Email</label>
+
+            <label class="col-sm-3 col-form-label">
+
+              อีเมล
+            </label>
             <div class="col-sm-9">
               <input type="email" class="form-control" formControlName="email" />
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Password</label>
+            <label class="col-sm-3 col-form-label">
+
+              รหัสผ่าน
+            </label>
             <div class="col-sm-9">
               <input type="password" class="form-control" formControlName="password" />
             </div>
@@ -28,8 +36,9 @@
               </a>
             </div> -->
             <div class="col-6 text-right">
-              <button [ngStyle]="{'background-color': color? color :'#abc' }" type="submit" class="btn submit" (click)="login()">
-                <i class="fa fa-lock" aria-hidden="true"></i>
+              <button  type="submit" class="btn log" (click)="login()"
+              [ngStyle]="{ 'background-color': color ? color : '#abc' }">
+
                 เข้าสู่ระบบ
               </button>
             </div>
@@ -37,5 +46,8 @@
         </form>
       </div>
     </div>
+
   </div>
+
 </div>
+

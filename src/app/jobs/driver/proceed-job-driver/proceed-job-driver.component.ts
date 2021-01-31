@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { database } from 'firebase';
 import { AuthService } from '../../../services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-proceed-job-driver',
   templateUrl: './proceed-job-driver.component.html',
@@ -20,6 +21,7 @@ export class ProceedJobDriverComponent implements OnInit {
   carList: AngularFireList<any>;
   car: any[];
   id;
+  checkSubmitAndDel = [];
 
   watcher = navigator.geolocation.watchPosition(
     position => {
@@ -47,8 +49,9 @@ export class ProceedJobDriverComponent implements OnInit {
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     public auth: AuthService,
+    private modalService: NgbModal
     // private auth: AuthService
-    ) { }
+  ) { }
   ngOnInit() {
 
     this.db.list('job').snapshotChanges().map(actions => {
@@ -86,14 +89,33 @@ export class ProceedJobDriverComponent implements OnInit {
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }
+
   editJob(data) {
     console.log(data.value);
-    const jobData = {
+    let jobData = {
       ...data.value,
-      status: 'proceeded'
+      status: 'proceeded',
+      statusSendEmail: 'send',
     }
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
+    jobData = {
+      ...jobData,
+      statusSendEmail: 'unsend',
+    }
+    this.firebaseService.editJob(data.key, jobData);
+  }
+
+  open(content, value) {
+    if (value === 'submit') {
+      this.checkSubmitAndDel[0] = "ต้องการยืนยันงานหรือไม่";
+      this.checkSubmitAndDel[1] = "ยืนยัน";
+    }
+    if (value === 'del') {
+      this.checkSubmitAndDel[0] = "ต้องการลบการจ้างหรือไม่";
+      this.checkSubmitAndDel[1] = "ลบ";
+    }
+    this.modalService.open(content);
   }
 
 

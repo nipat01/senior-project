@@ -1,7 +1,6 @@
 
 
 .control {
-     display: grid;
      background-color: white;
      border-radius: 10px;
      padding: 8px 20px;
@@ -22,8 +21,95 @@ h3{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
-    margin-top: 60px;
+    margin-top: 8px;
+    /* margin-top: 60px; */
   }
 img {
   width: 45px;
 }
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+ thead {
+  background-color:white;
+}
+table {
+  background-color: white;
+}
+.space{
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px){
+.box{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.form{
+  display: block;
+  width: 350px;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+}
+
+@media (max-width: 575.98px) {
+  .form{
+  display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s
+  }
+}
+
+
+
+@media (min-width: 768px){
+  .but {
+    position: relative;
+    left: 490px;
+  }
+
+  .but2{
+    position: relative;
+    left: 590px;
+  }
+  }
+
+  @media (max-width: 575.98px) {
+    .but {
+      position: relative;
+      margin-top: 10px;
+      left: 10%;
+
+    }
+
+    .but2{
+      position: relative;
+      margin-top: 10px;
+      left: 20%;
+    }
+  }

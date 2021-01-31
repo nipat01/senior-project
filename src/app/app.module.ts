@@ -85,6 +85,9 @@ import { CheckLocitionComponent } from './jobs/user/check-locition/check-locitio
 import { SideNavComponent } from './forms/side-nav/side-nav.component';
 import { AgmCoreModule } from '@agm/core';
 import { InvoiceComponent } from './overview/invoice/invoice.component';
+import { DeleteJobComponent } from './jobs/delete-job/delete-job.component';
+import { EditPageComponent } from './edit-page/edit-page.component';
+import { EditJobComponent } from './jobs/edit-job/edit-job.component';
 
 const routes: Routes = [
   { path: 'addWiki', component: AddWikiComponent, canActivate: [AdminAuthGuard] },
@@ -98,6 +101,7 @@ const routes: Routes = [
 
 
   { path: 'overview', component: OverviewComponent, canActivate: [AdminAuthGuard] },
+  { path: 'overview/:id', component: OverviewComponent, canActivate: [AdminAuthGuard] },
 
   { path: 'job', component: JobComponent, canActivate: [AdminAuthGuard] },
   { path: 'addjob', component: AddjobComponent },
@@ -109,13 +113,17 @@ const routes: Routes = [
   { path: 'proceedjob', component: ProceedJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'proceededjob', component: ProceededJobComponent, canActivate: [AdminAuthGuard] },
   { path: 'searchjob', component: SearchJobComponent, canActivate: [AdminAuthGuard] },
-  { path: 'editjob/:id', component: AddjobComponent, canActivate: [AdminAuthGuard] },
+  { path: 'editjob/:id', component: EditJobComponent, canActivate: [AdminAuthGuard] },
+  // { path: 'editjob/:id', component: AddjobComponent, canActivate: [AdminAuthGuard] },
   { path: 'checkstatus', component: CheckStatusUserComponent },
+  { path: 'checkstatus/:id', component: CheckStatusUserComponent },
+  { path: 'deletejob', component: DeleteJobComponent, canActivate: [AdminAuthGuard] },
 
   { path: 'notificationjobdriver', component: NotificationJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'pendingjobdriver', component: PendingJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'proceedjobdriver', component: ProceedJobDriverComponent, canActivate: [AuthGuard] },
   { path: 'proceededjobdriver', component: ProceededJobDriverComponent, canActivate: [AuthGuard] },
+
 
 
   // { path: 'homepage', component: HomepageComponent },
@@ -127,6 +135,7 @@ const routes: Routes = [
   { path: 'portfolioadmin', component: PortfolioComponent, canActivate: [AdminAuthGuard] },
   { path: 'bankadmin', component: BankComponent, canActivate: [AdminAuthGuard] },
   { path: 'aboutadmin', component: AboutComponent, canActivate: [AdminAuthGuard] },
+  { path: 'editPage', component: EditPageComponent, canActivate: [AdminAuthGuard] },
 
   { path: 'profileuser', component: ProfileUserComponent },
   { path: 'homepageuser', component: HomepageUserComponent },
@@ -137,6 +146,7 @@ const routes: Routes = [
   { path: 'aboutuser', component: AboutUserComponent },
   { path: 'invoice', component: InvoiceComponent },
   { path: 'invoice/:id', component: InvoiceComponent },
+
 
   { path: '', redirectTo: '/homepageuser', pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
@@ -195,7 +205,10 @@ const routes: Routes = [
     ShowStatusComponent,
     CheckLocitionComponent,
     SideNavComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    DeleteJobComponent,
+    EditPageComponent,
+    EditJobComponent
 
 
 

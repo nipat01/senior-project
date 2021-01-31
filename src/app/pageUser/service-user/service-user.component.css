@@ -1,0 +1,32 @@
+h3{
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px 20px;
+}
+.icon {
+  width: 45px;
+}
+@media (min-width: 768px){
+  .cab{
+    text-align: center;
+      color: black;
+      font-size: 1.2em;
+      padding: 10px 10px;
+      position: relative;
+      transition: 0.5s padding;
+      text-align: center;
+      width: 100%;
+  }
+}
+@media (max-width: 575.98px) {
+  tr{
+    display: grid;
+  }
+   .size{
+    width: 250px;
+    height: 200px;
+   }
+   .imagebox{
+     text-align: center;
+   }
+}

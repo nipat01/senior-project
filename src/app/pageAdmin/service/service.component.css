@@ -3,8 +3,88 @@ h3{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
-    margin-top: 60px;
+    margin-top: 8px;
   }
 .icon {
   width: 45px;
 }
+.control {
+  display: grid;
+  background-color: white;
+  border-radius: 5px;
+  padding: 8px 20px;
+  margin-top: 8px;
+
+}
+.area{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+
+@media (min-width: 768px){
+  .group {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .form{
+    display: block;
+    width: 400px;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  }
+
+  @media (max-width: 575.98px) {
+    .form{
+    display: block;
+      width: 100%;
+      height: calc(1.5em + .75rem + 2px);
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s
+    }
+  }
+
+  @media (min-width: 768px){
+    .cab{
+      text-align: center;
+      background-color:rgba(255, 255, 255, 0.56);
+      display: flex;
+        color: black;
+        font-size: 1.2em;
+        left: 15px;
+        padding: 10px 10px;
+        position: relative;
+        transition: 0.5s padding;
+        text-align: center;
+        width: 100%;
+    }
+  }
+  @media (max-width: 575.98px) {
+    tr{
+      display: grid;
+    }
+     .size{
+      width: 250px;
+      height: 200px;
+     }
+     .imgbox{
+      text-align: center;
+     }
+  }

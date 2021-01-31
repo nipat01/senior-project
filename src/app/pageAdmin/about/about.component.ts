@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Router } from '@angular/router';
@@ -6,14 +6,14 @@ import { FirebaseService } from '../../services/firebase-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from 'src/app/app.component';
-
+import { MapsAPILoader, MouseEvent } from '@agm/core'; //ทำให้สามารถใช้งาน $event.coords.longlat ได้
 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
 })
-export class AboutComponent implements OnInit, OnChanges   {
+export class AboutComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
     console.log('button', changes.color.currentValue);
@@ -28,7 +28,11 @@ export class AboutComponent implements OnInit, OnChanges   {
   location: any[];
   longitude: number;
   latitude: number;
+  longitude2: number;
+  latitude2: number;
   zoom: number;
+
+
 
   get color() {
     return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
@@ -41,10 +45,12 @@ export class AboutComponent implements OnInit, OnChanges   {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
+    private mapsAPILoader: MapsAPILoader,
+
 
   ) { }
   ngOnInit() {
-    this.zoom=18;
+    this.zoom = 18;
     this.setCurrentLocation();
     this.db.list('allhomepage/about').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
@@ -64,8 +70,16 @@ export class AboutComponent implements OnInit, OnChanges   {
     this.db.list('allhomepage/location').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(location => {
-      console.log('location', location)
+      // console.log('location', location)
       this.location = location;
+      console.log('location', this.location);
+      if (!this.location[0].value) {
+        this.location[0].value.lat = this.latitude;
+        this.location[0].value.long = this.longitude;
+        console.log('thisLoc', this.location[0]);
+
+
+      }
     });
   }
 
@@ -95,8 +109,10 @@ export class AboutComponent implements OnInit, OnChanges   {
       this.firebaseService.editAccount(key, data.value);
     }
   }
+
   lacationOnAboutUs() {
     console.log('555');
+    //ไม่ใช้
     // for (let i = 0; i < this.location.length; i++) {
     //   const setCurrentWikis = {
     //     ...this.location[i],
@@ -109,13 +125,44 @@ export class AboutComponent implements OnInit, OnChanges   {
     //   }
     //   console.log('setCurrent', setCurrent);
     //   console.log('setCur2', setCur2);
-
     // }
 
+    this.location[0].value.lat = this.latitude;
+    this.location[0].value.long = this.longitude;
+    //ใช้งาน
+    // if (this.location.length === 0) {
+    //   const dataLocation = {
+    //     lat: this.latitude,
+    //     long: this.longitude,
+    //   }
+
+
+    //   console.log('success send locattiton');
+
+    //   this.db.list('allhomepage/location').push(dataLocation);
+    // }
+    // else {
+    //   console.log('location[0]', this.location[0]);
+    //   console.log('length', this.location.length);
+    //   let dataLocation = {
+    //     ...this.location[0].value,
+    //   }
+    //   let updateLocation = {
+    //     ...dataLocation,
+    //     lat: this.latitude,
+    //     long: this.longitude,
+    //   }
+
+    //   console.log('updateLocation', updateLocation);
+    //   this.firebaseService.editLocationOnAboutUs(this.location[0].key, updateLocation);
+    // }
+  }
+
+  locationAddresstion() {
     if (this.location.length === 0) {
       const dataLocation = {
-        lat: this.latitude,
-        long: this.longitude,
+        lat: this.latitude2,
+        long: this.longitude2,
       }
 
 
@@ -131,13 +178,14 @@ export class AboutComponent implements OnInit, OnChanges   {
       }
       let updateLocation = {
         ...dataLocation,
-        lat: this.latitude,
-        long: this.longitude,
+        lat: this.latitude2,
+        long: this.longitude2,
       }
 
-      console.log('updateLocation', updateLocation);
+      console.log('updateLocation2', updateLocation);
       this.firebaseService.editLocationOnAboutUs(this.location[0].key, updateLocation);
     }
+
   }
 
   private setCurrentLocation() {
@@ -152,6 +200,16 @@ export class AboutComponent implements OnInit, OnChanges   {
       });
     }
   };
+
+  markerDragEnd($event: MouseEvent) {
+    console.log($event);
+    this.latitude2 = $event.coords.lat;
+    this.longitude2 = $event.coords.lng;
+    // this.getAddress(this.latitude, this.longitude);
+    console.log(this.latitude2, this.longitude2);
+    // window.alert('Geocoder failed due to: ');
+  }
+
   openCurrentAddress(contentCurrent) {
     const modalRef = this.modalService.open(contentCurrent);
   }

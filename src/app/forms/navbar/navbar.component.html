@@ -1,36 +1,51 @@
-<nav *ngIf="pickerColor" [ngStyle]="{'background-color': color? color :'#abc' }"
-  class="navbar navbar-expand-md navbar-dark fixed-top">
+<nav
+  *ngIf="pickerColor"
+  [ngStyle]="{ 'background-color': color ? color : '#abc' }"
+  class="navbar navbar-expand-md navbar-dark fixed-top"
+>
   <a class="navbar-brand texts" [routerLink]="['/homepageuser']"> หน้าแรก</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-    (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarNavDropdown"
-    aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    (click)="isCollapsed = !isCollapsed"
+    [attr.aria-expanded]="!isCollapsed"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngbCollapse]="isCollapsed">
+  <div
+    class="collapse navbar-collapse"
+    id="navbarNavDropdown"
+    [ngbCollapse]="isCollapsed"
+  >
     <ul class="navbar-nav mr-auto"></ul>
     <ul class="navbar-nav">
-
-      <select *ngIf="auth.authenticated && auth.authenticatedAdmin()" [(ngModel)]="selectedColor" id="selectColor"
-        (change)=changesColor()>
+      <select
+        *ngIf="auth.authenticated && auth.authenticatedAdmin()"
+        [(ngModel)]="pickerColor[0].value.color"
+        id="selectColor"
+        (change)="changesColor()"
+      >
         <option value="darksalmon" class="pink">pink</option>
         <option value="silver" class="silver">silver</option>
         <option value="darkseagreen" class="darkseagreen">darkseagreen</option>
         <option value="#abc" class="lightblue">lightblue</option>
-        <option value="burlywood" class="burlywood">burlywood</option>
+        <option value="#a2d9ff" class="burlywood">burlywood</option>
         <option value="#fda77f" class="lightpink">lightpink</option>
       </select>
 
-
-      <!-- <li>
-        <a class="nav-link" [routerLink]="['/']"> หน้าแรก</a>
-      </li> -->
-      <!-- user -->
       <li *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
-        <a class="nav-link" [routerLink]="['/notificationjobdriver']">แจ้งเตือนงาน </a>
+        <a class="nav-link" [routerLink]="['/notificationjobdriver']"
+          >แจ้งเตือนงาน
+        </a>
       </li>
-      <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
+      <!-- <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/homepageuser']">JISTIC </a>
-      </li>
+      </li> -->
       <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/serviceuser']">บริการ </a>
       </li>
@@ -46,10 +61,8 @@
       <li *ngIf="!auth.authenticated || !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/aboutuser']">เกี่ยวกับเรา </a>
       </li>
-      <!-- admin -->
 
-
-      <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
+      <!-- <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/homepageadmin']">JISTIC </a>
       </li>
       <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
@@ -66,7 +79,7 @@
       </li>
       <li *ngIf="auth.authenticated && auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/aboutadmin']">เกี่ยวกับเรา </a>
-      </li>
+      </li> -->
       <li *ngIf="!auth.authenticated">
         <a class="nav-link" [routerLink]="['/login']">เข้าสู่ระบบ </a>
       </li>
@@ -76,19 +89,57 @@
       <li *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
         <a class="nav-link" [routerLink]="['/profileuser']">ข้อมูลส่วนตัว </a>
       </li> -->
-      <li *ngIf="auth.authenticated" class="nav-item" ngbDropdown display="dynamic" placement="bottom-right">
-        <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown3" role="button">
+      <li
+        *ngIf="auth.authenticated"
+        class="nav-item"
+        ngbDropdown
+        display="dynamic"
+        placement="bottom-right"
+      >
+        <a
+          class="nav-link"
+          style="cursor: pointer"
+          ngbDropdownToggle
+          id="navbarDropdown3"
+          role="button"
+        >
           {{ this.auth.username }}
         </a>
-        <div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
-          <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" [routerLink]="['/profileuser']"
-            class="dropdown-item" (click)="$event.preventDefault()">ข้อมูลส่วนตัว</a>
-          <a *ngIf="auth.authenticated" [routerLink]="['/']" class="dropdown-item"
-            (click)="openEditData(contentEditData)" (click)="$event.preventDefault()">เปลี่ยนรหัสผ่าน</a>
-          <a *ngIf="auth.authenticated" [routerLink]="['/']" class="dropdown-item" (click)="openToken(token)"
-            (click)="$event.preventDefault()">token</a>
-          <a class="dropdown-item" [routerLink]="['/']" (click)="this.auth.signOut()"
-            (click)="$event.preventDefault()">ออกจากระบบ</a>
+        <div
+          ngbDropdownMenu
+          aria-labelledby="navbarDropdown3"
+          class="dropdown-menu"
+        >
+          <a
+            *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+            [routerLink]="['/profileuser']"
+            class="dropdown-item"
+            (click)="$event.preventDefault()"
+            >ข้อมูลส่วนตัว</a
+          >
+          <a
+            *ngIf="auth.authenticated"
+            [routerLink]="['/']"
+            class="dropdown-item"
+            (click)="openEditData(contentEditData)"
+            (click)="$event.preventDefault()"
+            >เปลี่ยนรหัสผ่าน</a
+          >
+          <a
+            *ngIf="auth.authenticated && auth.authenticatedAdmin()"
+            [routerLink]="['/']"
+            class="dropdown-item"
+            (click)="openToken(token)"
+            (click)="$event.preventDefault()"
+            >เพิ่มข้อมูลบริษัท</a
+          >
+          <a
+            class="dropdown-item"
+            [routerLink]="['/']"
+            (click)="this.auth.signOut()"
+            (click)="$event.preventDefault()"
+            >ออกจากระบบ</a
+          >
         </div>
       </li>
     </ul>
@@ -96,16 +147,18 @@
 </nav>
 <!-- Sidenav---------------------------------------------------------------------------------------------- -->
 
-
-
-
 <!-- เปลี่ยนรหัสผ่าน----------------------------------------------------------------------- -->
 <!-- <div *ngIf="auth.authenticated"> -->
 
 <ng-template #contentEditData let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">เปลี่ยนรหัสผ่าน</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -113,13 +166,21 @@
     <form [formGroup]="editPasswordForm">
       <div class="form-group">
         <label>รหัสผ่านใหม่ของคุณ</label>
-        <input type="password" class="form-control" formControlName="password" />
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+        />
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="editPassword(editPasswordForm)"
-      (click)="c('Save click')">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="editPassword(editPasswordForm)"
+      (click)="c('Save click')"
+    >
       Save
     </button>
   </div>
@@ -130,24 +191,50 @@
 <ng-template #token let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Token</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
   <div class="modal-body">
     <form [formGroup]="tokenForm">
       <div class="form-group">
+        <!-- <pre>{{tokenAdmin | json}}</pre> -->
         <!-- <div *ngFor="let data of token"> -->
         <label>Token ผู้ดูแลระบบ</label>
-        <input type="text" class="form-control" formControlName="tokenAdmin" />
-        <label>Token กลุ่มพนักงานขับรถ</label>
-        <input type="text" class="form-control" formControlName="tokenGroup" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="tokenAdmin"
+          [ngModel]="tokenAdmin.value.tokenAdmin"
+        />
+        <label>เลขประจำตัวผู้เสียภาษี</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="idTax"
+          [ngModel]="tokenAdmin.value.idTax"
+        />
+
+        <!-- <label>Token กลุ่มพนักงานขับรถ</label>
+        <input type="text" class="form-control" formControlName="tokenGroup" /> -->
+
         <!-- </div> -->
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-success" (click)="addToken(tokenForm)" (click)="c('Save click')">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      (click)="addToken(tokenForm)"
+      (click)="c('Save click')"
+    >
       Save
     </button>
   </div>

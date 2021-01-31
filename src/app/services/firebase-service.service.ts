@@ -20,6 +20,7 @@ export class FirebaseService {
   aboutLocationList: AngularFireList<any>
   portolio: AngularFireList<any>
   serivce: AngularFireList<any>
+  carType: AngularFireList<any>
   carType1: AngularFireList<any>
   carType2: AngularFireList<any>
   carType3: AngularFireList<any>
@@ -38,6 +39,7 @@ export class FirebaseService {
     this.aboutLocationList = db.list('allhomepage/location');
     this.portolio = db.list('imageDetails/imageDetailPortfolioList');
     this.serivce = db.list('imageDetails/imageDetailServicelList');
+    this.carType = db.list('carType');
     this.carType1 = db.list('imageDetails/imageDetailList/type1');
     this.carType2 = db.list('imageDetails/imageDetailList/type2');
     this.carType3 = db.list('imageDetails/imageDetailList/type3');
@@ -112,12 +114,15 @@ export class FirebaseService {
     return this.videoList.update(id, data);
   }
   editToken(id, data) {
-    console.log('tokenList',this.tokenList);
+    console.log('tokenList', this.tokenList);
     return this.tokenList.update(id, data);
   }
 
   editJob(id, data) {
     return this.jobList.update(id, data);
+  }
+  editCarType(id, data) {
+    return this.carType.update(id, data);
   }
 
   removeJob(id): void {
@@ -143,6 +148,9 @@ export class FirebaseService {
   }
   removCartype3(id): void {
     this.carType3.remove(id);
+  }
+  removeBank(id): void {
+    this.bankList.remove(id);
   }
 
 

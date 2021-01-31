@@ -12,7 +12,8 @@ h3{
     background-color: white;
     border-radius: 5px;
     padding: 8px 20px;
-    margin-top: 60px;
+    margin-top: 8px;
+    /* margin-top: 60px; */
   }
 img {
   width: 45px;
@@ -21,4 +22,15 @@ img {
 agm-map {
   height: 300px;
 
+}
+
+.space {
+  display: flex;
+  justify-content: space-between;
+}
+
+.but {
+  margin-top: 20px;
+  position: relative;
+  left: 36.8%;
 }

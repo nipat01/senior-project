@@ -1,7 +1,18 @@
 <br />
 <br />
 <br />
-<p>แสดงผล</p>
+<div class="container">
+<div class="row">
+  <div class="col-md-12">
+
+<h3>
+  <img
+    class="icon"
+    src="https://image.flaticon.com/icons/svg/1897/1897770.svg"
+  />
+  ผลงาน
+</h3>
+
 <table *ngIf="imageList">
   <tr *ngFor="let i of rowIndexArray">
     <td>
@@ -12,41 +23,47 @@
       </div> -->
       <div class="imagebox" *ngIf="imageList[3 * i]">
         <img
+          class="size"
           [src]="imageList[3 * i].value.imageUrl"
-          class="img-fluid"
-          width="450px"
+          width="350px"
           height="250px"
+          style="padding: 5px;"
         />
-        <span class="imagebox-desc">{{ imageList[3 * i].value.caption }}</span>
+        <label class="cab">{{ imageList[3 * i].value.caption }}</label>
       </div>
     </td>
 
     <td *ngIf="imageList[3 * i + 1]">
       <div class="imagebox">
         <img
+          class="size"
           [src]="imageList[3 * i + 1].value.imageUrl"
-          class="img-fluid"
-          width="450px"
+          width="350px"
           height="250px"
+          style="padding: 5px;"
         />
-        <span class="imagebox-desc">{{
+        <label class="cab">{{
           imageList[3 * i + 1].value.caption
-        }}</span>
+        }}</label>
       </div>
     </td>
 
     <td *ngIf="imageList[3 * i + 2]">
       <div class="imagebox">
         <img
+          class="size"
           [src]="imageList[3 * i + 2].value.imageUrl"
-          class="img-fluid"
-          width="450px"
+          width="350px"
           height="250px"
+          style="padding: 5px;"
         />
-        <span class="imagebox-desc">{{
+        <label class="cab">{{
           imageList[3 * i + 2].value.caption
-        }}</span>
+        }}</label>
       </div>
     </td>
   </tr>
 </table>
+</div>
+</div>
+</div>

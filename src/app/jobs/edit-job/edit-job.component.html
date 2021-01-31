@@ -1,0 +1,824 @@
+<br />
+<br />
+<br />
+<!-- {{ job[0].value | json }} -->
+<div class="container">
+<div class="row">
+<div class="col-12">
+  <h4>
+    <img src="https://image.flaticon.com/icons/svg/295/295681.svg" />
+    แก้ไขข้อมูลการจ้าง
+  </h4>
+  <form>
+      <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <label>ชื่อลูกค้า</label>
+          <input
+            class="form"
+            type="text"
+            name="customerFirstname"
+            [(ngModel)]="job[0].value.customerFirstname"
+          />
+          <div>
+            <label>ประเภทงาน</label>
+            <!-- <input
+            type="text"
+            name="worktype"
+            [(ngModel)]="job[0].value.worktype"
+          /><br /> -->
+            <select
+              class="form"
+              name="worktype"
+              [(ngModel)]="job[0].value.worktype"
+            >
+              <option value="ขาเดียว">ขาเดียว</option>
+              <option value="ไปกลับ">ไปกลับ</option>
+            </select>
+          </div>
+          <div *ngIf="job[0].value.deposit">
+            <label>ค่ามัดจำ</label>
+            <input
+              class="form"
+              type="text"
+              name="deposit"
+              [(ngModel)]="job[0].value.deposit"
+            />
+          </div>
+          <div>
+            <label>เวลา</label>
+
+            <select
+              class="form"
+              name="timeHour"
+              [(ngModel)]="job[0].value.timeHour"
+            >
+              <option
+                *ngFor="let ii of [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]"
+                value="{{ ii }}"
+                >{{ ii }}:00 น.
+              </option>
+            </select>
+          </div>
+          <div>
+            <label>รายละเอียดการจ้าง</label>
+            <textarea
+              class="forms"
+              type="text"
+              name="detail"
+              [(ngModel)]="job[0].value.detail"
+              rows="=3"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-md">
+          <!-- <div>
+        <label>เมล</label>
+        <input
+          type="text"
+          name="customerLine"
+          [(ngModel)]="job[0].value.customerLine"
+        /><br />
+      </div> -->
+          <div>
+            <label>อีเมล</label>
+            <input
+              class="form"
+              type="text"
+              name="customerLine"
+              [(ngModel)]="job[0].value.customerLine"
+            />
+          </div>
+          <div>
+            <label>เบอร์ติดต่อ</label>
+            <input
+              class="form"
+              type="text"
+              name="customerPhone"
+              [(ngModel)]="job[0].value.customerPhone"
+            />
+          </div>
+          <div>
+            <label>วันที่</label>
+            <input
+              class="form"
+              type="text"
+              name="workDate"
+              [(ngModel)]="job[0].value.workDate"
+            />
+          </div>
+          <div *ngIf="job[0].value.totalPayment">
+            <label>ยอดชำระทั้งหมด</label>
+            <input
+              class="form"
+              type="text"
+              name="totalPayment"
+              [(ngModel)]="job[0].value.totalPayment"
+            />
+          </div>
+
+          <!-- <div>
+        <label>สถานะ</label>
+        <input
+          type="text"
+          name="status"
+          [(ngModel)]="job[0].value.status"
+        /><br />
+      </div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <br>
+        <agm-map
+          [latitude]="job[0].value.sourceLatitude"
+          [longitude]="job[0].value.sourceLongitude"
+          [zoom]="12"
+        >
+          <agm-marker
+            [label]="'1'"
+            [latitude]="job[0].value.sourceLatitude"
+            [longitude]="job[0].value.sourceLongitude"
+            [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"
+            [iconUrl]="{
+              url: 'https://image.flaticon.com/icons/svg/1397/1397898.svg',
+              scaledSize: {
+                width: 45,
+                height: 60
+              }
+            }"
+          >
+          </agm-marker>
+          <agm-marker
+            [label]="'2'"
+            [latitude]="job[0].value.destLatitude"
+            [longitude]="job[0].value.destLongitude"
+            [markerDraggable]="true"
+            (dragEnd)="markerDragEnd2($event)"
+            [iconUrl]="{
+              url: 'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+              scaledSize: {
+                width: 40,
+                height: 60
+              }
+            }"
+          >
+          </agm-marker>
+
+        </agm-map>
+
+        <!-- <button
+          class="btn icon"
+          (click)="getCurentAddress()"
+          (click)="open(contentCurrent)"
+          placement="bottom"
+          ngbTooltip="ขอตำแหน่งปัจจุบัน"
+        >
+          <i class="fas fa-location-arrow"></i>
+        </button>
+
+        <button
+          class="btn icon"
+          (click)="showCurrentAddress('addressEmp')"
+          placement="bottom"
+          ngbTooltip="ตำแหน่งปกติ"
+        >
+          <i class="fas fa-map-marker-alt"></i>
+        </button>
+        <button
+          class="btn icon"
+          (click)="showCurrentAddress('currentAddressEmp')"
+          placement="bottom"
+          ngbTooltip="ตำแหน่งปัจจุบัน"
+        >
+          <i class="fas fa-street-view"></i>
+        </button>
+        <button
+          class="btn icon"
+          (click)="showCurrentAddress('clearAddressEmp')"
+          placement="bottom"
+          ngbTooltip="ปิดแสดงตำแหน่งพนักงาน"
+        >
+          <i class="fas fa-eye-slash"></i>
+        </button> -->
+
+<br>
+      <div class="container">
+        <div class="row">
+          <div class="col-md">
+            <div>
+              <label>ต้นทาง</label>
+              <input
+                class="form"
+                type="text"
+                name="source"
+                [(ngModel)]="job[0].value.source"
+              />
+            </div>
+
+            <div>
+              <label>จังหวัด</label>
+              <!-- <input
+              type="text"
+              name="provinceSource"
+              [(ngModel)]="job[0].value.provinceSource"
+            /><br /> -->
+
+              <select
+                class="form"
+                (change)="changeProvnice($event, 'source')"
+                name="provinceSource"
+                [(ngModel)]="job[0].value.provinceSource"
+              >
+                >
+                <option
+                  *ngFor="let i of province; let index = index"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label>อำเภอ</label>
+              <!-- <input
+              type="text"
+              name="distictSource"
+              [(ngModel)]="job[0].value.distictSource"
+            /><br /> -->
+              <select
+                class="form"
+                (change)="changeDistict($event, 'source')"
+                name="distictSource"
+                [(ngModel)]="job[0].value.distictSource"
+              >
+                >
+                <option value=""></option>
+                <option
+                  *ngFor="let i of objCountrySource.pv[1]"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label>ตำบล</label>
+              <!-- <input
+              type="text"
+              name="subDistictSource"
+              [(ngModel)]="job[0].value.subDistictSource"
+            /><br /> -->
+              <select
+                class="form"
+                name="subDistictSource"
+                ngModel
+                [(ngModel)]="job[0].value.subDistictSource"
+              >
+                > >
+                <option value=""></option>
+                <option
+                  *ngFor="let i of objCountrySource.dt[1]"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md">
+            <div>
+              <label>ปลายทาง</label>
+              <input
+                class="form"
+                type="text"
+                name="destination"
+                [(ngModel)]="job[0].value.destination"
+              />
+            </div>
+            <div>
+              <label>จังหวัด</label>
+              <!-- <input
+            type="text"
+            name="provinceDestination"
+            [(ngModel)]="job[0].value.provinceDestination"
+          /><br /> -->
+              <select
+                class="form"
+                (change)="changeProvnice($event, 'destination')"
+                name="provinceDestination"
+                [(ngModel)]="job[0].value.provinceDestination"
+              >
+                >
+                <option
+                  *ngFor="let i of province; let index = index"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label>อำเภอ</label>
+              <!-- <input
+            type="text"
+            name="distictDestination"
+            [(ngModel)]="job[0].value.distictDestination"
+          /><br /> -->
+              <select
+                class="form"
+                (change)="changeDistict($event, 'destination')"
+                name="distictDestination"
+                [(ngModel)]="job[0].value.distictDestination"
+              >
+                >
+                <option value=""></option>
+                <option
+                  *ngFor="let i of objCountryDestination.pv[1]"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label>ตำบล</label>
+              <select
+                class="form"
+                name="subDistictDestination"
+                [(ngModel)]="job[0].value.subDistictDestination"
+              >
+                > >
+                <option value=""></option>
+                <option
+                  *ngFor="let i of objCountryDestination.dt[1]"
+                  value="{{ i[0] }}"
+                  >{{ i[0] }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!job[0].value.invoiceNo">
+        <button (click)="addInvoice()" class="btn icon ">
+          <i class="fas fa-plus-circle"></i>เพิ่มข้อมูลผู้เสียภาษี
+        </button>
+      </div>
+      <hr />
+      <div *ngIf="job[0].value.invoiceNo || checkInvoice">
+        <div class="inv">
+          <h5>ข้อมูลผู้เสียภาษี</h5>
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <label>ชื่อลูกค้า</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="nameForInvoice"
+                  [(ngModel)]="job[0].value.nameForInvoice"
+                />
+
+                <label>ที่อยู่</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="addressForInvoice"
+                  [(ngModel)]="job[0].value.addressForInvoice"
+                />
+              </div>
+              <div class="col-md">
+                <label>เลขประจำตัวผู้เสียภาษี</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="invoiceNo"
+                  [(ngModel)]="job[0].value.invoiceNo"
+                />
+
+                <label>เบอร์ติดต่อ</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="customerPhoneForInvoice"
+                  [(ngModel)]="job[0].value.customerPhoneForInvoice"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <button
+      style="margin-top: 25px;position: relative;left: 45%;"
+      [ngStyle]="{ 'background-color': color }"
+      class="btn submit"
+      type="submit"
+      (click)="open(editSubmit)"
+    >
+      บันทึก
+    </button>
+  </form>
+  <ng-template #editSubmit let-c="close" let-d="dismiss">
+    <div class="modal-header" [ngStyle]="{ 'background-color': color }">
+      <h4 class="modal-title" id="modal-basic-title">
+        ต้องการบันทึกหรือไม่
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="d('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- <div class="modal-body"></div> -->
+    <div class="pop">
+      <button
+        [ngStyle]="{ 'background-color': color }"
+        type="button"
+        class="btn save"
+        aria-label="Close"
+        (click)="d('Cross click')"
+        (click)="editJob(job[0])"
+      >
+        ยืนยัน
+      </button>
+      <button
+        type="button"
+        class="btn reset"
+        aria-label="Close"
+        (click)="d('Cross click')"
+      >
+        ยกเลิก
+      </button>
+    </div>
+  </ng-template>
+</div>
+</div>
+</div>
+<!--
+<br />
+<br />
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h4>
+        <img src="https://image.flaticon.com/icons/svg/295/295681.svg" />
+        กรอกรายละเอียดการจ้าง
+      </h4>
+
+      <form *ngFor="let data of job">
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+              <div class="box">
+                <label class="textinput" for="customerFirstname"
+                  >ชื่อลูกค้า</label
+                >
+                <input
+                  class="form"
+                  type="text"
+                  name="customerFirstname"
+                  ngModel
+                  [(ngModel)]="data.value.customerFirstname"
+                />
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="customerLine">อีเมล</label>
+                <input
+                  class="form"
+                  type="email"
+                  name="customerLine"
+                  ngModel
+                  [(ngModel)]="data.value.customerLine"
+                />
+              </div>
+
+
+              <div class="boxs">
+                <label class="textinput" for="detail">รายละเอียดการจ้าง</label>
+                <textarea
+                  class="forms"
+                  name="detail"
+                  ngModel
+                  rows="3"
+                  [(ngModel)]="data.value.detail"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="box">
+                <label class="textinput" for="customerPhone">เบอร์ติดต่อ</label>
+                <input
+                  class="form"
+                  type="tel"
+                  name="customerPhone"
+                  ngModel
+                  [(ngModel)]="data.value.customerPhone"
+                />
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="worktype">รูปแบบงาน</label>
+                <div
+                  class="type"
+                  ngModel
+                  ngbRadioGroup
+                  name="worktype"
+                  [(ngModel)]="data.value.worktype"
+                >
+                  <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
+                  </label>
+                  <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
+                  </label>
+                </div>
+
+              </div>
+              <div class="x">
+                <div class="time">
+                  <label class="textinput" for="workTime">เวลา</label>
+                  <div class="t">
+                    <select
+                      class="form-time"
+                      name="timeHour"
+                      ngModel
+                      [(ngModel)]="data.value.timeHour"
+                    >
+                      <option
+                        *ngFor="
+                          let i of [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                        "
+                        value="{{ i }}"
+                        >{{ i }}:00 น.
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+              <label class="textinput" for="source">ระบุต้นทาง</label>
+
+              <div class="box">
+                <label class="textinput" for="source">ชื่อสถานที่</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="source"
+                  placeholder="กรุณากรอกที่อยู่ต้นทาง"
+                  [(ngModel)]="data.value.source"
+                />
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="province">จังหวัด</label>
+                <select
+                  class="form"
+                  (change)="changeProvnice($event, 'source')"
+                  [(ngModel)]="data.value.provinceSource"
+                >
+                  >
+
+                  <option
+                    *ngFor="let i of province; let index = index"
+                    value="{{ i[0] }}"
+                    >{{ i[0] }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict">อำเภอ</label>
+                <select
+                  class="form"
+                  (change)="changeDistict($event, 'source')"
+                  name="distictSource"
+                  ngModel
+                  [(ngModel)]="data.value.distictSource"
+                >
+                  >
+
+                  <option>อำเภอ</option>
+                  <option
+                    *ngFor="let i of objCountrySource.pv[1]"
+                    value="{{ i[0] }}"
+                    >{{ i[0] }}
+                  </option>
+                </select>
+              </div>
+
+              <option>ตำบล</option>
+              <div class="box">
+                <label class="textinput" for="distict">ตำบล</label>
+                <select
+                  class="form"
+                  name="subDistictSource"
+                  ngModel
+                  [(ngModel)]="data.value.subDistictSource"
+                >
+                  >
+
+                  <option
+                    *ngFor="let i of objCountrySource.dt[1]"
+                    value="{{ i[0] }}"
+                    >{{ i[0] }}
+                  </option>
+                </select>
+              </div>
+
+              รหัสไปรณีย์: {{ post }}
+
+
+              </div>
+              <div *ngIf="data.value.invoiceNo" class="form-check">
+                <label class="form-check-label" for="exampleCheck1"
+                  >ใบกำกับภาษี</label
+                >
+              </div>
+              <div *ngIf="data.value.invoiceNo">
+                <div class="box">
+                  <label>ชื่อ</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="nameForInvoice"
+                    ngModel
+                    [(ngModel)]="data.value.nameForInvoice"
+                  />
+                </div>
+                <div class="box">
+                  <label>เลขประจำตัวผู้เสียภาษี</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="invoiceNo"
+                    ngModel
+                    [(ngModel)]="data.value.invoiceNo"
+                  />
+                </div>
+                <div class="box">
+                  <label>เบอร์โทรศัพท์</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="customerPhoneForInvoice"
+                    ngModel
+                    [(ngModel)]="data.value.customerPhoneForInvoice"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md">
+              <label class="textinput" for="destination">ระบุปลายทาง</label>
+
+              <div class="box">
+                <label class="textinput" for="destination">ชื่อสถานที่</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="destination"
+                  ngModel
+                  placeholder="กรุณากรอกที่อยู่ปลายทาง"
+                  [(ngModel)]="data.value.destination"
+                />
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="province2">จังหวัด</label>
+                <select class="form" (change)="selectProvince2($event)">
+                  <option>จังหวัด</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of products; let i = index"
+                  >
+                    {{ data3[0] }} {{ i }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict2">อำเภอ</label>
+                <select class="form" (change)="selectDistict2($event)">
+                  <option>อำเภอ</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of distict2; let i = index"
+                  >
+                    {{ data3[0] }} {{ i }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict2">ตำบล</label>
+                <select class="form" (change)="selectSubDistict2($event)">
+                  <option>ตำบล</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of subDistict2; let i = index"
+                  >
+                    {{ data3[0] }} {{ i }}
+                  </option>
+                </select>
+              </div>
+              รหัสไปรณีย์: {{ post2 }}
+
+
+
+              <br />
+              <div *ngIf="data.value.invoiceNo">
+                <div class="box">
+                  <label>ที่อยู่</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="addressForInvoice"
+                    ngModel
+                    required
+                    placeholder="ที่อยู่"
+                    [(ngModel)]="data.value.addressForInvoice"
+                  />
+                </div>
+                <div class="box">
+                  <label class="textinput" for="province2">จังหวัด</label>
+                  <select
+                    class="form"
+                    (change)="selectProvince($event, 'taxInvoice')"
+                  >
+                    <option>จังหวัด</option>
+                    <option
+                      value=" {{ data3[0] }},{{ i }}"
+                      *ngFor="let data3 of products; let i = index"
+                    >
+                      {{ data3[0] }} {{ i }}
+                    </option>
+                  </select>
+                </div>
+
+                <div *ngIf="distict3">
+                  <div class="box">
+                    <label class="textinput" for="distict">อำเภอ</label>
+                    <select
+                      class="form"
+                      (change)="selectDistict($event, 'taxInvoice')"
+                    >
+                      <option>อำเภอ</option>
+                      <option
+                        value=" {{ data3[0] }},{{ i }}"
+                        *ngFor="let data3 of distict3; let i = index"
+                      >
+                        {{ data3[0] }} {{ i }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div *ngIf="subDistict3">
+                  <div class="box">
+                    <label class="textinput" for="distict">ตำบล</label>
+                    <select
+                      class="form"
+                      (change)="selectSubDistict($event, 'taxInvoice')"
+                    >
+                      <option>ตำบล</option>
+                      <option
+                        value=" {{ data3[0] }},{{ i }}"
+                        *ngFor="let data3 of subDistict3; let i = index"
+                      >
+                        {{ data3[0] }} {{ i }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div *ngIf="post3">รหัสไปรณีย์: {{ post3 }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="s">
+          <button
+            [ngStyle]="{ 'background-color': color }"
+            class="btn submit"
+            type="submit"
+            (click)="editJob(job)"
+          >
+            บันทึก
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->

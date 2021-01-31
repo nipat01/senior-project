@@ -1,66 +1,150 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2 sidenav">
-  <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/pendingjobdriver">รอดำเนินการ</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceedjobdriver">กำลังดำเนินการ</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
-    <hr>
+  <div class="row">
+    <div class="col-md-2 sidenav">
+      <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/notificationjobdriver"
+          >แจ้งเตือนงาน</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/pendingjobdriver"
+          >รอดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceedjobdriver"
+          >กำลังดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceededjobdriver"
+          >ดำเนินการแล้ว</a
+        >
+        <hr />
+      </div>
+    </div>
+    <div class="col-md-10">
+      <h3>
+        <img
+          src="https://image.flaticon.com/icons/png/512/2029/2029954.png"
+        />กำลังดำเนินการ
+      </h3>
+      <!-- <div *ngFor="let data of job">
+      <button type="button" class="finish" (click)="editJob(data)">
+        <img
+          src="https://image.flaticon.com/icons/svg/1041/1041157.svg"
+        />Finish Job
+      </button>
+      </div> -->
+      <div class="overflow-auto">
+        <div *ngFor="let data of job">
+          <button
+            type="button"
+            class="finish"
+            (click)="open(submitAndDelete, 'submit')"
+          >
+            <img
+              src="https://image.flaticon.com/icons/svg/1041/1041157.svg"
+            />Finish Job
+          </button>
+          <table class="table table-striped">
+            <div></div>
+            <tbody>
+              <tr>
+                <th>วันที่</th>
+                <td>
+                  {{ data.value.workDate }}
+                </td>
+              </tr>
+              <tr>
+                <th>เวลา</th>
+                <td>
+                  {{ data.value.timeHour }}:00 น.
+                </td>
+              </tr>
+              <tr>
+                <th>ต้นทาง</th>
+                <td>{{ data.value.source }}</td>
+              </tr>
+              <tr>
+                <th>ปลายทาง</th>
+                <td>{{ data.value.destination }}</td>
+              </tr>
+              <tr>
+                <th>ประเภทงาน</th>
+                <td>{{ data.value.worktype }}</td>
+              </tr>
+              <tr>
+                <th>ชื่อลูกค้า</th>
+                <td>{{ data.value.customerFirstname }}</td>
+              </tr>
+              <tr>
+                <th>เบอร์โทรศัพท์</th>
+                <td>{{ data.value.customerPhone }}</td>
+              </tr>
+              <!-- <tr>
+                <th>customerLine</th>
+                <td>{{ data.value.customerLine }}</td>
+              </tr> -->
+              <tr>
+                <th>รายละเอียด</th>
+                <td>{{ data.value.detail }}</td>
+              </tr>
+              <!-- <tr>
+                <th>status</th>
+                <td>{{ data.value.status }}</td>
+              </tr> -->
+              <!-- <tr>
+                <th>driver</th>
+                <td>{{ data.value.driver }}</td>
+              </tr> -->
+            </tbody>
+          </table>
+          <!-- checkSubmitAndDelete -->
+          <ng-template #submitAndDelete let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">
+                {{ checkSubmitAndDel[0] }}
+              </h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer">
+              <div *ngIf="checkSubmitAndDel[0] === 'ต้องการยืนยันงานหรือไม่'">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  (click)="c('Save click')"
+                  (click)="editJob(data)"
+                >
+                  {{ checkSubmitAndDel[1] }}
+                </button>
+              </div>
+              <div *ngIf="checkSubmitAndDel[0] === 'ต้องการลบการจ้างหรือไม่'">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="c('Save click')"
+                  (click)="delJob(data)"
+                >
+                  {{ checkSubmitAndDel[1] }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="col-md-10">
-<h3><img src="https://image.flaticon.com/icons/png/512/2029/2029954.png">กำลังดำเนินการ</h3>
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">driver</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
-      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-      <td>{{ data.value.driver }}</td>
-      <td>
-        <button type="button" (click)="delJob(data)">Delete</button>
-        <button type="button" (click)="editJob(data)">Submit</button>
-      </td>
-      <!-- <td>
-        <select>
-          <option value="">------</option>
-          <option [ngValue]="data2" *ngFor="let data2 of car">
-            {{ data2.value.carId }}
-          </option>
-        </select>
-      </td> -->
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
 </div>

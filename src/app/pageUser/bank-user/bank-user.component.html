@@ -1,46 +1,74 @@
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-12">
-<h3><img src="https://image.flaticon.com/icons/svg/1086/1086741.svg"> ช่องทางการชำระเงิน</h3>
-<div class="control">
-<p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
-<div *ngFor="let data of bank">
-  {{ data.value.bank }}
-</div>
-</div>
-<div class="loco">
-  <h5>เส้นทางการดำเนินงาน
-    <hr>
-  </h5>
-  <div class="overflow-auto">
-  <div class="formProcess">
-    <div class="process">
-      <img src="https://image.flaticon.com/icons/svg/1197/1197511.svg">
-      <p>กรอกข้อมูลของท่าน</p>
-    </div>
-    <img src="https://image.flaticon.com/icons/svg/36/36739.svg">
-    <div class="process">
-    <img src="https://image.flaticon.com/icons/svg/2043/2043175.svg">
-    <p>เจ้าหน้าที่ติดต่อกลับ</p>
-    </div>
-    <img src="https://image.flaticon.com/icons/svg/36/36739.svg">
-    <div class="process">
-    <img src="https://image.flaticon.com/icons/svg/1706/1706657.svg">
-    <p>โอนเงินค่ามัดจำและเช็คสถานะ</p>
-    </div>
-    <img src="https://image.flaticon.com/icons/svg/36/36739.svg">
-    <div class="process">
-    <img src="https://image.flaticon.com/icons/svg/814/814245.svg">
-    <p>เจ้าหน้าที่ให้บริการท่าน</p>
-    </div>
-    <img src="https://image.flaticon.com/icons/svg/36/36739.svg">
-    <div class="process">
-    <img src="https://image.flaticon.com/icons/svg/1507/1507923.svg">
-    <p>ประเมินผลการให้บริการ</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <img src="https://image.flaticon.com/icons/svg/1086/1086741.svg" />
+        ช่องทางการชำระเงิน
+      </h3>
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+        <p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
+        <div *ngFor="let data of bank" class="control">
+          <!-- {{ data.value.bank }} -->
+          <!-- <label class="control"> -->
+            <p>ธนาคาร {{ data.value.bank }}</p>
+            <p>ประเภทบัญชี {{ data.value.typeBank }}</p>
+            <p>สาขา {{ data.value.banch }}</p>
+            <p>เลขที่บัญชี {{ data.value.nameAccountBank }}</p>
+            <p>ชื่อ {{ data.value.bankNo }}</p>
+
+
+          <!-- </label> -->
+        </div>
+            </div>
+            <div class="col-md">
+      <div class="loco">
+        <h5>
+          เส้นทางการดำเนินงาน
+          <hr />
+        </h5>
+        <div class="overflow-auto">
+          <div class="formProcess">
+            <div class="process">
+              <img
+                src="https://image.flaticon.com/icons/svg/1197/1197511.svg"
+              />
+              <p>กรอกข้อมูลของท่าน</p>
+            </div>
+            <img src="https://image.flaticon.com/icons/svg/36/36739.svg" />
+            <div class="process">
+              <img
+                src="https://image.flaticon.com/icons/svg/2043/2043175.svg"
+              />
+              <p>เจ้าหน้าที่ติดต่อกลับ</p>
+            </div>
+            <img src="https://image.flaticon.com/icons/svg/36/36739.svg" />
+            <div class="process">
+              <img
+                src="https://image.flaticon.com/icons/svg/1706/1706657.svg"
+              />
+              <p>โอนเงินค่ามัดจำและเช็คสถานะ</p>
+            </div>
+            <img src="https://image.flaticon.com/icons/svg/36/36739.svg" />
+            <div class="process">
+              <img src="https://image.flaticon.com/icons/svg/814/814245.svg" />
+              <p>เจ้าหน้าที่ให้บริการท่าน</p>
+            </div>
+            <img src="https://image.flaticon.com/icons/svg/36/36739.svg" />
+            <div class="process">
+              <img
+                src="https://image.flaticon.com/icons/svg/1507/1507923.svg"
+              />
+              <p>ประเมินผลการให้บริการ</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-  </div>
 </div>
-</div>
-</div>
+    </div>
+    </div>
+    </div>
+

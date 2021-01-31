@@ -24,7 +24,7 @@ export class NotificationJobDriverComponent implements OnInit {
   longitude: number;
   latitude: number;
   zoom: number;
-
+  checkSubmitAndDel = [];
   watcher = navigator.geolocation.watchPosition(
     position => {
       let { latitude, longitude } = position.coords;
@@ -32,8 +32,8 @@ export class NotificationJobDriverComponent implements OnInit {
 
       this.wikis[0].value = {
         ...this.wikis[0].value,
-        currentLat: latitude,
-        currentLong: longitude,
+        currentLat2: latitude,
+        currentLong2: longitude,
       }
       console.log('watch', this.wikis[0].value);
 
@@ -60,7 +60,7 @@ export class NotificationJobDriverComponent implements OnInit {
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      console.log(job)
+      // console.log(job)
       this.job = job.filter((data: any) => data.value.status === 'notification'
         && data.value.emailDriver === this.auth.username);
       // this.job = job
@@ -70,7 +70,7 @@ export class NotificationJobDriverComponent implements OnInit {
     this.db.list('wikis').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(wikis => {
-      console.log(wikis)
+      // console.log(wikis)
       this.wikis = wikis.filter((data: any) => data.value.email === this.auth.username);;
 
     });
@@ -91,13 +91,33 @@ export class NotificationJobDriverComponent implements OnInit {
   delJob(data) {
     this.firebaseService.removeJob(data.key);
   }
+
+  open(content, value) {
+    if (value === 'submit') {
+      this.checkSubmitAndDel[0] = "ต้องการยืนยันงานหรือไม่";
+      this.checkSubmitAndDel[1] = "ยืนยัน";
+    }
+    if (value === 'del') {
+      this.checkSubmitAndDel[0] = "ต้องการลบการจ้างหรือไม่";
+      this.checkSubmitAndDel[1] = "ลบ";
+    }
+    this.modalService.open(content);
+  }
+
   editJob(data, index) {
-    console.log(data.value);
-    const jobData = {
+    console.log('before',data.value);
+    let jobData = {
       ...data.value,
       status: 'Pending',
+      statusSendEmail: 'send',
     }
     console.log(jobData);
+    this.firebaseService.editJob(data.key, jobData);
+    jobData = {
+      ...jobData,
+      statusSendEmail: 'unsend',
+    }
+    console.log('after',jobData);
     this.firebaseService.editJob(data.key, jobData);
   }
 
@@ -105,8 +125,8 @@ export class NotificationJobDriverComponent implements OnInit {
     console.log('send', data);
     const currentAddress = {
       ...data.value,
-      currentLat: this.latitude,
-      currentLong: this.longitude,
+      currentLat2: this.latitude,
+      currentLong2: this.longitude,
     }
     console.log('currentAddress', currentAddress);
 

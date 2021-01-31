@@ -6,97 +6,265 @@
     <!-- เพิ่มข้อมูล------------------------------------------------------------------------------- -->
     <div class="col-md-10">
       <h3>
-        <img class="icons" src="https://image.flaticon.com/icons/svg/912/912216.svg" />
+        <img
+          class="icons"
+          src="https://image.flaticon.com/icons/svg/912/912216.svg"
+        />
         จัดการพนักงานขับรถ
       </h3>
       <ng-template #content let-c="close" let-d="dismiss">
         <div [ngStyle]="{ 'background-color': color }" class="header">
-          <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลพนักงาน</h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="d('Cross click')"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="formTemplate">
-            <div class="text-center">
-              <img class="img-fluid" [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
-            </div>
-            <div class="form-group">
-              <label>Select file to upload</label>
-              <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-                (change)="showPreview($event)" />
+          <ngb-tabset>
+            <ngb-tab title="ข้อมูลทั่วไป">
+              <ng-template ngbTabContent>
+                <form [formGroup]="formTemplate">
+                  <br />
+                  <label>ชื่อ</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="firstname"
+                    ngModel
+                  />
 
-              <!-- </div> -->
-              <!-- <div class="form-row"> -->
-              <label>อีเมลล์</label>
-              <input type="text" class="form-control" formControlName="email" ngModel />
-              <label>รหัสผ่าน</label>
-              <input type="password" class="form-control" formControlName="password" ngModel />
-              <label>ชื่อ</label>
-              <input type="text" class="form-control" formControlName="firstname" ngModel />
+                  <label>นามสกุล</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lastname"
+                    ngModel
+                  />
+                  <label>อีเมลล์</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="email"
+                    ngModel
+                  />
+                  <label>ไลน์</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="lineId"
+                    ngModel
+                  />
+                  <label>เบอร์โทรศัพท์</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="phoneId"
+                    ngModel
+                  />
+                  <label>Token</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="token"
+                    ngModel
+                  />
 
-              <label>นามสกุล</label>
-              <input type="text" class="form-control" formControlName="lastname" ngModel />
-              <label>ที่อยู่</label>
-              <input type="text" class="form-control" formControlName="address" ngModel />
-              <label>ที่อยู่ตามพิกัด(Laitute)</label>
-              <input type="text" class="form-control" formControlName="addressLat" ngModel />
-              <label>ที่อยู่ตามพิกัด(Longtitute)</label>
-              <input type="text" class="form-control" formControlName="addressLong" ngModel />
+                  <!-- </div> -->
+                  <!-- <div class="form-row"> -->
+                </form>
+              </ng-template>
+            </ngb-tab>
+
+            <ngb-tab title="ข้อมูลติดต่อ">
+              <ng-template ngbTabContent>
+                <form [formGroup]="formTemplate">
+                  <br />
+                  <label>ที่อยู่ตามทะเบียนบ้าน</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="address"
+                    ngModel
+                  />
+                  <label>ที่อยู่ปัจจุบัน</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="currentAddress"
+                    ngModel
+                  />
+                  <br />
+                  <agm-map
+                    [latitude]="latitude"
+                    [longitude]="longitude"
+                    [zoom]="zoom"
+                  >
+                    <agm-marker
+                      [latitude]="latitude"
+                      [longitude]="longitude"
+                      [markerDraggable]="true"
+                      [iconUrl]="iconUrl"
+                      (dragEnd)="markerDragEnd($event)"
+                    >
+                    </agm-marker>
+                  </agm-map>
+
+                  <!-- <label>ที่อยู่ตามพิกัด(Longtitute)</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="addressLong"
+                ngModel
+              />
               <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
-              <input type="text" class="form-control" formControlName="currentLat" ngModel />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="currentLat"
+                ngModel
+              />
               <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
-              <input type="text" class="form-control" formControlName="currentLong" ngModel />
-              <label>ตำแหน่ง</label>
-              <input type="text" class="form-control" formControlName="role" ngModel />
-              <label>ไลน์</label>
-              <input type="text" class="form-control" formControlName="lineId" ngModel />
-              <label>บัตรประชาชน</label>
-              <input type="text" class="form-control" formControlName="citizenId" ngModel />
-              <label>เบอร์โทรศัพท์</label>
-              <input type="text" class="form-control" formControlName="phoneId" ngModel />
-              <label>วันที่เริ่มงาน</label>
-              <!-- <input type="text" class="form-control" formControlName="hireDate" ngModel /> -->
-              <input class="form-control" (click)="d1.toggle()" placeholder="yyyy-mm-dd" formControlName="hireDate"
-                ngModel ngbDatepicker #d1="ngbDatepicker" />
-              <label>สถานะการทำงาน</label>
-              <input type="text" class="form-control" formControlName="status" ngModel />
-              <label>Token</label>
-              <input type="text" class="form-control" formControlName="token" ngModel />
-            </div>
-          </form>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="currentLong"
+                ngModel
+              /> -->
+                </form>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="ข้อมูลการทำงาน">
+              <ng-template ngbTabContent>
+                <form [formGroup]="formTemplate">
+                  <br />
+                  <label>บัตรประชาชน</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="citizenId"
+                    ngModel
+                  />
+
+                  <!-- <label>ตำแหน่ง</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="role"
+                    ngModel
+                  /> -->
+
+                  <label>วันที่เริ่มงาน</label>
+                  <!-- <input type="text" class="form-control" formControlName="hireDate" ngModel /> -->
+                  <input
+                    class="form-control"
+                    (click)="d1.toggle()"
+                    placeholder="yyyy-mm-dd"
+                    formControlName="hireDate"
+                    ngModel
+                    ngbDatepicker
+                    #d1="ngbDatepicker"
+                  />
+                  <label>สถานะการทำงาน</label>
+                  <!-- <input
+                    type="text"
+                    class="form-control"
+                    formControlName="status"
+                    ngModel
+                  /> -->
+                  <select class="form-control" formControlName="status">
+                    <option value="พนักงานประจำ">พนักงานประจำ</option>
+                    <option value="พนักงานพาร์ทไทม์"> พนักงานพาร์ทไทม์ </option>
+                  </select>
+                </form>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="โปรไฟล์">
+              <ng-template ngbTabContent>
+                <div class="mid">
+                  <form [formGroup]="formTemplate">
+                    <img
+                      class="img-fluid"
+                      [src]="imgSrc"
+                      width="350px"
+                      height="250px"
+                      (click)="fileUploader.click()"
+                    />
+
+                    <div class="form-group" hidden>
+                      <label>Select file to upload</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        class="form-control"
+                        #fileUploader
+                        formControlName="imageUrl"
+                        (change)="showPreview($event)"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="รหัสผ่าน">
+              <ng-template ngbTabContent>
+                <form [formGroup]="formTemplate">
+                  <br />
+                  <label>รหัสผ่าน</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    formControlName="password"
+                    ngModel
+                  />
+                </form>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
         </div>
         <div class="modal-footer">
-          <button [ngStyle]="{ 'background-color': color }" type="button" class="btn save"
-            (click)="onSubmit(formTemplate)">
-            Save
+          <button
+            [ngStyle]="{ 'background-color': color }"
+            type="button"
+            class="btn save"
+            (click)="onSubmit(formTemplate)"
+          >
+            บันทึก
           </button>
         </div>
       </ng-template>
-      <button class="btn icon plus" (click)="open(content)">
+      <button class="btn icon plus" (click)="openAddEmployees(content)">
         <i class="fas fa-user-plus"></i> เพิ่มข้อมูลพนักงาน
       </button>
       <!-- ------------------------------------------------------------------------------------- -->
 
-      <button class="btn icon" (click)="getCurentAddress()" (click)="openCurrentAddress(contentCurrent)">
+      <!-- <button
+        class="btn icon"
+        (click)="getCurentAddress()"
+        (click)="openCurrentAddress(contentCurrent)"
+      >
         <i class="fas fa-location-arrow"></i>ขอตำแหน่งปัจจุบัน
-      </button>
+      </button> -->
       <!-- แสดงผลdialog--------------------------------------------------------------------------------- -->
       <div class="overflow-auto">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Email</th>
-              <th scope="col">Firstname</th>
-              <th scope="col">Lastname</th>
-              <th scope="col">Address</th>
+              <!-- <th scope="col">Email</th> -->
+              <th scope="col">ชื่อ</th>
+              <th scope="col">นามสกุล</th>
+              <!-- <th scope="col">Address</th> -->
 
-              <th scope="col">Role</th>
-              <th scope="col">Line</th>
-              <th scope="col">Citizen</th>
-              <th scope="col">Phone</th>
-              <th scope="col">HireDate</th>
-              <th scope="col">Status</th>
+              <!-- <th scope="col">ตำแหน่ง</th> -->
+              <!-- <th scope="col">Line</th> -->
+              <!-- <th scope="col">Citizen</th> -->
+              <!-- <th scope="col">Phone</th> -->
+              <!-- <th scope="col">HireDate</th> -->
+              <th scope="col">สถานะ</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -106,87 +274,228 @@
               <td (click)="openData(contentData)">
                 <ng-template #contentData let-c="close" let-d="dismiss">
                   <div [ngStyle]="{ 'background-color': color }" class="header">
-                    <h4 class="modal-title" id="modal-basic-title">ข้อมูลพนักงาน</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="checkImageFalse()"
-                      (click)="d('Cross click')">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      ข้อมูลพนักงาน
+                    </h4>
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      (click)="checkImageFalse()"
+                      (click)="d('Cross click')"
+                    >
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form [formGroup]="editImageUrl">
-                      <div class="text-center">
-                        <img class="img-fluid" [src]="data.value.imageUrl" width="350px" height="250px"
-                          (click)="openDeleteImage(deleteImg)" *ngIf="checkImageUrl" />
-                        <div *ngIf="!checkImageUrl">
-                          <img [src]="imgSrc" width="350px" height="250px" />
-                          <label>Select file to upload</label>
-                          <input type="file" accept="image/*" class="form-control" #fileUploader
-                            formControlName="imageUrl" (change)="showPreview($event)" />
-                          <button (click)="uploadImage(editImageUrl, data)">
-                            Upload
-                          </button>
-                        </div>
-                      </div>
-                    </form>
+                    <ngb-tabset>
+                      <ngb-tab title="ข้อมูลทั่วไป">
+                        <ng-template ngbTabContent>
+                          <form [formGroup]="editwikiForm">
+                            <div class="form-group">
+                              <br />
+                              <label>ชื่อ</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="firstname"
+                                [(ngModel)]="data.value.firstname"
+                              />
+                              <label>นามสกุล</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="lastname"
+                                [(ngModel)]="data.value.lastname"
+                              />
+                              <label>อีเมลล์</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="email"
+                                [(ngModel)]="data.value.email"
+                              />
+                              <label>ไลน์</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="lineId"
+                                [(ngModel)]="data.value.lineId"
+                              />
+                              <label>เบอร์โทรศัพท์</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="phoneId"
+                                [(ngModel)]="data.value.phoneId"
+                              />
+                            </div>
+                          </form>
+                        </ng-template>
+                      </ngb-tab>
 
-                    <form [formGroup]="editwikiForm">
-                      <div class="form-group">
-                        <label>อีเมลล์</label>
-                        <input type="text" class="form-control" formControlName="email"
-                          [(ngModel)]="data.value.email" />
+                      <!-- <label>ที่อยู่ตามพิกัด(Laitute)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="addressLat"
+                          [(ngModel)]="data.value.addressLat"
+                        /> -->
+                      <!-- <label>ที่อยู่ตามพิกัด(Longtitute)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="addressLong"
+                          [(ngModel)]="data.value.addressLong"
+                        /> -->
+                      <!-- <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="currentLat"
+                          [(ngModel)]="data.value.currentLat"
+                        /> -->
+                      <ngb-tab title="ข้อมูลติดต่อ">
+                        <ng-template ngbTabContent>
+                          <form [formGroup]="editwikiForm">
+                            <div class="form-group">
+                              <br />
+                              <label>ที่อยู่</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="address"
+                                [(ngModel)]="data.value.address"
+                              />
 
-                        <label>ชื่อ</label>
-                        <input type="text" class="form-control" formControlName="firstname"
-                          [(ngModel)]="data.value.firstname" />
+                              <label>ที่อยู่ปัจจุบันตามพิกัด</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="currentAddress"
+                                [(ngModel)]="data.value.currentAddress"
+                              />
 
-                        <label>นามสกุล</label>
-                        <input type="text" class="form-control" formControlName="lastname"
-                          [(ngModel)]="data.value.lastname" />
-                        <label>ที่อยู่</label>
-                        <input type="text" class="form-control" formControlName="address"
-                          [(ngModel)]="data.value.address" />
-                        <label>ที่อยู่ตามพิกัด(Laitute)</label>
-                        <input type="text" class="form-control" formControlName="addressLat"
-                          [(ngModel)]="data.value.addressLat" />
-                        <label>ที่อยู่ตามพิกัด(Longtitute)</label>
-                        <input type="text" class="form-control" formControlName="addressLong"
-                          [(ngModel)]="data.value.addressLong" />
-                        <label>ที่อยู่ปัจจุบันตามพิกัด(Latitute)</label>
-                        <input type="text" class="form-control" formControlName="currentLat"
-                          [(ngModel)]="data.value.currentLat" />
-                        <label>ที่อยู่ปัจจุบันตามพิกัด(Longtitute)</label>
-                        <input type="text" class="form-control" formControlName="currentLong"
-                          [(ngModel)]="data.value.currentLong" />
-                        <label>ตำแหน่ง</label>
-                        <input type="text" class="form-control" formControlName="role" [(ngModel)]="data.value.role" />
-                        <label>ไลน์</label>
-                        <input type="text" class="form-control" formControlName="lineId"
-                          [(ngModel)]="data.value.lineId" />
-                        <label>บัตรประชาชน</label>
-                        <input type="text" class="form-control" formControlName="citizenId"
-                          [(ngModel)]="data.value.citizenId" />
-                        <label>เบอร์โทรศัพท์</label>
-                        <input type="text" class="form-control" formControlName="phoneId"
-                          [(ngModel)]="data.value.phoneId" />
+                              <!-- <label>วันที่เริ่มงาน</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="hireDate"
+                          [(ngModel)]="data.value.hireDate"
+                        /> -->
+                            </div>
+                          </form>
+                        </ng-template>
+                      </ngb-tab>
 
-                        <label>สถานะการทำงาน</label>
-                        <input type="text" class="form-control" formControlName="status"
-                          [(ngModel)]="data.value.status" />
-                      </div>
-                    </form>
+                      <ngb-tab title="ข้อมูลการทำงาน">
+                        <ng-template ngbTabContent>
+                          <form [formGroup]="editwikiForm">
+                            <div class="form-group">
+                              <br />
+                              <label>บัตรประชาชน</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="citizenId"
+                                [(ngModel)]="data.value.citizenId"
+                              />
+                              <!-- <label>ตำแหน่ง</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                formControlName="role"
+                                [(ngModel)]="data.value.role"
+                              /> -->
+                              <label>สถานะการทำงาน</label>
+                              <!-- <input
+                                type="text"
+                                class="form-control"
+                                formControlName="status"
+                                [(ngModel)]="data.value.status"
+                              /> -->
+                              <select
+                                class="form-control"
+                                formControlName="status"
+                                [(ngModel)]="data.value.status"
+                              >
+                                <option value="พนักงานประจำ"
+                                  >พนักงานประจำ</option
+                                >
+                                <option value="พนักงานพาร์ทไทม์">
+                                  พนักงานพาร์ทไทม์
+                                </option>
+                              </select>
+                            </div>
+                          </form>
+                        </ng-template>
+                      </ngb-tab>
+
+                      <ngb-tab title="โปรไฟล์">
+                        <ng-template ngbTabContent>
+                          <form [formGroup]="editImageUrl">
+                            <div class="mid">
+                              <br />
+                              <img
+                                class="img-fluid"
+                                [src]="data.value.imageUrl"
+                                width="350px"
+                                height="250px"
+                                (click)="openDeleteImage(deleteImg)"
+                                *ngIf="checkImageUrl"
+                              />
+                              <div *ngIf="!checkImageUrl">
+                                <img
+                                  [src]="imgSrc"
+                                  width="350px"
+                                  height="250px"
+                                />
+                                <label>Select file to upload</label>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  class="form-control"
+                                  #fileUploader
+                                  formControlName="imageUrl"
+                                  (change)="showPreview($event)"
+                                />
+                                <button
+                                  (click)="uploadImage(editImageUrl, data)"
+                                >
+                                  Upload
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </ng-template>
+                      </ngb-tab>
+                    </ngb-tabset>
                   </div>
                   <div class="modal-footer">
-                    <div class="iconGroup">
-                      <button type="button" class="btn icon" (click)="openEditData(contentEditData, data)">
+                    <!-- <div class="iconGroup"> -->
+                    <!-- <button
+                        type="button"
+                        class="btn icon"
+                        (click)="openEditData(contentEditData, data)"
+                      >
                         <i class="far fa-edit"></i>
-                      </button>
-                      <button type="button" class="btn edit" (click)="resetPassword(data)">
-                        Reset Password?
-                      </button>
-                    </div>
-                    <button type="button" class="btn save" (click)="editWiki(editwikiForm, data)"
-                      (click)="c('Save click')" [ngStyle]="{ 'background-color': color }">
-                      Save
+                      </button> -->
+                    <button
+                      type="button"
+                      class="btn edit"
+                      (click)="resetPassword(data)"
+                    >
+                      รีเซ็ตพาสเวิร์ด
+                    </button>
+                    <!-- </div> -->
+                    <button
+                      type="button"
+                      class="btn save"
+                      (click)="editWiki(editwikiForm, data)"
+                      (click)="c('Save click')"
+                      [ngStyle]="{ 'background-color': color }"
+                    >
+                      บันทึก
                     </button>
                   </div>
                 </ng-template>
@@ -198,45 +507,109 @@
                       ต้องการเปลี่ยนแปลงรูปภาพหรือไม่?
                     </h5>
 
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      (click)="d('Cross click')"
+                    >
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="text-center">
                     <div class="modal-footer">
-                      <button type="button" class="btn  save" (click)="deleteImage(data)" (click)="d('Cross click')">
+                      <button
+                        type="button"
+                        class="btn  save"
+                        (click)="deleteImage(data)"
+                        (click)="d('Cross click')"
+                      >
                         Yes
                       </button>
-                      <button type="button" class="btn  save" (click)="d('Cross click')">
+                      <button
+                        type="button"
+                        class="btn  save"
+                        (click)="d('Cross click')"
+                      >
                         No
                       </button>
                     </div>
                   </div>
                 </ng-template>
-                {{ data.value.email }}
+                <!-- {{ data.value.email }} -->
+                {{ data.value.firstname }}
               </td>
               <!-- -------------------------------------------------------------------------------------------- -->
-              <td (click)="openData(contentData)">{{ data.value.firstname }}</td>
+              <!-- <td (click)="openData(contentData)">{{ data.value.firstname }}</td> -->
               <td (click)="openData(contentData)">{{ data.value.lastname }}</td>
-              <td (click)="openData(contentData)">{{ data.value.address }}</td>
+              <!-- <td (click)="openData(contentData)">{{ data.value.address }}</td> -->
 
-              <td (click)="openData(contentData)">{{ data.value.role }}</td>
-              <td (click)="openData(contentData)">{{ data.value.lineId }}</td>
-              <td (click)="openData(contentData)">{{ data.value.citizenId }}</td>
-              <td (click)="openData(contentData)">{{ data.value.phoneId }}</td>
-              <td (click)="openData(contentData)">
-                {{ data.value.hireDate.day }} /{{ data.value.hireDate.month }} /
-                {{ data.value.hireDate.year }}
-              </td>
+              <!-- <td (click)="openData(contentData)">{{ data.value.role }}</td> -->
+              <!-- <td (click)="openData(contentData)">{{ data.value.lineId }}</td> -->
+              <!-- <td (click)="openData(contentData)">
+                {{ data.value.citizenId }}
+              </td> -->
+              <!-- <td (click)="openData(contentData)">{{ data.value.phoneId }}</td> -->
+              <!-- <td (click)="openData(contentData)">
+                {{ data.value.hireDate }}
+              </td> -->
               <td (click)="openData(contentData)">{{ data.value.status }}</td>
 
               <td>
                 <div class="iconGroup">
-                  <button type="button" class="btn icon" (click)="delWiki(data)" (click)="deleteAccount(data)">
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="openData(contentData)"
+                    placement="bottom"
+                    ngbTooltip="Edit"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'del')"
+                    placement="bottom"
+                    ngbTooltip="Delete"
+                  >
                     <i class="fas fa-trash-alt"></i>
                   </button>
-                  <button (click)="openData(contentData)">Edit</button>
                 </div>
+
+                <!-- checkSubmitAndDelete -->
+                <ng-template #submitAndDelete let-c="close" let-d="dismiss">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      {{ checkSubmitAndDel[0] }}
+                    </h4>
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      (click)="d('Cross click')"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- <div class="modal-body"></div> -->
+                  <div class="modal-footer">
+                    <div
+                      *ngIf="checkSubmitAndDel[0] === 'ต้องการลบข้อมูลหรือไม่'"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        (click)="c('Save click')"
+                        (click)="delWiki(data)"
+                        (click)="deleteAccount(data)"
+                      >
+                        {{ checkSubmitAndDel[1] }}
+                      </button>
+                    </div>
+                  </div>
+                </ng-template>
+
                 <!--
         <ng-template #contentEditData let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -398,9 +771,16 @@
 
       <ng-template #contentCurrent let-c="close" let-d="dismiss">
         <div [ngStyle]="{ 'background-color': color }" class="header">
-          <h4 class="modal-title" id="modal-basic-title">ยืนยันการส่งตำแหน่ง</h4>
-          <button type="button" class="close" aria-label="Close" (click)="resetCoordinates()"
-            (click)="d('Cross click')">
+          <h4 class="modal-title" id="modal-basic-title">
+            ยืนยันการส่งตำแหน่ง
+          </h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="resetCoordinates()"
+            (click)="d('Cross click')"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -411,8 +791,13 @@
             </label>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn  save" (click)="resetCoordinates()" (click)="d('Cross click')"
-              [ngStyle]="{ 'background-color': color }">
+            <button
+              type="button"
+              class="btn  save"
+              (click)="resetCoordinates()"
+              (click)="d('Cross click')"
+              [ngStyle]="{ 'background-color': color }"
+            >
               Close
             </button>
           </div>

@@ -1,35 +1,128 @@
-<div class="container-fluid">
-<div class="row">
-<div class="col-md-8">
-<div class="control space">
-<div *ngFor="let data of homepage">
+<div *ngIf="!auth.authenticated" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="space">
+        <div class="container">
+          <div class="row">
+            <div class="col-md ">
+              <p
+                [ngStyle]="{ 'background-color': color ? color : '#abc' }"
+                style="margin-top: 60px;"
+                *ngFor="let data of homepage"
+                class="content"
+              >
+                {{ data.value.detail }}
+              </p>
+              <iframe
+                width="100%"
+                height="315"
+                [src]="linkVideo"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="col-md">
+              <button
+                [ngStyle]="{ 'background-color': color ? color : '#abc' }"
+                class="btn but"
+                routerLink="/addjob"
+              >
+                ใช้บริการเรา
+              </button>
+              <img
+                src="https://cdn.pixabay.com/photo/2014/12/11/14/08/hand-truck-564242_1280.jpg"
+                class="case1"
+              />
 
-    <img src="https://image.flaticon.com/icons/svg/275/275332.svg">  {{data.value.firstname}}
+              <img
+                src="https://cdn.pixabay.com/photo/2017/07/08/10/44/parcel-2484036_1280.png"
+                class="case2"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="col-md-4 space">
+      <ngb-tabset>
+        <ngb-tab title="กรอกรายละเอียดการจ้าง">
+          <ng-template ngbTabContent>
+            <app-addjob></app-addjob>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="เช็คสถานะ">
+          <ng-template ngbTabContent>
+            <app-check-status-user></app-check-status-user>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div> -->
   </div>
 </div>
-<div class="control">
-<div *ngFor="let data of video">
-    {{ data.value.video1}}
-    <br>
 
-    <iframe width="100%" height="315" [src]="getVdoUrl('https://www.youtube.com/embed/' + data.value.video1)" frameborder="0"
-      allowfullscreen></iframe>
+<div *ngIf="auth.authenticated" class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-md-10">
+      <div class="space">
+        <div class="container">
+          <div class="row">
+            <div class="col-md ">
+              <p
+
+                style="margin-top: 60px;"
+                *ngFor="let data of homepage"
+                class="content"
+              >
+                {{ data.value.detail }}
+              </p>
+              <iframe
+                width="100%"
+                height="315"
+                [src]="linkVideo"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="col-md">
+              <button
+                [ngStyle]="{ 'background-color': color ? color : '#abc' }"
+                class="btn but"
+                routerLink="/addjob"
+              >
+                ใช้บริการเรา
+              </button>
+              <img
+                src="https://cdn.pixabay.com/photo/2014/12/11/14/08/hand-truck-564242_1280.jpg"
+                class="case3"
+              />
+
+              <img
+                src="https://cdn.pixabay.com/photo/2017/07/08/10/44/parcel-2484036_1280.png"
+                class="case4"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-4 space">
+      <ngb-tabset>
+        <ngb-tab title="กรอกรายละเอียดการจ้าง">
+          <ng-template ngbTabContent>
+            <app-addjob></app-addjob>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="เช็คสถานะ">
+          <ng-template ngbTabContent>
+            <app-check-status-user></app-check-status-user>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div> -->
+    </div>
   </div>
-</div>
-</div>
-
-<div class="col-md-4 space">
-  <ngb-tabset>
-    <ngb-tab title="กรอกรายละเอียดการจ้าง">
-      <ng-template ngbTabContent>
-        <app-addjob></app-addjob>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="เช็คสถานะ">
-      <ng-template ngbTabContent>
-        <app-check-status-user></app-check-status-user>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
-</div>
 </div>

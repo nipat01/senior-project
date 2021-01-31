@@ -1,225 +1,242 @@
 <div class="container-fluid">
-<div class="row">
-  <div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-
-<div class="col-md-10">
-<h3>
-  <img
-    class="icon"
-    src="https://image.flaticon.com/icons/svg/1044/1044288.svg"
-  />
-  บริการของเรา
-</h3>
-
-<div class="card">
-  <div class="card-body">
-    <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
-      <img
-        class="img-fluid"
-        [src]="imgSrc"
-        width="350px"
-        height="250px"
-        (click)="fileUploader.click()"
-      />
-
-      <div class="form-group">
-        <label>Select file to upload</label>
-        <input
-          type="file"
-          accept="image/*"
-          class="form-control"
-          #fileUploader
-          formControlName="imageUrl"
-          (change)="showPreview($event)"
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <img
+          class="icon"
+          src="https://image.flaticon.com/icons/svg/1044/1044288.svg"
         />
-        <div class="text-danger">
-          This field is required.
-        </div>
-        <!-- มีปัญหาตอนdeploy -->
-        <!-- <div
+        บริการของเรา
+      </h3>
+
+      <div class="card " style="text-align: center;">
+        <div class="card-body">
+          <form
+            [formGroup]="formTemplate"
+            (submit)="onSubmit(formTemplate.value)"
+          >
+            <img
+              class="img-fluid"
+              [src]="imgSrc"
+              width="350px"
+              height="250px"
+              (click)="fileUploader.click()"
+              style="margin-bottom: 20px;"
+            />
+
+            <!-- <label style="display: flow-root;">Select file to upload</label> -->
+            <div class="group">
+              <div class="box" hidden>
+                <input
+                  type="file"
+                  accept="image/x-png,image/jpeg"
+                  class="form"
+                  #fileUploader
+                  formControlName="imageUrl"
+                  (change)="showPreview($event)"
+                />
+                <!-- <div class="text-danger">
+                  This field is required.
+                </div> -->
+              </div>
+
+              <!-- มีปัญหาตอนdeploy -->
+              <!-- <div
           class="text-danger"
           *ngIf="isSubmitted && formControls.errors?.required"
         >
           This field is required.
         </div> -->
-      </div>
-      <div class="form-group">
-        <input
-          class="form-control"
-          formControlName="caption"
-          placeholder="Caption"
-        />
-        <div
-          class="text-danger"
-          *ngIf="isSubmitted && formControls.imageUrl.errors?.required"
-        >
-          This field is required.
+              <div class="box">
+                <input
+                  class="form"
+                  formControlName="caption"
+                  placeholder="Caption"
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="isSubmitted && formControls.imageUrl.errors?.required"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+            <button
+              [ngStyle]="{ 'background-color': color }"
+              class="btn submit"
+              type="submit"
+              style="margin-top:20px ;"
+            >
+              บันทึก
+            </button>
+          </form>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <button
-            [ngStyle]="{ 'background-color': color }"
-            class="btn submit"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
+
+        <h4>แสดงผล</h4>
+        <div class="list">
+        <table *ngIf="imageList" >
+          <tr *ngFor="let i of rowIndexArray">
+            <td *ngIf="imageList[3 * i]">
+              <div class="imgbox" >
+                <img
+                  class="size"
+                  [src]="imageList[3 * i].value.imageUrl"
+                  (click)="openDeleteImage(deleteImg1)"
+                  width="350px"
+                  height="250px"
+                  style="padding: 5px;"
+
+                />
+                <label class="cab">{{ imageList[3 * i].value.caption }}</label>
+              </div>
+              <!-- dialog delete image -->
+              <ng-template #deleteImg1 let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการลบหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImage(imageList[3 * i])"
+                      (click)="d('Cross click')"
+                    >
+                      ใช่
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      ไม่
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+
+            <td *ngIf="imageList[3 * i + 1]">
+              <div class="imgbox">
+                <img
+                  class="size"
+                  [src]="imageList[3 * i + 1].value.imageUrl"
+                  (click)="openDeleteImage(deleteImg2)"
+                  width="350px"
+                  height="250px"
+                  style="padding: 5px;"
+
+                />
+                <label class="cab">{{
+                  imageList[3 * i + 1].value.caption
+                }}</label>
+              </div>
+              <!-- dialog delete image -->
+              <ng-template #deleteImg2 let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการลบหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImage(imageList[3 * i + 1])"
+                      (click)="d('Cross click')"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+
+            <td *ngIf="imageList[3 * i + 2]">
+              <div class="imgbox">
+                <img
+                  class="size"
+                  [src]="imageList[3 * i + 2].value.imageUrl"
+                  (click)="openDeleteImage(deleteImg3)"
+                  width="350px"
+                  height="250px"
+                  style="padding: 5px;"
+                />
+                <label class="cab">{{
+                  imageList[3 * i + 2].value.caption
+                }}</label>
+              </div>
+              <!-- dialog delete image -->
+              <ng-template #deleteImg3 let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการลบหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImage(imageList[3 * i + 2])"
+                      (click)="d('Cross click')"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+          </tr>
+        </table>
       </div>
-    </form>
+    </div>
   </div>
-</div>
-
-<p>แสดงผล</p>
-<br />
-<br />
-<br />
-<table *ngIf="imageList">
-  <tr *ngFor="let i of rowIndexArray">
-    <td>
-      <div class="imagebox" *ngIf="imageList[3 * i]">
-        <img
-          [src]="imageList[3 * i].value.imageUrl"
-          class="img-fluid"
-          (click)="openDeleteImage(deleteImg1)"
-          width="450px"
-          height="250px"
-        />
-        <span class="imagebox-desc">{{ imageList[3 * i].value.caption }}</span>
-      </div>
-      <!-- dialog delete image -->
-      <ng-template #deleteImg1 let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-basic-title">
-            ต้องการลบหรือไม่?
-          </h5>
-
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="d('Cross click')"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="text-center">
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn  save"
-              (click)="deleteImage(imageList[3 * i])"
-              (click)="d('Cross click')"
-            >
-              Yes
-            </button>
-            <button type="button" class="btn  save" (click)="d('Cross click')">
-              No
-            </button>
-          </div>
-        </div>
-      </ng-template>
-    </td>
-
-    <td *ngIf="imageList[3 * i + 1]">
-      <div class="imagebox">
-        <img
-          [src]="imageList[3 * i + 1].value.imageUrl"
-          class="img-fluid"
-          (click)="openDeleteImage(deleteImg2)"
-          width="450px"
-          height="250px"
-        />
-        <span class="imagebox-desc">{{
-          imageList[3 * i + 1].value.caption
-        }}</span>
-      </div>
-      <!-- dialog delete image -->
-      <ng-template #deleteImg2 let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-basic-title">
-            ต้องการลบหรือไม่?
-          </h5>
-
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="d('Cross click')"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="text-center">
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn  save"
-              (click)="deleteImage(imageList[3 * i + 1])"
-              (click)="d('Cross click')"
-            >
-              Yes
-            </button>
-            <button type="button" class="btn  save" (click)="d('Cross click')">
-              No
-            </button>
-          </div>
-        </div>
-      </ng-template>
-    </td>
-
-    <td *ngIf="imageList[3 * i + 2]">
-      <div class="imagebox">
-        <img
-          [src]="imageList[3 * i + 2].value.imageUrl"
-          class="img-fluid"
-          (click)="openDeleteImage(deleteImg3)"
-          width="450px"
-          height="250px"
-        />
-        <span class="imagebox-desc">{{
-          imageList[3 * i + 2].value.caption
-        }}</span>
-      </div>
-      <!-- dialog delete image -->
-      <ng-template #deleteImg3 let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modal-basic-title">
-            ต้องการลบหรือไม่?
-          </h5>
-
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="d('Cross click')"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="text-center">
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn  save"
-              (click)="deleteImage(imageList[3 * i + 2])"
-              (click)="d('Cross click')"
-            >
-              Yes
-            </button>
-            <button type="button" class="btn  save" (click)="d('Cross click')">
-              No
-            </button>
-          </div>
-        </div>
-      </ng-template>
-    </td>
-  </tr>
-</table>
-</div>
-</div>
 </div>

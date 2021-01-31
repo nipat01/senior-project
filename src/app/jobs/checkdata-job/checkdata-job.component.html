@@ -1,329 +1,898 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-<div class="col-md-10">
-<h3>
-  <img src="https://image.flaticon.com/icons/svg/138/138849.svg" /> รอตรวจสอบ
-</h3>
-<div class="overflow-auto">
-<table class="table table-striped ">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td (click)="openData(con)">
-        <ng-template #con let-c="close" let-d="dismiss">
-          <div [ngStyle]="{ 'background-color': color }" class="header">
-            <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-              (click)="buttonSave()"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="control">
-              <label for="typeahead-basic">ต้นทาง</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="source"
-                ngModel
-                [(ngModel)]="data.value.source"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic">ปลายทาง</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="destination"
-                ngModel
-                [(ngModel)]="data.value.destination"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic">ประเภทงาน</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="worktype"
-                ngModel
-                [(ngModel)]="data.value.worktype"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic">ชื่อลูกค้า</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="customerFirstname"
-                ngModel
-                [(ngModel)]="data.value.customerFirstname"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic"> วันที่</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="workDate"
-                ngModel
-                [(ngModel)]="data.value.workDate.day"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic"> เวลา</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="workTime"
-                ngModel
-                [(ngModel)]="data.value.workTime.hour"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="customerLine"
-                ngModel
-                [(ngModel)]="data.value.customerPhone"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic"> เบอร์ติดต่อ</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="customerLine"
-                ngModel
-                [(ngModel)]="data.value.customerPhone"
-                [disabled]="showEdit"
-              />
-              <label for="typeahead-basic"> รายละเอียดการจ้าง</label>
-              <input
-                id="typeahead-basic"
-                type="text"
-                class="form-control"
-                name="detail"
-                ngModel
-                [(ngModel)]="data.value.detail"
-                [disabled]="showEdit"
-              />
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn edit" (click)="buttonEdit()">
-                edit
-              </button>
-              <button
-                [ngStyle]="{ 'background-color': color }"
-                type="button"
-                class="btn submit"
-                (click)="c('Save click')"
-                (click)="buttonSave()"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </ng-template>
-
-        {{ data.value.source }}
-      </td>
-      <td (click)="openData(con)">{{ data.value.destination }}</td>
-      <td (click)="openData(con)">{{ data.value.worktype }}</td>
-      <td (click)="openData(con)">{{ data.value.customerFirstname }}</td>
-      <td (click)="openData(con)">
-        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-        {{ data.value.workDate.year }}
-      </td>
-      <td (click)="openData(con)">
-        {{ data.value.workTime.hour }}:{{ data.value.workTime.minute }} น.
-      </td>
-      <td (click)="openData(con)">{{ data.value.customerPhone }}</td>
-      <td (click)="openData(con)">{{ data.value.customerLine }}</td>
-      <td (click)="openData(con)">{{ data.value.detail }}</td>
-      <td (click)="openData(con)">{{ data.value.status }}</td>
-      <td>
-        <div class="iconGroup">
-          <button
-            type="button"
-            class="btn icon"
-            (click)="editJob(data)"
-            placement="bottom"
-            ngbTooltip="Submit"
-          >
-            <i class="fas fa-check-circle"></i>
-          </button>
-          <button
-            type="button"
-            class="btn icon"
-            (click)="delJob(data)"
-            placement="bottom"
-            ngbTooltip="Delete"
-          >
-            <i class="fas fa-trash-alt"></i>
-          </button>
-          <button
-            class="btn icon"
-            (click)="openMap(map)"
-            placement="bottom"
-            ngbTooltip="Map"
-          >
-            <i class="fas fa-map"></i>
-          </button>
-        </div>
-      </td>
-
-      <ng-template #map let-c="close" let-d="dismiss">
-        <div [ngStyle]="{ 'background-color': color }" class="header">
-          <h4 class="modal-title" id="modal-basic-title">ตำแหน่ง</h4>
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="d('Cross click')"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>{{ data.value.customerPhone }}</p>
-          <agm-map
-            [latitude]="data.value.sourceLatitude"
-            [longitude]="data.value.sourceLongitude"
-            [zoom]="zoom"
-          >
-            <agm-marker
-              [label]="'1'"
-              [latitude]="data.value.sourceLatitude"
-              [longitude]="data.value.sourceLongitude"
-              [markerDraggable]="false"
-            >
-            </agm-marker>
-            <agm-marker
-              [label]="'2'"
-              [latitude]="data.value.destLatitude"
-              [longitude]="data.value.destLongitude"
-              [markerDraggable]="false"
-            >
-            </agm-marker>
-            <div *ngFor="let data2 of wikis">
-              <div *ngIf="Addrres">
-                <agm-marker
-                  [label]="data2.value.firstname"
-                  [latitude]="data2.value.addressLat"
-                  [longitude]="data2.value.addressLong"
-                  [markerDraggable]="false"
-                >
-                </agm-marker>
-              </div>
-              <div *ngIf="currentAddrres">
-                <agm-marker
-                  [label]="'current!!!'"
-                  [latitude]="data2.value.currentLat"
-                  [longitude]="data2.value.currentLong"
-                  [markerDraggable]="false"
-                >
-                </agm-marker>
-              </div>
-            </div>
-          </agm-map>
-        </div>
-        <div class="modal-footer">
-          <button
-            class="btn icon"
-            (click)="showCurrentAddress('addressEmp')"
-            placement="bottom"
-            ngbTooltip="ตำแหน่งปกติ"
-          >
-            <i class="fas fa-map-marker-alt"></i>
-          </button>
-          <button
-            class="btn icon"
-            (click)="showCurrentAddress('currentAddressEmp')"
-            placement="bottom"
-            ngbTooltip="ตำแหน่งปัจจุบัน"
-          >
-            <i class="fas fa-street-view"></i>
-          </button>
-          <button
-            class="btn icon"
-            (click)="showCurrentAddress('clearAddressEmp')"
-            placement="bottom"
-            ngbTooltip="ปิดแสดงตำแหน่งพนักงาน"
-          >
-            <i class="fas fa-eye-slash"></i>
-          </button>
-          <button
-            [ngStyle]="{ 'background-color': color }"
-            type="button"
-            class="btn save "
-            (click)="c('Save click')"
-          >
-            Save
-          </button>
-        </div>
-      </ng-template>
-      <!-- <td>
-          <select>
-            <option value="">------</option>
-            <option [ngValue]="data2" *ngFor="let data2 of car">
-              {{ data2.value.carId }}
-            </option>``
-          </select>
-        </td> -->
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-
-<!-- <ng-template #con let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">ข้อมูล</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="d('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="row">
+    <div class="col-md-2">
+      <app-side-nav></app-side-nav>
     </div>
-    <div class="modal-body"></div>
+    <div class="col-md-10">
+      <h3>
+        <img src="https://image.flaticon.com/icons/svg/138/138849.svg" />
+        รอตรวจสอบ
+      </h3>
+      <!-- {{ objCountrySource.pv[1] }} -->
+      <div class="overflow-auto">
+        <table class="table table-striped ">
+          <thead>
+            <tr>
+              <th scope="col">วันที่</th>
+              <th scope="col">เวลา</th>
+              <th style="width: 15%;" scope="col">ต้นทาง</th>
+              <th style="width: 15%;" scope="col">ปลายทาง</th>
+              <th scope="col">ชื่อลูกค้า</th>
+              <th scope="col"></th>
+              <!-- <th scope="col">action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of job">
+              <td (click)="openData(con, data)">
+                {{ data.value.workDate }}
+              </td>
+              <td (click)="openData(con, data)">
+                {{ data.value.timeHour }}:00 น.
+                <!-- {{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}
+                น. -->
+              </td>
+              <td (click)="openData(con, data)">
+                <!-- data--------------------------------------------------------- -->
+                <ng-template #con let-c="close" let-d="dismiss">
+                  <div [ngStyle]="{ 'background-color': color }" class="header">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      ข้อมูลการจ้าง
+                    </h4>
+
+                    <button
+                      type="button"
+                      class="close"
+                      aria-label="Close"
+                      (click)="buttonEdit('closeEdit')"
+                      (click)="d('Cross click')"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="formGroup">
+                      <ngb-tabset>
+                        <ngb-tab title="ข้อมูลทั่วไป">
+                          <ng-template ngbTabContent>
+                            <div class="container">
+                              <div class="row">
+                                <div class="col-md">
+                                  <br />
+                                  <div class="box">
+                                    <label for="typeahead-basic"
+                                      >ชื่อลูกค้า</label
+                                    >
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="customerFirstname"
+                                      ngModel
+                                      [(ngModel)]="data.value.customerFirstname"
+                                      [readonly]="showEdit"
+                                    />
+                                  </div>
+                                  <div class="time">
+                                    <label for="typeahead-basic">
+                                      วันที่</label
+                                    >
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="workDate"
+                                      ngModel
+                                      [(ngModel)]="data.value.workDate"
+                                      [readonly]="showEdit"
+                                    />
+                                  </div>
+                                  <div class="boxs">
+                                    <label for="typeahead-basic"
+                                      >รายละเอียดการจ้าง</label
+                                    >
+                                    <textarea
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="forms"
+                                      formControlName="detail"
+                                      ngModel
+                                      [(ngModel)]="data.value.detail"
+                                      [readonly]="showEdit"
+                                      rows="3"
+                                    ></textarea>
+                                  </div>
+
+                                  <div class="box">
+                                    <label for="typeahead-basic">ต้นทาง</label>
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="source"
+                                      ngModel
+                                      [(ngModel)]="data.value.source"
+                                      [readonly]="showEdit"
+                                      rows="3"
+                                    />
+                                  </div>
+
+                                  <div class="box">
+                                    <label for="province">จังหวัด</label>
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="provinceSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.provinceSource"
+                                      [readonly]="showEdit"
+                                    />
+                                    <!-- <select
+                                      class="form"
+                                      (change)="
+                                        changeProvnice($event, 'source')
+                                      "
+                                      formControlName="provinceSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.provinceSource"
+                                    >
+                                      >
+                                      <option
+                                        [disabled]="showEdit"
+                                        *ngFor="
+                                          let i of province;
+                                          let index = index
+                                        "
+                                        value="{{ i[0] }}"
+                                        >{{ i[0] }}
+                                      </option>
+                                    </select> -->
+                                  </div>
+
+                                  <div class="box">
+                                    <label for="distict">อำเภอ</label>
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="distictSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.distictSource"
+                                      [readonly]="showEdit"
+                                    />
+                                    <!-- <select
+                                      class="form"
+                                      (change)="changeDistict($event, 'source')"
+                                      formControlName="distictSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.distictSource"
+                                    >
+                                      >
+                                      <option
+                                        [disabled]="showEdit"
+                                        *ngFor="let i of objCountrySource.pv[1]"
+                                        value="{{ i[0] }}"
+                                        >{{ i[0] }}
+                                      </option>
+                                    </select> -->
+                                  </div>
+                                  <div class="box">
+                                    <label class="textinput" for="distict"
+                                      >ตำบล</label
+                                    >
+                                    <input
+                                      id="typeahead-basic"
+                                      type="text"
+                                      class="form"
+                                      formControlName="subDistictSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.subDistictSource"
+                                      [readonly]="showEdit"
+                                    />
+                                    <!-- <select
+                                      class="form"
+                                      formControlName="subDistictSource"
+                                      ngModel
+                                      [(ngModel)]="data.value.subDistictSource"
+                                    >
+                                      > >
+                                      <option
+                                        [disabled]="showEdit"
+                                        *ngFor="let i of objCountrySource.dt[1]"
+                                        value="{{ i[0] }}"
+                                        >{{ i[0] }}
+                                      </option>
+                                    </select> -->
+                                  </div>
+                                  <br />
+
+                                </div>
+                                <div class="col-md">
+                                        <br />
+                                        <div class="box">
+                                          <label for="typeahead-basic"
+                                            >ประเภทงาน</label
+                                          >
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="worktype"
+                                            ngModel
+                                            [(ngModel)]="data.value.worktype"
+                                            [disabled]="showEdit"
+                                          />
+                                          <!-- <select
+                                            class="form"
+                                            formControlName="worktype"
+                                            [(ngModel)]="data.value.worktype"
+                                          >
+                                            <option
+                                              [disabled]="showEdit"
+                                              value="ขาเดียว"
+                                              >ขาเดียว</option
+                                            >
+                                            <option
+                                              [disabled]="showEdit"
+                                              value="ไปกลับ"
+                                              >ไปกลับ</option
+                                            >
+                                          </select> -->
+                                        </div>
+                                        <div class="times">
+                                          <label for="typeahead-basic">
+                                            เวลา</label
+                                          >
+                                          <p class="cock">{{ data.value.timeHour }}:00 น.</p>
+                                          <!-- <input
+                                            type="text"
+                                            class="form-time t"
+                                            formControlName="timeHour"
+                                            ngModel
+                                            [(ngModel)]="data.value.timeHour"
+                                            [readonly]="showEdit"
+                                          /> -->
+
+                                          <!-- <select
+                                            [disabled]="testttt"
+                                            class="form-time t"
+                                            formControlName="timeHour"
+                                            [(ngModel)]="data.value.timeHour"
+                                            ngModel
+                                          >
+                                            >
+                                            <option
+                                              [disabled]="showEdit"
+                                              *ngFor="
+                                                let i of [
+                                                  8,
+                                                  9,
+                                                  10,
+                                                  11,
+                                                  12,
+                                                  13,
+                                                  14,
+                                                  15,
+                                                  16,
+                                                  17,
+                                                  18
+                                                ]
+                                              "
+                                              value="{{ i }}"
+                                              >{{ i }}:00 น.
+                                            </option>
+                                          </select> -->
+
+                                          <!-- <select
+                                          class="form-time"
+                                          name="timeMinute"
+                                          [(ngModel)]="data.value.timeMinute"
+                                          ngModel
+                                        >
+                                          <option value="00">00 </option>
+                                          <option value="15"> 15 </option>
+                                          <option value="45">45 </option>
+                                        </select> -->
+                                        </div>
+                                        <div class="box">
+                                          <label for="typeahead-basic">
+                                            เบอร์ติดต่อ</label
+                                          >
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="customerPhone"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.customerPhone
+                                            "
+                                            [readonly]="showEdit"
+                                          />
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="box">
+                                          <label for="typeahead-basic">ปลายทาง</label>
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="destination"
+                                            ngModel
+                                            [(ngModel)]="data.value.destination"
+                                            [readonly]="showEdit"
+                                          />
+                                        </div>
+
+                                        <div class="box">
+                                          <label for="province">จังหวัด</label>
+
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="provinceDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.provinceDestination
+                                            "
+                                            [readonly]="showEdit"
+                                          />
+
+                                          <!-- <select
+                                            class="form"
+                                            (change)="
+                                              changeProvnice($event, 'destination')
+                                            "
+                                            formControlName="provinceDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.provinceDestination
+                                            "
+                                          >
+                                            >
+                                            <option
+                                              [disabled]="showEdit"
+                                              *ngFor="
+                                                let i of province;
+                                                let index = index
+                                              "
+                                              value="{{ i[0] }}"
+                                              >{{ i[0] }}
+                                            </option>
+                                          </select> -->
+                                        </div>
+
+                                        <div class="box">
+                                          <label for="distict">อำเภอ</label>
+
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="distictDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.distictDestination
+                                            "
+                                            [readonly]="showEdit"
+                                          />
+
+                                          <!-- <select
+                                            class="form"
+                                            (change)="
+                                              changeDistict($event, 'destination')
+                                            "
+                                            formControlName="distictDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.distictDestination
+                                            "
+                                          >
+                                            >
+
+                                            <option
+                                              [disabled]="showEdit"
+                                              *ngFor="
+                                                let i of objCountryDestination.pv[1]
+                                              "
+                                              value="{{ i[0] }}"
+                                              >{{ i[0] }}
+                                            </option>
+                                          </select> -->
+                                        </div>
+
+                                        <div class="box">
+                                          <label class="textinput" for="distict"
+                                            >ตำบล</label
+                                          >
+
+                                          <input
+                                            id="typeahead-basic"
+                                            type="text"
+                                            class="form"
+                                            formControlName="subDistictDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.subDistictDestination
+                                            "
+                                            [readonly]="showEdit"
+                                          />
+
+                                          <!-- <select
+                                            class="form"
+                                            formControlName="subDistictDestination"
+                                            ngModel
+                                            [(ngModel)]="
+                                              data.value.subDistictDestination
+                                            "
+                                          >
+                                            > >
+                                            <option
+                                              [disabled]="showEdit"
+                                              *ngFor="
+                                                let i of objCountryDestination.dt[1]
+                                              "
+                                              value="{{ i[0] }}"
+                                              >{{ i[0] }}
+                                            </option>
+                                          </select> -->
+                                        </div>
+
+
+
+
+                                      <!-- <div class="col-md">
+
+
+                                  </div> -->
+
+
+                                  <!-- <div>
+                                    <agm-map
+                                      [latitude]="data.value.sourceLatitude"
+                                      [longitude]="data.value.sourceLongitude"
+                                      [zoom]="zoom"
+                                    >
+                                      <agm-marker
+                                        [label]="'1'"
+                                        [latitude]="data.value.sourceLatitude"
+                                        [longitude]="data.value.sourceLongitude"
+                                        [markerDraggable]="!showEdit"
+                                        (dragEnd)="markerDragEnd($event)"
+                                        [iconUrl]="{
+                                          url: iconUrl,
+                                          scaledSize: {
+                                            width: 45,
+                                            height: 60
+                                          }
+                                        }"
+                                      >
+                                      </agm-marker>
+                                      <agm-marker
+                                        [label]="'2'"
+                                        [latitude]="data.value.destLatitude"
+                                        [longitude]="data.value.destLongitude"
+                                        [markerDraggable]="!showEdit"
+                                        (dragEnd)="markerDragEnd2($event)"
+                                        [iconUrl]="{
+                                          url:
+                                            'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+                                          scaledSize: {
+                                            width: 40,
+                                            height: 60
+                                          }
+                                        }"
+                                      >
+                                      </agm-marker>
+                                      <div *ngFor="let data2 of wikis">
+                                        <div *ngIf="Addrres">
+                                          <agm-marker
+                                            [label]="data2.value.firstname"
+                                            [latitude]="data2.value.currentLat"
+                                            [longitude]="
+                                              data2.value.currentLong
+                                            "
+                                            [markerDraggable]="false"
+                                          >
+                                          </agm-marker>
+                                        </div>
+                                        <div *ngIf="currentAddrres">
+                                          <agm-marker
+                                            [label]="'current!!!'"
+                                            [latitude]="data2.value.currentLat2"
+                                            [longitude]="
+                                              data2.value.currentLong2
+                                            "
+                                            [markerDraggable]="false"
+                                          >
+                                          </agm-marker>
+                                        </div>
+                                      </div>
+                                    </agm-map>
+                                    <button
+                                      class="btn icon"
+                                      (click)="getCurentAddress()"
+                                      (click)="open(contentCurrent)"
+                                      placement="bottom"
+                                      ngbTooltip="ขอตำแหน่งปัจจุบัน"
+                                    >
+                                      <i class="fas fa-location-arrow"></i>
+                                    </button>
+
+                                    <button
+                                      class="btn icon"
+                                      (click)="showCurrentAddress('addressEmp')"
+                                      placement="bottom"
+                                      ngbTooltip="ตำแหน่งปกติ"
+                                    >
+                                      <i class="fas fa-map-marker-alt"></i>
+                                    </button>
+                                    <button
+                                      class="btn icon"
+                                      (click)="
+                                        showCurrentAddress('currentAddressEmp')
+                                      "
+                                      placement="bottom"
+                                      ngbTooltip="ตำแหน่งปัจจุบัน"
+                                    >
+                                      <i class="fas fa-street-view"></i>
+                                    </button>
+                                    <button
+                                      class="btn icon"
+                                      (click)="
+                                        showCurrentAddress('clearAddressEmp')
+                                      "
+                                      placement="bottom"
+                                      ngbTooltip="ปิดแสดงตำแหน่งพนักงาน"
+                                    >
+                                      <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                  </div> -->
+                                </div>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </ngb-tab>
+
+                        <div>
+                          <ngb-tab title="แผนที่">
+                            <ng-template ngbTabContent>
+                              <br />
+                              <!-- <h4 style="text-align: center;">
+                                ข้อมูลใบกำกับภาษี
+                              </h4> -->
+
+                              <agm-map
+                                [latitude]="data.value.sourceLatitude"
+                                [longitude]="data.value.sourceLongitude"
+                                [zoom]="12"
+                              >
+                                <agm-marker
+                                  [label]="'1'"
+                                  [latitude]="data.value.sourceLatitude"
+                                  [longitude]="data.value.sourceLongitude"
+                                  [markerDraggable]="!showEdit"
+                                  (dragEnd)="markerDragEnd($event)"
+                                  [iconUrl]="{
+                                    url: iconUrl,
+                                    scaledSize: {
+                                      width: 45,
+                                      height: 60
+                                    }
+                                  }"
+                                >
+                                </agm-marker>
+                                <agm-marker
+                                  [label]="'2'"
+                                  [latitude]="data.value.destLatitude"
+                                  [longitude]="data.value.destLongitude"
+                                  [markerDraggable]="!showEdit"
+                                  (dragEnd)="markerDragEnd2($event)"
+                                  [iconUrl]="{
+                                    url:
+                                      'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+                                    scaledSize: {
+                                      width: 40,
+                                      height: 60
+                                    }
+                                  }"
+                                >
+                                </agm-marker>
+                                <div *ngFor="let data2 of wikis">
+                                  <div *ngIf="Addrres">
+                                    <agm-marker
+                                      [label]="data2.value.firstname"
+                                      [latitude]="data2.value.currentLat"
+                                      [longitude]="data2.value.currentLong"
+                                      [markerDraggable]="false"
+                                    >
+                                    </agm-marker>
+                                  </div>
+                                  <div *ngIf="currentAddrres">
+                                    <agm-marker
+                                      [label]="data2.value.firstname"
+                                      [latitude]="data2.value.currentLat2"
+                                      [longitude]="data2.value.currentLong2"
+                                      [markerDraggable]="false"
+                                    >
+                                    </agm-marker>
+                                  </div>
+                                </div>
+                              </agm-map>
+
+                              <div>
+                                <button
+                                  class="btn icon"
+                                  (click)="getCurentAddress()"
+                                  (click)="open(contentCurrent)"
+                                  placement="bottom"
+                                  ngbTooltip="ขอตำแหน่งปัจจุบัน"
+                                >
+                                  <i class="fas fa-location-arrow"></i>
+                                </button>
+
+                                <button
+                                  class="btn icon"
+                                  (click)="showCurrentAddress('addressEmp')"
+                                  placement="bottom"
+                                  ngbTooltip="ตำแหน่งปกติ"
+                                >
+                                  <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                                <button
+                                  class="btn icon"
+                                  (click)="
+                                    showCurrentAddress('currentAddressEmp')
+                                  "
+                                  placement="bottom"
+                                  ngbTooltip="ตำแหน่งปัจจุบัน"
+                                >
+                                  <i class="fas fa-street-view"></i>
+                                </button>
+                                <button
+                                  class="btn icon"
+                                  (click)="
+                                    showCurrentAddress('clearAddressEmp')
+                                  "
+                                  placement="bottom"
+                                  ngbTooltip="ปิดแสดงตำแหน่งพนักงาน"
+                                >
+                                  <i class="fas fa-eye-slash"></i>
+                                </button>
+                              </div>
+                            </ng-template>
+                          </ngb-tab>
+                        </div>
+
+                        <div *ngIf="data.value.invoiceNo">
+                          <ngb-tab title="ข้อมูลใบกำกับภาษี">
+                            <ng-template ngbTabContent>
+                              <br />
+                              <h4 style="text-align: center;">
+                                ข้อมูลใบกำกับภาษี
+                              </h4>
+                              <div class="inv">
+                                ชื่อลูกค้า:
+                                {{ data.value.nameForInvoice }} <br />
+                                เลขประจำตัวผู้เสียภาษี:
+                                {{ data.value.invoiceNo }} <br />
+                                เบอร์ติดต่อ:
+                                {{ data.value.customerPhoneForInvoice }} <br />
+                                ที่อยู่:
+                                {{ data.value.addressForInvoice }}
+                              </div>
+                            </ng-template>
+                          </ngb-tab>
+                        </div>
+                      </ngb-tabset>
+
+                      <div class="pop">
+                        <button
+                          type="button"
+                          class="btn edit"
+                          (click)="newEditJob(data)"
+                          (click)="d('Cross click')"
+                        >
+                          แก้ไข
+                        </button>
+
+                        <!-- <button
+                          type="button"
+                          class="btn edit"
+                          (click)="buttonEdit('edit')"
+                        >
+                          แก้ไข
+                        </button>
+                        <button
+                          [ngStyle]="{ 'background-color': color }"
+                          type="button"
+                          class="btn submit"
+                          (click)="editForm(formGroup, data)"
+                          (click)="buttonEdit('closeEdit')"
+                          (click)="c('Save click')"
+                        >
+                          บันทึก
+                        </button> -->
+                      </div>
+                    </form>
+                  </div>
+                </ng-template>
+                {{ data.value.subDistictSource }}
+                {{ data.value.distictSource }}
+                {{ data.value.provinceSource }}
+              </td>
+              <td (click)="openData(con, data)">
+                {{ data.value.subDistictDestination }}
+                {{ data.value.distictDestination }}
+                {{ data.value.provinceDestination }}
+              </td>
+              <td (click)="openData(con, data)">
+                {{ data.value.customerFirstname }}
+              </td>
+
+              <!-- <td (click)="openData(con)">{{ data.value.customerPhone }}</td>
+              <td (click)="openData(con)">{{ data.value.customerLine }}</td>
+              <td (click)="openData(con)">{{ data.value.detail }}</td>
+              <td (click)="openData(con)">{{ data.value.status }}</td> -->
+              <td>
+                <div class="iconGroup">
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'submit')"
+                    placement="bottom"
+                    ngbTooltip="Submit"
+                  >
+                    <i class="fas fa-check-circle"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'del')"
+                    placement="bottom"
+                    ngbTooltip="Delete"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                  <!-- <button
+                    class="btn icon"
+                    (click)="openMap(map)"
+                    placement="bottom"
+                    ngbTooltip="Map"
+                  >
+                    <i class="fas fa-map"></i>
+                  </button> -->
+
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="newEditJob(data)"
+                    placement="bottom"
+                    ngbTooltip="edit"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+              </td>
+              <!-- map---------------------------------------------------------------------------------- -->
+              <!-- <ng-template #map let-c="close" let-d="dismiss">
+                <div [ngStyle]="{ 'background-color': color }" class="header">
+                  <h4 class="modal-title" id="modal-basic-title">ตำแหน่ง</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                  <button
+                    [ngStyle]="{ 'background-color': color }"
+                    type="button"
+                    class="btn save "
+                    (click)="c('Save click')"
+                  >
+                    Save
+                  </button>
+                </div>
+              </ng-template> -->
+
+              <!-- checkSubmitAndDelete -->
+              <ng-template #submitAndDelete let-c="close" let-d="dismiss">
+                <div
+                  class="modal-header"
+                  [ngStyle]="{ 'background-color': color }"
+                >
+                  <h4 class="modal-title" id="modal-basic-title">
+                    {{ checkSubmitAndDel[0] }}
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!-- <div class="modal-body"></div> -->
+                <div class="pop">
+                  <!-- <button type="button" class="btn btn-outline-secondary">
+                    edit
+                  </button> -->
+
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการยืนยันงานหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn save"
+                      (click)="c('Save click')"
+                      (click)="editJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการลบการจ้างหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="c('Save click')"
+                      (click)="delJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ยืนยันการส่งตำแหน่ง-------------------------------------------------------------------- -->
+<ng-template #contentCurrent let-c="close" let-d="dismiss">
+  <div [ngStyle]="{ 'background-color': color }" class="header">
+    <h4 class="modal-title" id="modal-basic-title">ยืนยันการส่งตำแหน่ง</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="resetCoordinates()"
+      (click)="d('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="text-center">
+    <div class="modal-body">
+      <label>
+        ส่งตำแหน่งสำเร็จ!
+      </label>
+    </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary">edit</button>
       <button
         type="button"
-        class="btn btn-outline-success"
-        (click)="c('Save click')"
+        class="btn  save"
+        (click)="resetCoordinates()"
+        (click)="d('Cross click')"
+        [ngStyle]="{ 'background-color': color }"
       >
-        Save
+        Close
       </button>
     </div>
-  </ng-template> -->
+  </div>
+</ng-template>

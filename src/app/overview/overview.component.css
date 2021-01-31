@@ -29,15 +29,11 @@ p {
     height: 35px;
     border-radius: 5px;
     margin-top: 20px;
+    position: relative;
+    left: 45%;
    }
 
-.control {
-     display: grid;
-     background-color: white;
-     border-radius: 10px;
-     padding: 8px 20px;
-     margin-bottom: 50px;
-   }
+
 
 h3{
     background-color: white;
@@ -51,3 +47,44 @@ img {
 table {
   background-color: white;
 }
+
+@media (min-width: 768px){
+  .box{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+  }
+  .for{
+    display: block;
+    width: 70%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  }
+
+  @media (max-width: 575.98px) {
+    .for{
+    display: block;
+      width: 100%;
+      height: calc(1.5em + .75rem + 2px);
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s
+    }
+  }
+

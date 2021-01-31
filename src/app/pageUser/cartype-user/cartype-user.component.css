@@ -1,0 +1,34 @@
+
+ .btn.edit {
+  background-color: #d0cfcf;
+}
+h3{
+background-color: white;
+border-radius: 5px;
+padding: 8px 20px;
+/* margin-top: 60px; */
+}
+.icon {
+width: 45px;
+}
+
+
+@media (min-width: 768px) {
+.rows {
+display: flex;
+margin-right: -15px;
+margin-left: -15px;
+}
+}
+
+@media (max-width: 575.98px) {
+
+   .size{
+    width: 250px;
+    height: 200px;
+   }
+   .imgbox{
+     text-align: center;
+   }
+
+}

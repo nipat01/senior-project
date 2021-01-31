@@ -24,6 +24,7 @@ export class ServiceComponent implements OnInit, OnChanges {
   imgSrc: string;
   selectedImage: any = null;
   isSubmitted: boolean;
+hideImage = false;
 
   imageList: any[];//list
   rowIndexArray: any[];//list
@@ -64,6 +65,8 @@ export class ServiceComponent implements OnInit, OnChanges {
   }
 
   showPreview(event: any) {
+    console.log('event',event.target.files[0].type);
+    // if (event.target.files[0].type === 'image/jpeg') {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgSrc = e.target.result;
@@ -74,6 +77,13 @@ export class ServiceComponent implements OnInit, OnChanges {
       this.imgSrc = '/assets/img/image_placeholder.jpg';
       this.selectedImage = null;
     }
+    // }
+    // else {
+    // window.alert("Only Image Type = JPG");
+    // this.imgSrc = '/assets/img/image_placeholder.jpg';
+
+    // }
+
   }
 
   onSubmit(formValue) {

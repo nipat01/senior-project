@@ -1,7 +1,7 @@
 .control {
-     background-color: white;
+     background-color: burlywood;
      border-radius: 10px;
-     padding: 8px 20px;
+     padding: 50px 50px;
      margin-bottom: 50px;
      padding-bottom: 20px;
 }
@@ -12,3 +12,115 @@ img  {
   margin-top: 60px;
 }
 
+
+.content {
+  position: relative;
+  bottom: 0;
+
+  /* Black background with 0.5 opacity */
+  color: black;
+  width: 100%;
+  padding: 20px;
+  border-style: solid;
+  border-color: #dee2e6;
+  border-radius: 5px;
+}
+
+
+@media (min-width: 768px){
+  .but{
+    background-color:rgb(162, 217, 255); ;
+    width: 150px;
+      height: 50px;
+      border-radius: 50px;
+      position: relative;
+      left: 40%;
+
+  }
+  .case1{
+    width: 350px;
+    position: relative;
+    left: 40%;
+    top: 30%;
+  }
+
+  .case2{
+    width: 350px;
+    position: relative;
+    left: 10%;
+    top: -20%;
+  }
+  }
+
+  @media (max-width: 575.98px) {
+    .but{
+      background-color:rgb(162, 217, 255); ;
+      width: 150px;
+        height: 50px;
+        border-radius: 50px;
+        position: relative;
+        left: 40%;
+
+    }
+    .case1{
+      width: 150px;
+    position: relative;
+    left: 50%;
+    }
+
+    .case2{
+      width: 150px;
+      position: relative;
+      top: -40%;
+    }
+  }
+
+
+
+  @media (min-width: 768px){
+    .but{
+      background-color:rgb(162, 217, 255); ;
+      width: 150px;
+        height: 50px;
+        border-radius: 50px;
+        position: relative;
+        left: 40%;
+
+    }
+    .case3{
+      width: 250px;
+    position: relative;
+    left: 30%;
+    top: 60%;
+    }
+
+    .case4{
+      width: 300px;
+    position: relative;
+    left: 10%;
+    top: 10%;
+    }
+    }
+
+    @media (max-width: 575.98px) {
+      .but{
+        background-color:rgb(162, 217, 255); ;
+        width: 150px;
+          height: 50px;
+          border-radius: 50px;
+          position: relative;
+          left: 40%;
+
+      }
+      .case3{
+        width: 150px;
+      position: relative;
+      left: 50%;
+      }
+
+      .case4{
+        width: 150px;
+        position: relative;
+        top: -40%;
+      }
+    }

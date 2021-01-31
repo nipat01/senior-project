@@ -17,9 +17,12 @@ export class InvoiceComponent implements OnInit {
 
   id
   timeNow;
+  dateNow;
+
+  times;
   invoiceJob: any = {};
   title: string = "Add Wiki";
-
+  token: any[];
   constructor(
     private firebaseService: FirebaseService,
     private db: AngularFireDatabase,
@@ -42,7 +45,17 @@ export class InvoiceComponent implements OnInit {
       this.about = about;
     });
 
-    this.timeNow = new Date();
+    this.db.list('token').snapshotChanges().map(actions => {
+      return actions.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(token => {
+      // console.log('token', token[0].value)
+      this.token = token;
+
+
+    });
+
+
+    this.timeThai();
 
 
   }
@@ -51,15 +64,20 @@ export class InvoiceComponent implements OnInit {
     html2canvas(data).then(canvas => {
       // Few necessary setting options
       var imgWidth = 208;
-      var pageHeight = 295;
+      // var pageHeight = 295;
       var imgHeight = canvas.height * imgWidth / canvas.width;
-      var heightLeft = imgHeight;
+      console.log('canvas', canvas.height, imgHeight);
+
+      // var heightLeft = imgHeight;
 
       const contentDataURL = canvas.toDataURL('image/png')
       let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
       var position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      // imgHeight
+
       pdf.save('ใบกำกับภาษี.pdf'); // Generated PDF
+      window.open(pdf.output('bloburl', { filename: 'ใบกำกับภาษี.pdf' }), '_blank');
     });
   }
 
@@ -80,5 +98,56 @@ export class InvoiceComponent implements OnInit {
       console.log('invoiceJob', this.invoiceJob)
     });
   }
+
+  timeThai() {
+    this.timeNow = new Date();
+    this.dateNow = new Date();
+    this.dateNow = this.formatDate(this.dateNow);
+
+    let thday = new Array("อาทิตย์", "จันทร์",
+      "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์");
+    let thmonth = new Array("มกราคม", "กุมภาพันธ์", "มีนาคม",
+      "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน",
+      "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+
+    console.log("วัน" + thday[this.timeNow.getDay()] + "ที่ " + this.timeNow.getDate() + " " +
+      thmonth[this.timeNow.getMonth()] + " " + (0 + this.timeNow.getYear() + 2443));
+    this.timeNow = "วัน" + thday[this.timeNow.getDay()] + "ที่ " + this.timeNow.getDate() + " " +
+      thmonth[this.timeNow.getMonth()] + " พ.ศ. " + (0 + this.timeNow.getYear() + 2443)
+
+    this.myFunction()
+
+  }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+
+
+  myFunction() {
+    let d = new Date();
+    let h = d.getHours();
+    let m = d.getMinutes();
+    let hours = h < 10 ? "0" + h : h;
+    let minutes = m < 10 ? "0" + m : m;
+
+
+    this.times = `${hours}:${minutes} `
+    // this.times = `${hours}:${minutes} น. `
+
+  }
+
+
 
 }

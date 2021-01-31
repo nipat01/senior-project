@@ -32,6 +32,7 @@ export class CheckStatusUserComponent implements OnInit, OnChanges {
   latitude: number;
   longitude: number;
   zoom: number;
+  id;
 
   get color() {
     return AppComponent.COLOR ? AppComponent.COLOR : AppComponent.DEFAULTCOLOR;
@@ -41,54 +42,73 @@ export class CheckStatusUserComponent implements OnInit, OnChanges {
     private firebaseService: FirebaseService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    config: NgbRatingConfig) {
+    private config: NgbRatingConfig,
+    private router: Router) {
     config.max = 5;
-    config.readonly = false;
+    config.readonly = true;
   }
   formTemplate: FormGroup = new FormGroup({
-    review: new FormControl('', Validators.required),
-    rateReview: new FormControl('', Validators.required),
+    review: new FormControl(),
+    rateReview: new FormControl(),
 
   })
 
   ngOnInit() {
-    this.zoom = 10;
+    this.id = this.route.snapshot.paramMap.get("id");
+    console.log('ngOnInit', this.id);
 
-    // this.db.list('wikis').snapshotChanges().map(action => {
-    //   return action.map(action => ({ key: action.key, value: action.payload.val() }));
-    // }).subscribe(wikis => {
-    //   console.log(wikis)
-    //   this.wikis = wikis;
-    // });
+    this.searchJob(this.id);
+    this.zoom = 17;
+
+    this.db.list('wikis').snapshotChanges().map(action => {
+      return action.map(action => ({ key: action.key, value: action.payload.val() }));
+    }).subscribe(wikis => {
+      console.log(wikis)
+      this.wikis = wikis;
+    });
 
   }
+
+  newSearchJob(data1) {
+    console.log('data1', data1.value);
+    // this.router.navigate([`/checkstatus/${data1.value.searchJob}`]);
+    window.open(`/checkstatus/${data1.value.searchJob}`)
+    this.id = data1.value.searchJob
+    console.log('id', this.id);
+    this.searchJob(this.id);
+
+  }
+
   searchJob(data1) {
-    console.log('data', data1.value);
+    console.log('data', data1);
 
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      // console.log('job', job)
+      console.log('job', job)
       // const startDate = new Date(data1.value.workDate.year, data1.value.workDate.month - 1, data1.value.workDate.day);
       // const endDate = new Date(data1.value.endworkDate.year, data1.value.endworkDate.month - 1, data1.value.endworkDate.day)
       // console.log('startDate', startDate);
       // console.log('endDate', endDate);
 
-      this.job = job.filter((data: any) => data.value.customerPhone === data1.value.searchJob);
+      this.job = job.filter((data: any) => data.value.time == data1 && data.value.statusDelete !== 'delete');
+      console.log('this.job', this.job);
+
     });
 
   }
+
   editJob(formTemplate, data) {
-    console.log('editJob working', formTemplate.value);
+    // console.log('editJob working', formTemplate.value);
+    // console.log('editJob data', data.value);
     const jobData = formTemplate.value
     console.log('job', jobData);
     this.firebaseService.editJob(data.key, jobData);
-    console.log('formTemplate', formTemplate, 'data', data.value);
+    // console.log('formTemplate', formTemplate, 'data', data.value);
 
 
     console.log('length', this.wikis.length);
     for (let i = 0; i < this.wikis.length; i++) {
-      console.log('test')
       const getNameDriver = {
         ...this.wikis[i],
       }
@@ -111,11 +131,13 @@ export class CheckStatusUserComponent implements OnInit, OnChanges {
         }
       }
     }
-
-
+    this.config.readonly = true;
   }
 
+
   openMap(map, data222, notMap) {
+    console.log('data222', data222);
+
     console.log('data222', data222.value.emailDriver);
     let driver = data222.value.emailDriver;
 
@@ -138,13 +160,24 @@ export class CheckStatusUserComponent implements OnInit, OnChanges {
       console.log('openMap');
       this.modalService.open(map);
     }
+    // if(data222)
     else {
       console.log('ให้คะแนนไม่ได้');
       this.modalService.open(notMap);
     }
   }
+  checkSatatusProceedWhenFinish(data, content) {
+    console.log('checkSatatusProceedWhenFinish');
+
+    if (data.value.status === 'proceeded') {
+      console.log('finish');
+      this.modalService.open(content);
+    }
+
+  }
 
   openBill(content, dataFormJob, alert222) {
+    this.config.readonly = false;
     if (dataFormJob.value.status === 'proceeded') {
       console.log(111);
       this.modalService.open(content);

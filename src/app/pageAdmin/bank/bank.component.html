@@ -1,25 +1,206 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-<div class="col-md-10">
-<h3><img src="https://image.flaticon.com/icons/svg/1086/1086741.svg"> ช่องทางการชำระเงิน</h3>
-<div class="control">
-<p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
-<p>กรุณากรอกรายละเอียดธนาคาร</p>
-<p>Ex:ธนาคารกสิกร สาขา ราชมงคลธัญบุรี เลขที่บัญชี 123-4-56789-0</p>
-</div>
-<form (ngSubmit)="addBank(bankForm)" #bankForm="ngForm">
-  <div class="control">
-  <label for="bank">รายละเอียดธนาคาร</label>
-  <input class="form-control" type="text" name="bank" ngModel />
-  <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
+  <div class="row">
+    <!-- <div class="col-md-2">
+      <app-side-nav></app-side-nav>
+    </div> -->
+    <div class="col-md-12">
+      <h3>
+        <img src="https://image.flaticon.com/icons/svg/1086/1086741.svg" />
+        ช่องทางการชำระเงิน
+      </h3>
+      <!-- <div class="control">
+        <p>ลูกค้าสามารถชำระโดยการโอนผ่านธนาคารดังนี้</p>
+        <p>กรุณากรอกรายละเอียดธนาคาร</p>
+        <p>Ex:ธนาคารกสิกร สาขา ราชมงคลธัญบุรี เลขที่บัญชี 123-4-56789-0</p>
+      </div> -->
+      <form [formGroup]="formBank">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="control">
+              <!-- <pre> {{ bank2 | json }}</pre> -->
+              <!-- <input
+            class="form-control"
+            type="text"
+            name="bank"
+            ngModel
+            [(ngModel)]="data.value.bank"
+          /> -->
+              <div class="box">
+                <label>ธนาคาร</label>
+                <div *ngIf="checkBank">
+                  <select
+                    class="form"
+                    formControlName="bank"
+                    (change)="selectValue($event)"
+                    [ngModel]="bank2.value.bank"
+                  >
+                    <option value="ไทยพาณิชย์">ไทยพาณิชย์</option>
+                    <option value="กสิกร">กสิกร</option>
+                    <option value="กรุงไทย">กรุงไทย</option>
+                    <option value="กรุงเทพ">กรุงเทพ</option>
+                    <option value="other">อื่นๆ</option>
+                  </select>
+                </div>
+                <input
+                  *ngIf="!checkBank"
+                  class="form-control"
+                  type="text"
+                  formControlName="bank"
+                  [ngModel]="bank2.value.bank"
+                />
+              </div>
+              <div class="box">
+                <label>ประเภทบัญชี</label>
+                <select
+                  class="form"
+                  formControlName="typeBank"
+                  [ngModel]="bank2.value.typeBank"
+                >
+                  <!-- <option value="ธนาคาร1">ประเภทบัญชี</option> -->
+                  <option value="ออมทรัพย์">ออมทรัพย์</option>
+                  <option value="กระแสรายวัน">กระแสรายวัน</option>
+                  <option value="ฝากประจำ">ฝากประจำ</option>
+                </select>
+              </div>
+
+              <div class="box">
+                <label>สาขา</label>
+                <input
+                  class="form"
+                  type="text"
+                  formControlName="banch"
+                  [ngModel]="bank2.value.banch"
+                />
+              </div>
+
+            </div>
+          </div>
+
+          <!-- <label class="control">
+          ธนาคาร {{ data.value.bank }} ประเภทบัญชี {{ data.value.typeBank }} สาขา
+          {{ data.value.banch }} เลขที่บัญชี {{ data.value.bankNo }} ชื่อ
+          {{ data.value.nameAccountBank }}
+        </label> -->
+
+          <div class="col-md-6">
+            <div class="box">
+              <label>เลขที่บัญชี</label>
+              <input
+                class="form"
+                type="text"
+                formControlName="nameAccountBank"
+                [ngModel]="bank2.value.nameAccountBank"
+              />
+            </div>
+
+            <div class="box">
+              <label>ชื่อบัญชี</label>
+              <input
+                class="form"
+                type="text"
+                formControlName="bankNo"
+                [ngModel]="bank2.value.bankNo"
+              />
+            </div>
+          </div>
+          <hr>
+
+          <button
+            [ngStyle]="{ 'background-color': color }"
+            class="btn submit but "
+            type="submit"
+            (click)="addBank(formBank)"
+          >
+            {{ buttonSubmit }}
+          </button>
+          <button class="btn reset but2" (click)="resetBank()">
+            ล้างค่า
+          </button>
+
+        </div>
+        <br>
+        <div class="overflow-auto">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ธนาคาร</th>
+                <th scope="col">ประเภทบัญชี</th>
+                <th scope="col">สาขา</th>
+                <th scope="col">เลขที่บัญชี</th>
+                <th scope="col">ชื่อ</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of bank">
+                <td>{{ data.value.bank }}</td>
+                <td>{{ data.value.typeBank }}</td>
+                <td>{{ data.value.banch }}</td>
+                <td>{{ data.value.nameAccountBank }}</td>
+                <td>{{ data.value.bankNo }}</td>
+                <td>
+                  <div class="space">
+                    <button
+                      class="btn icon"
+                      (click)="editBank(data)"
+                      placement="bottom"
+                      ngbTooltip="Edit"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="btn icon"
+                      (click)="open(submitAndDelete, 'del')"
+                      placement="bottom"
+                      ngbTooltip="Delete"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+
+                  <!-- checkSubmitAndDelete -->
+                  <ng-template
+                    #submitAndDelete
+                    let-c="close"
+                    let-d="dismiss"
+                  >
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">
+                        {{ checkSubmitAndDel[0] }}
+                      </h4>
+                      <button
+                        type="button"
+                        class="close"
+                        aria-label="Close"
+                        (click)="d('Cross click')"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <!-- <div class="modal-body"></div> -->
+                    <div class="modal-footer">
+                      <div
+                        *ngIf="
+                          checkSubmitAndDel[0] === 'ต้องการลบข้อมูลหรือไม่'
+                        "
+                      >
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          (click)="c('Save click')"
+                          (click)="deleteBank(data)"
+                        >
+                          {{ checkSubmitAndDel[1] }}
+                        </button>
+                      </div>
+                    </div>
+                  </ng-template>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
   </div>
-</form>
-  <label class="control"  *ngFor="let data of bank">
-    {{ data.value.bank }}
-  </label>
-</div>
-</div>
 </div>

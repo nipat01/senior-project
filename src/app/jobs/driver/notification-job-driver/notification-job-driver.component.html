@@ -1,95 +1,177 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2 sidenav">
-<div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
-  <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
-  <hr>
-  <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/pendingjobdriver">รอดำเนินการ</a>
-  <hr>
-  <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceedjobdriver">กำลังดำเนินการ</a>
-  <hr>
-  <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
-  <hr>
-</div>
-</div>
-<div class="col-md-10">
-<h3><img src="https://image.flaticon.com/icons/svg/554/554834.svg">มอบหมายงาน</h3>
-<p>ส่งตำแหน่งปัจจุบัน</p>
-<button
-*ngFor=" let employee of wikis"
-  (click)="getCurentAddress(employee)"
-  (click)="openCurentAddress(contentCurrent)"
->
-  ส่งตำแหน่งปัจจุบัน
-</button>
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>
-        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-        {{ data.value.workDate.year }}
-      </td>
-      <td>
-        {{ data.value.workTime.hour }}:{{ data.value.workTime.minute }} น.
-      </td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-      <td>
-        <button type="button" (click)="delJob(data)">Delete</button>
-        <button type="button" (click)="editJob(data)">Submit</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
+  <div class="row">
+    <div class="col-md-2 sidenav">
+      <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/notificationjobdriver"
+          >แจ้งเตือนงาน</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/pendingjobdriver"
+          >รอดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceedjobdriver"
+          >กำลังดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceededjobdriver"
+          >ดำเนินการแล้ว</a
+        >
+        <hr />
+      </div>
+    </div>
+    <div class="col-md-10">
+      <h3>
+        <img
+          src="https://image.flaticon.com/icons/svg/554/554834.svg"
+        />มอบหมายงาน
+      </h3>
 
-<ng-template #contentCurrent let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="d('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="text-center">
-    <div class="modal-body">
-      <label>
-        ส่งตำแหน่งสำเร็จ!
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn  save" (click)="d('Cross click')">
-        Close
+      <button
+        class="btn icon"
+        *ngFor="let employee of wikis"
+        (click)="getCurentAddress(employee)"
+        (click)="openCurentAddress(contentCurrent)"
+      >
+      <i class="far fa-paper-plane"></i> ส่งตำแหน่งปัจจุบัน
       </button>
+      <div class="overflow-auto">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">วันที่</th>
+              <th scope="col">เวลา</th>
+              <th style="width: 10%;" scope="col">ต้นทาง</th>
+              <th style="width: 10%;" scope="col">ปลายทาง</th>
+              <th scope="col">ประเภทงาน</th>
+              <th scope="col">ชื่อลูกค้า</th>
+              <th scope="col">เบอร์โทรศัพท์</th>
+              <!-- <th scope="col">customerLine</th> -->
+              <th scope="col">รายละเอียด</th>
+              <!-- <th scope="col">status</th> -->
+              <th scope="col">action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of job">
+              <td>
+                {{ data.value.workDate }}
+              </td>
+              <td>
+                {{ data.value.timeHour }}:00 น.
+              </td>
+              <td>{{ data.value.source }}</td>
+              <td>{{ data.value.destination }}</td>
+              <td>{{ data.value.worktype }}</td>
+              <td>{{ data.value.customerFirstname }}</td>
+              <td>{{ data.value.customerPhone }}</td>
+              <!-- <td>{{ data.value.customerLine }}</td> -->
+              <td>{{ data.value.detail }}</td>
+              <!-- <td>{{ data.value.status }}</td> -->
+              <td>
+                <div class="iconGroup">
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'submit')"
+                    placement="bottom"
+                    ngbTooltip="Submit"
+                  >
+                    <i class="fas fa-check-circle"></i>
+                  </button>
+                  <!-- <button
+                    type="button"
+                    class="btn icon"
+                    (click)="open(submitAndDelete, 'del')"
+                    placement="bottom"
+                    ngbTooltip="Delete"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button> -->
+                </div>
+              </td>
+              <!-- checkSubmitAndDelete -->
+              <ng-template #submitAndDelete let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    {{ checkSubmitAndDel[0] }}
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-footer">
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการยืนยันงานหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-outline-success"
+                      (click)="c('Save click')"
+                      (click)="editJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="checkSubmitAndDel[0] === 'ต้องการลบการจ้างหรือไม่'"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="c('Save click')"
+                      (click)="delJob(data)"
+                    >
+                      {{ checkSubmitAndDel[1] }}
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #contentCurrent let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">
+            ส่งตำแหน่งปัจจุบัน
+          </h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="d('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="text-center">
+          <div class="modal-body">
+            <label>
+              ส่งตำแหน่งสำเร็จ!
+            </label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn  save" (click)="d('Cross click')">
+              Close
+            </button>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
-</ng-template>
-</div>
-</div>
 </div>

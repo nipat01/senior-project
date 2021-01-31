@@ -1,62 +1,603 @@
 <!-- <a routerLink="/car">ไปยังหน้าจัดการข้อมูลรถ</a> -->
+<br />
+<br />
+<br />
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h4>
+        <img src="https://image.flaticon.com/icons/svg/295/295681.svg" />
+        กรอกรายละเอียดการจ้าง
+      </h4>
 
-<h4>
-  <img src="https://image.flaticon.com/icons/svg/295/295681.svg" />
-  กรอกรายละเอียดการจ้าง
-</h4>
+      <!-- <div *ngFor="let data3 of products; let i = index">
+        <div *ngFor="let data31 of data3[1]; let i = index">
+          <div *ngFor="let data311 of data31[1]; let i = index">
+            {{ data3[0] }}| {{ data31[0] }}| {{ data311[0] }}| {{ data311[1] }}
+          </div>
+        </div>
 
-<form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
-  <div class="control">
-    <label class="textinput" for="source">ระบุต้นทาง</label>
-    <!-- <input class="textBox" type="text" name="source" ngModel /> -->
+        <hr />
+      </div> -->
 
-    <input type="text" name="sourceMap" class="form-control" (keydown.enter)="$event.preventDefault()"
-      placeholder="source  Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search />
-    <label class="textinput" for="destination">ระบุปลายทาง</label>
-    <!-- <input class="textBox" type="text" name="destination" ngModel /> -->
-    <input type="text" name="destMap"class="form-control" (keydown.enter)="$event.preventDefault()"
-      placeholder="destination Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search2 />
-    <div *ngIf="latitude">
-      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true">
-        </agm-marker>
-        <agm-marker [latitude]="latitude2" [longitude]="longitude2" [markerDraggable]="flase"></agm-marker>
-      </agm-map>
-    </div>
+      <form (ngSubmit)="addjob(jobForm)" #jobForm="ngForm">
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+              <!-- {{distict}} -->
 
-    <label class="textinput" for="worktype">รูปแบบงาน</label>
-    <div ngModel ngbRadioGroup name="worktype">
-      <label ngbButtonLabel>
-        <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
-      </label>
-      <label ngbButtonLabel>
-        <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
-      </label>
-    </div>
-    <!-- <input type="text" name="worktype" ngModel /> -->
-    <label class="textinput" for="customerFirstname">ชื่อลูกค้า</label>
-    <input class="form-control" type="text" name="customerFirstname" ngModel />
-    <label class="textinput" for="workDate">วันที่</label>
-    <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
-      #d="ngbDatepicker" />
-    <!-- <input type="text" name="workDate" ngModel /> -->
-    <label class="textinput" for="workTime">เวลา</label>
-    <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker>
-    <!-- <input type="text" name="workTime" ngModel /> -->
-    <label class="textinput" for="customerPhone">เบอร์ติดต่อ</label>
-    <input class="form-control" type="text" name="customerPhone" ngModel />
-    <label class="textinput" for="customerLine">ไลน์ติดต่อ</label>
-    <input class="form-control" type="text" name="customerLine" ngModel />
-    <label class="textinput" for="detail">รายละเอียดการจ้าง</label>
-    <textarea class="textArea" id="exampleFormControlTextarea1" name="detail" ngModel rows="3"></textarea>
-    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
-  </div>
+              <div class="box">
+                <label class="textinput" for="customerFirstname"
+                  >ชื่อลูกค้า</label
+                >
+                <input
+                  class="form"
+                  type="text"
+                  name="customerFirstname"
+                  ngModel
+                  required
+                  #customerFirstname="ngModel"
+                />
 
-  <!-- map------------------------------------------------------------------------------------ -->
+                <div
+                  *ngIf="
+                    (!customerFirstname.valid && customerFirstname.touched) ||
+                    (isSubmitted && !customerFirstname.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+
+                <!-- <div
+              *ngIf="
+              customerFirstname.valid ||
+                (customerFirstname.pristine && !jobForm.submitted)
+              "
+              class="text-danger"
+            >
+              bitte die E-Mail Adresse angeben!
+            </div> -->
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="customerLine">อีเมล</label>
+                <input
+                  class="form"
+                  type="email"
+                  name="customerLine"
+                  ngModel
+                  required
+                  #customerLine="ngModel"
+                />
+
+                <div
+                  *ngIf="
+                    (!customerLine.valid && customerLine.touched) ||
+                    (isSubmitted && !customerLine.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="workDate">วันที่เริ่มทำงาน</label>
+                <input
+                  class="form"
+                  (click)="d.toggle()"
+                  placeholder="yyyy-mm-dd"
+                  name="workDate"
+                  ngModel
+                  ngbDatepicker
+                  #d="ngbDatepicker"
+                  #workDate="ngModel"
+                />
+
+                <div
+                  *ngIf="
+                    (!workDate.valid && workDate.touched) ||
+                    (isSubmitted && !workDate.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="boxs">
+                <label class="textinput" for="detail">รายละเอียดการจ้าง</label>
+                <textarea
+                  class="forms"
+                  id="exampleFormControlTextarea1"
+                  name="detail"
+                  ngModel
+                  rows="3"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="box">
+                <label class="textinput" for="customerPhone">เบอร์ติดต่อ</label>
+                <input
+                  class="form"
+                  type="tel"
+                  name="customerPhone"
+                  ngModel
+                  required
+                  #customerPhone="ngModel"
+                />
+
+                <div
+                  *ngIf="
+                    (!customerPhone.valid && customerPhone.touched) ||
+                    (isSubmitted && !customerPhone.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <!-- <button (click)="openMap()">ระบุตำแหน่ง</button> -->
+              <!-- <button (click)="openMap(map)">ระบุตำแหน่ง</button> -->
+
+              <!-- <div *ngIf="latitude"> -->
+
+              <!-- </div> -->
+
+              <div class="box">
+                <label class="textinput" for="worktype">รูปแบบงาน</label>
+                <div
+                  class="type "
+                  ngModel
+                  ngbRadioGroup
+                  name="worktype"
+                  #worktype="ngModel"
+                >
+                  <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="ขาเดียว" /> ขาเดียว
+                  </label>
+                  <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="ไปกลับ" /> ไปกลับ
+                  </label>
+                  <div
+                    *ngIf="!worktype.value && isSubmitted"
+                    class="text-danger"
+                  >
+                    <h3>*</h3>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <input type="text" name="worktype" ngModel /> -->
+
+              <!-- <input type="text" name="workDate" ngModel /> -->
+              <div class="x">
+                <div class="time">
+                  <label class="textinput" for="workTime">เวลา</label>
+                  <div class="t">
+                    <!-- <ngb-timepicker ngModel name="workTime" spinners="OFF"></ngb-timepicker> -->
+
+                    <select
+                      class="form-time"
+                      name="timeHour"
+                      ngModel
+                      #timeHour="ngModel"
+                    >
+                      <!-- <option value=""></option> -->
+                      <option
+                        *ngFor="
+                          let i of [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+                        "
+                        value="{{ i }}"
+                        >{{ i }}:00 น.
+                      </option>
+                    </select>
+
+                    <!-- <select class="form-time" name="timeMinute" ngModel>
+<option value="00">00 </option>
+<option value="15"> 15 </option>
+<option value="45">45 </option>
+</select> -->
+                  </div>
+
+                  <!-- <input type="text" name="workTime" ngModel /> -->
+                </div>
+                <div *ngIf="!timeHour.value && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker
+            [latitude]="latitude"
+            [longitude]="longitude"
+            [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"
+            [iconUrl]="{
+              url: iconUrl,
+              scaledSize: {
+                width: 45,
+                height: 60
+              }
+            }"
+          >
+          </agm-marker>
+          <agm-marker
+            [latitude]="latitude2"
+            [longitude]="longitude2"
+            [markerDraggable]="true"
+            (dragEnd)="markerDragEnd2($event)"
+            [iconUrl]="{
+              url: 'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+              scaledSize: {
+                width: 40,
+                height: 60
+              }
+            }"
+          ></agm-marker>
+        </agm-map>
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+              <label class="textinput" for="source">ระบุต้นทาง</label>
+
+              <div class="box">
+                <label class="textinput" for="source">ชื่อสถานที่</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="source"
+                  ngModel
+                  placeholder="กรุณากรอกที่อยู่ต้นทาง e.g. 41/15 ม.1"
+                  required
+                  #source="ngModel"
+                />
+
+                <div
+                  *ngIf="
+                    (!source.valid && source.touched) ||
+                    (isSubmitted && !source.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="province">จังหวัด</label>
+                <select class="form" (change)="selectProvince($event, 'pv')">
+                  <option>จังหวัด</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of products; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[0] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict">อำเภอ</label>
+                <select class="form" (change)="selectDistict($event, 'dt')">
+                  <option>อำเภอ</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of distict; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[1] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict">ตำบล</label>
+                <select class="form" (change)="selectSubDistict($event, 'sdt')">
+                  <option>ตำบล</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of subDistict; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[2] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              รหัสไปรณีย์: {{ post }}
+
+              <div class="box">
+                <label class="textinput" for="source">ระบุพิกัดต้นทาง</label>
+                <input
+                  type="text"
+                  name="sourceMap"
+                  class="form"
+                  (keydown.enter)="$event.preventDefault()"
+                  placeholder="ต้นทาง"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  #search
+                />
+
+                <!-- <div *ngIf="!latitude && isSubmitted" class="text-danger">
+                  <h3>บันทึก</h3>
+                </div> -->
+              </div>
+              <div *ngIf="!checkLonglat" class="text-danger">
+                <br />
+                <button
+                  ngbTooltip="บันทึกพิกัดต้นทาง"
+                  class="btn submit pos"
+                  (click)="saveLongLat()"
+                >
+                  บันทึก
+                </button>
+              </div>
+
+              <div *ngIf="checkLonglat && latitude11 && longitude11">
+                <p>latitude: {{ latitude }}</p>
+                <p>longitude: {{ longitude }}</p>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  (change)="test()"
+                />
+                <label class="form-check-label" for="exampleCheck1"
+                  >ออกใบกำกับภาษี</label
+                >
+              </div>
+              <div *ngIf="checkBoxAddJob">
+                <div class="box">
+                  <label>ชื่อ</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="nameForInvoice"
+                    ngModel
+                    required
+                  />
+                </div>
+                <div class="box">
+                  <label>เลขประจำตัวผู้เสียภาษี</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="invoiceNo"
+                    ngModel
+                    required
+                  />
+                </div>
+                <div class="box">
+                  <label>เบอร์โทรศัพท์</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="customerPhoneForInvoice"
+                    ngModel
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md">
+              <label class="textinput" for="destination">ระบุปลายทาง</label>
+
+              <div class="box">
+                <label class="textinput" for="destination">ชื่อสถานที่</label>
+                <input
+                  class="form"
+                  type="text"
+                  name="destination"
+                  ngModel
+                  placeholder="กรุณากรอกที่อยู่ปลายทาง  e.g. 41/15 ม.1 "
+                  required
+                  #destination="ngModel"
+                />
+
+                <div
+                  *ngIf="
+                    (!destination.valid && destination.touched) ||
+                    (isSubmitted && !destination.valid)
+                  "
+                  class="text-danger"
+                >
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="province2">จังหวัด</label>
+                <select class="form" (change)="selectProvince2($event)">
+                  <option>จังหวัด</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of products; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[0] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict2">อำเภอ</label>
+                <select class="form" (change)="selectDistict2($event)">
+                  <option>อำเภอ</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of distict2; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[1] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+
+              <div class="box">
+                <label class="textinput" for="distict2">ตำบล</label>
+                <select class="form" (change)="selectSubDistict2($event)">
+                  <option>ตำบล</option>
+                  <option
+                    value=" {{ data3[0] }},{{ i }}"
+                    *ngFor="let data3 of subDistict2; let i = index"
+                  >
+                    {{ data3[0] }}
+                  </option>
+                </select>
+
+                <div *ngIf="!province[2] && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div>
+              </div>
+              รหัสไปรณีย์: {{ post2 }}
+
+              <div class="box">
+                <label class="textinput" for="source">ระบุพิกัดปลายทาง</label>
+                <input
+                  type="text"
+                  name="destMap"
+                  class="form"
+                  (keydown.enter)="$event.preventDefault()"
+                  placeholder="ปลายทาง"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  #search2
+                />
+
+                <!-- <div *ngIf="!latitude2 && isSubmitted" class="text-danger">
+                  <h3>*</h3>
+                </div> -->
+              </div>
+              <div *ngIf="!checkLongLat2" class="text-danger">
+                <br />
+                <button
+                  ngbTooltip="บันทึกพิกัดปลายทาง"
+                  class="btn submit pos"
+                  (click)="saveLongLat22()"
+                >
+                  บันทึก
+                </button>
+              </div>
+
+              <div *ngIf="checkLongLat2 && latitude22 && longitude22">
+                <p>latitude: {{ latitude22 }}</p>
+                <p>longitude: {{ longitude22 }}</p>
+              </div>
+
+              <br />
+              <div *ngIf="checkBoxAddJob">
+                <div class="box">
+                  <label>ที่อยู่</label>
+                  <input
+                    class="form"
+                    type="tel"
+                    name="addressForInvoice"
+                    ngModel
+                    required
+                    placeholder="ที่อยู่"
+                  />
+                </div>
+                <div class="box">
+                  <label class="textinput" for="province2">จังหวัด</label>
+                  <select
+                    class="form"
+                    (change)="selectProvince($event, 'taxInvoice')"
+                  >
+                    <option>จังหวัด</option>
+                    <option
+                      value=" {{ data3[0] }},{{ i }}"
+                      *ngFor="let data3 of products; let i = index"
+                    >
+                      {{ data3[0] }}
+                    </option>
+                  </select>
+                </div>
+
+                <div *ngIf="distict3">
+                  <div class="box">
+                    <label class="textinput" for="distict">อำเภอ</label>
+                    <select
+                      class="form"
+                      (change)="selectDistict($event, 'taxInvoice')"
+                    >
+                      <option>อำเภอ</option>
+                      <option
+                        value=" {{ data3[0] }},{{ i }}"
+                        *ngFor="let data3 of distict3; let i = index"
+                      >
+                        {{ data3[0] }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div *ngIf="subDistict3">
+                  <div class="box">
+                    <label class="textinput" for="distict">ตำบล</label>
+                    <select
+                      class="form"
+                      (change)="selectSubDistict($event, 'taxInvoice')"
+                    >
+                      <option>ตำบล</option>
+                      <option
+                        value=" {{ data3[0] }},{{ i }}"
+                        *ngFor="let data3 of subDistict3; let i = index"
+                      >
+                        {{ data3[0] }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div *ngIf="post3">รหัสไปรณีย์: {{ post3 }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="s">
+          <button
+            [ngStyle]="{ 'background-color': color }"
+            class="btn submit"
+            type="submit"
+          >
+            บันทึก
+          </button>
+        </div>
+
+        <!-- map------------------------------------------------------------------------------------
   <div class="container">
-
-    <!-- map------------------------------------------------------------------------------------ -->
-    <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+    map------------------------------------------------------------------------------------
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
       <agm-marker
         [latitude]="latitude"
         [longitude]="longitude"
@@ -77,7 +618,154 @@
     <br />
     <h5>Address: {{ address2 }}</h5>
     <div>Latitude2: {{ latitude2 }}</div>
-    <div>Longitude2: {{ longitude2 }}</div> -->
+    <div>Longitude2: {{ longitude2 }}</div>
+  </div> -->
 
+        <!-- <div *ngIf="!checkMap">
+    <input
+      type="text"
+      name="sourceMap"
+      class="form-control"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="ต้นทาง"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      type="text"
+      #search
+    />
+
+    <input
+      type="text"
+      name="destMap"
+      class="form-control"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="ปลายทาง"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      type="text"
+      #search2
+    />
+
+    <div *ngIf="latitude">
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [markerDraggable]="true"
+          [iconUrl]="{
+            url: iconUrl,
+            scaledSize: {
+              width: 45,
+              height: 60
+            }
+          }"
+        >
+        </agm-marker>
+        <agm-marker
+          [latitude]="latitude2"
+          [longitude]="longitude2"
+          [markerDraggable]="flase"
+          [iconUrl]="{
+            url: 'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+            scaledSize: {
+              width: 40,
+              height: 60
+            }
+          }"
+        ></agm-marker>
+      </agm-map>
+    </div>
+    </div> -->
+
+        <!--
+    <ng-template #map let-c="close" let-d="dismiss">
+      <div [ngStyle]="{ 'background-color': color }" class="header">
+        <h4 class="modal-title" id="modal-basic-title">ยืนยันการส่งตำแหน่ง</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="text-center">
+        <div class="modal-body">
+          <div *ngIf="!checkMap">
+            <input
+              type="text"
+              name="sourceMap"
+              class="form-control"
+              (keydown.enter)="$event.preventDefault()"
+              placeholder="ต้นทาง"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="off"
+              type="text"
+              #search
+            />
+
+            <input
+              type="text"
+              name="destMap"
+              class="form-control"
+              (keydown.enter)="$event.preventDefault()"
+              placeholder="ปลายทาง"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="off"
+              type="text"
+              #search2
+            />
+
+            <div *ngIf="latitude">
+              <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                <agm-marker
+                  [latitude]="latitude"
+                  [longitude]="longitude"
+                  [markerDraggable]="true"
+                  [iconUrl]="{
+                    url: iconUrl,
+                    scaledSize: {
+                      width: 45,
+                      height: 60
+                    }
+                  }"
+                >
+                </agm-marker>
+                <agm-marker
+                  [latitude]="latitude2"
+                  [longitude]="longitude2"
+                  [markerDraggable]="flase"
+                  [iconUrl]="{
+                    url: 'https://image.flaticon.com/icons/svg/1189/1189837.svg',
+                    scaledSize: {
+                      width: 40,
+                      height: 60
+                    }
+                  }"
+                ></agm-marker>
+              </agm-map>
+            </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn  save"
+            (click)="d('Cross click')"
+            [ngStyle]="{ 'background-color': color }"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </ng-template> -->
+      </form>
+    </div>
   </div>
-</form>
+</div>

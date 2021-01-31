@@ -2,6 +2,7 @@
 
    .iconGroup {
      display: flex;
+     justify-content: center;
    }
    th {
      text-align: center;
@@ -28,13 +29,7 @@ img {
 table {
   background-color: white;
 }
-.control {
-     display: grid;
-     background-color: white;
-     border-radius: 10px;
-     margin-bottom: 50px;
-     padding: 5px;
-  }
+
 .textBox {
   width: 400px;
   height: 30px;
@@ -57,4 +52,169 @@ table {
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
+}
+
+@media (min-width: 768px){
+  .box{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .form{
+    display: block;
+    width: 75%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  }
+
+  @media (max-width: 575.98px) {
+    .form{
+    display: block;
+      width: 100%;
+      height: calc(1.5em + .75rem + 2px);
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s
+    }
+  }
+
+  @media (min-width: 768px){
+    .boxs{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .forms{
+      display: block;
+      width: 75%;
+      padding: .375rem .75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+    }
+    }
+
+    @media (max-width: 575.98px) {
+      .forms{
+      display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s
+      }
+    }
+    @media (min-width: 768px){
+      .time{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+
+      }
+      .times{
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 10px;
+
+      }
+      .cock{
+        position: relative;
+        left: 19%;
+      }
+      .form-time{
+        display: block;
+        /* width: 4em; */
+        height: calc(1.5em + .75rem + 2px);
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+      }
+      .t{
+        position: relative;
+        left: 19%;
+        margin-top: 10px;
+    margin-bottom: 10px;
+      }
+      }
+
+      @media (max-width: 575.98px) {
+        .form-time{
+        display: block;
+          width: 4.5em;
+          height: calc(1.5em + .75rem + 2px);
+          padding: .375rem .75rem;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #495057;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid #ced4da;
+          border-radius: .25rem;
+          transition: border-color .15s
+        }
+        .t{
+          display: flex;
+        }
+      }
+
+      .inv{
+    border-style: solid;
+    border-color: #dee2e6;
+    border-radius: 5px;
+    padding: 8px;
+    width: 60%;
+    position: relative;
+    left: 20%;
+    margin-bottom: 35px;
+
+      }
+.pop{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
 }

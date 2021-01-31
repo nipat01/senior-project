@@ -11,6 +11,7 @@ import { ImageService } from '../../services/image/image.service';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AppComponent } from 'src/app/app.component';
+import { ProvincesService } from '../../services/provinces/provinces.service';
 @Component({
   selector: 'app-proceeded-job',
   templateUrl: './proceeded-job.component.html',
@@ -32,6 +33,8 @@ export class ProceededJobComponent implements OnInit, OnChanges {
   jobList: AngularFireList<any>
   job: any[];
 
+  showEdit = true;
+
   carList: AngularFireList<any>;
   car: any[];
 
@@ -47,6 +50,17 @@ export class ProceededJobComponent implements OnInit, OnChanges {
   checkImageUrlNoBill = true;
   imageList: any[];//list
   rowIndexArray: any[];//list
+  checkSubmitAndDel = [];
+
+  latitudeSource;
+  longitudeSource;
+  latitudeDestination;
+  longitudeDestination;
+  province;
+  distictSource;
+  distictDestination
+  objCountrySource;
+  objCountryDestination;
 
   formTemplate: FormGroup = new FormGroup({
     totalPayment: new FormControl(),
@@ -55,15 +69,15 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     billNo: new FormControl(),
     // billImageUrl: new FormControl('', Validators.required),
     // billNoImageUrl: new FormControl('', Validators.required)
-  })
+  });
 
   formBillImageUrl: FormGroup = new FormGroup({
     billImageUrl: new FormControl()
-  })
+  });
 
   formBillNoImageUrl: FormGroup = new FormGroup({
     billNoImageUrl: new FormControl()
-  })
+  });
 
   formTemplateForEdit: FormGroup = new FormGroup({
     totalPayment: new FormControl('', Validators.required),
@@ -71,7 +85,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     bill: new FormControl('', Validators.required),
     billNo: new FormControl('', Validators.required),
 
-  })
+  });
 
   constructor(private db: AngularFireDatabase,
     private firebaseService: FirebaseService,
@@ -80,7 +94,8 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     config: NgbRatingConfig,
     private modalService: NgbModal,
     private service: ImageService,
-    private storage: AngularFireStorage) {
+    private storage: AngularFireStorage,
+    private provincesService: ProvincesService) {
     // config.backdrop = 'static';
     // config.keyboard = false;
     config.max = 5;
@@ -92,8 +107,23 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(job => {
-      console.log(job)
-      this.job = job.filter((data: any) => data.value.status === 'proceeded');
+      // console.log(job)
+      this.job = job.filter((data: any) => data.value.status === 'proceeded' && data.value.statusDelete !== 'delete');
+      console.log(this.job);
+
+
+      this.job.sort(function (x, y) {
+
+        let ax = x.value.workDate.split("/");
+        let ay = y.value.workDate.split("/");
+        // console.log(ax, ay);
+
+        ax = new Date(ax[2], ax[1] - 1, ax[0])
+        ay = new Date(ay[2], ay[1] - 1, ay[0])
+        return ay - ax;
+      });
+
+
       // this.job = job
 
 
@@ -108,26 +138,58 @@ export class ProceededJobComponent implements OnInit, OnChanges {
       // );
     });
 
+    this.getProvince();
   }
+
+  // delJob(data) {
+  //   if (data.value.billFilePath) {
+  //     this.storage.ref(data.value.billFilePath).delete();
+  //   }
+
+  //   if (data.value.billNoFilePath) {
+  // this.storage.ref(data.value.billNoFilePath).delete();
+  //   }
+  //   this.firebaseService.removeJob(data.key);
+  // }
 
   delJob(data) {
-    if (data.value.billFilePath) {
-      this.storage.ref(data.value.billFilePath).delete();
-    }
-
-    if (data.value.billNoFilePath) {
-      this.storage.ref(data.value.billNoFilePath).delete();
-    }
-    this.firebaseService.removeJob(data.key);
-  }
-  editJob(data) {
+    // this.firebaseService.removeJob(data.key);
     console.log(data.value);
     const jobData = {
       ...data.value,
-      status: 'proceeded'
+      statusDelete: 'delete'
     }
     console.log(jobData);
     this.firebaseService.editJob(data.key, jobData);
+  }
+
+  editJob(data) {
+    console.log(data.value);
+    data.value = {
+      ...data.value,
+      status: 'proceeded',
+      statusSendEmail: 'send',
+    }
+    // console.log(data.value);
+    this.firebaseService.editJob(data.key, data.value);
+
+    data.value = {
+      ...data.value,
+      statusSendEmail: 'unsend',
+    }
+    this.firebaseService.editJob(data.key, data.value);
+  }
+
+  open(content, value) {
+    if (value === 'submit') {
+      this.checkSubmitAndDel[0] = "ต้องการยืนยันงานหรือไม่";
+      this.checkSubmitAndDel[1] = "ยืนยัน";
+    }
+    if (value === 'del') {
+      this.checkSubmitAndDel[0] = "ต้องการลบการจ้างหรือไม่";
+      this.checkSubmitAndDel[1] = "ลบ";
+    }
+    this.modalService.open(content);
   }
 
   openBill(data, content, contentEdit) {
@@ -139,7 +201,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     // console.log('222');
     console.log('open content');
 
-    this.modalService.open(content);
+    this.modalService.open(content, { size: 'lg' });
 
   }
 
@@ -154,8 +216,19 @@ export class ProceededJobComponent implements OnInit, OnChanges {
 
   }
 
-  openData(con) {
-    this.modalService.open(con);
+  openData(con, data) {
+    this.modalService.open(con, { size: 'xl' }); let provinceSource = data.value.provinceSource;
+    let distictSource = data.value.distictSource;
+    let subDistictSource = data.value.subDistictSource;
+    let provinceDestination = data.value.provinceDestination;
+    let distictDestination = data.value.distictDestination;
+    let subDistictDestination = data.value.subDistictDestination;
+
+    this.distictSource = provinceSource;
+    this.distictDestination = provinceDestination;
+    this.objCountrySource = this.provincesService.getCountry(provinceSource, distictSource, subDistictSource);
+    this.objCountryDestination = this.provincesService.getCountry(provinceDestination, distictDestination, subDistictDestination);
+    console.log('objCountry', this.objCountrySource, this.objCountryDestination);
   }
 
   openReview(review) {
@@ -214,6 +287,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
 
   }
   uploadbillImage(formValue, dataFormJob) {
+    console.log('formValue', formValue.value, 'dataFormJob', dataFormJob.value);
 
     console.log('uploadData billImageUrl');
     this.isSubmitted = true;
@@ -223,16 +297,24 @@ export class ProceededJobComponent implements OnInit, OnChanges {
       this.storage.upload(billFilePath, this.selectedImage).snapshotChanges().pipe(
         finalize(() => {
           billfileRef.getDownloadURL().subscribe((url) => {
-            formValue.value['billImageUrl'] = url;
-            const addValue = {
-              ...formValue.value,
+            // formValue.value['billImageUrl'] = url;
+            // const addValue = {
+            //   ...formValue.value,
+            //   billFilePath: billFilePath
+            // }
+            // this.firebaseService.editJob(dataFormJob.key, addValue);
+
+            dataFormJob.value['billImageUrl'] = url;
+            dataFormJob.value = {
+              ...dataFormJob.value,
               billFilePath: billFilePath
             }
-            this.firebaseService.editJob(dataFormJob.key, addValue);
+            this.firebaseService.editJob(dataFormJob.key, dataFormJob.value);
           })
         })
       ).subscribe();
     }
+    this.checkImageUrlBill = true;
 
   }
 
@@ -246,16 +328,24 @@ export class ProceededJobComponent implements OnInit, OnChanges {
       this.storage.upload(billNoFilePath, this.selectedImage2).snapshotChanges().pipe(
         finalize(() => {
           billNofileRef.getDownloadURL().subscribe((url) => {
-            formValue.value['billNoImageUrl'] = url;
-            const addValue = {
-              ...formValue.value,
+            // formValue.value['billNoImageUrl'] = url;
+            // const addValue = {
+            //   ...formValue.value,
+            //   billNoFilePath: billNoFilePath
+            // }
+            // this.firebaseService.editJob(dataFormJob.key, addValue);
+
+            dataFormJob.value['billNoImageUrl'] = url;
+            dataFormJob.value = {
+              ...dataFormJob.value,
               billNoFilePath: billNoFilePath
             }
-            this.firebaseService.editJob(dataFormJob.key, addValue);
+            this.firebaseService.editJob(dataFormJob.key, dataFormJob.value);
           })
         })
       ).subscribe();
     }
+    this.checkImageUrlNoBill = true;
   }
 
 
@@ -280,6 +370,7 @@ export class ProceededJobComponent implements OnInit, OnChanges {
 
   showPreview(event: any) {
     console.log('even', event.target.files, event.target.files[0]);
+    this.imgSrc = '/assets/img/image_placeholder.jpg';
 
     console.log('showPreview', this.formBillImageUrl.get('billImageUrl').value);
     if (event.target.files && event.target.files[0]) {
@@ -327,8 +418,9 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     }
 
     this.storage.ref(data.value.billFilePath).delete();
-    const editUrl = data.value;
-    this.firebaseService.editJob(data.key, editUrl);
+    // const editUrl = data.value;
+    this.firebaseService.editJob(data.key, data.value);
+    this.imgSrc = '/assets/img/image_placeholder.jpg';
   }
 
   deleteImageNoBill(data) {
@@ -339,8 +431,9 @@ export class ProceededJobComponent implements OnInit, OnChanges {
       billNoImageUrl: '',
     }
     this.storage.ref(data.value.billNoFilePath).delete();
-    const editUrl = data.value
-    this.firebaseService.editJob(data.key, editUrl);
+    // const editUrl = data.value
+    this.firebaseService.editJob(data.key, data.value);
+    this.imgSrc2 = '/assets/img/image_placeholder.jpg';
   }
 
   checkImageFalse() {
@@ -349,4 +442,59 @@ export class ProceededJobComponent implements OnInit, OnChanges {
     this.resetForm();
   }
 
+  editForm(data) {
+    console.log('editForm', data.value);
+    this.firebaseService.editJob(data.key, data.value);
+  }
+
+  buttonEdit(data) {
+    console.log(data);
+    if (data == 'edit') {
+
+      this.showEdit = false;
+    }
+    if (data == 'closeEdit') {
+      this.showEdit = true;
+
+    }
+  }
+
+  getProvince() {
+    this.province = this.provincesService.searchProvince();
+    // console.log('getProvince', this.province);
+    // console.log('province', this.province);
+  }
+
+  changeProvnice(data, type) {
+    console.log(data.target.value);
+    if (type == 'source') {
+      this.distictSource = data.target.value
+      this.objCountrySource = this.provincesService.selectProvince(data.target.value);
+      console.log('objCountry', this.objCountrySource);
+    }
+
+    if (type == 'destination') {
+      this.distictDestination = data.target.value
+      this.objCountryDestination = this.provincesService.selectProvince(data.target.value);
+      console.log('objCountry', this.objCountryDestination);
+    }
+
+  }
+
+  changeDistict(event, type) {
+    if (type == 'source') {
+      this.objCountrySource.dt = this.provincesService.selectDistict(this.distictSource, event.target.value);
+      console.log('this.objCountry.dv[1]', this.objCountrySource.dt[1]);
+
+    }
+    if (type == 'destination') {
+      this.objCountryDestination.dt = this.provincesService.selectDistict(this.distictDestination, event.target.value);
+      console.log('this.objCountry.dv[1]', this.objCountryDestination.dt[1]);
+
+    }
+  }
+
+  newEditJob(data) {
+    window.open(`/editjob/${data.key}`)
+  }
 }

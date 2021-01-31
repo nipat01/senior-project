@@ -2,7 +2,8 @@
 
 body{
     font-family: 'Mitr', cursive;
-    background-color:rgb(228, 225, 225);
+    background-color: white;
+    /* background-color:rgb(228, 225, 225); */
 }
 
 .pink {
@@ -36,7 +37,7 @@ body{
   border-radius: 50px;
 }
 .burlywood {
-  background-color: burlywood;
+  background-color: #a2d9ff;
   width: 30px;
   height: 30px;
   border-radius: 50px;
@@ -44,11 +45,9 @@ body{
 
 .btn.submit {
   background-color:  #abc;
-  width: 115px;
+  width: 100px;
   height: 35px;
   border-radius: 5px;
-  margin-top: 20px;
-  margin-bottom: 10px;
 }
 .bg-header {
     background-color: #abc!important
@@ -65,8 +64,8 @@ body{
    background-color:  #abc;
     border-radius: 5px;
     padding: 8px 20px;
-    margin-top: -20px;
-    margin-bottom: 25px;
+  width: 100%;
+
 }
 .textArea{
     height: 100px;
@@ -89,10 +88,17 @@ body{
   margin-bottom: 10px;
 }
 .btn.save{
-  background-color:  #abc;
+  background-color: #ced4da;
 }
 .btn.icon {
      color: #004085;
    }
+
+  .btn.reset{
+    background-color:#a9a9a982;
+
+    border-radius: 5px;
+
+  }
 
 

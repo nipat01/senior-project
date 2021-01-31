@@ -1,3 +1,45 @@
 .btn.icon{
   color: #004085;
 }
+
+.space {
+
+  border-radius: 10px;
+  padding: 8px 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+h1 {
+  text-align: center;
+
+}
+.list{
+  text-align: left;
+}
+
+.bill {
+  text-align: end
+}
+
+.customer{
+  text-align: center;
+}
+.name{
+  float:left;
+}
+.time{
+  float:right;
+}
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+ thead {
+  background-color: white;
+}
+table {
+  background-color: white;
+}

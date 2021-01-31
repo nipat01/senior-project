@@ -1,9 +1,36 @@
 
-.btn-primary {
+.btn.log {
     color: rgba(0,0,0,.9);
-    background-color: #d8e3ef;
+    background-color:white;
     border-color: #d8e3ef;
+    position: relative;
+    left: 20%;
 }
 .text-white {
     color: rgb(0, 0, 0)!important;
+}
+@media (min-width: 768px){
+.login{
+  position: relative;
+    margin: 20px;
+    padding: 16px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #c8c8ce;
+    bottom: -80%;
+}
+}
+@media (max-width: 575.98px) {
+  .login{
+    position: relative;
+      margin: 20px;
+      padding: 16px;
+      border-style: solid;
+      border-radius: 5px;
+      border-color: #c8c8ce;
+  }
+}
+.title{
+  text-align: center;
+    margin-bottom: 40px;
 }

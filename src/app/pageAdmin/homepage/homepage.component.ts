@@ -24,8 +24,10 @@ export class HomepageComponent implements OnInit, OnChanges {
   //@Input() color: string;
   homepage: any[];
   video: any[];
+  video2: any;
+  linkVideo;
 
-  get videoUrl()  {
+  get videoUrl() {
     return this.video;
   }
 
@@ -57,19 +59,28 @@ export class HomepageComponent implements OnInit, OnChanges {
       console.log(homepage)
       this.homepage = homepage;
 
+      console.log(this.homepage[0].value.video);
+      this.linkVideo = this.getVdoUrl('https://www.youtube.com/embed/' +`${this.homepage[0].value.video}`);
+      console.log('linkVideo', this.linkVideo);
     });
+
+
 
     this.db.list('video').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(video => {
       console.log(video)
       this.video = video;
-
+      this.video2 = this.video;
     });
+    console.log('video2', this.video2);
+
   }
 
 
   addHomepage(data) {
+    console.log('data', data.value);
+
     console.log(this.db.list('homepage').snapshotChanges().subscribe());
     console.log(this.homepage);
     if (this.homepage.length === 0) {
@@ -78,20 +89,27 @@ export class HomepageComponent implements OnInit, OnChanges {
       console.log('updating');
       console.log(this.homepage[0].key);
       const key = this.homepage[0].key;
-      this.firebaseService.editHomepage(key,data.value);
+      this.firebaseService.editHomepage(key, data.value);
     }
   }
 
-  addVideo(data){
+  addVideo(data) {
     console.log(this.db.list('video').snapshotChanges().subscribe());
     console.log(this.video);
     if (this.video.length === 0) {
       this.db.list("/video").push(data.value);
     } else {
       console.log('updating');
-      // console.log(this.video[0].key);
+      console.log(this.video[0].key);
       const key = this.video[0].key;
-      this.firebaseService.editVideo(key,data.value);
+      // console.log('key', key, data.value);
+      const dataFormAddVideo = {
+        ...data.value,
+        video1: data.value.detail
+      }
+      console.log('dataFormAddVideo', dataFormAddVideo);
+      this.firebaseService.editVideo(key, dataFormAddVideo);
+      // this.firebaseService.editVideo(key, data.value);
     }
   }
 

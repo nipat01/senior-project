@@ -1,67 +1,266 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2 sidenav">
-  <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/notificationjobdriver">แจ้งเตือนงาน</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/pendingjobdriver">รอดำเนินการ</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceedjobdriver">กำลังดำเนินการ</a>
-    <hr>
-    <a *ngIf="auth.authenticated && !auth.authenticatedAdmin()" routerLink="/proceededjobdriver">ดำเนินการแล้ว</a>
-    <hr>
+  <div class="row">
+    <div class="col-md-2 sidenav">
+      <div *ngIf="auth.authenticated && !auth.authenticatedAdmin()">
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/notificationjobdriver"
+          >แจ้งเตือนงาน</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/pendingjobdriver"
+          >รอดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceedjobdriver"
+          >กำลังดำเนินการ</a
+        >
+        <hr />
+        <a
+          *ngIf="auth.authenticated && !auth.authenticatedAdmin()"
+          routerLink="/proceededjobdriver"
+          >ดำเนินการแล้ว</a
+        >
+        <hr />
+      </div>
+    </div>
+    <div class="col-md-10">
+      <h3>
+        <img
+          class="icontitle"
+          src="https://image.flaticon.com/icons/svg/1632/1632599.svg"
+        />ดำเนินการแล้ว
+      </h3>
+      <div class="overflow-auto">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">วันที่</th>
+              <th scope="col">เวลา</th>
+              <th style="width: 10%;" scope="col">ต้นทาง</th>
+              <th style="width: 10%;" scope="col">ปลายทาง</th>
+              <th scope="col">ประเภทงาน</th>
+              <th scope="col">ชื่อลูกค้า</th>
+              <th scope="col">เบอร์โทร</th>
+              <!-- <th scope="col">customerLine</th> -->
+              <th scope="col">รายละเอียด</th>
+              <!-- <th scope="col">status</th> -->
+              <!-- <th scope="col">driver</th> -->
+              <th scope="col">action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of job">
+              <td>
+                {{ data.value.workDate }}
+              </td>
+
+              <td>{{ data.value.timeHour }}:00 น.</td>
+              <td>{{ data.value.source }}</td>
+              <td>{{ data.value.destination }}</td>
+              <td>{{ data.value.worktype }}</td>
+              <td>{{ data.value.customerFirstname }}</td>
+              <td>{{ data.value.customerPhone }}</td>
+              <!-- <td>{{ data.value.customerLine }}</td> -->
+              <td>{{ data.value.detail }}</td>
+              <!-- <td>{{ data.value.status }}</td> -->
+              <!-- <td> -->
+                <!-- {{ data.value.driver }} -->
+                <!-- <td>
+                <button type="button" (click)="delJob(data)">Delete</button>
+                <button type="button" (click)="editJob(data)">Submit</button>
+              </td> -->
+              <!-- </td> -->
+
+              <td>
+                <button
+                  class="btn icon"
+                  (click)="openBill(data, content, contentEdit)"
+                  placement="bottom"
+                  ngbTooltip="บันทึกบิลใบเสร็จ"
+                >
+                  <i class="fas fa-money-check-alt"></i>
+                </button>
+              </td>
+              <!-- diglog bill ----------------------------------------------------------------------------->
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div [ngStyle]="{ 'background-color': color }" class="header">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    กรุณากรอกบิลใบเสร็จ
+                  </h4>
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="checkImageFalse()"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md">
+                        <table class="table table-striped">
+                          <div></div>
+                          <tbody>
+                            <tr>
+                              <th>ยอดคงค้าง</th>
+                              <td>{{ data.value.totalPayment }}</td>
+                            </tr>
+                            <tr>
+                              <th>ค่ามัดจำ</th>
+                              <td>{{ data.value.deposit }}</td>
+                            </tr>
+                            <tr>
+                              <th>ประเภทงาน</th>
+                              <td>{{ data.value.worktype }}</td>
+                            </tr>
+                            <tr>
+                              <th>ต้นทาง</th>
+                              <td>{{ data.value.source }}</td>
+                            </tr>
+                            <tr>
+                              <th>ปลายทาง</th>
+                              <td>
+                               {{ data.value.destination }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>ประเภท</th>
+                              <td>
+                                {{ data.value.worktype }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>ชื่อลูกค้า</th>
+                              <td>{{ data.value.customerFirstname }}</td>
+                            </tr>
+
+                            <tr>
+                              <th>วันที่</th>
+                              <td>{{ data.value.workDate }}</td>
+                            </tr>
+                            <tr>
+                              <th>เวลา</th>
+                              <td>{{ data.value.timeHour }}:00 น.</td>
+                            </tr>
+                            <tr>
+                              <th>เบอร์โทร</th>
+                              <td>{{ data.value.customerPhone }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="col-md">
+                        <form [formGroup]="formBillNoImageUrl">
+                          <div class="text-center">
+                            <img
+                              class="img-fluid"
+                              [src]="data.value.billNoImageUrl"
+                              width="350px"
+                              height="250px"
+                              (click)="openDeleteBill2(deleteBillNoImage)"
+                              *ngIf="
+                                checkImageUrlNoBill && data.value.billNoImageUrl
+                              "
+                            />
+
+                            <div
+                              *ngIf="
+                                !checkImageUrlNoBill ||
+                                !data.value.billNoImageUrl
+                              "
+                            >
+                              <img
+                                class="img-fluid"
+                                [src]="imgSrc2"
+                                width="350px"
+                                height="250px"
+                                (click)="billNofileUploader.click()"
+                              />
+                              <!-- <label>Select file to upload</label> -->
+                              <input
+                                hidden
+                                type="file"
+                                accept="image/*"
+                                class="form-control"
+                                #billNofileUploader
+                                formControlName="billNoImageUrl"
+                                (change)="showPreview2($event)"
+                              />
+                              <button
+                                (click)="
+                                  uploadbillNoImage(formBillNoImageUrl, data)
+                                "
+                              >
+                                Upload
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    [ngStyle]="{ 'background-color': color }"
+                    type="button"
+                    class="btn save"
+                    (click)="onSubmit(formTemplate, data)"
+                  >
+                    Save
+                  </button>
+                </div>
+              </ng-template>
+
+              <!-- billNoImage -->
+              <ng-template #deleteBillNoImage let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-basic-title">
+                    ต้องการเปลี่ยนแปลงรูปภาพหรือไม่?
+                  </h5>
+
+                  <button
+                    type="button"
+                    class="close"
+                    aria-label="Close"
+                    (click)="d('Cross click')"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="text-center">
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="deleteImageNoBill(data)"
+                      (click)="d('Cross click')"
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      class="btn  save"
+                      (click)="d('Cross click')"
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
-<div class="col-md-10">
-<h3><img class="icons" src="https://image.flaticon.com/icons/svg/1632/1632599.svg" />ดำเนินการแล้ว</h3>
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">driver</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>{{ data.value.workDate.day }} /{{ data.value.workDate.month}} / {{data.value.workDate.year }}</td>
-      <td>{{ data.value.workTime.hour}}:{{ data.value.workTime.minute}} น. </td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-      <td>{{ data.value.driver }}</td>
-      <td>
-        <button type="button" (click)="delJob(data)">Delete</button>
-        <button type="button" (click)="editJob(data)">Submit</button>
-      </td>
-      <!-- <td>
-                <select>
-                    <option value="">------</option>
-                    <option [ngValue]="data2" *ngFor="let data2 of car">
-                        {{ data2.value.carId }}
-                    </option>
-                </select>
-            </td> -->
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-

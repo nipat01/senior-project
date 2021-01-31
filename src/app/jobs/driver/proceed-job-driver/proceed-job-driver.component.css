@@ -1,5 +1,6 @@
 th {
-     text-align: center;
+     text-align: left;
+     border: 1px solid #ddd;
    }
    thead {
      background-color: white;
@@ -47,3 +48,18 @@ h3 {
 img {
   width: 45px;
 }
+
+table {
+  background-color: white;
+}
+
+.finish{
+  background-color: #f8f9fa;
+  width: 155px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+

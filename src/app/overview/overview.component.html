@@ -1,143 +1,182 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-<div class="col-md-10">
-<h3>
-  <img src="https://image.flaticon.com/icons/svg/1055/1055673.svg" />
-  ผลประเมินความพึงพอใจ
-</h3>
-<form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
-  <div class="control">
-    <label>วันที่</label>
-    <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="workDate" ngModel ngbDatepicker
-      #d="ngbDatepicker" />
-    <p>ถึง</p>
-    <input class="form-control" (click)="d2.toggle()" placeholder="yyyy-mm-dd" name="endworkDate" ngModel ngbDatepicker
-      #d2="ngbDatepicker" />
-    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
+  <div class="row">
+    <div class="col-md-2">
+      <app-side-nav></app-side-nav>
+    </div>
+    <div class="col-md-10">
+      <div *ngIf="!showResultOfDriver">
+        <h3>
+          <img src="https://image.flaticon.com/icons/svg/1055/1055673.svg" />
+          ผลประเมินความพึงพอใจ
+        </h3>
+        <form (ngSubmit)="searchJob(SearchJobForm)" #SearchJobForm="ngForm">
+          <div class="container">
+            <div class="row">
+              <div class="col-md">
+                <div class="box">
+                  <label>วันที่</label>
+                  <input
+                    class="for"
+                    (click)="d.toggle()"
+                    placeholder="yyyy-mm-dd"
+                    name="workDate"
+                    ngModel
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                  />
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="box">
+                  <label>ถึง</label>
+                  <input
+                    class="for"
+                    (click)="d2.toggle()"
+                    placeholder="yyyy-mm-dd"
+                    name="endworkDate"
+                    ngModel
+                    ngbDatepicker
+                    #d2="ngbDatepicker"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            [ngStyle]="{ 'background-color': color }"
+            class="btn submit"
+            type="submit"
+          >
+            ค้นหา
+          </button>
+        </form>
+      </div>
+
+      <hr />
+
+      <div *ngIf="showResult">
+        <h4>
+          <img src="https://image.flaticon.com/icons/svg/190/190798.svg" />
+          ผลลัพธ์ค้นหา
+        </h4>
+        <hr />
+        <label>ภาพรวมระบบ : {{ totalReview.toFixed(2) }} </label>
+        <div class="overflow-auto">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">พนักงาน</th>
+                <th scope="col">คะแนนความพึงพอใจ</th>
+                <th scope="col">การจ้างงาน</th>
+                <th scope="col">วันที่เริ่มงาน</th>
+                <!-- <th scope="col">action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data1 of wikis; let i = index">
+                <!-- <td> {{data.value.rateReview}}</td> -->
+                <td>{{ data1.value.firstname }}</td>
+                <td>{{ data1.value.rateReview.toFixed(2) }}</td>
+                <td>{{ data1.value.status }}</td>
+                <td>
+                  {{ data1.value.hireDate }}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn icon"
+                    (click)="openNewtap(data1)"
+                    (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapForm"
+                    ngbTooltip="แสดงข้อมูล"
+                  >
+                    <i class="fas fa-eye"></i>
+                    <!-- <i class="far fa-file-alt"></i> -->
+                  </button>
+                  <!-- <button
+                    type="button"
+                    class="btn icon"
+                    (click)="showJobByDriver(data1)"
+                    (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed"
+                    aria-controls="collapForm"
+                  >
+                    <i class="far fa-file-alt"></i>
+                  </button> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div id="collapForm" [ngbCollapse]="!isCollapsed"> -->
+      <div class="overflow-auto" *ngIf="showResultOfDriver">
+        <h3>
+          ข้อมูลการทำงานของ {{ nameDriver }} ระหว่างวันที่ {{ date[0] }}/{{
+            date[1]
+          }}/{{ date[2] }} ถึง {{ date2[0] }}/{{ date2[1] }}/{{ date2[2] }}
+        </h3>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">วันที่</th>
+              <th scope="col">เวลา</th>
+              <th scope="col">ประเภทงาน</th>
+              <th scope="col">ชื่อลูกค้า</th>
+              <th style="width: 20%;" scope="col">ต้นทาง</th>
+              <th style="width: 20%;" scope="col">ปลายทาง</th>
+              <th scope="col">คะแนน</th>
+              <!-- <th scope="col">customerPhone</th> -->
+              <!-- <th scope="col">customerLine</th> -->
+              <!-- <th scope="col">detail</th> -->
+              <th scope="col">ใบกำกับภาษี</th>
+              <th scope="col"></th>
+              <!-- <th scope="col">driver</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of job">
+              <td>
+                {{ data.value.workDate }}
+              </td>
+              <td>{{ data.value.timeHour }}:00 น</td>
+              <td>{{ data.value.worktype }}</td>
+              <td>{{ data.value.customerFirstname }}</td>
+              <td>
+                <!-- {{ data.value.source }} -->
+                {{ data.value.subDistictSource }}
+                {{ data.value.distictSource }}
+                {{ data.value.provinceSource }}
+              </td>
+              <td>
+                <!-- {{ data.value.destination }} -->
+                {{ data.value.subDistictDestination }}
+                {{ data.value.distictDestination }}
+                {{ data.value.provinceDestination }}
+              </td>
+              <!-- <td>{{ data.value.customerPhone }}</td> -->
+              <!-- <td>{{ data.value.customerLine }}</td> -->
+              <!-- <td>{{ data.value.detail }}</td> -->
+              <!-- <td>{{ data.value.status }}</td> -->
+              <!-- <td>{{ data.value.driver }}</td> -->
+              <td>{{ data.value.rateReview }}</td>
+              <td>
+                <button
+                  *ngIf="data.value.invoiceNo"
+                  class="btn icon"
+                  (click)="printInvoice(data)"
+                >
+                  <i class="far fa-file-alt"></i>
+                </button>
+                <!-- <p *ngIf="data.value.invoiceNo">มีเลขประจำตัวเสียภาษี</p> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</form>
-
-<hr />
-<h3>
-  <img src="https://image.flaticon.com/icons/svg/190/190798.svg" /> ผลลัพท์ค้นหา
-</h3>
-<hr />
-<label>ภาพรวมระบบ : {{ totalReview }} </label>
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">พนักงาน</th>
-      <th scope="col">คะแนนความพึงพอใจ</th>
-      <th scope="col">การจ้างงาน</th>
-      <th scope="col">วันที่เริ่มงาน</th>
-      <th scope="col">action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data1 of wikis;let i =index">
-      <!-- <td> {{data.value.rateReview}}</td> -->
-      <td>{{ data1.value.firstname }}</td>
-      <td>{{ data1.value.rateReview }}</td>
-      <td>พนักงานประจำ</td>
-      <td>
-        {{ data1.value.hireDate.day }} /{{ data1.value.hireDate.month }} /{{
-          data1.value.hireDate.year
-        }}
-      </td>
-      <!-- <td> <button (click)="printInvoice(data1)">print</button></td> -->
-      <td>
-        <button type="button" class="btn icon" (click)="showJobByDriver(data1)" (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed" aria-controls="collapForm">
-          <i class="far fa-file-alt"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<!-- <div id="collapForm" [ngbCollapse]="!isCollapsed"> -->
-<div class="overflow-auto">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">source</th>
-      <th scope="col">destination</th>
-      <th scope="col">worktype</th>
-      <th scope="col">customerFirstname</th>
-      <th scope="col">workDate</th>
-      <th scope="col">workTime</th>
-      <th scope="col">customerPhone</th>
-      <th scope="col">customerLine</th>
-      <th scope="col">detail</th>
-      <th scope="col">status</th>
-      <th scope="col">driver</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>
-        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-        {{ data.value.workDate.year }}
-      </td>
-      <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-      <td>{{ data.value.driver }}</td>
-      <td><button (click)="printInvoice(data)">print</button></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
 </div>
 <!-- </div> -->
-
-<!-- <pre> {{ job | json }} </pre> -->
-
-<!-- <table class="table">
-  <thead>
-    <tr>
-      <td>source</td>
-      <td>destination</td>
-      <td>worktype</td>
-      <td>customerFirstname</td>
-      <td>workDate</td>
-      <td>workTime</td>
-      <td>customerPhone</td>
-      <td>customerLine</td>
-      <td>detail</td>
-      <td>status</td>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of job">
-      <td>{{ data.value.source }}</td>
-      <td>{{ data.value.destination }}</td>
-      <td>{{ data.value.worktype }}</td>
-      <td>{{ data.value.customerFirstname }}</td>
-      <td>
-        {{ data.value.workDate.day }} /{{ data.value.workDate.month }} /
-        {{ data.value.workDate.year }}
-      </td>
-      <td>{{ data.value.workTime.hour }}:{{ data.value.workTime.minute }}</td>
-      <td>{{ data.value.customerPhone }}</td>
-      <td>{{ data.value.customerLine }}</td>
-      <td>{{ data.value.detail }}</td>
-      <td>{{ data.value.status }}</td>
-
-    </tr>
-  </tbody>
-</table> -->

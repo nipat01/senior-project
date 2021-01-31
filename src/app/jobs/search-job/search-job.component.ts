@@ -34,6 +34,7 @@ export class SearchJobComponent implements OnInit, OnChanges {
 
   //checkValue
   checkSelect;
+  // checkCustomer;
   checkCustomer = true;
   checkDriver;
   checkStatusJob;
@@ -44,11 +45,19 @@ export class SearchJobComponent implements OnInit, OnChanges {
   deposit = 0;
   totalOnPreceededAndDeposit;
   totalPayment = 0;
+  totalOnPreceededAndDeposit2;
+  totalPayment2 = 0;
+
+  showResult = false;
+
+  testttt: boolean = false;
+  // testttt: boolean = true;
 
   formCustomer = new FormGroup({
     searchJob: new FormControl(),
     workDate: new FormControl(),
     endworkDate: new FormControl(),
+    selectSearchJob: new FormControl(),
   })
   formDriver = new FormGroup({
     searchJob: new FormControl(),
@@ -71,6 +80,7 @@ export class SearchJobComponent implements OnInit, OnChanges {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.checkSelect = 'customerFirstname';
     this.db.list('wikis').snapshotChanges().map(action => {
       return action.map(action => ({ key: action.key, value: action.payload.val() }));
     }).subscribe(wikis => {
@@ -110,15 +120,17 @@ export class SearchJobComponent implements OnInit, OnChanges {
 
       }
       console.log('total', this.totalOnProceeded, 'deposit', this.deposit, 'totalPayment');
-      this.totalOnPreceededAndDeposit = this.totalOnProceeded + this.deposit
+      this.totalOnPreceededAndDeposit = this.totalOnProceeded + this.deposit;
+      this.totalOnPreceededAndDeposit = this.totalOnPreceededAndDeposit.toFixed();
       console.log('this.totalOnPreceededAndDeposit', this.totalOnPreceededAndDeposit);
-      console.log('totalPayment', this.totalPayment);
+      console.log('totalPayment', this.totalPayment.toFixed(2));
 
     });
 
   }
 
   searchJob(data1) {
+    this.showResult = true;
     console.log('data', data1.value);
     this.db.list('job').snapshotChanges().map(actions => {
       return actions.map(action => ({ key: action.key, value: action.payload.val() }));
@@ -133,8 +145,8 @@ export class SearchJobComponent implements OnInit, OnChanges {
 
 
       this.job = job.filter((data: any) => {
-        // const jobDate = new Date(2019, data.value.workDate.month - 1, data.value.workDate.day);
-        const jobDate = new Date(data.value.workDate.year, data.value.workDate.month - 1, data.value.workDate.day);
+        let jobDate = data.value.workDate.split("/");
+        jobDate = new Date(jobDate[2], jobDate[1] - 1, jobDate[0]);
         const searchJob = data1.value.searchJob;
 
         if (this.checkSelect) {
@@ -164,9 +176,9 @@ export class SearchJobComponent implements OnInit, OnChanges {
       )
       this.totalOnProceeded = 0;
       this.deposit = 0;
-      this.totalOnPreceededAndDeposit = 0;
-      this.totalPayment = 0;
-      console.log('thisjob', this.job.length,this.job);
+      this.totalOnPreceededAndDeposit2 = 0;
+      this.totalPayment2 = 0;
+      console.log('thisjob', this.job.length, this.job);
       for (let i = 0; i < this.job.length; i++) {
         const jobTime = {
           ...this.job[i],
@@ -179,21 +191,21 @@ export class SearchJobComponent implements OnInit, OnChanges {
 
         // console.log('checkStatus', checkStatus);
         if (checkStatus.status === 'proceeded') {
-          console.log('checkStatus.totalPayment', checkStatus.totalPayment);
+          console.log('checkStatus.totalPayment2', checkStatus.totalPayment);
           this.totalOnProceeded = (this.totalOnProceeded + sum)
-          // console.log('this.totalPayment', this.totalPayment);
+          // console.log('this.totalPayment2', this.totalPayment2);
         }
         if (checkStatus.status !== 'proceeded') {
           this.deposit = this.deposit + depositNotProceeded
         }
-        this.totalPayment = this.totalPayment + sum
+        this.totalPayment2 = this.totalPayment2 + sum
 
 
       }
-      console.log('total', this.totalOnProceeded, 'deposit', this.deposit, 'totalPayment');
-      this.totalOnPreceededAndDeposit = this.totalOnProceeded + this.deposit
-      console.log('this.totalOnPreceededAndDeposit', this.totalOnPreceededAndDeposit);
-      console.log('totalPayment', this.totalPayment);
+      console.log('total', this.totalOnProceeded, 'deposit', this.deposit, 'totalPayment2');
+      this.totalOnPreceededAndDeposit2 = this.totalOnProceeded + this.deposit
+      console.log('this.totalOnPreceededAndDeposit2', this.totalOnPreceededAndDeposit2);
+      console.log('totalPayment2', this.totalPayment2);
 
 
 
@@ -301,5 +313,10 @@ export class SearchJobComponent implements OnInit, OnChanges {
       this.checkDriver = false;
       this.checkStatusJob = true;
     }
+  }
+
+
+  testButton(){
+    this.testttt = !this.testttt;
   }
 }

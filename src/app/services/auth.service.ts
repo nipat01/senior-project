@@ -123,7 +123,21 @@ export class AuthService {
         this.username;
         this.router.navigate(['/'])
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log('er', error)
+        console.log('error', error.message);
+
+        // if (error.message) {
+        //   window.alert('ข้อมูลไม่ถูกต้อง');
+        // }
+        if (error.message === 'The email address is badly formatted.'
+          || error.message === 'The password is invalid or the user does not have a password.'
+          || error.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
+          window.alert('ข้อมูลไม่ถูกต้อง');
+        }
+      }
+
+      );
   }
   resetPassword(email: string) {
     const fbAuth = firebase.auth();
@@ -149,7 +163,8 @@ export class AuthService {
       if (auth) {
         console.log('auth', auth.email);
         if (auth.email === 'admin@jistic.com') {
-          this.router.navigate(['/homepageadmin'])
+          this.router.navigate(['/checkdatajob'])
+          // this.router.navigate(['/homepageadmin'])
         }
         else this.router.navigate(['/notificationjobdriver'])
       }

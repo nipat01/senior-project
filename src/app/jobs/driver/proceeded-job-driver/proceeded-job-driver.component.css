@@ -47,6 +47,18 @@ h3 {
    padding: 8px 20px;
    margin-top: 60px;
  }
-img {
+.icontitle {
   width: 45px;
 }
+.header {
+  display: flex;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: .3rem;
+  border-top-right-radius: .3rem;
+}
+

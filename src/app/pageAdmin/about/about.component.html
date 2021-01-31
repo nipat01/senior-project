@@ -1,71 +1,145 @@
 <div class="container-fluid">
-<div class="row">
-<div class="col-md-2">
-<app-side-nav></app-side-nav>
-</div>
-<div class="col-md-10">
-<h3><img src="https://image.flaticon.com/icons/svg/2075/2075416.svg"> เกี่ยวกับเรา</h3>
-<form (ngSubmit)="addAbout(aboutForm)" #aboutForm="ngForm">
-  <div class="control">
-    <label for="about">กรุณากรอกที่อยู่บริษัท</label>
-    <textarea class="form-control" type="text" name="about" ngModel ></textarea>
-    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>
+        <img src="https://image.flaticon.com/icons/svg/2075/2075416.svg" />
+        เกี่ยวกับเรา
+      </h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div *ngFor="let data of about">
+            <form (ngSubmit)="addAbout(aboutForm)" #aboutForm="ngForm">
+              <div class="control">
+                <label for="about">กรุณากรอกที่อยู่บริษัท</label>
+                <textarea
+                  class="form-control"
+                  type="text"
+                  name="about"
+                  ngModel
+                  [(ngModel)]="data.value.about"
+                ></textarea>
+
+                <label for="account">กรุณากรอกไอดีไลน์</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="account"
+                  ngModel
+                  [(ngModel)]="data.value.account"
+                />
+
+                <button
+                  [ngStyle]="{ 'background-color': color }"
+                  class="btn submit but"
+                  type="submit"
+                >
+                  บันทึก
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+            <!-- <div
+          [ngStyle]="{ 'background-color': color }"
+          class="textValue"
+          *ngFor="let data2 of about"
+        >
+          <p>บริษัทของเราตั้งอยู่ที่ : {{ data2.value.about }}</p>
+        </div> -->
+            <!-- <div *ngFor="let data of account">
+              <form (ngSubmit)="addLineAccount(lineForm)" #lineForm="ngForm">
+                <div class="control">
+                  <label for="account">กรุณากรอกไอดีไลน์</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="account"
+                    ngModel
+                    [(ngModel)]="data.value.account"
+                  />
+                  <button
+                    [ngStyle]="{ 'background-color': color }"
+                    class="btn submit"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <h1>ส่งตำแหน่งบริษัท</h1> -->
+        <!-- latitude: {{ latitude }} longitude: {{ longitude }} -->
+        <div class="col-md-6">
+          <div class="space">
+            <button
+              class="btn icon"
+              (click)="lacationOnAboutUs()"
+              (click)="openCurrentAddress(contentCurrent)"
+            >
+              <i class="fas fa-map-marker-alt"></i> ขอตำแหน่งปัจจุบัน
+            </button>
+            <button
+              class="btn icon"
+              (click)="locationAddresstion()"
+              (click)="openCurrentAddress(contentCurrent)"
+            >
+              <i class="fas fa-map-marked-alt"></i> บันทึก
+            </button>
+          </div>
+          <div *ngFor="let data of location">
+            <!-- <p>{{ data.value.lat }}</p>
+        <p>{{ data.value.long }}</p> -->
+            <agm-map
+              [latitude]="data.value.lat"
+              [longitude]="data.value.long"
+              [zoom]="zoom"
+            >
+              <agm-marker
+                [latitude]="data.value.lat"
+                [longitude]="data.value.long"
+                [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)"
+              >
+              </agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+
+        <ng-template #contentCurrent let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+              ให้คะแนนบริการไม่ได้
+            </h4>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="d('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="text-center">
+            <div class="modal-body">
+              <label>
+                ส่งตำแหน่งสำเร็จ!
+              </label>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn  save"
+                (click)="d('Cross click')"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
   </div>
-</form>
-<div [ngStyle]="{'background-color': color }" class="textValue" *ngFor="let data of about">
-  <p>บริษัทของเราตั้งอยู่ที่ : {{ data.value.about }} </p>
-</div>
-
-
-<form (ngSubmit)="addLineAccount(lineForm)" #lineForm="ngForm">
-  <!-- <form (ngSubmit)="addLineAccount(lineForm)" #lineForm="ngForm"> -->
-  <div class="control">
-    <label for="account">กรุณากรอกไอดีไลน์</label>
-    <input class="form-control" type="text" name="account" ngModel />
-    <button [ngStyle]="{'background-color': color }" class="btn submit" type="submit">Submit</button>
-  </div>
-</form>
-
-<div [ngStyle]="{'background-color': color }" class="textValue" *ngFor="let data of account">
-  <p>Line : {{ data.value.account }} </p>
-</div>
-
-
-<h1>ส่งตำแหน่งบริษัท</h1>
-<button (click)="lacationOnAboutUs()" (click)="openCurrentAddress(contentCurrent)">
-  ส่งตำแหน่งบริษัท
-</button>
-
-<div *ngFor=" let data of location">
-  <p>{{data.value.lat}}</p>
-  <p>{{data.value.long}}</p>
-  <agm-map [latitude]="data.value.lat" [longitude]="data.value.long" [zoom]="zoom">
-    <agm-marker [latitude]="data.value.lat" [longitude]="data.value.long" [markerDraggable]="false">
-    </agm-marker>
-  </agm-map>
-</div>
-
-
-<ng-template #contentCurrent let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">ให้คะแนนบริการไม่ได้</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="text-center">
-    <div class="modal-body">
-      <label>
-        ส่งตำแหน่งสำเร็จ!
-      </label>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn  save" (click)="d('Cross click')">
-        Close
-      </button>
-    </div>
-  </div>
-</ng-template>
-</div>
-</div>
 </div>

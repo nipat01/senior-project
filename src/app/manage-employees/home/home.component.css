@@ -24,7 +24,7 @@
    }
 .iconGroup {
      display: flex;
-     justify-content: space-between;
+     justify-content: center;
    }
 th {
      text-align: center;
@@ -70,4 +70,15 @@ table {
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: .3rem;
   border-top-right-radius: .3rem;
+}
+
+agm-map {
+  height: 300px;
+
+}
+
+.mid
+{
+  text-align: center;
+  margin-top: 10px;
 }

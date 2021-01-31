@@ -5,215 +5,800 @@
     </div>
     <div class="col-md-10">
       <h3>
-        <img class="icons" src="https://image.flaticon.com/icons/svg/2016/2016803.svg" />
+        <img
+          class="icons"
+          src="https://image.flaticon.com/icons/svg/2016/2016803.svg"
+        />
         จัดการข้อมูลรถ
       </h3>
-      <ng-template #content let-c="close" let-d="dismiss">
-        <div [ngStyle]="{ 'background-color': color }" class="header">
-          <h4 class="modal-title" id="modal-basic-title">ข้อมูลรถ</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="formTemplate">
-            <div class="text-center">
-              <img class="img-fluid" [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()" />
-            </div>
-            <div class="control">
-              <label>Select file to upload</label>
-              <input type="file" accept="image/*" class="form-control" #fileUploader formControlName="imageUrl"
-                (change)="showPreview($event)" />
-
-              <!-- </div> -->
-              <!-- <div class="form-row"> -->
-              <label>ทะเบียนรถ</label>
-              <input type="text" class="form-control" formControlName="carId" ngModel />
-              <label>ประเภทรถ</label>
-              <input type="text" class="form-control" formControlName="carType" ngModel />
-              <label>รุ่นของรถ</label>
-              <input type="text" class="form-control" formControlName="carModel" ngModel />
-
-              <label>วันที่ซื้อ</label>
-              <!-- <input type="text" class="form-control" formControlName="purchaseDate" ngModel /> -->
-              <input class="form-control" (click)="d1.toggle()" placeholder="yyyy-mm-dd" formControlName="purchaseDate"
-                ngModel ngbDatepicker #d1="ngbDatepicker" />
-              <label>วันที่บำรุงรักษาล่าสุด</label>
-              <!-- <input type="text" class="form-control" formControlName="lastMaintenance" ngModel /> -->
-              <input class="form-control" (click)="d2.toggle()" placeholder="yyyy-mm-dd"
-                formControlName="lastMaintenance" ngModel ngbDatepicker #d2="ngbDatepicker" />
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button [ngStyle]="{ 'background-color': color }" type="button" class="btn save"
-            (click)="onSubmit(formTemplate)">
-            Save
-          </button>
-        </div>
-      </ng-template>
-      <button class="btn icon plus" (click)="openBill(content)">
-        <i class="fas fa-bus"></i> เพิ่มข้อมูลรถ
-      </button>
-
-      <!-- แสดงผล -->
-      <div class="overflow-auto">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">ทะเบียนรถ</th>
-              <th scope="col">ประเภทรถ</th>
-              <th scope="col">รุ่น</th>
-              <th scope="col">วันที่บำรุงรักษาครั้งล่าสุด</th>
-              <th scope="col">วันที่ซื้อ</th>
-              <th scope="col">action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let data of car">
-              <td (click)="openData(con)">
-                <!-- dialog ------------------------------------------------------------------------->
-                <ng-template #con let-c="close" let-d="dismiss">
-                  <div [ngStyle]="{ 'background-color': color }" class="header">
-                    <h4 class="modal-title" id="modal-basic-title">ข้อมูลการจ้าง</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center">
-                      <img class="img-fluid" [src]="data.value.imageUrl" width="350px" height="250px" class="img-fluid"
-                        (click)="deleteImage(data)" />
-                      <div *ngIf="!data.value.imageUrl">
-                        <label>Select file to upload</label>
-                        <input type="file" accept="image/*" class="form-control" #fileUploader ngModel
-                          (change)="showPreview($event)" />
-                      </div>
-                    </div>
-
-                    <label for="typeahead-basic">ทะเบียนรถ</label>
-                    <input id="typeahead-basic" type="text" class="form-control" name="carId" ngModel
-                      [(ngModel)]="data.value.carId" />
-                    <label for="typeahead-basic">ประเภทรถ</label>
-                    <input id="typeahead-basic" type="text" class="form-control" name="destination" ngModel
-                      [(ngModel)]="data.value.carType" />
-                    <label for="typeahead-basic">รุ่น</label>
-                    <input id="typeahead-basic" type="text" class="form-control" name="worktype" ngModel
-                      [(ngModel)]="data.value.carModel" />
-                    <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-                    <input id="typeahead-basic" type="text" class="form-control" name="customerFirstname" ngModel
-                      [(ngModel)]="data.value.purchaseDate" />
-                    <label for="typeahead-basic"> วันที่ซื้อ</label>
-                    <input id="typeahead-basic" type="text" class="form-control" name="workDate" ngModel
-                      [(ngModel)]="data.value.lastMaintenance" />
-                  </div>
-
-                  <div class="modal-footer">
-                    <button [ngStyle]="{ 'background-color': color }" type="button" class="btn save"
-                      (click)="editCarTest(data)">
-                      Save Test
-                    </button>
-                  </div>
-                </ng-template>
-                {{ data.value.carId }}
-              </td>
-              <td (click)="openData(con)">{{ data.value.carType }}</td>
-              <td (click)="openData(con)">{{ data.value.carModel }}</td>
-              <td (click)="openData(con)">
-                {{ data.value.purchaseDate}}</td>
-              <td (click)="openData(con)">
-                {{ data.value.lastMaintenance}}</td>
-              <td>
-                <!-- edit----------------------------------------------------------------------------------------->
-                <ng-template #content let-c="close" let-d="dismiss">
-                  <div [ngStyle]="{ 'background-color': color }" class="header">
-                    <h4 class="modal-title" id="modal-basic-title">
-                      กรุณากรอกบิลใบเสร็จ
-                    </h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')"
-                      (click)="checkImageFalse()">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form [formGroup]="editimageUrl">
-                      <div class="text-center">
-                        <img class="img-fluid" [src]="data.value.imageUrl" width="350px" height="250px"
-                          (click)="openDeleteImage(deleteImg)" *ngIf="checkImageUrl" />
-                        <div *ngIf="!checkImageUrl">
-                          <img [src]="imgSrc" width="350px" height="250px" />
-                          <label>Select file to upload</label>
-                          <input type="file" accept="image/*" class="form-control" #fileUploader
-                            formControlName="imageUrl" (change)="showPreview($event)" />
-                          <button (click)="uploadimage(editimageUrl, data)">
-                            Upload
-                          </button>
+      <ngb-tabset #t="ngbTabset">
+        <ngb-tab id="tab-selectbyid1" title="ข้อมูลรถ">
+          <ng-template ngbTabContent>
+            <ng-template #content let-c="close" let-d="dismiss">
+              <div [ngStyle]="{ 'background-color': color }" class="header">
+                <h4 class="modal-title" id="modal-basic-title">
+                  เพิ่มข้อมูลรถ
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="d('Cross click')"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="formTemplate">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md">
+                        <button
+                          class="btn icon"
+                          (click)="t.select('tab-selectbyid2')"
+                          (click)="goToCarType(content)"
+                        >
+                          <i class="fas fa-plus-circle"></i> เพิ่มประเภทรถ
+                        </button>
+                        <br />
+                        <div class="boxs">
+                          <label>ประเภทรถ</label>
+                          <select class="forms" formControlName="carType">
+                            <option
+                              *ngFor="let data of carType"
+                              value="{{ data.key }}"
+                            >
+                              {{ data.value.carType }}</option
+                            >
+                          </select>
+                        </div>
+                        <div class="boxs">
+                          <label>ทะเบียนรถ</label>
+                          <input
+                            type="text"
+                            class="forms"
+                            formControlName="carId"
+                            ngModel
+                          />
+                        </div>
+                        <div class="boxs">
+                          <label>รุ่นของรถ</label>
+                          <input
+                            type="text"
+                            class="forms"
+                            formControlName="carModel"
+                            ngModel
+                          />
+                        </div>
+                        <div class="boxs">
+                          <label>สีของรถ</label>
+                          <select class="forms" formControlName="colorCar">
+                            <option value="ขาว">ขาว</option>
+                            <option value="ดำ">ดำ</option>
+                            <option value="เงิน">เงิน</option>
+                            <option value="เทา">เทา</option>
+                            <option value="แดง">แดง</option>
+                            <option value="น้ำเงิน">น้ำเงิน</option>
+                            <option value="น้ำตาล">น้ำตาล</option>
+                            <option value="เหลือง">เหลือง</option>
+                            <option value="เขียว">เขียว</option>
+                          </select>
+                        </div>
+                        <div class="boxs">
+                          <label>วันที่ซื้อ</label>
+                          <input
+                            class="forms"
+                            (click)="d1.toggle()"
+                            placeholder="yyyy-mm-dd"
+                            formControlName="purchaseDate"
+                            ngModel
+                            ngbDatepicker
+                            #d1="ngbDatepicker"
+                          />
+                        </div>
+                        <div class="boxs">
+                          <label>สถานะ</label>
+                          <select
+                            id="status"
+                            class="forms"
+                            formControlName="status"
+                          >
+                            <option value="พร้อมใช้งาน">พร้อมใช้งาน</option>
+                            <option value="ไม่พร้อมใช้งาน"
+                              >ไม่พร้อมใช้งาน</option
+                            >
+                            >
+                          </select>
                         </div>
                       </div>
-                    </form>
 
-                    <form [formGroup]="editFormTemplate">
-                      <div class="card-body">
-                        <label for="typeahead-basic">ทะเบียนรถ</label>
-                        <input id="typeahead-basic" type="text" class="form-control" formControlName="carId"
-                          [(ngModel)]="data.value.carId" />
-                        <label for="typeahead-basic">ประเภทรถ</label>
-                        <input id="typeahead-basic" type="text" class="form-control" formControlName="carType"
-                          [(ngModel)]="data.value.carType" />
-                        <label for="typeahead-basic">รุ่น</label>
-                        <input id="typeahead-basic" type="text" class="form-control" formControlName="carModel"
-                          [(ngModel)]="data.value.carModel" />
-                        <label for="typeahead-basic">วันที่บำรุงรักษาครั้งล่าสุด</label>
-                        <input id="typeahead-basic" type="text" class="form-control" formControlName="purchaseDate"
-                          [(ngModel)]="data.value.purchaseDate" />
-                        <label for="typeahead-basic"> วันที่ซื้อ</label>
-                        <input id="typeahead-basic" type="text" class="form-control" formControlName="lastMaintenance"
-                          [(ngModel)]="data.value.lastMaintenance" />
+                      <div class="col-md">
+                        <img
+                          class="img-fluid"
+                          [src]="imgSrc"
+                          width="350px"
+                          height="250px"
+                          (click)="fileUploader.click()"
+                        />
+                        <div class="control">
+                          <label hidden>Select file to upload</label>
+                          <input
+                            hidden
+                            type="file"
+                            accept="image/*"
+                            class="form-control"
+                            #fileUploader
+                            formControlName="imageUrl"
+                            (change)="showPreview($event)"
+                          />
+                        </div>
                       </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn save" (click)="editCar(editFormTemplate, data)"
-                      [ngStyle]="{ 'background-color': color }">
-                      Save
-                    </button>
-                  </div>
-                </ng-template>
-
-                <!-- dialog delete image -->
-                <ng-template #deleteImg let-c="close" let-d="dismiss">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="modal-basic-title">
-                      ต้องการลบหรือไม่?
-                    </h5>
-
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="text-center">
-                    <div class="modal-footer">
-                      <button type="button" class="btn  save" (click)="deleteImage(data)" (click)="d('Cross click')">
-                        Yes
-                      </button>
-                      <button type="button" class="btn  save" (click)="d('Cross click')">
-                        No
-                      </button>
                     </div>
                   </div>
-                </ng-template>
-
-                <button class="btn icon" (click)="openEditCar(content)">
-                  <i class="far fa-edit"></i>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  [ngStyle]="{ 'background-color': color }"
+                  type="button"
+                  class="btn submit"
+                  (click)="onSubmit(formTemplate)"
+                >
+                  บันทึก
                 </button>
-                <button (click)="delete(data)">Delete</button>
-                <!-- --------------------------------------------------------------------------------- -->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              </div>
+            </ng-template>
+            <button class="btn icon plus" (click)="openBill(content)">
+              <i class="fas fa-bus"></i> เพิ่มข้อมูลรถ
+            </button>
+
+            <!-- แสดงผล -->
+            <div class="overflow-auto">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ประเภทรถ</th>
+                    <th scope="col">ทะเบียนรถ</th>
+                    <th scope="col">รุ่น</th>
+                    <th scope="col">วันที่ซื้อ</th>
+                    <th scope="col">สถานะ</th>
+                    <th scope="col">action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let data of car">
+                    <td (click)="openData(content)">
+                      {{ data.value.carType }}
+                    </td>
+                    <td (click)="openData(content)">
+                      {{ data.value.carId }}
+                    </td>
+                    <td (click)="openData(content)">
+                      {{ data.value.carModel }}
+                    </td>
+                    <td (click)="openData(content)">
+                      {{ data.value.purchaseDate }}
+                    </td>
+                    <!-- <td (click)="openData(content)">
+                      {{ data.value.lastMaintenance }}
+                    </td> -->
+                    <td (click)="openData(content)">
+                      {{ data.value.status }}
+                    </td>
+                    <td>
+                      <!-- edit----------------------------------------------------------------------------------------->
+                      <ng-template #content let-c="close" let-d="dismiss">
+                        <div
+                          [ngStyle]="{ 'background-color': color }"
+                          class="header"
+                        >
+                          <h4 class="modal-title" id="modal-basic-title">
+                            ข้อมูลรถ
+                          </h4>
+                          <button
+                            type="button"
+                            class="close"
+                            aria-label="Close"
+                            (click)="d('Cross click')"
+                            (click)="editCar(editFormTemplate, data)"
+                            (click)="checkImageFalse()"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md">
+                                <form [formGroup]="editFormTemplate">
+                                  <div class="card-body">
+                                    <div class="boxs">
+                                      <label for="typeahead-basic"
+                                        >ประเภทรถ</label
+                                      >
+
+                                      <select
+                                        class="forms"
+                                        formControlName="carType"
+                                        [(ngModel)]="data.value.carType"
+                                      >
+                                        <option
+                                          *ngFor="
+                                            let data2 of carType;
+                                            let i = index
+                                          "
+                                          value="{{ data2.value.carType }}"
+                                        >
+                                          {{ data2.value.carType }}</option
+                                        >
+                                      </select>
+                                    </div>
+                                    <div class="boxs">
+                                      <label for="typeahead-basic"
+                                        >ทะเบียนรถ</label
+                                      >
+                                      <input
+                                        id="typeahead-basic"
+                                        type="text"
+                                        class="forms"
+                                        formControlName="carId"
+                                        [(ngModel)]="data.value.carId"
+                                      />
+                                    </div>
+                                    <div class="boxs">
+                                      <label for="typeahead-basic">รุ่น</label>
+                                      <input
+                                        id="typeahead-basic"
+                                        type="text"
+                                        class="forms"
+                                        formControlName="carModel"
+                                        [(ngModel)]="data.value.carModel"
+                                      />
+                                    </div>
+                                    <div class="boxs">
+                                      <label for="typeahead-basic"
+                                        >วันที่ซื้อ</label
+                                      >
+                                      <input
+                                        id="typeahead-basic"
+                                        type="text"
+                                        class="forms"
+                                        formControlName="purchaseDate"
+                                        [(ngModel)]="data.value.purchaseDate"
+                                      />
+                                    </div>
+                                    <div class="boxs">
+                                      <label>สถานะ</label>
+                                      <select
+                                        id="status"
+                                        class="forms"
+                                        formControlName="status"
+                                        [(ngModel)]="data.value.status"
+                                      >
+                                        <option value="พร้อมใช้งาน"
+                                          >พร้อมใช้งาน</option
+                                        >
+                                        <option value="ไม่พร้อมใช้งาน"
+                                          >ไม่พร้อมใช้งาน</option
+                                        >
+                                        >
+                                      </select>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class="col-md">
+                                <br />
+                                <form [formGroup]="editimageUrl">
+                                  <div class="text-center">
+                                    <img
+                                      class="img-fluid"
+                                      [src]="data.value.imageUrl"
+                                      width="350px"
+                                      height="250px"
+                                      *ngIf="checkImageUrl"
+                                    />
+                                    <!-- ฟังก์ชันลบรูปใน modal (click)="openDeleteImage(deleteImg)" -->
+                                    <div *ngIf="!checkImageUrl">
+                                      <img
+                                        [src]="imgSrc"
+                                        width="350px"
+                                        height="250px"
+                                      />
+                                      <label>Select file to upload</label>
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        class="form-control"
+                                        #fileUploader
+                                        formControlName="imageUrl"
+                                        (change)="showPreview($event)"
+                                      />
+                                      <button
+                                        (click)="
+                                          uploadimage(editimageUrl, data)
+                                        "
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-md">
+                                  <label>ประวัติการซ๋อมบำรุง</label><br />
+                                  <label> ข้อมูลการซ่อมบำรุง </label>
+                                  <input
+                                    class="form-control"
+                                    type="text"
+                                    formControlName="datailMaintenance"
+                                    [(ngModel)]="data.value.datailMaintenance"
+                                  />
+                                  <label> วันที่บำรุงรักษา </label>
+                                  <input
+                                    class="form-control"
+                                    (click)="d2.toggle()"
+                                    placeholder="yyyy-mm-dd"
+                                    formControlName="dayMaintenance"
+                                    ngModel
+                                    ngbDatepicker
+                                    #d2="ngbDatepicker"
+                                    [(ngModel)]="data.value.dayMaintenance"
+                                  />
+                                  <div *ngIf="!editSubmitMaintenance[0]">
+                                    <button
+                                      (click)="
+                                        addMaintenance(data, editFormTemplate)
+                                      "
+                                    >
+                                      เพิ่มข้อมูลซ่อมบำรุง
+                                    </button>
+                                  </div>
+                                  <div *ngIf="editSubmitMaintenance[0]">
+                                    <button
+                                      *ngIf="editSubmitMaintenance[0]"
+                                      (click)="
+                                        submitEditMaintenance(
+                                          data,
+                                          editFormTemplate,
+                                          i
+                                        )
+                                      "
+                                    >
+                                      {{ editSubmitMaintenance[0] }}
+                                    </button>
+                                    <button
+                                      (click)="
+                                        submitEditMaintenance(
+                                          data,
+                                          editFormTemplate,
+                                          i,
+                                          'clear'
+                                        )
+                                      "
+                                    >
+                                      รีเซ็ท
+                                    </button>
+                                  </div>
+                                  <label>ข้อมูลการซ่อมบำรุง</label>
+                                  <div
+                                    *ngFor="
+                                      let maintenance of data.value.detail;
+                                      let i = index
+                                    "
+                                  >
+                                    {{ maintenance.datailMaintenance }}
+                                    {{ maintenance.dayMaintenance.day }}/{{
+                                      maintenance.dayMaintenance.month
+                                    }}/{{ maintenance.dayMaintenance.year }}
+                                    <button
+                                      (click)="deleteListMaintenance(data, i)"
+                                    >
+                                      ลบ
+                                    </button>
+                                    <button (click)="editMaintenance(data, i)">
+                                      แก้ไข
+                                    </button>
+                                  </div>
+                                </div> -->
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn save"
+                            (click)="editCar(editFormTemplate, data)"
+                            [ngStyle]="{ 'background-color': color }"
+                          >
+                            บันทึก
+                          </button>
+                        </div>
+                      </ng-template>
+
+                      <!-- open mentenance -->
+                      <ng-template #maintenance let-c="close" let-d="dismiss">
+                        <div
+                          class="modal-header"
+                          [ngStyle]="{ 'background-color': color }"
+                        >
+                          <h5 class="modal-title" id="modal-basic-title">
+                            ข้อมูลการซ่อมบำรุง
+                          </h5>
+
+                          <button
+                            type="button"
+                            class="close"
+                            aria-label="Close"
+                            (click)="editCar(editFormTemplate, data)"
+                            (click)="d('Cross click')"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form [formGroup]="editFormTemplate">
+                            <div class="col-md">
+                              <div class="fix">
+                                <label> วันที่บำรุงรักษา </label>
+                                <input
+                                  class="for"
+                                  (click)="d2.toggle()"
+                                  placeholder="yyyy-mm-dd"
+                                  formControlName="dayMaintenance"
+                                  ngModel
+                                  ngbDatepicker
+                                  #d2="ngbDatepicker"
+                                  [(ngModel)]="data.value.dayMaintenance"
+                                />
+                                <label> ข้อมูลการซ่อมบำรุง </label>
+                                <input
+                                  class="for"
+                                  type="text"
+                                  formControlName="datailMaintenance"
+                                  [(ngModel)]="data.value.datailMaintenance"
+                                />
+                                <!-- <input type="text" formControlName="dayMaintenance" /> -->
+                                <div *ngIf="!editSubmitMaintenance[0]">
+                                  <button
+                                    class="btn icon"
+                                    (click)="
+                                      addMaintenance(data, editFormTemplate)
+                                    "
+                                  >
+                                    <i class="fas fa-plus-circle"></i>
+                                    เพิ่มข้อมูลซ่อมบำรุง
+                                  </button>
+                                </div>
+                                <div *ngIf="editSubmitMaintenance[0]">
+                                  <button
+                                    *ngIf="editSubmitMaintenance[0]"
+                                    (click)="
+                                      submitEditMaintenance(
+                                        data,
+                                        editFormTemplate,
+                                        i
+                                      )
+                                    "
+                                    class="btn icon"
+                                    placement="bottom"
+                                    ngbTooltip="แก้ไข"
+                                  >
+                                    <i class="far fa-edit"></i>
+                                    {{ editSubmitMaintenance[0] }}
+                                  </button>
+                                  <button
+                                    class="btn icon"
+                                    (click)="
+                                      submitEditMaintenance(
+                                        data,
+                                        editFormTemplate,
+                                        i,
+                                        'clear'
+                                      )
+                                    "
+                                    placement="bottom"
+                                    ngbTooltip="ล้างค่า"
+                                  >
+                                    <i class="fas fa-broom"></i>
+                                  </button>
+                                </div>
+                              </div>
+
+                              <label>ข้อมูลการซ่อมบำรุง</label>
+                              <div class="overflow-auto">
+                                <table class="table table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">No</th>
+                                      <th scope="col">รายละเอียดการซ่อม</th>
+                                      <th scope="col">วันที่ซ่อม</th>
+                                      <th scope="col">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr
+                                      *ngFor="
+                                        let maintenance of data.value.detail;
+                                        let i = index
+                                      "
+                                    >
+                                      <td>{{ i + 1 }}</td>
+                                      <td>
+                                        {{ maintenance.datailMaintenance }}
+                                      </td>
+                                      <td>
+                                        {{ maintenance.dayMaintenance.day }}/{{
+                                          maintenance.dayMaintenance.month
+                                        }}/{{ maintenance.dayMaintenance.year }}
+                                      </td>
+                                      <td>
+                                        <button
+                                          class="btn icon"
+                                          (click)="editMaintenance(data, i)"
+                                          placement="bottom"
+                                          ngbTooltip="แก้ไข"
+                                        >
+                                          <i class="far fa-edit"></i>
+                                        </button>
+                                        <button
+                                          class="btn icon"
+                                          (click)="
+                                            deleteListMaintenance(data, i)
+                                          "
+                                          placement="bottom"
+                                          ngbTooltip="ลบ"
+                                        >
+                                          <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="text-center">
+                          <div class="modal-footer">
+                            <button
+                              [ngStyle]="{ 'background-color': color }"
+                              type="button"
+                              class="btn  save"
+                              (click)="editCar(editFormTemplate, data)"
+                              (click)="d('Cross click')"
+                            >
+                              ตกลง
+                            </button>
+                          </div>
+                        </div>
+                      </ng-template>
+
+                      <!-- dialog delete image -->
+                      <ng-template #deleteImg let-c="close" let-d="dismiss">
+                        <div
+                          class="modal-header"
+                          [ngStyle]="{ 'background-color': color }"
+                        >
+                          <h5 class="modal-title" id="modal-basic-title">
+                            ต้องการลบหรือไม่?
+                          </h5>
+
+                          <button
+                            type="button"
+                            class="close"
+                            aria-label="Close"
+                            (click)="d('Cross click')"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="text-center">
+                          <div class="modal-footer">
+                            <button
+                              [ngStyle]="{ 'background-color': color }"
+                              type="button"
+                              class="btn  save"
+                              (click)="deleteImage(data)"
+                              (click)="d('Cross click')"
+                            >
+                              ใช่
+                            </button>
+                            <button
+                              type="button"
+                              class="btn set"
+                              (click)="d('Cross click')"
+                            >
+                              ไม่
+                            </button>
+                          </div>
+                        </div>
+                      </ng-template>
+
+                      <button
+                        class="btn icon"
+                        (click)="openEditCar(maintenance)"
+                        placement="bottom"
+                        ngbTooltip="ข้อมูลการซ่อมบำรุง"
+                      >
+                        <i class="fas fa-wrench"></i>
+                      </button>
+                      <button
+                        class="btn icon"
+                        (click)="openEditCar(content)"
+                        placement="bottom"
+                        ngbTooltip="แก้ไข"
+                      >
+                        <i class="far fa-edit"></i>
+                      </button>
+                      <button
+                        class="btn icon"
+                        type="button"
+                        (click)="open(submitAndDelete, 'del')"
+                      >
+                        <i
+                          class="fas fa-trash-alt"
+                          placement="bottom"
+                          ngbTooltip="ลบ"
+                        ></i>
+                      </button>
+
+                      <!-- checkSubmitAndDelete -->
+                      <ng-template
+                        #submitAndDelete
+                        let-c="close"
+                        let-d="dismiss"
+                      >
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">
+                            {{ checkSubmitAndDel[0] }}
+                          </h4>
+                          <button
+                            type="button"
+                            class="close"
+                            aria-label="Close"
+                            (click)="d('Cross click')"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <!-- <div class="modal-body"></div> -->
+                        <div class="modal-footer">
+                          <div
+                            *ngIf="
+                              checkSubmitAndDel[0] === 'ต้องการลบข้อมูลหรือไม่'
+                            "
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              (click)="c('Save click')"
+                              (click)="delete(data)"
+                            >
+                              {{ checkSubmitAndDel[1] }}
+                            </button>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <!-- --------------------------------------------------------------------------------- -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <!-- tap2------------------------------------------------------------------------------- -->
+        <ngb-tab id="tab-selectbyid2" title="ประเภทรถ">
+          <ng-template ngbTabContent>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6>
+                    <img
+                      class="icons"
+                      src="https://image.flaticon.com/icons/svg/2101/2101321.svg"
+                    />
+                    ประเภทรถ
+                  </h6>
+                  <div class="card">
+                    <div class="card-body row">
+                      <div class="col-md">
+                        <button
+                          (click)="openAddCarType()"
+                          class="btn icon plus "
+                        >
+                          <i class="fas fa-plus-circle"></i> เพิ่มประเภทรถ
+                        </button>
+
+                        <form
+                          *ngIf="showAddCarType"
+                          (ngSubmit)="addCarType(carType)"
+                          #carType="ngForm"
+                        >
+                          <div class="box">
+                            <label>ชื่อประเภท</label>
+                            <input
+                              class="form"
+                              type="text"
+                              name="carType"
+                              ngModel
+                              [(ngModel)]="updateNameCarType[1]"
+                            />
+                          </div>
+                          <div class="box">
+                            <label>สถานะ</label>
+                            <select
+                              id="status"
+                              class="form"
+                              name="status"
+                              ngModel
+                              [(ngModel)]="updateNameCarType[2]"
+                            >
+                              <option value="พร้อมใช้งาน">พร้อมใช้งาน</option>
+                              <option value="ไม่พร้อมใช้งาน"
+                                >ไม่พร้อมใช้งาน</option
+                              >
+                              >
+                            </select>
+                          </div>
+                          <div class="buttonGroup">
+                            <button
+                              [ngStyle]="{ 'background-color': color }"
+                              type="submit"
+                              class="btn submit"
+                            >
+                              บันทึก
+                            </button>
+                            <button
+                              *ngIf="showAddCarType"
+                              class="btn reset"
+                              (click)="resetCarType()"
+                            >
+                              ล้างค่า
+                            </button>
+                          </div>
+                        </form>
+                        <br />
+                        <div class="overflow-auto">
+                          <table class="table table-striped ">
+                            <thead>
+                              <tr>
+                                <th scope="col">ประเภทรถ</th>
+                                <th scope="col">สถานะ</th>
+                                <th scope="col">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let data of carType">
+                                <td>{{ data.value.carType }}</td>
+                                <td>{{ data.value.status }}</td>
+                                <td>
+                                  <button
+                                    class="btn icon"
+                                    (click)="updateCarType(data)"
+                                    placement="bottom"
+                                    ngbTooltip="แก้ไข"
+                                  >
+                                    <i class="far fa-edit"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
     </div>
   </div>
 </div>
