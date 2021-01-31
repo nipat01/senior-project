@@ -1,14 +1,13 @@
 export const environment = {
-  production: false,
-  firebaseConfig: {
-    apiKey: 'AIzaSyBbdxHq0NSUmlfE87RVqbtZ-Kii6JcTj2Q',
-    authDomain: 'jistigdatabase.firebaseapp.com',
-    databaseURL: 'https://jistigdatabase.firebaseio.com',
-    projectId: 'jistigdatabase',
+  production: true,
+    firebaseConfig: {
+    apiKey: '',
+    authDomain: '',
+    databaseURL: '',
+    projectId: '',
     storageBucket: 'jistigdatabase.appspot.com',
-    messagingSenderId: '17341884881',
-    appId: '1:17341884881:web:4d312c299f80ffe8'
+    messagingSenderId: '',
+    appId: ''
   },
-  googleMapsKey: 'AIzaSyD7vq-yq_csTGNqXl-XtJ8OJKXsl4Akq9c'
-  // googleMapsKey: '982495629813'
+  googleMapsKey: ''
 };
